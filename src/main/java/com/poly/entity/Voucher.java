@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,4 +24,11 @@ public class Voucher {
 
 	@Column(name = "discount")
 	private Float discount;
+
+	@Column(name = "startDate")
+	private Date startDate;
+
+	@Column(name = "endDate")
+	private Date endDate;
+
 }
