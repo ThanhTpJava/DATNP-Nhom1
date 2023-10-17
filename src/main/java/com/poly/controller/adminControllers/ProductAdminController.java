@@ -3,10 +3,9 @@ package com.poly.controller.adminControllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
-public class ProductController {
+public class ProductAdminController {
 
     @RequestMapping("/admin/index")
     public String Dashboard(Model model) {
