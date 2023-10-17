@@ -28,20 +28,39 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Product implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer id;
-	@Column(columnDefinition = "nvarchar(100)")
-	String name;
-	String image;
-	Double price;
-	@Temporal(TemporalType.DATE)
-	@Column(name ="Createdate")
-	Date createDate = new Date();
-	Integer quantity;
-	Boolean available;
+	private int ProductID;
+
+	@Column(name = "Name", nullable = false, columnDefinition = "nvarchar(max)")
+	private String Name;
+
+	//Mô tả
+	@Column(name = "Description", columnDefinition = "nvarchar(max)")
+	private String Description;
+
+	@Column(name = "Price")
+	private double Price;
+
+	@Column(name = "Quantity")
+	private Integer Quantity;
+
+	@Column(name = "Product_information", columnDefinition = "nvarchar(max)")
+	private String Product_information;
+
+	//Thời gian bảo hành
+	@Column(name ="warranty_period")
+	private Integer Parranty_period;
+
+	@Column(name ="main_imgage")
+	private String main_imgage;
+
 	@ManyToOne
-	@JoinColumn(name ="Categoryid")
-	Category category;
+	@JoinColumn(name = "CategoryID")
+	private Category category;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
-	List<OrderDetail> orderDetails;
+	private List<OrderDetail> orderDetails;
+
+	@OneToMany(mappedBy = "product")
+	private List<ProductImage> productImage;
 }
