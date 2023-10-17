@@ -28,18 +28,28 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
-	@Column(columnDefinition = "nvarchar(70)")
-	String address;
-	@Temporal(TemporalType.DATE)
-	@Column(name ="Createdate")
-	Date createDate = new Date();
+	private int OrderID;
+
 	@ManyToOne
-	@JoinColumn(name ="Username")
-	Account account;
-	@Column(columnDefinition = "bit")
-	Boolean status;
-	@JsonIgnore
-	@OneToMany(mappedBy = "order")
-	List<OrderDetail> orderDetails;
+	@JoinColumn(name = "UserID")
+	private Account account;
+
+	@Column(name = "OrderDate")
+	private Date OrderDate;
+
+	@Column(name = "Status")
+	private boolean Status;
+
+	@Column(name = "TotalAmount"/*, precision = 10, scale = 2*/)
+	private double TotalAmount;
+
+	@ManyToOne
+	@JoinColumn(name = "voucherId")
+	private Voucher voucher; // Trường này để lưu mã voucher áp dụng cho đơn hàng
+
+	// Người chịu trách nhiệm cho đơn hàng (có thể là User hoặc Admin/Nhân viên)
+	@ManyToOne
+	@JoinColumn(name = "assignedTo")
+	private Account assignedTo;
+
 }
