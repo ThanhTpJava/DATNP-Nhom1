@@ -27,4 +27,5 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 
     @Query("SELECT p FROM Product p WHERE p.name LIKE %:name%")
     List<Product> findProductsByName(@Param("name") String name);
+
 }
