@@ -28,17 +28,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Product implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ProductID;
+	Integer id;
 
 	@Column(name = "Name", nullable = false, columnDefinition = "nvarchar(max)")
-	private String Name;
+	private String name;
 
 	//Mô tả
 	@Column(name = "Description", columnDefinition = "nvarchar(max)")
 	private String Description;
 
 	@Column(name = "Price")
-	private double Price;
+	private double price;
 
 	@Column(name = "Quantity")
 	private Integer Quantity;
