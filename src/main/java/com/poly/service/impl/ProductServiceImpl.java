@@ -64,6 +64,10 @@ public class ProductServiceImpl implements ProductService{
 	public void delete(Integer id) {
 		dao.deleteById(id);
 	}
+	@Override
+	public List<Product> findProductsByCategoryId(String categoryId) {
+		return dao.idcategoryID(categoryId);
+	}
 
 
 }

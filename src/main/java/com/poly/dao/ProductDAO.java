@@ -1,6 +1,7 @@
 package com.poly.dao;
 
 
+import com.poly.entity.Category;
 import com.poly.entity.Product;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,5 +25,10 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
     @Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
     List<Product> searchByKeyword(String keyword, Pageable pageable);
     List<Product> findByPriceBetween(double minPrice, double maxPrice, Pageable pageable);
+	
+    
+    @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId")
+    List<Product> idcategoryID(@Param("categoryId") String categoryId);
 
+	
 }

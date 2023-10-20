@@ -1,5 +1,8 @@
 package com.poly.controller;
 
+import com.poly.dao.CategoryDAO;
+import com.poly.dao.ProductDAO;
+import com.poly.entity.Category;
 import com.poly.entity.Product;
 import com.poly.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +24,26 @@ import java.util.stream.Collectors;
 public class ProductController3 {
     @Autowired
     ProductService productService;
+    
+    @Autowired
+    ProductDAO productRepo;
+    
+    @Autowired
+    CategoryDAO categoryRepo;
+    
     private final int pageSize = 20;
     @GetMapping("/user/home")
     public String list(@RequestParam(defaultValue = "0") int page,Model model){
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").ascending());
         List<Product> list = productService.findPaginated(pageable);
-
+        
+        int id = 84;
+        Product item = productService.findByID(id);
+        Category category = item.getCategory();
+        List<Product> relatedProducts = productService.findProductsByCategoryId(category.getId());
+        model.addAttribute("relatedProducts", relatedProducts);
+        
         int totalPages = (int) Math.ceil((double) productService.getTotalProducts() / pageSize);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
@@ -38,13 +54,17 @@ public class ProductController3 {
     @RequestMapping("user/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id){
         Product item = productService.findByID(id);
+        Category category = item.getCategory();
+        List<Product> relatedProducts = productService.findProductsByCategoryId(category.getId());
+        model.addAttribute("relatedProducts", relatedProducts);
         model.addAttribute("item", item);
         List<Product> list = productService.findAll();
         model.addAttribute("items", list);
-
+        System.out.println("Số sản phẩm liên quan: " + relatedProducts.size());
         return "user/product-detail";
     }
 
+    
     //Shop
     @RequestMapping("/user/shop")
     public String listShop(@RequestParam(defaultValue = "0") int page,Model model, @RequestParam("cid") Optional<String> cid){
@@ -123,4 +143,13 @@ public class ProductController3 {
         model.addAttribute("items", list);
         return "user/product";
     }
+    
+//    @GetMapping("/user/detail/{categoryId}")
+//    public String getRelatedProducts(@PathVariable String categoryId, Model model) {
+//        Category category = categoryRepo.findById(categoryId).orElse(null);
+//        
+//        List<Product> relatedProducts = productRepo.findByCategory(category);
+//        model.addAttribute("relatedProducts", relatedProducts);
+//        return "user/product-detail"; // Điều hướng đến trang hiển thị sản phẩm liên quan
+//    }
 }
