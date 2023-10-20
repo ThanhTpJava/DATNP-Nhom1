@@ -21,10 +21,12 @@ import lombok.NoArgsConstructor;
 @Table(name ="Categories")
 public class Category implements Serializable{
 	@Id
-	@Column(columnDefinition = "varchar(10)")
+	@Column(columnDefinition = "varchar(20)", name = "cate_id")
 	String id;
-	@Column(columnDefinition = "nvarchar(30)")
+	
+	@Column(columnDefinition = "nvarchar(30)", name = "cate_name")
 	String name;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	List<Product> products;

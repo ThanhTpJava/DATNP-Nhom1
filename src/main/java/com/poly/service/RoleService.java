@@ -6,4 +6,5 @@ import com.poly.entity.Role;
 
 public interface RoleService {
 	public List<Role> findAll() ;
+	Role findRole(String roleID);
 }

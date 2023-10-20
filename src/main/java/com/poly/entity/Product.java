@@ -38,9 +38,11 @@ public class Product implements Serializable{
 	Date createDate = new Date();
 	Integer quantity;
 	Boolean available;
+	
 	@ManyToOne
-	@JoinColumn(name ="Categoryid")
+	@JoinColumn(name ="category_id")
 	Category category;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	List<OrderDetail> orderDetails;

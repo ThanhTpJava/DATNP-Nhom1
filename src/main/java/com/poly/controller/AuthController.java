@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.entity.Account;
 import com.poly.service.UserService;
 
@@ -34,91 +36,42 @@ public class AuthController {
 
 	@GetMapping(value = "/auth/login/form")
 	public String loginForm() {
+		printAuthenticationInfo();
 		return "/admin/login.html";
 	}
 
 	@Autowired
 	HttpSession session;
-//	@Autowired
-//    private AuthenticationManager authenticationManager;
-//
-//    @PostMapping("/login")
-//    public String login(@RequestParam("username") String username, @RequestParam("password") String password) {
-//        try {
-//            // Create an authentication token with the provided username and password
-//            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
-//
-//            // Authenticate the user
-//            Authentication authentication = authenticationManager.authenticate(authRequest);
-//
-//            // Set the authenticated user in the SecurityContext
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//            // Redirect to the successful login page
-//            return "redirect:/auth/login/success";
-//        } catch (AuthenticationException e) {
-//            // Handle authentication failure (invalid credentials)
-//            return "redirect:/login?error";
-//        }
-//    }
-//
-//	
-	
-	@GetMapping("/auth/login/success")
-	public String x(@RequestParam("username") String username) {
-		UserDetails userDetails = userService.loadUserByUsername(username);
-		String[] roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
-				.toArray(String[]::new);
-		for (String role : roles) { // Loop through the roles retrieved from authorities
-			System.out.println(role);
-			System.out.println(roles.toString());
-			if ("ROLE_ADMIN".equalsIgnoreCase(role)) {
-				return "redirect:/admin/products"; // Redirect to admin page
-			} else if ("ROLE_USER".equalsIgnoreCase(role)) {
-				return "redirect:/"; // Redirect to user's product list page
-			}
-			System.out.println(role);
-			System.out.println(roles.toString());
-		}
-		return "redirect:/";
 
+	@GetMapping("/auth/login/success")
+	public String loginSuccess() {
+		
+		printAuthenticationInfo();
+		return "redirect:/home/index";
 	}
 
-//	private  Account  {
-//	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//	    if (authentication == null || AnonymousAuthenticationToken.class.
-//	      isAssignableFrom(authentication.getClass())) {
-//	        return false;
-//	    }
-//	    return authentication.isAuthenticated();
-//	} 
-
-//	@RequestMapping("/oauth2/login/success")
-//	public String OAuthLogin(OAuth2AuthenticationToken oauth2, Model model) {
-//		userService.loginFormOAuth2(oauth2);
-//		model.addAttribute("message", "Success");
-//		return "redirect:/product/list";
-//	}
-
 	@RequestMapping("/auth/login/error")
-
 	public String error(Model model) {
-		model.addAttribute("message", "Sai thông tin đăng nhập!");
+		System.out.println("Login lỗi");
 		return "forward:/auth/login/form";
 	}
 
 	@RequestMapping("/auth/logoff/success")
 	public String logoff(Model model) {
-
 		model.addAttribute("message", "Đăng xuất thành công!");
 		session.setAttribute("authentication", null);
 		return "forward:/auth/login/form";
 	}
 
-//	@RequestMapping("/auth/access/denied")
-//	public String denied(Model model) {
-//		model.addAttribute("message", "Bạn không có quyền truy xuất!");
-//		return "forward:/auth/login/form";
-//	}
-
+	public void printAuthenticationInfo() {
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    
+	    try {
+	        ObjectMapper objectMapper = new ObjectMapper();
+	        String authenticationJson = objectMapper.writeValueAsString(authentication);
+	        System.out.println("Authentication Info: " + authenticationJson);
+	    } catch (JsonProcessingException e) {
+	        System.out.println("Failed to convert Authentication to JSON: " + e.getMessage());
+	    }
+	}
 }

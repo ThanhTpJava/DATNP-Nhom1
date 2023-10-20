@@ -1,4 +1,4 @@
-let host = "http://localhost:8080/rest";
+let host = "/rest";
 const app = angular.module("app", []);
 app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.form = {}

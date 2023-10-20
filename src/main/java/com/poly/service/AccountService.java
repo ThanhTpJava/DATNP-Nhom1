@@ -8,4 +8,10 @@ public interface AccountService {
 	public List<Account> findAll() ;
 	public Account findById(String username) ;
 	public List<Account> getAdministrators() ;
+	
+	Account createAccount(Account acc);
+	
+	Boolean userExit(String username);
+	
+	Boolean emailExit(String email);
 }

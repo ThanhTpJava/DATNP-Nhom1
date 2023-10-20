@@ -14,8 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 @SuppressWarnings("serial")
 @Table(name = "roles")
 @Entity
@@ -24,9 +22,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Role implements Serializable{
 	@Id
-	@Column(columnDefinition = "varchar(10)")
+	@Column(columnDefinition = "varchar(20)", name = "role_id")
 	private String Id;
-	@Column(columnDefinition = "nvarchar(50)")
+	@Column(columnDefinition = "nvarchar(50)", name = "role_name")
 	private String Name;
 	@JsonIgnore
 	@OneToMany(mappedBy = "role")
