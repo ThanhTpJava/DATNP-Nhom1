@@ -22,9 +22,6 @@ import lombok.NoArgsConstructor;
 //dđ
 public class Account implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-
 	@Column(name ="Username", nullable = false, columnDefinition = "NVARCHAR(30)")
 	private String Username;
 
