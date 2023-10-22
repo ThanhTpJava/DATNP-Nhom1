@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="dynamic(main)">
 
 <head>
 
@@ -10,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>SB Admin - Dashboard</title>
 
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -63,12 +64,12 @@
         </li>
         <!-- Nav Item - Dashboard -->
         <li class="nav-item"><a class="nav-link"
-                                href="/admin/account"> <i class="fas fa-fw fa-tachometer-alt"></i>
+                                href="/admin/accounts"> <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Accounts</span></a>
         </li>
         <!-- Nav Item - Dashboard -->
         <li class="nav-item"><a class="nav-link"
-                                href="/admin/order"> <i class="fas fa-fw fa-tachometer-alt"></i>
+                                href="/admin/orders"> <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Orders</span></a>
         </li>
 
@@ -78,7 +79,7 @@
         </div>
     </ul>
     <!-- End of Sidebar -->
-
+	
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column vh-100">
 
@@ -339,11 +340,14 @@
                                 <input ng-model="form.quantity" type="number" min="0"
                                        class="form-control" placeholder="Quantity">
                             </div>
-
+							<div class="mb-3">
+                                <input ng-model="form.image" class="form-control"
+                                       placeholder="Link Cnd Product">
+                            </div>
                         </div>
                         <div class="bg-white border w-50 mb-3 rounded">
 
-                            <img src="{{form.image}}" class="object-fit-contain h-100 w-100"
+                            <img ng-src="{{form.image}}" ng-alt="{{form.image}}" class="object-fit-contain h-100 w-100"
                                  alt="...">
                         </div>
                     </form>
@@ -355,6 +359,7 @@
                                 <th scope="col">#</th>
                                 <th>Id</th>
                                 <th>Name</th>
+                                <th>Image</th>
                                 <th>Category</th>
                                 <th>Price</th>
                                 <th>Create Date</th>
@@ -368,6 +373,7 @@
                                 <th scope="row">{{$index+1}}</th>
                                 <td>{{pro.id}}</td>
                                 <td>{{pro.name}}</td>
+                                 <td><img alt="" src="{{pro.image}}" class="object-fit-contain h-100 w-100"></td>
                                 <td>{{pro.category.name}}</td>
                                 <td>{{pro.price}}</td>
                                 <td>{{pro.createDate | date:'dd-MM-yyyy'}}</td>
