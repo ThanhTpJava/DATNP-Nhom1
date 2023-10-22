@@ -50,8 +50,8 @@ public class Product implements Serializable{
 	@Column(name ="warranty_period")
 	private Integer Parranty_period;
 
-	@Column(name ="main_imgage")
-	private String main_imgage;
+	@Column(name ="main_image")
+	private String main_image;
 
 	@ManyToOne
 	@JoinColumn(name = "CategoryID")

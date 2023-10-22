@@ -99,7 +99,8 @@
 						<td>[[*{product.name}]]</td>
 						<td>[[*{#numbers.formatDecimal(price, 0, 'COMMA', 2,
 							'POINT')}]]đ</td>
-						<td><img th:src="@{|*{product.image}|}" width="100px "></td>
+						<td>product.productImage</td>
+						<td><img th:src="@{|*{product.main_image}|}" width="100px "></td>
 						<td>[[*{quantity}]]</td>
 						<td>$[[*{#numbers.formatDecimal(price*quantity, 0, 'COMMA',
 							2, 'POINT')}]]đ</td>
