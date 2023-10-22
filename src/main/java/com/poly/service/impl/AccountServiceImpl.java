@@ -23,7 +23,7 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	public Account findById(String username) {
-		return dao.findById(username).get();
+		return dao.findByUsername(username).get();
 	}
 
 	public List<Account> getAdministrators() {
@@ -40,7 +40,7 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public Boolean userExit(String username) {
 		// TODO Auto-generated method stub
-		return dao.existsById(username);
+		return dao.findByUsername(username).isPresent();
 	}
 
 	@Override

@@ -31,7 +31,7 @@ if (currentURL.includes("/login/error")) {
 	window.history.replaceState(null, null, '/qcshop/login');
 }*/
 
-let host = "http://localhost:9090/auth"
+let host = "http://localhost:8080/auth"
 
 const app = angular.module("app-sign", []);
 app.controller("ctrl", function($scope, $http, $timeout) {

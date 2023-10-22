@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuppressWarnings("serial")
-@Table(name = "Authorities", uniqueConstraints = {
+@Table(name = "", uniqueConstraints = {
 		@UniqueConstraint(columnNames = {"username","roleid"})
 })
 

@@ -9,6 +9,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,8 @@ import lombok.NoArgsConstructor;
 //dđ
 public class Account implements Serializable{
 	@Id
+	@Size(min = 5, message = "Tên tài khoản quá ngắn")
+	@NotBlank(message = "Tài khoản không được trống")
 	@Column(name ="Username", nullable = false, columnDefinition = "NVARCHAR(30)")
 	private String Username;
 
@@ -32,6 +36,8 @@ public class Account implements Serializable{
 	private String SurName;
 
 	@Column(name ="Password", nullable = false, columnDefinition = "NVARCHAR(80)")
+	@Size(min = 5, message = "Mật khẩu quá ngắn")
+	@NotBlank(message = "Mật khẩu không được trống")
 	private String Password;
 
 	@Column(name ="HomeTown", columnDefinition = "NVARCHAR(80)") //quê quán nhập hay ko nhập điều đc
