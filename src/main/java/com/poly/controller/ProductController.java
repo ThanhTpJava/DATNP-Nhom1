@@ -1,6 +1,7 @@
 package com.poly.controller;
 
 import com.poly.entity.Product;
+import com.poly.entity.ProductImage;
 import com.poly.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -36,10 +37,15 @@ public class ProductController {
 
     @RequestMapping("user/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id){
+
         Product item = productService.findByID(id);
         model.addAttribute("item", item);
+
         List<Product> list = productService.findAll();
         model.addAttribute("items", list);
+
+        List<ProductImage> productImages = item.getProductImage();
+        model.addAttribute("images", productImages);
 
         return "user/product-detail";
     }

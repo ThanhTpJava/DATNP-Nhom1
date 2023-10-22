@@ -51,13 +51,13 @@ public class WebSecurityConfig {
 ////							.baseUri("/oauth2/authorization")));
 //		
 		
-		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+//		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 		http.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/order/**").permitAll()
 //				.requestMatchers("/order/**").authenticated()
 				.requestMatchers("/admin/**").permitAll()
 //				.requestMatchers("/rest/authorities").hasAuthority("ROLE_ADMIN")
-				.requestMatchers("/rest/authorities").permitAll()
+//				.requestMatchers("/rest/authorities").permitAll()
 				.requestMatchers("/rest/**").permitAll()
 				.anyRequest().permitAll()
 		)

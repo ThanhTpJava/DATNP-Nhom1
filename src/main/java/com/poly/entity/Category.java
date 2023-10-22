@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name ="Categories")
 public class Category implements Serializable{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+@Id
+@Column(name = "id", nullable = false, columnDefinition = "nvarchar(100)")
+private String id;
 
 	@Column(name = "Name", nullable = false, columnDefinition = "nvarchar(100)")
 	private String Name;
