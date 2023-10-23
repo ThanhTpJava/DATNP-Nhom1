@@ -36,7 +36,10 @@ public class AuthController {
 
 	@GetMapping(value = "/auth/login/form")
 	public String loginForm() {
+		System.out.println("------------------------------------------------------------------");
 		printAuthenticationInfo();
+		System.out.println("------------------------------------------------------------------");
+		getLoginAuthority();
 		return "/admin/login.html";
 	}
 
@@ -45,8 +48,10 @@ public class AuthController {
 
 	@GetMapping("/auth/login/success")
 	public String loginSuccess() {
-		
+		System.out.println("------------------------------------------------------------------");
 		printAuthenticationInfo();
+		System.out.println("------------------------------------------------------------------");
+		getLoginAuthority();
 		return "redirect:/home/index";
 	}
 
@@ -73,5 +78,29 @@ public class AuthController {
 	    } catch (JsonProcessingException e) {
 	        System.out.println("Failed to convert Authentication to JSON: " + e.getMessage());
 	    }
+	}
+	
+	public void getLoginAuthority() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication.isAuthenticated()) {
+            // Người dùng đã được xác thực
+            String username = authentication.getName(); // Lấy tên người dùng
+            boolean isAdmin = authentication.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
+            if (isAdmin) {
+                // Thực hiện hành động dựa trên quyền của người dùng (ví dụ: kiểm tra quyền admin)
+            	System.out.println("Welcome, " + username + "! You are an admin.");
+                
+            } else {
+            	System.out.println("Welcome, " + username + "! You are a regular user.");
+                
+            }
+        } else {
+            // Người dùng chưa xác thực
+        	System.out.println("You are not logged in.");
+           
+        }
 	}
 }
