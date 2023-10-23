@@ -66,13 +66,6 @@ public class WebSecurityConfig {
 			logout.logoutUrl("/auth/logoff/success")
 			.logoutSuccessUrl("/auth/login/form")
 			.permitAll());
-
-//		http.formLogin((log) -> 
-//		log.loginPage("/qcshop/login")
-//		.loginProcessingUrl("/security/login")
-//		.defaultSuccessUrl("/qcshop/login/success", false)
-//		.failureUrl("/qcshop/login/error")
-//		);
 		return http.build();
 	}
 

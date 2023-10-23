@@ -104,6 +104,7 @@
     width: 220px;
     text-align: left;
 }
+
 .box-us-pass {
     max-width: 440px;
     width: 100%;
@@ -119,6 +120,26 @@
     width: 210px;
     float: right;
     text-align: center;
+}
+
+.box-fullname {
+    max-width: 440px;
+    width: 100%;
+}
+
+.box-fullname .box-sur-name{
+    width: 260px;
+    float: left;
+    text-align: center;
+}
+
+.box-fullname .box-name{
+    width: 160px;
+    float: right;
+    text-align: center;
+}
+.box-fullname .box-name i{
+	color: transparent;
 }
 
 .input-field i{

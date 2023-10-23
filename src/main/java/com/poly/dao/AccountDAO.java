@@ -15,9 +15,9 @@ public interface AccountDAO extends JpaRepository<Account, String>{
 	@Query("SELECT DISTINCT ar.account  FROM Authority ar WHERE ar.role.Id IN ('admin')")
 	List<Account> getAdministrators();
 	
-	@Query("SELECT acc FROM Account acc WHERE acc.Email = ?1")
+	@Query("SELECT acc FROM Account acc WHERE acc.email = ?1")
 	Optional<Account> exitByEmail(String email);
 	
-	@Query("SELECT acc FROM Account acc WHERE acc.Username = ?1")
+	@Query("SELECT acc FROM Account acc WHERE acc.username = ?1")
 	Optional<Account> findByUsername(String username);
 }

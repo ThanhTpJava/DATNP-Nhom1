@@ -69,7 +69,7 @@ app.controller("ctrl", function($scope, $http, $timeout) {
 				// Thực hiện xử lý thành công ở đây
 			}
 		}).catch(error => {
-			console.log("Error", error.data)
+			console.log("Error", error)
 			$scope.isPopupOpenErrors = true;
 			$timeout(function() {
 				$scope.isPopupOpenErrors = false; // Ẩn popup

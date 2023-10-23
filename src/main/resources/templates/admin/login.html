@@ -74,14 +74,22 @@
 						<div class="error-message" ng-show="errors.confirm">{{
 							errors.confirm }}</div>
 					</div>
+					
+					<div class="box-fullname">
+                        <div class="input-field box-sur-name ">
+                            <i class="fa-solid fa-pen-nib"></i>
+                            <input type="text" placeholder="Sur Name" ng-model="form.surname" id="">
+                            <div class="error-message" ng-show="errors.surname">{{
+							errors.surname }}</div>
+                        </div>
 
-					<div class="input-field">
-						<i class="fa-solid fa-pen-nib"></i> <input
-							ng-model="form.fullname" type="text" placeholder="Full Name"
-							name="" id="">
-						<div class="error-message" ng-show="errors.fullname">{{
-							errors.fullname }}</div>
-					</div>
+                        <div class="input-field box-name">
+                            <i class="fa-solid fa-pen-nib"></i>
+                            <input type="text" placeholder="Name" ng-model="form.name" id="">
+                            <div class="error-message" ng-show="errors.name">{{
+							errors.name }}</div>
+                        </div>
+                    </div>
 
 					<div class="input-field">
 						<i class="fas fa-envelope"></i> <input ng-model="form.email"
