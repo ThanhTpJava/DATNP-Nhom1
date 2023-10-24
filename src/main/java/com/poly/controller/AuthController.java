@@ -41,6 +41,7 @@ public class AuthController {
             case "ROLE_STOCK" -> "redirect:/";
             default -> "forward:/auth/login/form";
 //			default -> throw new IllegalStateException("Unexpected value: " + getLoginAuthority());
+			//
 		};
 
 	}
