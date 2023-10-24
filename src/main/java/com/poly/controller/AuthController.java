@@ -1,6 +1,7 @@
 package com.poly.controller;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.security.core.AuthenticationException;
 
@@ -16,6 +17,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import com.poly.entity.Account;
+import com.poly.entity.Category;
+import com.poly.entity.Product;
+import com.poly.service.AccountService;
 import com.poly.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -31,6 +36,9 @@ import jakarta.servlet.http.HttpSession;
 public class AuthController { 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	AccountService accountService;
 
 	@GetMapping(value = "/auth/login/form")
 	public String loginForm() {
@@ -93,12 +101,12 @@ public class AuthController {
 //	    return authentication.isAuthenticated();
 //	} 
 
-//	@RequestMapping("/oauth2/login/success")
-//	public String OAuthLogin(OAuth2AuthenticationToken oauth2, Model model) {
-//		userService.loginFormOAuth2(oauth2);
-//		model.addAttribute("message", "Success");
-//		return "redirect:/product/list";
-//	}
+	@RequestMapping("/oauth2/login/success")
+	public String OAuthLogin(OAuth2AuthenticationToken oauth2, Model model) {
+		userService.loginFormOAuth2(oauth2);
+		model.addAttribute("message", "Success");
+		return "redirect:/user/home";
+	}
 
 	@RequestMapping("/auth/login/error")
 
@@ -114,6 +122,13 @@ public class AuthController {
 		session.setAttribute("authentication", null);
 		return "forward:/auth/login/form";
 	}
+	
+	@RequestMapping("/auth/detail_user/{username}")
+    public String detail(Model model, @PathVariable("username") String username){
+        Account item = accountService.findById(username);
+        model.addAttribute("relatedProducts", item);
+        return "redirect:/user/detail-user";
+    }
 
 //	@RequestMapping("/auth/access/denied")
 //	public String denied(Model model) {
