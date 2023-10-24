@@ -89,7 +89,7 @@
 							USD
 						</a>
 						
-						<a class="flex-c-m trans-04 p-lr-25" th:href="@{'/auth/detail_user/' + ${p.username}}">{{$auth.user.username}}</a>
+						<a class="flex-c-m trans-04 p-lr-25" ng-if="$auth.user.username != null" th:href="@{'detail_user/' + 'user2'}">{{$auth.user.username}}</a>
 					</div>
 				</div>
 			</div>
@@ -326,29 +326,10 @@
 		<section class="section-slide">
 			<div class="wrap-slick1">
 				<div class="slick1">
-					<div class="item-slick1"
-						 style="background-image: url(https://shopdunk.com/images/uploaded/banner/Banner%20th%C3%A1ng%208/banner%20iphone%2014%20Pro%20Max%20T8_Banner%20PC.jpg);">
+					<div class="item-slick1" th:each="b:${banners}">
 						<div class="container h-full">
-							<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
-								
-							</div>
-						</div>
-					</div>
-
-					<div class="item-slick1"
-						 style="background-image: url(https://shopdunk.com/images/uploaded/banner/Banner%20th%C3%A1ng%208/banner%20macbook%20air%20t8_Banner%20PC.jpg);">
-						<div class="container h-full">
-							<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
-
-							</div>
-						</div>
-					</div>
-
-					<div class="item-slick1"
-						 style="background-image: url(https://shopdunk.com/images/uploaded/banner/Banner%20th%C3%A1ng%208/banner%20iphone%2014%20Pro%20Max%20T8_Banner%20PC.jpg);">
-						<div class="container h-full">
-							<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
-
+							<div class="flex-col-l-m h-full respon5" th:each="p:${items}">
+								<a th:href="@{'detail/' + ${p.id}}"><img alt="" th:src="${b.ImageURL}"></a>
 							</div>
 						</div>
 					</div>

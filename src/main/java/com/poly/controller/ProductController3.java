@@ -2,8 +2,12 @@ package com.poly.controller;
 
 import com.poly.dao.CategoryDAO;
 import com.poly.dao.ProductDAO;
+import com.poly.entity.Account;
+import com.poly.entity.Banner;
 import com.poly.entity.Category;
 import com.poly.entity.Product;
+import com.poly.service.AccountService;
+import com.poly.service.BannerService;
 import com.poly.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,12 +35,21 @@ public class ProductController3 {
     @Autowired
     CategoryDAO categoryRepo;
     
+    @Autowired
+    AccountService accountService;
+    
+    @Autowired
+    BannerService bannerService;
+    
     private final int pageSize = 20;
     @GetMapping("/user/home")
     public String list(@RequestParam(defaultValue = "0") int page,Model model){
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").ascending());
         List<Product> list = productService.findPaginated(pageable);
+        
+        List<Banner> banner = bannerService.findAll();
+        model.addAttribute("banners", banner);
         
         int id = 84;
         Product item = productService.findByID(id);
@@ -151,5 +164,12 @@ public class ProductController3 {
 //        List<Product> relatedProducts = productRepo.findByCategory(category);
 //        model.addAttribute("relatedProducts", relatedProducts);
 //        return "user/product-detail"; // Điều hướng đến trang hiển thị sản phẩm liên quan
+//    }
+    
+//    @GetMapping("user/detail-user/{username}")
+//    public String detail(Model model, @PathVariable("username") String username){
+//        Account item = accountService.findById(username);
+//        model.addAttribute("relatedProducts", item);
+//        return "redirect:/user/detail-user";
 //    }
 }

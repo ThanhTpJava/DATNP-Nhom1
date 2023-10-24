@@ -2,6 +2,7 @@ package com.poly.controller;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.security.core.AuthenticationException;
 
@@ -16,7 +17,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,14 +34,12 @@ import com.poly.service.AccountService;
 import com.poly.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class AuthController { 
 	@Autowired
 	UserService userService;
-	
-	@Autowired
-	AccountService accountService;
 
 	@GetMapping(value = "/auth/login/form")
 	public String loginForm() {
@@ -123,17 +124,29 @@ public class AuthController {
 		return "forward:/auth/login/form";
 	}
 	
-	@RequestMapping("/auth/detail_user/{username}")
-    public String detail(Model model, @PathVariable("username") String username){
-        Account item = accountService.findById(username);
-        model.addAttribute("relatedProducts", item);
-        return "redirect:/user/detail-user";
-    }
 
 //	@RequestMapping("/auth/access/denied")
 //	public String denied(Model model) {
 //		model.addAttribute("message", "Bạn không có quyền truy xuất!");
 //		return "forward:/auth/login/form";
 //	}
+	
+	@RequestMapping("/user/detail_user/{username}")
+    public String showUserDetail(@PathVariable String username, Model model) {
+        Account user = userService.findById(username);
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "/user/detail-user";
+        } else {
+            return "user/user-not-found";
+        }
+	}
+	
+	@PostMapping("update")
+	private String update(@Valid @ModelAttribute("accounts") Optional<Account> account, Model model) {
+		Account save = userService.save(account.get());
+		model.addAttribute("accounts", save);
+		return "redirect:/user/home";
 
+	}
 }

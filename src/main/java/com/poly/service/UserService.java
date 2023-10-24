@@ -2,6 +2,7 @@ package com.poly.service;
 
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -66,6 +67,19 @@ public class UserService implements UserDetailsService{
 		
 		Authentication auth = new UsernamePasswordAuthenticationToken(user, null,user.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
+	}
+	
+	public List<Account> findAll(){
+		
+		return accountDAO.findAll();
+	}
+	
+	public Account findById(String username) {
+		return accountDAO.findById(username).get();
+	}
+	
+	public Account save(Account account){
+		return accountDAO.save(account);
 	}
 	
 //	public Account getOneByUsername(String username) {

@@ -320,36 +320,40 @@
 	</div>
 
     <div class="container">
-            <h2 class="mt-5">User Detail</h2>
-	        <div class="card mt-3">
-	            <div class="card-body">
-	                <h5 class="card-title">User Information</h5>
-	                <form>
-	                    <div class="form-group">
-	                        <label for="username">Username:</label>
-	                        <input type="text" class="form-control" id="username" value="" readonly>
-	                    </div>
-	                    <div class="form-group">
-	                        <label for="photo">Password:</label>
-	                        <input type="text" type="password" class="form-control" id="password" value="" readonly>
-	                    </div>
-	                    <div class="form-group">
-	                        <label for="fullname">Full Name:</label>
-	                        <input type="text" class="form-control" id="fullname" value="" readonly>
-	                    </div>
-	                    <div class="form-group">
-	                        <label for="email">Email:</label>
-	                        <input type="text" class="form-control" id="email" value="" readonly>
-	                    </div>
-	                    <div class="form-group">
-	                        <label for="photo">Photo:</label>
-	                        <div class="d-flex">
-	                            <img src="user-photo.jpg" alt="User Photo" class="img-thumbnail" style="max-width: 200px;">
-	                        </div>
-	                    </div>
-	                </form>
-	            </div>
-	        </div>
+        <h2>User Detail</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">User Information</h5>
+                <form th:action="@{/update}" th:object="${user}" method="post">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" th:value="${user.username}" th:field="*{username}">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" th:value="${user.password}" th:field="*{password}">
+                    </div>
+                    <div class="form-group">
+                        <label for="fullname">Full Name:</label>
+                        <input type="text" class="form-control" id="fullname" th:value="${user.fullname}" th:field="*{fullname}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" class="form-control" id="email" th:value="${user.email}" th:field="*{email}">
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Photo:</label>
+                        <img th:src="@{${user.photo}}" alt="User Photo" class="img-thumbnail" style="max-width: 200px;">
+                    </div>
+                    
+                    
+                    <div class="text-center">
+                		<button class="btn btn-danger">Update</button>                	
+                	</div>
+                </form>
+
+            </div>
+        </div>
     </div>
 
 	<!-- Footer -->
@@ -488,8 +492,6 @@
 	<script th:src="@{/vendor/isotope/isotope.pkgd.min.js}"></script>
 	<script th:src="@{/vendor/sweetalert/sweetalert.min.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
-	
-
 	
 </body>
 </html>
