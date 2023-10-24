@@ -7,8 +7,13 @@ import java.util.List;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.poly.enums.GenderEnum;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,41 +27,52 @@ import lombok.NoArgsConstructor;
 //dđ
 public class Account implements Serializable{
 	@Id
-	@Column(name ="Username", nullable = false, columnDefinition = "NVARCHAR(30)")
-	private String Username;
+	@Size(min = 5, message = "Tên tài khoản quá ngắn")
+	@NotBlank(message = "Tài khoản không được trống")
+	@Column(name ="username", nullable = false, columnDefinition = "NVARCHAR(30)")
+	private String username;
 
-	@Column(name ="Name", nullable = false, columnDefinition = "NVARCHAR(20)")
-	private String Name;
+	@Column(name ="name", nullable = false, columnDefinition = "NVARCHAR(20)")
+	@NotBlank(message = "Nhập tên của bạn")
+	private String name;
 
-	@Column(name ="SurName", nullable = false, columnDefinition = "NVARCHAR(30)")
-	private String SurName;
+	@Column(name ="sur_name", nullable = false, columnDefinition = "NVARCHAR(30)")
+	@NotBlank(message = "Nhập họ và tên đệm của bạn")
+	private String surname;
 
-	@Column(name ="Password", nullable = false, columnDefinition = "NVARCHAR(80)")
-	private String Password;
+	@Column(name ="pass_word", nullable = false, columnDefinition = "NVARCHAR(80)")
+	@Size(min = 5, message = "Mật khẩu quá ngắn")
+	@NotBlank(message = "Mật khẩu không được trống")
+	private String password;
 
-	@Column(name ="HomeTown", columnDefinition = "NVARCHAR(80)") //quê quán nhập hay ko nhập điều đc
-	private String HomeTown;
+	@Column(name ="home_town", columnDefinition = "NVARCHAR(80)") //quê quán nhập hay ko nhập điều đc
+	private String hometown;
 
-	@Column(name ="Residential_address", columnDefinition = "NVARCHAR(80)") //địa chỉ thường trú cho nhân viên
-	private String Residential_address;
+	@Column(name ="residential_address", columnDefinition = "NVARCHAR(80)") //địa chỉ thường trú cho nhân viên
+	private String residential_address;
 
-	@Column(name ="Delivery_address", columnDefinition = "VARCHAR(80)") //địa chỉ giao hàng cho shipper mặc ịnh
-	private String Delivery_address;
+	@Column(name ="delivery_address", columnDefinition = "VARCHAR(80)") //địa chỉ giao hàng cho shipper mặc ịnh
+	private String delivery_address;
 
-	@Column(name ="IdCard", columnDefinition = "VARCHAR(13)")
-	private String IdCard;
+	@Column(name ="idCard", columnDefinition = "VARCHAR(13)")
+	private String idCard;
 
-	@Column(name ="Date")
-	private Date DateOfBirth;
+	@Column(name ="birth_day")
+	@Temporal(TemporalType.DATE)
+	private Date dateOfBirth;
 
-	@Column(name ="Gender", nullable = false, columnDefinition = "bit")
-	private Boolean Gender;
+	@Column(name ="gender")
+	@Enumerated(EnumType.ORDINAL)
+	private GenderEnum Gender = GenderEnum.UNKNOW;
 
-	@Column(name ="Email", nullable = false, columnDefinition = "VARCHAR(50)")
-	private String Email;
+	@Column(name ="email", nullable = false, columnDefinition = "VARCHAR(50)")
+	@NotBlank(message = "Email không được để trống")
+	@Email(message = "Email không hợp lệ")
+	private String email;
 
-	@Column(name ="PhoneNumber", nullable = false, columnDefinition = "VARCHAR(13)")
-	private String  PhoneNumber;
+	@Column(name ="phone_number", columnDefinition = "VARCHAR(10)")
+	@Pattern(regexp = "^\\d{10}$", message = "Số điện thoại không hợp lệ")
+	private String  phonenumber;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "account",  fetch = FetchType.EAGER)

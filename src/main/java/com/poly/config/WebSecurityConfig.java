@@ -3,8 +3,11 @@ package com.poly.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,77 +19,62 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.poly.dao.AccountDAO;
 import com.poly.service.UserService;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
+@RequiredArgsConstructor
+
 public class WebSecurityConfig {
 	
-	@Autowired
-	UserService userService;
+	//	private final AccountService accService; //
 	
+	private final AccountDAO accountDAO;
+
 	@Bean
-	public BCryptPasswordEncoder getPasswordEncoder() {
+	public UserDetailsService userDetailsService() {
+		return new UserService(accountDAO);
+	}
+
+	@Bean
+	public PasswordEncoder passEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-////		http.csrf().disable().authorizeHttpRequests(
-////				(requests) -> requests
-////				.requestMatchers("/rest/orders/**").authenticated()
-////				.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-////				.requestMatchers("/rest/authorities").hasAuthority("ROLE_ADMIN")
-////				.anyRequest().permitAll())
-////				.formLogin((form) -> form.loginPage("/auth/login/form")
-////						.defaultSuccessUrl("/auth/login/success",true)
-////						.failureUrl("/auth/login/error").permitAll())
-////				.logout((logout) -> logout.permitAll())
-////				.rememberMe(Customizer.withDefaults())
-////				.exceptionHandling((handling) -> handling.accessDeniedPage("/auth/access/denied"))
-////				.oauth2Login((oauth2) -> oauth2.loginPage("/auth/login/form")
-////					.defaultSuccessUrl("/oauth2/login/success",true)
-////					.failureUrl("/auth/login/error")
-////					.authorizationEndpoint(authorization -> authorization
-////							.baseUri("/oauth2/authorization")));
-//		
-		
-//		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
-		http.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/order/**").permitAll()
-//				.requestMatchers("/order/**").authenticated()
-				.requestMatchers("/admin/**").permitAll()
-//				.requestMatchers("/rest/authorities").hasAuthority("ROLE_ADMIN")
-//				.requestMatchers("/rest/authorities").permitAll()
-				.requestMatchers("/rest/**").permitAll()
-				.anyRequest().permitAll()
-		)
-		.formLogin((form) -> form
-			.loginPage("/auth/login/form")
-			.defaultSuccessUrl("/auth/login/success",true)
-			.failureUrl("/auth/login/error")
-			.permitAll()
-		)
-		.logout((logout) -> logout.permitAll())
-		.rememberMe(Customizer.withDefaults())
-		.exceptionHandling((handling) -> handling.accessDeniedPage("/auth/access/denied"))
-		.oauth2Login((oauth2) -> oauth2.loginPage("/auth/login/form")
-			.defaultSuccessUrl("/oauth2/login/success",true)
-			.failureUrl("/auth/login/error")
-			.authorizationEndpoint(authorization -> authorization
-					.baseUri("/oauth2/authorization")));
-	
-	return http.build();
-		
-//		http.csrf().disable().authorizeRequests().anyRequest().permitAll();
-//		return http.build();
-	}
-	
-	
+		String staticResources = "/static/**";
 
-	public void userDetailsService(AuthenticationManagerBuilder auth) throws Exception {
-		
-		 auth.userDetailsService(userService);
+		http.authorizeHttpRequests((authorize) -> 
+			authorize
+//			.requestMatchers("/product/**").authenticated()
+//			.requestMatchers("/order/**").authenticated()
+//			.requestMatchers("/qcshop/signup/newaccount").permitAll()
+//			.requestMatchers(staticResources).permitAll()
+			.anyRequest().permitAll())
+			.csrf(csrf -> csrf.disable())
+			.formLogin((login) -> 
+			login.loginPage("/auth/login/form")
+			.loginProcessingUrl("/security/login")
+			.defaultSuccessUrl("/auth/login/success", false)
+			.failureUrl("/auth/login/error"))
+			.logout((logout) ->
+			logout.logoutUrl("/auth/logoff/success")
+			.logoutSuccessUrl("/auth/login/form")
+			.permitAll());
+		return http.build();
 	}
-	
+
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider auProvider = new DaoAuthenticationProvider();
+		auProvider.setUserDetailsService(userDetailsService());
+		auProvider.setPasswordEncoder(passEncoder());
+		return auProvider;
+	}
+
 }

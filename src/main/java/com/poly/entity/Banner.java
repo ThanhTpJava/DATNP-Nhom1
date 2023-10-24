@@ -17,7 +17,7 @@ import java.util.Date;
 public class Banner {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int BannerID;
+	private Integer BannerID;
 
 	@Column(name = "ImageURL", nullable = false, length = 255)
 	private String ImageURL;

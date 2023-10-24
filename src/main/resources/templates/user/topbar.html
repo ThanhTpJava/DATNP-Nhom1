@@ -1,0 +1,25 @@
+<div class="content-topbar flex-sb-m h-full container">
+	<div class="left-top-bar">Free shipping for standard order over
+		$100</div>
+
+	<div class="right-top-bar flex-w h-full">
+		<a href="#" class="flex-c-m trans-04 p-lr-25"> Help & FAQs </a>
+
+			<a sec:authorize="hasRole('ROLE_ANONYMOUS')" 
+			href="/auth/login/form" class="flex-c-m trans-04 p-lr-25">
+				Login </a>
+		
+			<a sec:authorize="hasRole('ROLE_USER')" 
+				href="/order/list" class="flex-c-m trans-04 p-lr-25">My Order
+			</a>
+			
+		<th:block sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+			<a class="flex-c-m trans-04 p-lr-25" href="/auth/logoff/success">
+				Logout</a>
+		</th:block> 
+
+		<a href="#" class="flex-c-m trans-04 p-lr-25"> EN </a> <a href="#"
+			class="flex-c-m trans-04 p-lr-25"> USD </a>
+	</div>
+</div>
+
