@@ -36,4 +36,10 @@ public class AuthorityServiceImpl implements AuthorityService{
 		List<Account> accounts = accountDAO.getAdministrators();
 		return dao.authoritiesOf(accounts);
 	}
+
+	@Override
+	public List<Authority> saveAllAuthorities(List<Authority> listAuthorities) {
+		// TODO Auto-generated method stub
+		return dao.saveAll(listAuthorities);
+	}
 }

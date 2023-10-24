@@ -14,4 +14,6 @@ public interface AccountService {
 	Boolean userExit(String username);
 	
 	Boolean emailExit(String email);
+	
+	List<Account> saveAllAccounts(List<Account> listAccounts);
 }

@@ -24,4 +24,18 @@ public class RoleServiceImpl implements RoleService{
 		// TODO Auto-generated method stub
 		return dao.findById(roleID).get();
 	}
+
+	@Override
+	public Role createRole(Role role) {
+		// TODO Auto-generated method stub
+		return dao.save(role);
+	}
+
+	@Override
+	public List<Role> saveAllRole(List<Role> listRoles) {
+		// TODO Auto-generated method stub
+		return dao.saveAll(listRoles);
+	}
+	
+	
 }

@@ -1,5 +1,6 @@
 package com.poly.service.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,14 @@ public class AccountServiceImpl implements AccountService{
 	public Boolean emailExit(String email) {
 		// TODO Auto-generated method stub
 		return dao.exitByEmail(email).isPresent();
+	}
+
+	@Override
+	public List<Account> saveAllAccounts(List<Account> listAccounts) {
+		// TODO Auto-generated method stub
+		for(Account acc: listAccounts) {
+			acc.setPassword(passwordEncoder.encode(acc.getPassword()));
+		}
+		return dao.saveAll(listAccounts);
 	}
 }

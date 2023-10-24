@@ -12,4 +12,6 @@ public interface AuthorityService {
 	public void delete(Integer id) ;
 
 	public List<Authority> findAuthoritiesOfAdministrators() ;
+	
+	List<Authority> saveAllAuthorities(List<Authority> listAuthorities);
 }
