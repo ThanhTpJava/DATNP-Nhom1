@@ -63,7 +63,7 @@ public class AccountRestController {
 		
 		Account createAccount = accountService.createAccount(acc);
 		
-		Role userRole = roleService.findRole("ROLE_USER");
+		Role userRole = roleService.findRole("ROLE_ADMIN");
 		
 		Authority userAuthorities = new Authority();
 		userAuthorities.setAccount(createAccount);
