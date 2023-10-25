@@ -172,4 +172,5 @@ public class ProductController3 {
 //        model.addAttribute("relatedProducts", item);
 //        return "redirect:/user/detail-user";
 //    }
+    
 }
