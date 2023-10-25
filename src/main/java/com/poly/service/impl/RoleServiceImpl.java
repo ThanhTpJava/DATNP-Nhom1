@@ -1,6 +1,7 @@
 package com.poly.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,12 @@ public class RoleServiceImpl implements RoleService{
 	public List<Role> saveAllRole(List<Role> listRoles) {
 		// TODO Auto-generated method stub
 		return dao.saveAll(listRoles);
+	}
+
+	@Override
+	public Boolean exitById(String roleId) {
+		// TODO Auto-generated method stub
+		return dao.existsById(roleId);
 	}
 	
 	

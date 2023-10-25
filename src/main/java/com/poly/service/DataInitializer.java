@@ -29,9 +29,9 @@ public class DataInitializer implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		Role roleCheck = roleService.findRole("ROLE_ADMIN");
 		
-		if(roleCheck == null) {
+		
+		if(roleService.exitById("ROLE_ADMIN") == false) {
 			Role roleAdmin = new Role();
 			roleAdmin.setId("ROLE_ADMIN");
 			roleAdmin.setName("Admin");		
