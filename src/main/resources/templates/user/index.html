@@ -128,7 +128,7 @@
 							</li>
 
 							<li>
-								<a href="about.html">About</a>
+								<a href="/user/abouts">About</a>
 							</li>
 
 							<li>
@@ -328,8 +328,8 @@
 				<div class="slick1">
 					<div class="item-slick1" th:each="b:${banners}">
 						<div class="container h-full">
-							<div class="flex-col-l-m h-full respon5" th:each="p:${items}">
-								<a th:href="@{'detail/' + ${p.id}}"><img alt="" th:src="${b.ImageURL}"></a>
+							<div class="flex-col-l-m h-full respon5">
+								<a th:href="@{'detail/' + ${b.Caption}}"><img alt="" th:src="${b.ImageURL}"></a>
 							</div>
 						</div>
 					</div>
