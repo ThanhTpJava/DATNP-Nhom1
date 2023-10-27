@@ -17,10 +17,13 @@ import java.util.Date;
 public class BlogPost {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int PostID;
+	private int id;
 
 	@Column(name = "Title", nullable = false, columnDefinition = "nvarchar(max)")
 	private String Title;
+
+	@Column(name = "Image", nullable = false, columnDefinition = "varchar(max)")
+	private String Image;
 
 	@Column(name = "Content", columnDefinition = "nvarchar(max)")
 	private String Content;
