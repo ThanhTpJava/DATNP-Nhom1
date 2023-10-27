@@ -9,8 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AuthController { 
@@ -55,7 +57,7 @@ public class AuthController {
 	@RequestMapping("/auth/logoff/success")
 	public String logoff(Model model) {
 		model.addAttribute("message", "Đăng xuất thành công!");
-		session.setAttribute("authentication", null);
+		session.invalidate();
 		return "forward:/auth/login/form";
 	}
 
@@ -66,6 +68,7 @@ public class AuthController {
 	        ObjectMapper objectMapper = new ObjectMapper();
 	        String authenticationJson = objectMapper.writeValueAsString(authentication);
 	        System.out.println("Authentication Info: " + authenticationJson);
+			session.setAttribute("authentication",authentication);
 	    } catch (JsonProcessingException e) {
 	        System.out.println("Failed to convert Authentication to JSON: " + e.getMessage());
 	    }
@@ -101,5 +104,12 @@ public class AuthController {
 			// Người dùng chưa xác thực
 			return null;
 		}
+	}
+
+	@CrossOrigin("*")
+	@ResponseBody
+	@RequestMapping("/rest/security/authentication")
+	public Object getAuthentication(HttpSession session) {
+		return session.getAttribute("authentication");
 	}
 }

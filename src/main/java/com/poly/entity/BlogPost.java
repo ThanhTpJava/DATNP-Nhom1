@@ -31,6 +31,21 @@ public class BlogPost {
 	@Column(name = "PublishDate")
 	private Date PublishDate;
 
+
+	/*
+	* Note
+	*
+	* Set
+	* BlogPost blogPost = new BlogPost();
+	blogPost.setTag("tag1,tag2,tag3");
+	*
+	* Get
+	* String tagString = blogPost.getTag();
+	String[] tags = tagString.split(",");
+	* */
+	@Column(name = "Tag", columnDefinition = "nvarchar(max)")
+	private String Tag;
+
 	@ManyToOne
 	@JoinColumn(name = "UserID")
 	private Account account;

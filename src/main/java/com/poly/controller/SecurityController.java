@@ -42,10 +42,10 @@ public class SecurityController {
 //		return "security/login";
 //	}
 	
-	@CrossOrigin("*")
-	@ResponseBody
-	@RequestMapping("/rest/security/authentication")
-	public Object getAuthentication(HttpSession session) {
-		return session.getAttribute("authentication");
-	}
+//	@CrossOrigin("*")
+//	@ResponseBody
+//	@RequestMapping("/rest/security/authentication")
+//	public Object getAuthentication(HttpSession session) {
+//		return session.getAttribute("authentication");
+//	}
 }
