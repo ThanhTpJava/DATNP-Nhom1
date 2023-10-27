@@ -23,7 +23,7 @@ public class BlogController {
     BlogService blogService;
 
     private final int pageSize = 3;
-    @GetMapping("/user/blog")
+    @GetMapping("/blog")
     public String SeeBlog(@RequestParam(defaultValue = "0") int page, Model model){
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").ascending());
         List<BlogPost> list = blogService.findPaginated(pageable);
@@ -35,7 +35,7 @@ public class BlogController {
         return "/user/blog";
     }
 
-    @RequestMapping("user/blog/detail/{id}")
+    @RequestMapping("blog/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id){
 
         BlogPost item = blogService.detailBlog(id);
