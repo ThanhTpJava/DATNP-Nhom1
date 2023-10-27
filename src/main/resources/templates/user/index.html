@@ -89,7 +89,7 @@
 							USD
 						</a>
 						
-						<a class="flex-c-m trans-04 p-lr-25" ng-if="$auth.user.username != null" th:href="@{'detail_user/' + 'user2'}">{{$auth.user.username}}</a>
+						<a class="flex-c-m trans-04 p-lr-25" ng-if="$auth.user.username != null" th:href="@{'detail_user/' + '{{$auth.user.username}}'}">{{$auth.user.username}}</a>
 					</div>
 				</div>
 			</div>
