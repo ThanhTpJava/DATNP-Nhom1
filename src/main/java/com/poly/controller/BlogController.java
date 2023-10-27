@@ -44,7 +44,7 @@ public class BlogController {
         List<BlogPost> list = blogService.findAll();
         model.addAttribute("items", list);
 
-        return "user/product-detail";
+        return "user/blog-detail";
     }
 
 }
