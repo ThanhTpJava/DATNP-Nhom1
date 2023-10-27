@@ -10,6 +10,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,17 +39,19 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		String staticResources = "/static/**";
+//		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+//		String staticResources = "/static/**";
 
-		http.authorizeHttpRequests((authorize) -> 
+		http.authorizeHttpRequests((authorize) ->
 			authorize
 			.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-//			.requestMatchers("/order/**").authenticated()
+					.requestMatchers("/rest/**").permitAll()
+//			.requestMatchers(".r/**").authenticated()
 //			.requestMatchers("/qcshop/signup/newaccount").permitAll()
 //			.requestMatchers(staticResources).permitAll()
 			.anyRequest().permitAll())
 			.csrf(csrf -> csrf.disable())
-			.formLogin((login) -> 
+			.formLogin((login) ->
 			login.loginPage("/auth/login/form")
 			.loginProcessingUrl("/security/login")
 			.defaultSuccessUrl("/auth/login/success", false)
