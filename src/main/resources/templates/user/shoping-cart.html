@@ -75,7 +75,7 @@
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
-						<div class="wrap-table-shopping-cart">
+						<div class="wrap-table-shopping-cart"  style="padding: 50px">
 							<table class="table-shopping-cart" ng-if="cart.items.length">
 								<tr class="table_head">
 									<th>Name Product</th>
@@ -87,7 +87,7 @@
 								</tr>
 								<tr class="table_row" ng-repeat="item in cart.items">
 									<td>{{item.name}}</td>
-									 <td><img ng-src="{{item.image}}" width="100px">
+									 <td><img ng-src="{{item.main_image}}" width="100px">
 									</td> 
 
 									<td><input ng-change="cart.saveToLocalStorage()"
