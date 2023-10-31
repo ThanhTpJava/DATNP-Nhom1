@@ -32,4 +32,9 @@ public class ProductAdminController {
         return "admin/order";
     }
 
+    @RequestMapping("/admin/blog")
+    public String Blog(){
+        return  "admin/blog";
+    }
+
 }
