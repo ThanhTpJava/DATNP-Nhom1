@@ -23,8 +23,6 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class OrderController {
-//	@Autowired
-//	AccountDAO accountDAO;
 	
 	@Autowired
 	OrderService orderService;

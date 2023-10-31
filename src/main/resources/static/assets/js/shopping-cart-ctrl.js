@@ -53,7 +53,7 @@ app.controller("cart-ctrl", function($scope, $http){
 	// Đặt hàng
 	$scope.order = {
 			get account(){
-				return {username: $auth.user.username}
+				return {username: $auth.username}
 			},
 			createDate: new Date(),
 			address: "",
@@ -71,7 +71,6 @@ app.controller("cart-ctrl", function($scope, $http){
 			purchase(){
 				var order = angular.copy(this);
 				console.log(order)
-				console.log("Tao là order")
 				// Thực hiện đặt hàng
 				$http.post("/rest/orders", order).then(resp => {
 					alert("Đặt hàng thành công!");

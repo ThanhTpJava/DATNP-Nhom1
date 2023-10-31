@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:fragment="dynamic(main)">
+      th:fragment="dynamic(main)">
 
 <head>
 
@@ -39,57 +39,13 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul th:fragment="sidebar" class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"
-        id="accordionSidebar">
-
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="/admin/products">
-            <img src="https://assets.website-files.com/60a70f8574f9eb38a2b19c99/643d83dec4b1258659fd0402_apple-authorized-reseller-logo-white.png"
-                 style="width: 130px">
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/index"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                       href="/admin/products"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Products</span></a>
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/accounts"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Accounts</span></a>
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/orders"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Orders</span></a>
-        </li>
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/blog"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Blog</span></a>
-        </li>
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-    </ul>
+    <ul th:replace="admin/index :: sidebar"></ul>
     <!-- End of Sidebar -->
-	
+
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column vh-100">
 
-        
+
     </div>
     <!-- End of Content Wrapper -->
 
@@ -157,4 +113,4 @@
 
 </body>
 
-</html> 	
+</html>
