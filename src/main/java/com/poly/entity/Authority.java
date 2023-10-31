@@ -21,11 +21,11 @@ public class Authority implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "username")
 	private Account account;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "roleid")
 	private Role role;

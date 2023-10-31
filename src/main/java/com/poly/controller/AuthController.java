@@ -2,9 +2,12 @@ package com.poly.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.poly.dao.AccountDAO;
+import com.poly.entity.Account;
 import com.poly.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,10 +17,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collection;
+import java.util.Optional;
+
 @Controller
 public class AuthController { 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	AccountDAO accountDAO;
 
 	@GetMapping(value = "/auth/login/form")
 	public String loginForm() {
@@ -57,7 +66,7 @@ public class AuthController {
 	@RequestMapping("/auth/logoff/success")
 	public String logoff(Model model) {
 		model.addAttribute("message", "Đăng xuất thành công!");
-		session.invalidate();
+		session.setAttribute("authentication",null);
 		return "forward:/auth/login/form";
 	}
 
@@ -68,7 +77,6 @@ public class AuthController {
 	        ObjectMapper objectMapper = new ObjectMapper();
 	        String authenticationJson = objectMapper.writeValueAsString(authentication);
 	        System.out.println("Authentication Info: " + authenticationJson);
-			session.setAttribute("authentication",authentication);
 	    } catch (JsonProcessingException e) {
 	        System.out.println("Failed to convert Authentication to JSON: " + e.getMessage());
 	    }
@@ -98,7 +106,8 @@ public class AuthController {
 					role = "No specific role";
 					break;
 			}
-//			return "Welcome, " + username + "! You are " + role + ".";
+			Account account = accountDAO.findAccountsByUsername(username);
+			session.setAttribute("authentication", account);
 			return role;
 		} else {
 			// Người dùng chưa xác thực
@@ -109,7 +118,8 @@ public class AuthController {
 	@CrossOrigin("*")
 	@ResponseBody
 	@RequestMapping("/rest/security/authentication")
-	public Object getAuthentication(HttpSession session) {
-		return session.getAttribute("authentication");
+	public Object getAuthentication(Model model) {
+        return session.getAttribute("authentication");
 	}
+
 }
