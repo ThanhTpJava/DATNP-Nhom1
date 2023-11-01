@@ -38,12 +38,12 @@ public class Order {
 	private Date createDate;
 
 	@Column(name = "Status")
-	private boolean Status;
+	private int Status;
 
 	@Column(name = "TotalAmount"/*, precision = 10, scale = 2*/)
 	private double TotalAmount;
 
-	@Column(name = "address"/*, precision = 10, scale = 2*/)
+	@Column(name = "address", columnDefinition = "nvarchar(200)")
 	private String address;
 
 	@ManyToOne

@@ -25,12 +25,8 @@ public class ProductAdminController {
         return "admin/accounts";
 //        return "admin/authorize/roles";
     }
-    
-    @RequestMapping("/admin/orders")
 
-    public String Order(Model model) {
-        return "admin/order";
-    }
+
 
     @RequestMapping("/admin/blog")
     public String Blog(){
