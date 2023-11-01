@@ -63,17 +63,20 @@ public class OrderController {
 	    HttpSession session = request.getSession();
 	    Map<String, Object> authentication = (Map<String, Object>) session.getAttribute("authentication");
 
-	    if (authentication != null && authentication.containsKey("user")) {
-	        Account account = (Account) authentication.get("user");
+	    if (authentication != null && authentication.containsKey("name")) {
+	        Account account = (Account) authentication.get("username");
 	        System.out.println("Username from session: " + account.getUsername());
 
 	        // Đoạn code xử lý dựa trên thông tin người dùng từ session
 	        model.addAttribute("orders", orderService.findByUsername(account.getUsername()));
 	    } else {
-	    	return "/auth/login/success"; //login
+	    	return "/auth/login/form"; //login
 	    }
 
 	    return "user/order-list";
 	}
+
+
+
 
 }

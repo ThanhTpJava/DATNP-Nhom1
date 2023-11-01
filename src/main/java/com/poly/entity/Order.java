@@ -28,20 +28,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int OrderID;
+	private int id;
 
 	@ManyToOne
 	@JoinColumn(name = "UserID")
 	private Account account;
 
-	@Column(name = "OrderDate")
-	private Date OrderDate;
+	@Column(name = "createDate")
+	private Date createDate;
 
 	@Column(name = "Status")
 	private boolean Status;
 
 	@Column(name = "TotalAmount"/*, precision = 10, scale = 2*/)
 	private double TotalAmount;
+
+	@Column(name = "address"/*, precision = 10, scale = 2*/)
+	private String address;
 
 	@ManyToOne
 	@JoinColumn(name = "voucherId")
@@ -51,5 +54,9 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "assignedTo")
 	private Account assignedTo;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "order")
+	List<OrderDetail> orderDetails;
 
 }

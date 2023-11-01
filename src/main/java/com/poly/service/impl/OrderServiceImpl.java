@@ -2,6 +2,8 @@ package com.poly.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -23,7 +25,8 @@ public class OrderServiceImpl implements OrderService{
 	
 	public Order create(JsonNode orderData) {
 		ObjectMapper mapper = new ObjectMapper();
-		
+//		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
 		Order order = mapper.convertValue(orderData, Order.class);
 		dao.save(order);
 		
