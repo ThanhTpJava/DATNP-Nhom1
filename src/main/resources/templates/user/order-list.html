@@ -71,13 +71,13 @@
 							<td th:text="${order.id}"></td>
 							<td th:text="${order.createDate}"></td>
 							<td th:text="${order.address}"></td>
+
+							<td th:text="${order.status == 1 ? 'Người mua đã mua hàng' : (order.status == 2 ? 'Đơn hàng đã bị hủy' : 'Đang xác nhận đơn hàng')}"
+								th:class="${order.status == 1 ? 'text-success fw-bold' : (order.status == 2 ? 'text-danger fw-bold' : 'text-warning fw-bold')}">
+							</td>
 							<td><a th:href="@{|/order/detail/${order.id}|}"> <i
 									class="bi bi-search"></i>
 							</a></td>
-							<td th:text="${order.status ? 'Chờ xử lý':'Đang giao hàng'}"
-								th:class="${order.status ? 'text-success fw-bold' : 'text-warning fw-bold'}">
-							</td>
-
 						</tr>
 					</tbody>
 				</table>
