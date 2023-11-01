@@ -303,13 +303,13 @@
                                        class="form-control" placeholder="Quantity">
                             </div>
 							<div class="mb-3">
-                                <input ng-model="form.image" class="form-control"
+                                <input ng-model="form.main_image" class="form-control"
                                        placeholder="Link Cnd Product">
                             </div>
                         </div>
                         <div class="bg-white border w-50 mb-3 rounded">
 
-                            <img ng-src="{{form.image}}" ng-alt="{{form.image}}" class="object-fit-contain h-100 w-100"
+                            <img ng-src="{{form.main_image}}" ng-alt="{{form.main_image}}" class="object-fit-contain h-100 w-100"
                                  alt="...">
                         </div>
                     </form>
@@ -318,29 +318,33 @@
                         <table class="table table-bordered w-100 table-responsive" id="dataTable">
                             <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Image</th>
                                 <th>Category</th>
                                 <th>Price</th>
-                                <th>Create Date</th>
+                                <th>Date of Import</th>
                                 <th>Quantity</th>
                                 <th>Status</th>
+                                <th>Description</th>
+                                <th>Product Information</th>
+                                <th>Parranty Period</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="pro in items | startFrom:currentPage*pageSize | limitTo:pageSize">
-                                <th scope="row">{{$index+1}}</th>
                                 <td>{{pro.id}}</td>
                                 <td>{{pro.name}}</td>
-                                 <td><img alt="" src="{{pro.image}}" class="object-fit-contain h-100 w-100"></td>
+                                <td><img alt="" src="{{pro.main_image}}" class="object-fit-contain h-100 w-100"></td>
                                 <td>{{pro.category.name}}</td>
                                 <td>{{pro.price}}</td>
-                                <td>{{pro.createDate | date:'dd-MM-yyyy'}}</td>
+                                <td>{{pro.date_import | date:'dd-MM-yyyy'}}</td>
                                 <td>{{pro.quantity}}</td>
-                                <td>{{pro.available?'Còn hàng':'Hết hàng'}}</td>
+                                <td>{{pro.quantity > 0?'Còn hàng':'Hết hàng'}}</td>
+                                <td>{{pro.Description}}</td>
+                                <td>{{pro.Product_information}}</td>
+                                <td>{{pro.Parranty_period}}</td>
                                 <td>
                                     <button class="btn btn-dark" ng-click="detail(pro.id)">Edit</button>
                                     <button class="btn btn-danger" ng-click="delete(pro.id)">Del</button>
