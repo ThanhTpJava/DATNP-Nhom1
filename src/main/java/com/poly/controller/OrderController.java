@@ -58,22 +58,14 @@ public class OrderController {
 	
 	@RequestMapping("/order/list")
 	public String detail(Model model, HttpServletRequest request) {
-	    String username = request.getRemoteUser();
 
-	    HttpSession session = request.getSession();
-	    Map<String, Object> authentication = (Map<String, Object>) session.getAttribute("authentication");
-
-	    if (authentication != null && authentication.containsKey("user")) {
-	        Account account = (Account) authentication.get("user");
-	        System.out.println("Username from session: " + account.getUsername());
-
-	        // Đoạn code xử lý dựa trên thông tin người dùng từ session
-	        model.addAttribute("orders", orderService.findByUsername(account.getUsername()));
-	    } else {
-	    	return "/auth/login/success"; //login
-	    }
-
-	    return "user/order-list";
+	   Account account = (Account) session.getAttribute("authentication");
+		if(account != null){
+			model.addAttribute("orders", orderService.findByUsername(account.getUsername()));
+			return "user/order-list";
+		}
+		else {
+			return "/auth/login/form"; //login
+		}
 	}
-
 }

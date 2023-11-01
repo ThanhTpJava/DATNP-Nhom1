@@ -44,7 +44,40 @@
 	
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column vh-100">
+        <main>
+            <div class="container mt-5">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">YOUR PURCHASED ORDERS</div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Order No.</th>
+                            <th>Order Date</th>
+                            <th>Shipping Address</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="order, state: ${orders}">
+                            <td th:text="${state.index}"></td>
+                            <td th:text="${order.id}"></td>
+                            <td th:text="${order.createDate}"></td>
+                            <td th:text="${order.address}"></td>
+                            <td><a th:href="@{|/order/detail/${order.id}|}"> <i
+                                    class="bi bi-search"></i>
+                            </a></td>
+                            <td th:text="${order.status ? 'Chờ xử lý':'Đang giao hàng'}"
+                                th:class="${order.status ? 'text-success fw-bold' : 'text-warning fw-bold'}">
+                            </td>
 
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
         
     </div>
     <!-- End of Content Wrapper -->

@@ -60,9 +60,10 @@ app.controller("cart-ctrl", function($scope, $http){
 			status: 0,
 			get orderDetails(){
 				return $cart.items.map(item => {
+					console.log(item); // Check if 'price' exists in 'item'
 					return {
 						product:{id: item.id},
-						price: item.price,
+						subtotal: item.price,
 						quantity: item.qty
 						
 					}
@@ -70,7 +71,7 @@ app.controller("cart-ctrl", function($scope, $http){
 			},
 			purchase(){
 				var order = angular.copy(this);
-				console.log(order)
+				// console.log(order)
 				// Thực hiện đặt hàng
 				$http.post("/rest/orders", order).then(resp => {
 					alert("Đặt hàng thành công!");

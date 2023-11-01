@@ -2,6 +2,8 @@ package com.poly.entity;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +15,14 @@ import lombok.NoArgsConstructor;
 @Table(name ="OrderDetails")
 @NoArgsConstructor
 @AllArgsConstructor
+//@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class OrderDetail implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int OrderItemID;
+	private int id;
 
+//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "OrderID")
 	private Order order;
@@ -25,10 +30,6 @@ public class OrderDetail implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "ProductID")
 	private Product product;
-
-	@ManyToOne
-	@JoinColumn(name = "UserID")
-	private Account account;
 
 	@Column(name = "Quantity")
 	private Integer Quantity;

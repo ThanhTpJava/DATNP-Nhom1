@@ -39,9 +39,8 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 //		String staticResources = "/static/**";
-
+		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 		http.authorizeHttpRequests((authorize) ->
 			authorize
 			.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
