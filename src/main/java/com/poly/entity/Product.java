@@ -46,6 +46,9 @@ public class Product implements Serializable{
 	@Column(name = "Product_information", columnDefinition = "nvarchar(max)")
 	private String Product_information;
 
+	@Column(name = "Date_import")
+	private String date_import;
+
 	//Thời gian bảo hành
 	@Column(name ="warranty_period")
 	private Integer Parranty_period;
