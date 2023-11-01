@@ -8,6 +8,7 @@ import com.poly.entity.Category;
 import com.poly.entity.Product;
 import com.poly.service.AccountService;
 import com.poly.service.BannerService;
+import com.poly.service.CounterService;
 import com.poly.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,6 +42,9 @@ public class ProductController3 {
     @Autowired
     BannerService bannerService;
     
+    @Autowired
+    private CounterService counterService;
+    
     private final int pageSize = 20;
     @GetMapping("/user/home")
     public String list(@RequestParam(defaultValue = "0") int page,Model model){
@@ -50,6 +54,10 @@ public class ProductController3 {
         
         List<Banner> banner = bannerService.findAll();
         model.addAttribute("banners", banner);
+        
+        counterService.incrementCounter();
+        model.addAttribute("count", counterService.getCounter());
+        
         
         int id = 84;
         Product item = productService.findByID(id);

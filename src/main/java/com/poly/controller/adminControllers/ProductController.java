@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.service.BannerService;
+import com.poly.service.CounterAdminService;
+import com.poly.service.CounterService;
+import com.poly.dao.CounterAdminRepository;
 import com.poly.entity.Banner;
 
 @Controller
@@ -14,6 +17,12 @@ public class ProductController {
 	
 	@Autowired
 	BannerService bannerService;
+	
+	@Autowired
+	CounterAdminService cad;
+	
+	@Autowired
+    private CounterService counterService;
 
     @RequestMapping("/admin/index")
     public String Dashboard(Model model) {
@@ -50,6 +59,14 @@ public class ProductController {
     @RequestMapping("/user/abouts")
     public String About(Model model) {
         return "user/about";
+    }
+    //statistical
+    
+    @RequestMapping("/admin/statisticals")
+    public String Statistical(Model model) {
+    	counterService.incrementCounter();
+        model.addAttribute("count", counterService.getCounter());
+        return "admin/statistical";
     }
 
 }

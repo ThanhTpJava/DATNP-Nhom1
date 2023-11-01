@@ -25,7 +25,7 @@ public class BannerAdminController {
 	
 	@PostMapping("creates")
 	private String update(@Valid @ModelAttribute("banners") Optional<Banner> banner, Model model) {
-		Banner save = bannerService.save(banner.get());
+		Banner bn = bannerService.save(banner.get());
 		model.addAttribute("banners", new Banner());
 		model.addAttribute("List",bannerService.findAll());
 		return "redirect:/admin/banners";
@@ -50,9 +50,8 @@ public class BannerAdminController {
 		return "redirect:/admin/banners";
 	}
 	
-//	@GetMapping("delete/{id}")
-//	private String delete(@PathVariable("id") String id) {
-//		studentServiceImpl.deleteById(id);
-//		return "redirect:/index";
+//	@GetMapping("updates/{BannerID}")
+//	private String updates(@PathVariable("BannerID") Integer BannerID, Model model) {
+//		return "admin/banner";
 //	}
 }
