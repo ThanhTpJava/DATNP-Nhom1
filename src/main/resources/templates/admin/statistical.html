@@ -324,7 +324,20 @@
                     	<h1> <b class="">Số Lượng Truy Cập Vào Web</b> </h1>
                     </div>
                     <div class="text-center mt-5">
-                    	<h3>NOV: <b><span th:text="${count}"></span></b> </h3>
+                    	<h1>Counter:</h1>
+                    	<div class="d-table mx-auto">
+                    		<table class="table table-bordered w-100" id="dataTable">
+						        <tr>
+						            <th>Count</th>
+						            <th>Date</th>
+						        </tr>
+						        <tr th:each="row : ${rows}">
+						            <td th:text="${row.counter}"></td>
+						            <td th:text="${row.date}"></td>
+						        </tr>
+					    	</table>
+                    	</div>
+					    
                     </div>
                     </div>
                 </div>

@@ -2,6 +2,8 @@ package com.poly.entity;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class CountAdmin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer counter;
 	
+	@CreatedDate
 	@Column(name = "date")
 	private Date date;
 }

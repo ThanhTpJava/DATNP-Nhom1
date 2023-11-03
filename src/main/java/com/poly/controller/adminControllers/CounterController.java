@@ -1,7 +1,12 @@
 package com.poly.controller.adminControllers;
 
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +19,23 @@ public class CounterController {
 	@Autowired
     private CounterService counterService;
 
-    // Xử lý request GET tới đường dẫn "/"
-//    @GetMapping("/")
-//    public String showHomePage(Model model) {
-//        // Tăng số lượt truy cập lên 1 và cập nhật vào database
-//        counterService.incrementCounter();
-//        // Lấy số lượt truy cập hiện tại từ database và thêm vào model để hiển thị trên view
-//        model.addAttribute("count", counterService.getCounter());
-//        // Trả về tên view là "index"
-//        return "index";
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+//    @GetMapping("/dates")
+//    public String getAllDates(Model model) {
+//
+//        String sql = "SELECT * FROM DATE";
+//        List<LocalDate> dates = jdbcTemplate.query(sql, new RowMapper<LocalDate>() {
+//            @Override
+//            public LocalDate mapRow(ResultSet rs, int rowNum) throws SQLException {
+//
+//                return rs.getDate("CURRENT_DATE").toLocalDate();
+//            }
+//        });
+//
+//        model.addAttribute("dates", dates);
+//        // Trả về tên của view là dateForm.html
+//        return "dateForm";
 //    }
 }
