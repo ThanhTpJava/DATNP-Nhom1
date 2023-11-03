@@ -26,11 +26,4 @@ public class ProductAdminController {
 //        return "admin/authorize/roles";
     }
 
-
-
-    @RequestMapping("/admin/blog")
-    public String Blog(){
-        return  "admin/blog";
-    }
-
 }

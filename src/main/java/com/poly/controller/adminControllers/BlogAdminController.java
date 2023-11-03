@@ -6,24 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BlogAdminController {
-
-
-//    @PostMapping("user/blog")
-//    public String PostBlog(){
-//        return "";
-//    }
-//
-//    @PutMapping("/user/blog/{id}")
-//    public String UpdateBlog(){
-//        return  "";
-//    }
-//
-//    @DeleteMapping("/user/blog/{id}")
-//    public String DeleteBlog(){
-//        return  "";
-//    }
+    @RequestMapping("/admin/blog")
+    public String Blog(){
+        return  "admin/blog";
+    }
 
 }

@@ -50,14 +50,14 @@
                 <div class="p-r-45 p-r-0-lg">
                     <!--  -->
                     <div class="wrap-pic-w how-pos5-parent">
-                        <img src="images/blog-04.jpg" alt="IMG-BLOG">
+                        <img th:src="${item.Image}" alt="IMG-BLOG">
 
                         <div class="flex-col-c-m size-123 bg9 how-pos5">
-								<span class="ltext-107 cl2 txt-center">
+								<span th:utext="${#dates.format(item.PublishDate, 'dd')}" class="ltext-107 cl2 txt-center">
 									22
 								</span>
 
-                            <span class="stext-109 cl3 txt-center">
+                            <span th:utext="${#dates.format(item.PublishDate, 'MM/yyyy')}" class="stext-109 cl3 txt-center" >
 									Jan 2018
 								</span>
                         </div>
@@ -70,12 +70,12 @@
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 
-								<span>
-									22 Jan, 2018
+								<span th:utext="${#dates.format(item.PublishDate, 'dd/MM/yyyy HH:mm')}">
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 
 								<span>
+                                    <span class="cl12 m-l-4 m-r-6">|</span>
 									StreetStyle, Fashion, Couple
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
@@ -85,11 +85,11 @@
 								</span>
 							</span>
 
-                        <h4 class="ltext-109 cl2 p-b-28">
+                        <h4 class="ltext-109 cl2 p-b-28" th:text="${item.Title}">
                             8 Inspiring Ways to Wear Dresses in the Winter
                         </h4>
 
-                        <p class="stext-117 cl6 p-b-26">
+                        <p class="stext-117 cl6 p-b-26" th:text="${item.Content}">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet est vel orci luctus sollicitudin. Duis eleifend vestibulum justo, varius semper lacus condimentum dictum. Donec pulvinar a magna ut malesuada. In posuere felis diam, vel sodales metus accumsan in. Duis viverra dui eu pharetra pellentesque. Donec a eros leo. Quisque sed ligula vitae lorem efficitur faucibus. Praesent sit amet imperdiet ante. Nulla id tellus auctor, dictum libero a, malesuada nisi. Nulla in porta nibh, id vestibulum ipsum. Praesent dapibus tempus erat quis aliquet. Donec ac purus id sapien condimentum feugiat.
                         </p>
 

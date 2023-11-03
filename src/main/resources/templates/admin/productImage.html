@@ -44,27 +44,53 @@
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column vh-100">
+        <div class="container">
+            <h2>Quản lý hình ảnh sản phẩm</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form>
+                        <div class="form-group">
+                            <label for="productId">ID sản phẩm:</label>
+                            <input type="text" class="form-control" id="productId">
+                        </div>
+                        <div class="form-group">
+                            <label for="imageLink">Đường dẫn hình ảnh:</label>
+                            <input type="text" class="form-control" id="imageLink">
+                        </div>
+                        <div class="form-group">
+                            <label for="productImage">Hình ảnh:</label>
+                            <input type="file" class="form-control-file" id="productImage">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Danh sách hình ảnh sản phẩm</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Đường dẫn</th>
+                            <th>Chỉnh sửa</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Thêm dòng cho mỗi hình ảnh sản phẩm ở đây -->
+                        <tr>
+                            <td>1</td>
+                            <td>Đường dẫn 1</td>
+                            <td><button class="btn btn-success"><i class="fas fa-edit"></button></i></td>
+                        </tr>
 
-        <div class="container mt-5">
-            <h2>Blog Posts</h2>
-            <ul class="list-group">
-                <li class="list-group-item" ng-repeat="post in posts">
-                    <h4 class="list-group-item-heading">{{post.title}}</h4>
-                    <p class="list-group-item-text">{{post.content}}</p>
-                    <button class="btn btn-danger" ng-click="deletePost(post)">Delete</button>
-                </li>
-            </ul>
-            <form ng-submit="addPost(newPost)">
-                <div class="form-group">
-                    <input type="text" class="form-control" ng-model="newPost.title" placeholder="Title">
+                        <!-- Kết thúc danh sách -->
+                        </tbody>
+                    </table>
                 </div>
-                <div class="form-group">
-                    <textarea class="form-control" ng-model="newPost.content" placeholder="Content"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Add Post</button>
-            </form>
+            </div>
         </div>
-
     </div>
     <!-- End of Content Wrapper -->
 
@@ -103,7 +129,7 @@
 <script>
     var sortingOrder = 'name';
 </script>
-<script src="/js/adminJs/blog.js"></script>
+<script src="/js/adminJs/productImage.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor-admin/jquery/jquery.min.js"></script>
 <script src="/vendor-admin/bootstrap/js/bootstrap.bundle.min.js"></script>
