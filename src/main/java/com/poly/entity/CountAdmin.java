@@ -26,7 +26,6 @@ public class CountAdmin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer counter;
 	
-	
 	@CreatedDate
 	@Column(name = "date")
 	private Date date;

@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.CreatedDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,7 +30,8 @@ public class Banner {
 	@Column(name = "Orderr")
 	private int Orderr;
 
-	@Column(name = "CreatedAt")
+	@CreatedDate
+	@Column(name = "CreatedAt", columnDefinition = "date")
 	private Date CreatedAt;
 
 	@ManyToOne
