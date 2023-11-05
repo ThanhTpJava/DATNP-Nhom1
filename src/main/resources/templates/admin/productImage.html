@@ -48,20 +48,35 @@
             <h2>Quản lý hình ảnh sản phẩm</h2>
             <div class="row">
                 <div class="col-md-6">
-                    <form>
+                    <form name="myForm">
                         <div class="form-group">
                             <label for="productId">ID sản phẩm:</label>
-                            <input type="text" class="form-control" id="productId">
+                            <input readonly ng-model="form.imageID" type="text" class="form-control" id="productId">
                         </div>
                         <div class="form-group">
                             <label for="imageLink">Đường dẫn hình ảnh:</label>
-                            <input type="text" class="form-control" id="imageLink">
+                            <input ng-model="form.imageURL" type="text" class="form-control" id="imageLink">
                         </div>
-                        <div class="form-group">
-                            <label for="productImage">Hình ảnh:</label>
-                            <input type="file" class="form-control-file" id="productImage">
+                        <div class="bg-white border w-50 mb-3 rounded">
+                            <img ng-src="{{form.imageURL}}" ng-alt="{{form.imageURLv}}" class="object-fit-contain h-100 w-100"
+                                 alt="...">
                         </div>
-                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid">
+                                    <i class="fas fa-plus"></i> Create
+                                </button>
+                                <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid">
+                                    <i class="fas fa-rotate"></i> Update
+                                </button>
+                                <button ng-click="delete(form.imageID)" class="btn btn-danger" ng-disabled="myForm.id.$invalid">
+                                    <i class="fas fa-solid fa-ban"></i> Delete
+                                </button>
+                                <button ng-click="reset()" class="btn btn-secondary">
+                                    <i class="fas fa-regular fa-window-restore"></i> Reset
+                                </button>
+<!--                            <div class="input-append">-->
+<!--                                <input type="text" ng-model="query" ng-change="search()" class="input-large search-query" placeholder="Search">-->
+<!--                                <span class="add-on"><i class="icon-search"></i></span>-->
+<!--                            </div>-->
                     </form>
                 </div>
             </div>
@@ -73,16 +88,25 @@
                         <thead>
                         <tr>
                             <th>ID</th>
+                            <td>Hình ảnh</td>
                             <th>Đường dẫn</th>
+                            <th>ID sản phẩms</th>
+                            <th>Tên sản phẩm</th>
                             <th>Chỉnh sửa</th>
                         </tr>
                         </thead>
                         <tbody>
                         <!-- Thêm dòng cho mỗi hình ảnh sản phẩm ở đây -->
-                        <tr>
-                            <td>1</td>
-                            <td>Đường dẫn 1</td>
-                            <td><button class="btn btn-success"><i class="fas fa-edit"></button></i></td>
+                        <tr ng-repeat="i in items | startFrom:currentPage*pageSize | limitTo:pageSize">
+                            <td>{{i.imageID}}</td>
+                            <td><img ng-src="{{i.imageURL}}" width="200px" height="200px" alt=""></td>
+                            <td>{{i.imageURL}}</td>
+                            <td>{{i.product.id}}</td>
+                            <td>{{i.product.name}}</td>
+                            <td>
+                                <button ng-click="detail(i.imageID)" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                <button ng-click="delete(i.imageID)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                            </td>
                         </tr>
 
                         <!-- Kết thúc danh sách -->

@@ -115,8 +115,8 @@
                         <td>{{ b.content | limitTo:200 }}{{ b.content.length > 200 ? '...' : '' }}</td>
                         <td>{{b.account.name}}</td>
                         <td>
-                            <button class="btn btn-dark" ng-click="detail(b.id)">Edit</button>
-                            <button class="btn btn-danger" ng-click="delete(b.id)">Del</button>
+                            <button class="btn btn-success" ng-click="detail(b.id)"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="delete(b.id)"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                     </tbody>
