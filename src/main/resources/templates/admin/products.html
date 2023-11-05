@@ -258,13 +258,13 @@
                     <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || !form.name || !form.category.id || !form.price || !form.date_import || !form.quantity || !form.main_image || !form.description || !form.parranty_period">
                         <i class="fas fa-plus"></i> Create
                     </button>
-                    <button ng-click="update()" class="btn btn-primary" ng-disabled="myForm.$invalid || !form.name || !form.category.id || !form.price || !form.date_import || !form.quantity || !form.main_image || !form.description || !form.parranty_period">
+                    <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || !form.name || !form.category.id || !form.price || !form.date_import || !form.quantity || !form.main_image || !form.description || !form.parranty_period">
                         <i class="fas fa-rotate"></i> Update
                     </button>
-                    <button ng-click="delete(form.id)" class="btn btn-primary" ng-disabled="!form.id">
+                    <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="!form.id">
                         <i class="fas fa-solid fa-ban"></i> Delete
                     </button>
-                    <button ng-click="reset()" class="btn btn-primary">
+                    <button ng-click="reset()" class="btn btn-secondary">
                         <i class="fas fa-regular fa-window-restore"></i> Reset
                     </button>
                 </div>

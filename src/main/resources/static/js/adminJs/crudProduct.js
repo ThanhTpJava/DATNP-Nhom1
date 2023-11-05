@@ -6,7 +6,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.categoryItems = []
 
     $scope.currentPage = 0;
-    $scope.pageSize = 10;
+    $scope.pageSize = 3;
     $scope.sortingOrder = sortingOrder;
     $scope.reverse = false;
 
