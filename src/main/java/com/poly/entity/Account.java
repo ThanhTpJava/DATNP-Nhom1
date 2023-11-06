@@ -74,6 +74,9 @@ public class Account implements Serializable{
 	@Pattern(regexp = "^\\d{10}$", message = "Số điện thoại không hợp lệ")
 	private String  phonenumber;
 
+	@Column(name ="photo")
+	private String photo;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "account",  fetch = FetchType.EAGER)
 	List<Authority> authorities;
