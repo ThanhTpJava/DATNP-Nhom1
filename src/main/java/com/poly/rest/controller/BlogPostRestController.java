@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/blogg")
+@RequestMapping("/rest/blog")
 public class BlogPostRestController {
     @Autowired
     BlogPostDAO blogPostDAO;

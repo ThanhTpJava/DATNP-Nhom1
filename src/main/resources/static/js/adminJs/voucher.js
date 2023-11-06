@@ -3,10 +3,9 @@ const app = angular.module("app", []);
 app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.form = {}
     $scope.items = []
-    $scope.categoryItems = []
 
     $scope.currentPage = 0;
-    $scope.pageSize = 2;
+    $scope.pageSize = 10;
     $scope.sortingOrder = sortingOrder;
     $scope.reverse = false;
 
@@ -75,36 +74,29 @@ app.controller("ctrl", function ($scope, $http, $filter) {
     };
 
     $scope.load_all = function () {
-        var url = `${host}/products`;
+        var url = `${host}/voucher`;
         $http.get(url).then(resp => {
             $scope.items = resp.data;
             console.log("Success", resp)
         }).catch(error => {
             console.log("Error", error)
         })
-        //fill category select
-        var url = `${host}/categories`;
+
+    }
+
+    $scope.detail = function (id) {
+        var url = `${host}/voucher/${id}`;
         $http.get(url).then(resp => {
-            $scope.categoryItems = resp.data;
+            $scope.form = resp.data;
             console.log("Success", resp)
         }).catch(error => {
             console.log("Error", error)
         })
     }
 
-    $scope.detail = function (id) {
-        var url = `${host}/products/${id}`;
-        $http.get(url).then(resp => {
-            $scope.form = resp.data;
-            console.log("Success", resp)
-        }).catch(error => {
-            console.log("Error", error)
-})
-    }
-
     $scope.create = function () {
         var item = angular.copy($scope.form);
-        var url = `${host}/products`;
+        var url = `${host}/voucher`;
         $http.post(url, item).then(resp => {
             // item.available = item.quantity>0?'true':'false';
             $scope.items.push(item);
@@ -118,7 +110,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
 
     $scope.update = function () {
         var item = angular.copy($scope.form);
-        var url = `${host}/products/${$scope.form.id}`;
+        var url = `${host}/voucher/${$scope.form.id}`;
         $http.put(url, item).then(resp => {
             var index = $scope.items.findIndex(item => item.id == $scope.form.id);
             $scope.items[index] = resp.data;
@@ -132,7 +124,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
 
     $scope.delete = function (id) {
         if (confirm("THIS ACTION CAN'T UNDO!\nAre you sure to delete this product?") == true) {
-            var url = `${host}/products/${id}`;
+            var url = `${host}/voucher/${id}`;
             $http.delete(url).then(resp => {
                 var index = $scope.items.findIndex(item => item.id == $scope.form.id);
                 $scope.items.splice(index, 1);
@@ -144,6 +136,15 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             });
         }
     }
+
+    $scope.validateEndDate = function() {
+        if (new Date($scope.form.endDate) <= new Date($scope.form.startDate)) {
+            $scope.myForm.endDate.$setValidity('dateError', false);
+        } else {
+            $scope.myForm.endDate.$setValidity('dateError', true);
+        }
+    };
+
 
     //load data to table
     $scope.load_all();

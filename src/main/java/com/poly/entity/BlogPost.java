@@ -1,5 +1,6 @@
 package com.poly.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +47,11 @@ public class BlogPost {
 	@Column(name = "Tag", columnDefinition = "nvarchar(max)")
 	private String Tag;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "UserID")
 	private Account account;
+
+	@Column(name = "status")
+	private Boolean status;
 }

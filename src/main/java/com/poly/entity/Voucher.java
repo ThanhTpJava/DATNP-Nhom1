@@ -17,10 +17,10 @@ import java.util.Date;
 public class Voucher {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int IdVoucher;
+	private int id;
 
-	@Column(name = "NameVoucher", columnDefinition = "NVARCHAR(150)")
-	private String NameVoucher;
+	@Column(name = "name", columnDefinition = "NVARCHAR(150)")
+	private String name;
 
 	@Column(name = "discount")
 	private Float discount;
@@ -30,5 +30,8 @@ public class Voucher {
 
 	@Column(name = "endDate")
 	private Date endDate;
+
+	@Column(name ="code_voucher")
+	public String code_voucher;
 
 }

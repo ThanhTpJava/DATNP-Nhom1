@@ -81,4 +81,8 @@ public class Account implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "account")
 	List<Order> orders;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "account")
+	List<BlogPost> blogPosts;
 }
