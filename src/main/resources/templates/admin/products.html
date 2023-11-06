@@ -255,13 +255,13 @@
             <!-- End of Topbar -->
             <nav class="navbar bg-white border-top border-bottom">
                 <div class="">
-                    <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.name || !form.category.id || !form.price || !form.date_import || !form.quantity || !form.main_image || !form.description || !form.parranty_period || form.id != null" >
+                    <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id != null" >
                         <i class="fas fa-plus"></i> Create
                     </button>
-                    <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || !form.name || !form.category.id || !form.price || !form.date_import || !form.quantity || !form.main_image || !form.description || !form.parranty_period || form.id == null">
+                    <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || form.id == null">
                         <i class="fas fa-rotate"></i> Update
                     </button>
-                    <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="!form.id">
+                    <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="form.id == null">
                         <i class="fas fa-solid fa-ban"></i> Delete
                     </button>
                     <button ng-click="reset()" class="btn btn-secondary">
@@ -294,21 +294,32 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <input ng-model="form.price" type="number" min="0"
-                                       class="form-control" placeholder="Price">
+                                <input ng-model="form.price" type="number" min="100000"
+                                       class="form-control" placeholder="Price" step="50000">
+                            </div>
+                            <div class="mb-3">
+                                <input ng-model="form.sale" type="number" min="5"
+                                       class="form-control" placeholder="sale" step="5">
                             </div>
 
-                            <div class="mb-3" ng-class="{'has-error': myForm.date_import.$invalid && myForm.date_import.$dirty}">
-                                <input name="date_import" ng-model="form.date_import" class="form-control" ng-model-options="{updateOn: 'blur'}"
-                                       placeholder="Date Import" ng-pattern="/^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/">
-                                <span class="help-block" ng-show="myForm.date_import.$error.pattern && myForm.date_import.$dirty">
-        Date must be in the format dd-MM-yyyy
-    </span>
+                            <div class="form-group">
+                                <label>Start Date:</label>
+                                <input ng-model="form.date_import" type="date" class="form-control" name="date_import" required>
+<!--                                <div ng-show="myForm.date_import.$touched && myForm.date_import.$error.required" style="color:red">-->
+<!--                                    Start Date là bắt buộc-->
+<!--                                </div>-->
                             </div>
+<!--                            <div class="mb-3" ng-class="{'has-error': myForm.date_import.$invalid && myForm.date_import.$dirty}">-->
+<!--                                <input name="date_import" ng-model="form.date_import" class="form-control" ng-model-options="{updateOn: 'blur'}"-->
+<!--                                       placeholder="Date Import" ng-pattern="/^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/">-->
+<!--                                <span class="help-block" ng-show="myForm.date_import.$error.pattern && myForm.date_import.$dirty">-->
+<!--        Date must be in the format dd-MM-yyyy-->
+<!--    </span>-->
+<!--                            </div>-->
 
 
                             <div class="mb-3">
-                                <input ng-model="form.quantity" type="number" min="0"
+                                <input ng-model="form.quantity" type="number"  step="5"
                                        class="form-control" placeholder="Quantity">
                             </div>
 							<div class="mb-3">
@@ -358,6 +369,7 @@
                                 <td><img alt="" src="{{pro.main_image}}" class="object-fit-contain h-100 w-100"></td>
                                 <td>{{pro.category.name}}</td>
                                 <td>{{pro.price}}</td>
+                                <td>{{pro.sale}}</td>
                                 <td>{{pro.date_import | date:'dd-MM-yyyy'}}</td>
                                 <td>{{pro.quantity}}</td>
                                 <td>{{pro.quantity > 0?'Còn hàng':'Hết hàng'}}</td>

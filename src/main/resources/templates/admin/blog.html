@@ -52,7 +52,7 @@
                     <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id != null">
                         <i class="fas fa-plus"></i> Create
                     </button>
-                    <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid">
+                    <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || form.id == null">
                         <i class="fas fa-rotate"></i> Update
                     </button>
                     <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="myForm.id.$invalid || form.id == null">
@@ -69,8 +69,7 @@
             </nav>
             <form name="myForm" novalidate> <!-- Add the 'novalidate' attribute to prevent HTML5 validation -->
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="form.id" readonly placeholder="id" required>
-                    <span ng-show="myForm.id.$touched && myForm.id.$invalid">ID is required!</span>
+                    <input type="text" class="form-control" ng-model="form.id" readonly placeholder="id">
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="form.title" placeholder="Title" required>

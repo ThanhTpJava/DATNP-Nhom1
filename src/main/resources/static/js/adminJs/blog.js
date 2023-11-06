@@ -100,7 +100,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         $http.post(url, item).then(resp => {
             // item.available = item.quantity>0?'true':'false';
             $scope.items.push(item);
-            $scope.reset();
+            $scope.load_all();
             console.log("Success", resp)
             alert("Create successfully!");
         }).catch(error => {
@@ -114,6 +114,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         $http.put(url, item).then(resp => {
             var index = $scope.items.findIndex(item => item.id == $scope.form.id);
             $scope.items[index] = resp.data;
+            $scope.load_all();
             // $scope.items[index].available = item[index].quantity>0?'true':'false';
             alert("Update successfully!");
         }).catch(error => {
@@ -127,7 +128,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             $http.delete(url).then(resp => {
                 var index = $scope.items.findIndex(item => item.id == $scope.form.id);
                 $scope.items.splice(index, 1);
-                $scope.reset();
+                $scope.load_all();
                 console.log("Success", resp)
                 alert("Delete successfully!");
             }).catch(error => {

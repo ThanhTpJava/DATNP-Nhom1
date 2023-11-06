@@ -51,4 +51,7 @@ public class BlogPost {
 	@ManyToOne
 	@JoinColumn(name = "UserID")
 	private Account account;
+
+	@Column(name = "status")
+	private Boolean status;
 }

@@ -40,6 +40,9 @@ public class Product implements Serializable{
 	@Column(name = "Price")
 	private double price;
 
+	@Column(name = "sale")
+	private Double sale;
+
 	@Column(name = "Quantity")
 	private Integer Quantity;
 
@@ -47,7 +50,7 @@ public class Product implements Serializable{
 	private String Product_information;
 
 	@Column(name = "Date_import")
-	private String date_import;
+	private Date date_import;
 
 	//Thời gian bảo hành
 	@Column(name ="warranty_period")
