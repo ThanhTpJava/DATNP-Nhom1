@@ -82,6 +82,16 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         }).catch(error => {
             console.log("Error", error)
         })
+
+        var url = `${host}/products`;
+        $http.get(url).then(resp => {
+            $scope.product = resp.data;
+            console.log("Success", resp)
+        }).catch(error => {
+            console.log("Error", error)
+        })
+
+
         //fill category select
         // var url = `${host}/categories`;
         // $http.get(url).then(resp => {
@@ -108,6 +118,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         $http.post(url, item).then(resp => {
             // item.available = item.quantity>0?'true':'false';
             $scope.items.push(item);
+            $scope.load_all();
             $scope.reset();
             console.log("Success", resp)
             alert("Create successfully!");
@@ -118,12 +129,14 @@ app.controller("ctrl", function ($scope, $http, $filter) {
 
     $scope.update = function () {
         var item = angular.copy($scope.form);
-        var url = `${host}/productImage/${$scope.form.id}`;
+        var url = `${host}/productImage/${$scope.form.imageID}`;
         $http.put(url, item).then(resp => {
             var index = $scope.items.findIndex(item => item.id == $scope.form.id);
-            $scope.items[index] = resp.data;
+            $scope.items[index] = resp.data
+            // console.log($scope.items[index]);
             // $scope.items[index].available = item[index].quantity>0?'true':'false';
             alert("Update successfully!");
+            $scope.load_all();
         }).catch(error => {
             console.log("Error", error)
         });
@@ -135,6 +148,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             $http.delete(url).then(resp => {
                 var index = $scope.items.findIndex(item => item.id == $scope.form.id);
                 $scope.items.splice(index, 1);
+                $scope.load_all();
                 $scope.reset();
                 console.log("Success", resp)
                 alert("Delete successfully!");

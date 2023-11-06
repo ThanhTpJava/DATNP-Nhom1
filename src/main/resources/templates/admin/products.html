@@ -255,10 +255,10 @@
             <!-- End of Topbar -->
             <nav class="navbar bg-white border-top border-bottom">
                 <div class="">
-                    <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || !form.name || !form.category.id || !form.price || !form.date_import || !form.quantity || !form.main_image || !form.description || !form.parranty_period">
+                    <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.name || !form.category.id || !form.price || !form.date_import || !form.quantity || !form.main_image || !form.description || !form.parranty_period || form.id != null" >
                         <i class="fas fa-plus"></i> Create
                     </button>
-                    <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || !form.name || !form.category.id || !form.price || !form.date_import || !form.quantity || !form.main_image || !form.description || !form.parranty_period">
+                    <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || !form.name || !form.category.id || !form.price || !form.date_import || !form.quantity || !form.main_image || !form.description || !form.parranty_period || form.id == null">
                         <i class="fas fa-rotate"></i> Update
                     </button>
                     <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="!form.id">

@@ -49,13 +49,13 @@
             <h2>Blog Posts</h2>
             <nav class="navbar bg-white border-top border-bottom">
                 <div class="">
-                    <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid">
+                    <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id != null">
                         <i class="fas fa-plus"></i> Create
                     </button>
                     <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid">
                         <i class="fas fa-rotate"></i> Update
                     </button>
-                    <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="myForm.id.$invalid">
+                    <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="myForm.id.$invalid || form.id == null">
                         <i class="fas fa-solid fa-ban"></i> Delete
                     </button>
                     <button ng-click="reset()" class="btn btn-secondary">

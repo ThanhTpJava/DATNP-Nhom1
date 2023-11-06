@@ -13,7 +13,7 @@ const rename = require("gulp-rename");
 const sass = require("gulp-sass");
 const uglify = require("gulp-uglify");
 
-// Load package.json for banner
+// Load address.json for banner
 const pkg = require('./package.json');
 
 // Set the banner content

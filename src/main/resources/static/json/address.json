@@ -1,0 +1,42 @@
+{
+  "addresses": [
+    {
+      "name": "Hà Nội",
+      "districts": [
+        {
+          "name": "Ba Đình",
+          "streets": [
+            {"name": "Đội Cấn"},
+            {"name": "Hoàng Hoa Thám"}
+          ]
+        },
+        {
+          "name": "Hoàn Kiếm",
+          "streets": [
+            {"name": "Tràng Tiền"},
+            {"name": "Hàng Bạc"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hồ Chí Minh",
+      "districts": [
+        {
+          "name": "Quận 1",
+          "streets": [
+            {"name": "Nguyễn Huệ"},
+            {"name": "Lê Lợi"}
+          ]
+        },
+        {
+          "name": "Quận 5",
+          "streets": [
+            {"name": "Trần Hưng Đạo"},
+            {"name": "Châu Văn Liêm"}
+          ]
+        }
+      ]
+    }
+  ]
+}

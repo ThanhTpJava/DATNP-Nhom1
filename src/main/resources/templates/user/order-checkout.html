@@ -72,13 +72,31 @@
 			</div>
 			<div class="mb-3">
 				<div>Shipping Address:</div>
-				<textarea ng-model="order.address"
-					class="form-control"></textarea>
+				<div class="row">
+					<div class="col-3">
+						<select ng-model="order.address.city" ng-change="updateAddress()" class="form-control" ng-options="city for city in cities" placeholder="Thành phố">
+							<option value="">Chọn Thành phố</option>
+						</select>
+					</div>
+					<div class="col-3">
+						<select ng-model="order.address.district" ng-change="updateAddress()" class="form-control" ng-options="district for district in districts" placeholder="Quận">
+							<option value="">Chọn Quận</option>
+						</select>
+					</div>
+					<div class="col-3">
+						<select ng-model="order.address.street" ng-change="updateAddress()" class="form-control" ng-options="street for street in streets" placeholder="Đường">
+							<option value="">Chọn Đường</option>
+						</select>
+					</div>
+				</div>
+
 			</div>
+
+
 
 		</div>
 		<div class="card-footer text-end">
-			<button ng-click="order.purchase()" type="submit"  ng-disabled="!order.address || order.address.trim().length === 0"
+			<button ng-click="order.purchase()" type="submit"
 				class="btn btn-success">Purchase</button>
 		</div>
 	</div>
