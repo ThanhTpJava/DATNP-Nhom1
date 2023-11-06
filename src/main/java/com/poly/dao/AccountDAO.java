@@ -22,4 +22,23 @@ public interface AccountDAO extends JpaRepository<Account, String>{
 	Optional<Account> findByUsername(String username);
 
 	Account findAccountsByUsername(String Username);
+
+	@Query("SELECT acc FROM Account acc JOIN Authority auth ON acc.username = auth.account.username "
+			+ "WHERE auth.role.Id = :roleName")
+    List<Account> findAccountsByRole(@Param("roleName") String roleName);
+//
+//	@Query("SELECT NEW AccountDTO(a.username, a.name, a.surname, a.hometown, a.residentialAddress,"
+//			+ " a.deliveryAddress, a.idCard, a.dateOfBirth, a.gender, a.email, a.phoneNumber,"
+//			+ " auth.role.Id) FROM Account a JOIN a.authorities auth")
+//    List<AccountDTO> findAllAccountsAndRoles();
+//
+//	@Query("SELECT NEW AccountDTO"
+//			+ "(a.username, a.name, a.surname, a.hometown, a.residentialAddress, a.deliveryAddress,"
+//			+ " a.idCard, a.dateOfBirth, a.gender, a.email, a.phoneNumber, auth.role.Id) "
+//			+ "FROM Account a JOIN a.authorities auth ON a.username = auth.account.username "
+//			+ "WHERE auth.role.Id = :roleName")
+//    List<AccountDTO> findAccountsAndRolesByRole(@Param("roleName") String roleName);
+
+
+
 }

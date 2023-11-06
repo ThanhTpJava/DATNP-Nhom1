@@ -2,12 +2,16 @@ package com.poly.service.impl;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.poly.dao.AccountDAO;
+import com.poly.dto.AccountDTO;
+import com.poly.dto.AccountDTOMapper;
 import com.poly.entity.Account;
 import com.poly.service.AccountService;
 
@@ -19,6 +23,9 @@ public class AccountServiceImpl implements AccountService{
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
+	@Autowired
+	AccountDTOMapper accountDTOMapper;
+	
 	public List<Account> findAll() {
 		return dao.findAll();
 	}
@@ -58,4 +65,33 @@ public class AccountServiceImpl implements AccountService{
 		}
 		return dao.saveAll(listAccounts);
 	}
+
+	@Override
+	public List<Account> findByRole(String roleName) {
+		// TODO Auto-generated method stub
+		return dao.findAccountsByRole(roleName);
+	}
+
+	@Override
+	public List<AccountDTO> findAllAccountDTO() {
+		// TODO Auto-generated method stub
+		return  dao.findAll().stream()
+				.map(accountDTOMapper).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<AccountDTO> findAccountDTOByRole(String roleName) {
+		// TODO Auto-generated method stub
+		return dao.findAccountsByRole(roleName).stream().map(accountDTOMapper).collect(Collectors.toList());
+	}
+
+	@Override
+	public AccountDTO getDetailAccountDTO(String username) {
+		// TODO Auto-generated method stub
+		List<AccountDTO> accountDTOs = dao.findById(username).stream().map(accountDTOMapper).collect(Collectors.toList());
+	    // Trả về đối tượng đầu tiên nếu có, hoặc null nếu danh sách rỗng
+	    return accountDTOs.isEmpty() ? null : accountDTOs.get(0);
+	}
+	
+	
 }
