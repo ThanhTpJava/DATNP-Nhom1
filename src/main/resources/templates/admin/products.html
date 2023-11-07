@@ -303,8 +303,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Start Date:</label>
-                                <input ng-model="form.date_import" type="date" class="form-control" name="date_import" required>
+                                <label>Date Of Import:</label>
+                                <input ng-model="form.date_import" type="date" class="form-control"  name="date_import" required>
 <!--                                <div ng-show="myForm.date_import.$touched && myForm.date_import.$error.required" style="color:red">-->
 <!--                                    Start Date là bắt buộc-->
 <!--                                </div>-->
@@ -332,8 +332,8 @@
                                        placeholder="Description">
                             </div>
                             <div class="mb-3">
-                                <input type="number" min="1" ng-model="form.parranty_period" class="form-control"
-                                       placeholder="Parranty Period">
+                                <input type="number" min="1" ng-model="form.warranty_period" class="form-control"
+                                       placeholder="Warranty Period">
                             </div>
                         </div>
                         <div class="bg-white border w-50 mb-3 rounded">
@@ -358,7 +358,7 @@
                                 <th>Status</th>
                                 <th>Description</th>
                                 <th>Product Information</th>
-                                <th>Parranty Period</th>
+                                <th>Warranty Period</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -375,7 +375,7 @@
                                 <td>{{pro.quantity > 0?'Còn hàng':'Hết hàng'}}</td>
                                 <td>{{pro.description}}</td>
                                 <td>{{pro.product_information}}</td>
-                                <td>{{pro.parranty_period}}</td>
+                                <td>{{pro.warranty_period}}</td>
                                 <td>
                                     <button class="btn btn-success" ng-click="detail(pro.id)"><i class="fas fa-edit"></i></button>
                                     <button class="btn btn-danger" ng-click="delete(pro.id)"><i class="fas fa-trash"></i></button>
