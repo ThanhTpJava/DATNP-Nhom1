@@ -54,7 +54,7 @@ public class Product implements Serializable{
 
 	//Thời gian bảo hành
 	@Column(name ="warranty_period")
-	private Integer Parranty_period;
+	private Integer warranty_period;
 
 	@Column(name ="main_image")
 	private String main_image;
