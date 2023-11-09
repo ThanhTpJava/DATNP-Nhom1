@@ -58,6 +58,7 @@ app.controller("cart-ctrl", function($scope, $http){
 			createDate: new Date(),
 			address: "",
 			status: 0,
+			totalAmount: $cart.amount,
 			get orderDetails(){
 				return $cart.items.map(item => {
 					console.log(item); // Check if 'price' exists in 'item'

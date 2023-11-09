@@ -63,6 +63,7 @@
                             <td>{{order.id}}</td>
                             <td>{{order.createDate}}</td>
                             <td>{{order.address}}</td>
+                            <td>{{order.totalAmount | currency:''}} đ</td>
                             <td class="font-weight-bold" ng-class="{
                 'text-warning': order.status === 0,
                 'text-success': order.status === 1,
