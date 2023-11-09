@@ -40,6 +40,7 @@ public class Product implements Serializable{
 	@Column(name = "Price")
 	private double price;
 
+	//giảm giá bao nhiêu phần trăm
 	@Column(name = "sale")
 	private Double sale;
 

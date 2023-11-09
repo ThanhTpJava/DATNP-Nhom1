@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:fragment="dynamic(main)">
+      th:fragment="dynamic(main)" xmlns:ng="http://www.w3.org/1999/xhtml">
 
 <head>
 
@@ -39,19 +39,18 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul th:replace="admin/index :: sidebar"></ul>
+    <ul th:replace="~{admin/index :: sidebar}"></ul>
     <!-- End of Sidebar -->
 	
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column vh-100">
         <main>
-            <div class="container mt-5">
+            <div class="ml-5 mt-5">
                 <div class="panel panel-primary">
                     <div class="panel-heading">YOUR PURCHASED ORDERS</div>
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>No.</th>
                             <th>Order No.</th>
                             <th>Order Date</th>
                             <th>Shipping Address</th>
@@ -60,23 +59,44 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="order, state: ${orders}">
-                            <td th:text="${state.index}"></td>
-                            <td th:text="${order.id}"></td>
-                            <td th:text="${order.createDate}"></td>
-                            <td th:text="${order.address}"></td>
-
-                            <td th:text="${order.status == 1 ? 'Người mua đã mua hàng' : (order.status == 2 ? 'Đơn hàng đã bị hủy' : 'Đang xác nhận đơn hàng')}"
-                                th:class="${order.status == 1 ? 'text-success fw-bold' : (order.status == 2 ? 'text-danger fw-bold' : 'text-warning fw-bold')}">
+                        <tr ng-repeat="order in items | startFrom:currentPage*pageSize | limitTo:pageSize | orderBy:'createDate' ">
+                            <td>{{order.id}}</td>
+                            <td>{{order.createDate}}</td>
+                            <td>{{order.address}}</td>
+                            <td class="font-weight-bold" ng-class="{
+                'text-warning': order.status === 0,
+                'text-success': order.status === 1,
+                'text-primary': order.status === 2,
+                'text-secondary ': order.status === 3,
+                'text-danger': order.status === 4
+            }">
+                                {{order.status === 0 ? 'Đang xác nhận' : order.status === 1 ? 'Đã thanh toán' : order.status === 2 ? 'Đã giao' : order.status === 3 ? 'Trả hàng' : 'Đã hủy'}}
                             </td>
-                            <td><a th:href="@{|/order/detail/${order.id}|}"> <i
-                                    class="bi bi-search"></i>
-                            </a></td>
-                            <td><button class="btn btn-primary">Giao hàng</button></td>
-                            <td><button class="btn btn-danger">Huy don hang</button></td>
+                            <td>
+                                <button class="btn btn-danger" ng-if="order.status === 0 || order.status === 2"  ng-click="updateStatus(order, 4)">Hủy đơn hàng</button>
+                                <button class="btn btn-primary" ng-if="order.status === 1" ng-click="updateStatus(order, 1)">Giao hàng</button>
+                                <button class="btn btn-success" ng-if="order.status === 4" ng-click="updateStatus(order, 0)">Hoàn tác</button>
+                            </td>
+                            <td><a ng-href="order/{{order.id}}"> <i class="bi bi-search"></i> </a></td>
                         </tr>
                         </tbody>
                     </table>
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#" ng-disabled="currentPage == 0"
+                                                     ng-click="currentPage=currentPage-1">Previous</a></li>
+                            </li>
+                            <li ng-repeat="n in range(numberOfPages())" class="page-item"
+                                ng-class="{active: n == currentPage}"
+                                ng-click="setPage()">
+                                <a class="page-link" href ng-bind="n + 1">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#"
+                                                     ng-disabled="currentPage >= items.length/pageSize - 1"
+                                                     ng-click="currentPage=currentPage+1">Next</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </main>
@@ -119,7 +139,7 @@
 <script>
     var sortingOrder = 'name';
 </script>
-<script src="/js/adminJs/crudProduct.js"></script>
+<script src="/js/adminJs/order.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor-admin/jquery/jquery.min.js"></script>
 <script src="/vendor-admin/bootstrap/js/bootstrap.bundle.min.js"></script>

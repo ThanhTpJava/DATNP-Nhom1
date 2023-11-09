@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "UserID")
