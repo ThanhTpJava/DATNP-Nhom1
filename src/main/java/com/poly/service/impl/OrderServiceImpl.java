@@ -1,6 +1,8 @@
 package com.poly.service.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -49,5 +51,21 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public List<Order> findAll() {
 		return dao.findAll();
+	}
+
+	public Order EditbyID(Order updatedOrder) {
+		Optional<Order> optionalOrder = dao.findById(updatedOrder.getId());
+		if (optionalOrder.isPresent()) {
+			Order existingOrder = optionalOrder.get();
+			existingOrder.setStatus(updatedOrder.getStatus());
+			return dao.save(existingOrder);
+		} else {
+			// Xử lý trường hợp không tìm thấy đơn hàng
+			throw new NoSuchElementException("Không tìm thấy đơn hàng với ID: " + updatedOrder.getId());
+		}
+	}
+
+	public void delete(Long id) {
+		dao.deleteById(id);
 	}
 }
