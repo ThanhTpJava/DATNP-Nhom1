@@ -21,4 +21,5 @@ public interface OrderService {
 
 	public void delete(Long id) ;
 
+	public List<Object[]> deliveredOrdersByMonth();
 }

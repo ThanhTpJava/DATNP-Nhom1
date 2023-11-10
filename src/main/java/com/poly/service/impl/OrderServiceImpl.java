@@ -1,8 +1,6 @@
 package com.poly.service.impl;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -67,5 +65,10 @@ public class OrderServiceImpl implements OrderService{
 
 	public void delete(Long id) {
 		dao.deleteById(id);
+	}
+
+	@Override
+	public List<Object[]> deliveredOrdersByMonth() {
+		return dao.findDeliveredOrdersByMonth();
 	}
 }

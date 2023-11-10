@@ -25,10 +25,24 @@ app.controller("cart-ctrl", function($scope, $http){
             this.items = []
             this.saveToLocalStorage();
         },
-        amt_of(item){ // tính thành tiền của 1 sản phẩm
-        	return item.price * item.qty;
-        },
-        get count(){ // tính tổng số lượng các mặt hàng trong giỏ
+		amt_of(item) {
+			var originalPrice = item.price;
+			var discountedPrice = originalPrice; // Giá sau khi áp dụng giảm giá
+
+			// Tính giảm giá theo trường hợp giảm giá của sản phẩm
+			if (item.sale) {
+				discountedPrice = originalPrice * (1 - item.sale / 100); // Giảm giá theo phần trăm
+			}
+
+			// Kiểm tra xem $scope.order có được định nghĩa hay không và có thuộc tính 'voucher' hay không
+			if ($scope.order && $scope.order.voucher && $scope.order.voucher.discount) {
+				discountedPrice = discountedPrice * (1 - $scope.order.voucher.discount / 100); // Giảm giá theo phần trăm từ voucher
+			}
+
+			return discountedPrice * item.qty;
+		},
+
+		get count(){ // tính tổng số lượng các mặt hàng trong giỏ
             return this.items
             	.map(item => item.qty)
                 .reduce((total, qty) => total += qty, 0);
