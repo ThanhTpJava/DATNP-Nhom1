@@ -11,4 +11,10 @@ import com.poly.entity.Order;
 public interface OrderDAO extends JpaRepository<Order, Long>{
 	@Query("SELECT o FROM Order o WHERE o.account.username=?1")
 	List<Order> findByUsername(String username);
+
+//	@Query("SELECT o FROM Order o WHERE o.Status = 2 AND YEAR(o.createDate) = :year")
+//	List<Order> findDeliveredOrdersByYear(@Param("year") int year);
+
+	@Query("SELECT DAY(o.createDate), sum(o.TotalAmount) FROM Order o WHERE o.Status = 0 AND MONTH(o.createDate)= 11 GROUP BY DAY(o.createDate)")
+	List<Object[]> findDeliveredOrdersByMonth();
 }

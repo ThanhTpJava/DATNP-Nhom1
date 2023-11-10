@@ -1,5 +1,6 @@
 package com.poly.rest.controller;
 
+import com.poly.dao.OrderDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import com.poly.entity.Order;
 import com.poly.service.OrderService;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
@@ -41,4 +43,10 @@ public class OrderRestController {
 	public void deleteOrder(@PathVariable Long id){
 		orderService.delete(id);
 	}
+
+	@GetMapping("/deliveredOrdersByMonth")
+	public List<Object[]> deliveredOrdersByMonth() {
+		return orderService.deliveredOrdersByMonth();
+	}
+
 }
