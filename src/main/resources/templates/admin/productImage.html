@@ -70,7 +70,7 @@
                             <img ng-src="{{form.imageURL}}" ng-alt="{{form.imageURL}}" class="object-fit-contain h-100 w-100"
                                  alt="...">
                         </div>
-                        <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id != null">
+                        <button ng-click="create()" class="btn btn-primary" ng-disabled="form.id != null">
                             <i class="fas fa-plus"></i> Create
                         </button>
                         <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || form.id == null">
@@ -98,7 +98,7 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <td>Hình ảnh</td>
+                            <th>Hình ảnh</th>
                             <th>Đường dẫn</th>
                             <th>ID sản phẩms</th>
                             <th>Tên sản phẩm</th>

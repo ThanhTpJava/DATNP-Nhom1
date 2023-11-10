@@ -99,6 +99,7 @@
                         <th>Title</th>
                         <th>Image</th>
                         <th>Content</th>
+                        <th>Create Date</th>
                         <th>Tag</th>
                         <th>Account</th>
                         <th>Action</th>
@@ -109,9 +110,9 @@
                         <td>{{b.id}}</td>
                         <td>{{b.title}}</td>
                         <td><img ng-src="{{b.image}}" class="object-fit-contain h-100 w-100"></td>
+                        <td>{{ b.content | limitTo:200 }}{{ b.content.length > 200 ? '...' : '' }}</td>
                         <td>{{b.publishDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{b.tag}}</td>
-                        <td>{{ b.content | limitTo:200 }}{{ b.content.length > 200 ? '...' : '' }}</td>
                         <td>{{b.account.name}}</td>
                         <td>
                             <button class="btn btn-success" ng-click="detail(b.id)"><i class="fas fa-edit"></i></button>

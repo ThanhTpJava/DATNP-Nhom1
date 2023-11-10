@@ -119,7 +119,6 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             // item.available = item.quantity>0?'true':'false';
             $scope.items.push(item);
             $scope.load_all();
-            $scope.reset();
             console.log("Success", resp)
             alert("Create successfully!");
         }).catch(error => {
@@ -144,12 +143,11 @@ app.controller("ctrl", function ($scope, $http, $filter) {
 
     $scope.delete = function (id) {
         if (confirm("THIS ACTION CAN'T UNDO!\nAre you sure to delete this product?") == true) {
-            var url = `${host}/productImage/${id}`;s
+            var url = `${host}/productImage/${id}`;
             $http.delete(url).then(resp => {
                 var index = $scope.items.findIndex(item => item.id == $scope.form.id);
                 $scope.items.splice(index, 1);
                 $scope.load_all();
-                $scope.reset();
                 console.log("Success", resp)
                 alert("Delete successfully!");
             }).catch(error => {
