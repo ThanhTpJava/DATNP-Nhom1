@@ -1,4 +1,4 @@
-6package com.poly.entity;
+package com.poly.entity;
 
 import java.sql.Date;
 
