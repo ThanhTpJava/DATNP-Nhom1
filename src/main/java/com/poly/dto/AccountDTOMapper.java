@@ -25,6 +25,7 @@ public class AccountDTOMapper implements Function<Account, AccountDTO>{
 				acc.getGender(), 
 				acc.getEmail(), 
 				acc.getPhonenumber(), 
+				acc.getPhoto(),
 				acc.getAuthorities().stream()
 				.map(role -> role.getRole().getName())
 				.collect(Collectors.toList())

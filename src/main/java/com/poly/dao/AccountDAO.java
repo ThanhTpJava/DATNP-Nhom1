@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-
+import com.poly.dto.AccountDTO;
 import com.poly.entity.Account;
 
 @Repository
@@ -27,6 +29,22 @@ public interface AccountDAO extends JpaRepository<Account, String>{
 	@Query("SELECT acc FROM Account acc JOIN Authority auth ON acc.username = auth.account.username "
 			+ "WHERE auth.role.Id = :roleName")
     List<Account> findAccountsByRole(@Param("roleName") String roleName);
+	
+	@Modifying
+    @Transactional
+    @Query("UPDATE Account a SET " +
+           "a.name = :#{#dto.name}, " +
+           "a.surname = :#{#dto.surname}, " +
+           "a.hometown = :#{#dto.hometown}, " +
+           "a.residential_address = :#{#dto.residentialAddress}, " +
+           "a.delivery_address = :#{#dto.deliveryAddress}, " +
+           "a.idCard = :#{#dto.idCard}, " +
+           "a.dateOfBirth = :#{#dto.dateOfBirth}, " +
+           "a.Gender = :#{#dto.gender}, " +
+           "a.email = :#{#dto.email}, " +
+           "a.phonenumber = :#{#dto.phoneNumber} " +        
+           "WHERE a.username = :#{#dto.username}")
+    void updateAccountFromDTO(@Param("dto") AccountDTO dto);
 //
 //	@Query("SELECT NEW AccountDTO(a.username, a.name, a.surname, a.hometown, a.residentialAddress,"
 //			+ " a.deliveryAddress, a.idCard, a.dateOfBirth, a.gender, a.email, a.phoneNumber,"
@@ -40,6 +58,6 @@ public interface AccountDAO extends JpaRepository<Account, String>{
 //			+ "WHERE auth.role.Id = :roleName")
 //    List<AccountDTO> findAccountsAndRolesByRole(@Param("roleName") String roleName);
 
-
+	
 
 }

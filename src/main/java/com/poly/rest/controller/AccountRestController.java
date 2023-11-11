@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.poly.dto.AccountDTO;
 import com.poly.entity.Account;
 import com.poly.entity.Authority;
 import com.poly.entity.Role;
@@ -93,4 +93,18 @@ public class AccountRestController {
         response.put("available", isAvailable);
         return response;
     }
+	
+	@PostMapping(value = {"/account/detail/update"})
+	public ResponseEntity<Void> updateAccount(@RequestBody AccountDTO accDTO){
+		AccountDTO accountDTO = accDTO;
+		System.out.println(accountDTO.deliveryAddress());
+		 accountService.updateAccount(accDTO);
+		 return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/account/detail/{username}")
+	public ResponseEntity<AccountDTO> getDetailAccount(@PathVariable String username){
+		
+		return ResponseEntity.ok(accountService.getDetailAccountDTO(username));
+	}
 }

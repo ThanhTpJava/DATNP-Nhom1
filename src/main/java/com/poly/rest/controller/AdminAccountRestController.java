@@ -34,6 +34,7 @@ public class AdminAccountRestController {
 	
 	@GetMapping("/detail/{username}")
 	public ResponseEntity<AccountDTO> getDetailAccount(@PathVariable String username){
+		
 		return ResponseEntity.ok(accService.getDetailAccountDTO(username));
 	}
 	

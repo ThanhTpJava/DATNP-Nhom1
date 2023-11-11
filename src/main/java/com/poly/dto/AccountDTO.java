@@ -17,6 +17,7 @@ public record AccountDTO(
 		GenderEnum gender,
 		String email,
 		String phoneNumber,
+		String photo,
 		List<String> roleName
 	)
 {

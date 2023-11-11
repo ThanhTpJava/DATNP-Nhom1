@@ -30,26 +30,26 @@ public class ProductAdminController {
         return "admin/products";
     }
 
-    @RequestMapping("/admin/accounts")
-
-    public String Account(Model model, 
-    		@RequestParam(name = "role", required = false, defaultValue = "All") String role) {
-    	
-    	List<AccountDTO> lisAccountDTOs;
-    	
-    	if("All".equalsIgnoreCase(role)) {
-    		lisAccountDTOs = accService.findAllAccountDTO();
-    	}else {
-    		lisAccountDTOs = accService.findAccountDTOByRole(role);
-    		if (lisAccountDTOs.isEmpty()) {
-				System.out.println("Rỗng");
-			}
-		}
-    	
-    	model.addAttribute("listAccounts", lisAccountDTOs);
-    	
-        return "admin/accounts";
-
-    }
+//    @RequestMapping("/admin/accounts")
+//
+//    public String Account(Model model, 
+//    		@RequestParam(name = "role", required = false, defaultValue = "All") String role) {
+//    	
+//    	List<AccountDTO> lisAccountDTOs;
+//    	
+//    	if("All".equalsIgnoreCase(role)) {
+//    		lisAccountDTOs = accService.findAllAccountDTO();
+//    	}else {
+//    		lisAccountDTOs = accService.findAccountDTOByRole(role);
+//    		if (lisAccountDTOs.isEmpty()) {
+//				System.out.println("Rỗng");
+//			}
+//		}
+//    	
+//    	model.addAttribute("listAccounts", lisAccountDTOs);
+//    	
+//        return "admin/accounts";
+//
+//    }
 
 }

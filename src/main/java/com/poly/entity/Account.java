@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @SuppressWarnings("serial")
 @NoArgsConstructor
 @AllArgsConstructor
-//dđ
+
 public class Account implements Serializable{
 	@Id
 	@Size(min = 5, message = "Tên tài khoản quá ngắn")
@@ -51,7 +51,7 @@ public class Account implements Serializable{
 	@Column(name ="residential_address", columnDefinition = "NVARCHAR(80)") //địa chỉ thường trú cho nhân viên
 	private String residential_address;
 
-	@Column(name ="delivery_address", columnDefinition = "VARCHAR(80)") //địa chỉ giao hàng cho shipper mặc ịnh
+	@Column(name ="delivery_address", columnDefinition = "NVARCHAR(80)") //địa chỉ giao hàng cho shipper mặc ịnh
 	private String delivery_address;
 
 	@Column(name ="idCard", columnDefinition = "VARCHAR(13)")
