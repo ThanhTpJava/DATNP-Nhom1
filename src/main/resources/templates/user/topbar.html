@@ -17,6 +17,11 @@
 			<a class="flex-c-m trans-04 p-lr-25" href="/auth/logoff/success">
 				Logout</a>
 		</th:block> 
+		
+		<th:block sec:authorize="hasAnyRole('ROLE_SALE', 'ROLE_USER', 'ROLE_STOCK')">
+			<a class="flex-c-m trans-04 p-lr-25" href="/account/detail">
+				Account</a>
+		</th:block> 
 
 		<a href="#" class="flex-c-m trans-04 p-lr-25"> EN </a> <a href="#"
 			class="flex-c-m trans-04 p-lr-25"> USD </a>

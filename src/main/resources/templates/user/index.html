@@ -52,6 +52,10 @@
 <!--===============================================================================================-->
 <link th:href="@{/css/util.css}" rel="stylesheet" type="text/css" />
 <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" th:href="@{/assets/css/account-infomatinon.css}">
+<link rel="stylesheet" th:href="@{/assets/css/button17.css}">
+<link rel="stylesheet" th:href="@{/assets/css/button50.css}">
+<link rel="stylesheet" th:href="@{/assets/css/popup.css}">
 <!--===============================================================================================-->
 </head>
 
@@ -64,7 +68,7 @@
 			<!-- Topbar -->
 			<div class="top-bar">
 				<div th:replace="~{/user/topbar.html}"></div>
-		
+
 			</div>
 
 			<div class="wrap-menu-desktop how-shadow1">
@@ -257,7 +261,8 @@
 					<div class="header-cart-buttons flex-w w-full">
 						<a th:href="@{|/cart/view|}"
 							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-							View Cart </a> <a th:href="@{|/order/checkout|}" ng-if="cart.amount > 0"
+							View Cart </a> <a th:href="@{|/order/checkout|}"
+							ng-if="cart.amount > 0"
 							class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
 							Check Out </a>
 					</div>
@@ -576,7 +581,7 @@
 
 	<!-- Modal1 -->
 
-
+	
 
 	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
 	<script th:src="@{/vendor/animsition/js/animsition.min.js}"></script>
@@ -673,7 +678,9 @@
 		});
 	</script>
 	<script th:src="@{/js/main.js}"></script>
-
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	
 
 </body>
 </html>

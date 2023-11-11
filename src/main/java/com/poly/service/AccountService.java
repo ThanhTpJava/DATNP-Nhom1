@@ -25,4 +25,6 @@ public interface AccountService {
 	Boolean emailExit(String email);
 	
 	List<Account> saveAllAccounts(List<Account> listAccounts);
+	
+	void updateAccount(AccountDTO accDTO);
 }

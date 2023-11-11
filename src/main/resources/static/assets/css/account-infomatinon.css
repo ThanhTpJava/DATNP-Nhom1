@@ -37,6 +37,10 @@
     color: black;
 }
 
+.container-acc-detail .acc-detail textarea{
+    color: black;
+}
+
 .container-acc-detail .acc-detail .ip-apitalize{
 	text-transform: capitalize;
 }
@@ -53,6 +57,8 @@
 .acc-detail .avatar{
     width: 200px;
     height: 200px;
+    max-width: 100%;
+    padding: 0;
     border-radius: 50%;
     position: absolute;
 }
@@ -118,6 +124,15 @@
     margin: 10px 20px 20px 20px;
 }
 
+.change-role .image-background{
+   background-image: url('/images/cat-dollar.gif');
+    background-size: cover;
+    background-position: center center;
+    border-radius: 8px;
+    height: 125px;
+    margin: 10px 20px 20px 20px;
+}
+
 .change-role .role-change-box .role-select label{
     color: rgb(0, 0, 0);
    border-radius: 50%;
@@ -132,4 +147,9 @@
 
 .change-role .role-change-box h5{
     font-weight: 700;
+}
+
+#user-name{
+	text-transform: lowercase;
+	display: none;
 }

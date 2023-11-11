@@ -92,6 +92,12 @@ public class AccountServiceImpl implements AccountService{
 	    // Trả về đối tượng đầu tiên nếu có, hoặc null nếu danh sách rỗng
 	    return accountDTOs.isEmpty() ? null : accountDTOs.get(0);
 	}
-	
-	
+
+	@Override
+	public void updateAccount(AccountDTO accDTO) {
+		// TODO Auto-generated method stub
+		  dao.updateAccountFromDTO(accDTO);
+		 
+	}
+		
 }

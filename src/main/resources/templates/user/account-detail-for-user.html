@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Account Infomation</title>
+<link th:href="@{/images/icons/favicon.png}" rel="icon" type="image/png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/account-infomatinon.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+	crossorigin="anonymous">
+	
+	<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+	integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" th:href="@{/assets/css/account-infomatinon.css}">
+<link rel="stylesheet" th:href="@{/assets/css/button17.css}">
+<link rel="stylesheet" th:href="@{/assets/css/button50.css}">
+<link rel="stylesheet" th:href="@{/assets/css/popup.css}">
+
+</head>
+
+<body ng-app="app-account" ng-controller="ctrl-account">
+
+	<!-- Acc detail form  -->
+	<div class="container-acc-detail">
+		<form class="acc-detail open-acc-detail" id="acc-detail" action="">
+			<img ng-if="avatar != ''" ng-src="{{avatar}}" alt=""
+				class="avatar col-3">
+
+			<div class="first-info row col-9">
+				<div class="col">
+					<label for="inputFirstName" class="form-label">First Name</label> <input
+						ng-model="accDetail.userData[0].surname" type="text"
+						class="form-control ip-apitalize" id="inputFirstName">
+				</div>
+				<div class="col-5">
+					<label for="inputLastName" class="form-label">Last Name</label> <input
+						ng-model="accDetail.userData[0].name" type="text"
+						class="form-control ip-apitalize" id="inputLastName"
+						placeholder="">
+				</div>
+			</div>
+
+			<div class="second-info row col-9">
+				<div class="col ">
+					<label for="inputBirthDay" class="form-label">Birth Day</label> <i
+						class="fa-solid fa-triangle-exclamation"
+						ng-if="!accDetail.userData[0].dateOfBirth"></i> <input type="date"
+						ng-model="accDetail.userData[0].dateOfBirth" class="form-control"
+						id="inputBirthDay">
+				</div>
+				<div class="col-6">
+					<label for="gender-select" class="form-label">Gender</label> <i
+						class="fa-solid fa-triangle-exclamation"
+						ng-if="accDetail.userData[0].gender == 'UNKNOW'"></i> <br>
+					<div class="form-check form-check-inline mt-2" id="gender-select">
+						<input class="form-check-input" type="radio"
+							name="inlineRadioOptions" id="inlineRadio1" value="MALE"
+							ng-model="accDetail.userData[0].gender"
+							ng-checked="accDetail.userData[0].gender == 'MALE'"> <label
+							class="form-check-label" for="inlineRadio1">Male</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio"
+							name="inlineRadioOptions" id="inlineRadio2" value="FEMALE"
+							ng-model="accDetail.userData[0].gender"
+							ng-checked="accDetail.userData[0].gender == 'FEMALE'"> <label
+							class="form-check-label" for="inlineRadio2">Female</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="third-info row col-10">
+				<div class="col">
+					<label for="inputFirstName" class="form-label">Phone Number</label>
+					<i class="fa-solid fa-triangle-exclamation"
+						ng-if="!accDetail.userData[0].phoneNumber"></i> <input type="text"
+						ng-model="accDetail.userData[0].phoneNumber" class="form-control"
+						id="inputFirstName">
+				</div>
+				<div class="col-6">
+					<label for="inputLastName" class="form-label">CCCD/CMND</label> <i
+						class="fa-solid fa-triangle-exclamation"
+						ng-if="!accDetail.userData[0].idCard"></i> <input type="text"
+						ng-model="accDetail.userData[0].idCard" class="form-control"
+						id="inputLastName" placeholder="">
+				</div>
+			</div>
+
+			<div class="fourth-info row col-12">
+				<div class="col">
+					<label for="inputFirstName" class="form-label">Email</label> <input
+						ng-model="accDetail.userData[0].email" type="email"
+						class="form-control" id="inputFirstName">
+				</div>
+				<div class="col-6">
+					<label for="inputLastName" class="form-label">Home town</label> <i
+						class="fa-solid fa-triangle-exclamation"
+						ng-if="!accDetail.userData[0].hometown"></i> <input type="text"
+						class="form-control ip-apitalize" id="inputLastName"
+						ng-model="accDetail.userData[0].hometown" placeholder="">
+				</div>
+			</div>
+
+			<div class="five-info row col-12">
+				<div class="col">
+					<label for="exampleFormControlTextarea1"
+						class="form-label ip-apitalize">Delivery address</label> <i
+						class="fa-solid fa-triangle-exclamation"
+						ng-if="!accDetail.userData[0].deliveryAddress"></i>
+					<textarea class="form-control ip-apitalize"
+						id="exampleFormControlTextarea1"
+						ng-model="accDetail.userData[0].deliveryAddress" rows="3"></textarea>
+				</div>
+				<div class="col-6">
+					<label for="exampleFormControlTextarea1"
+						class="form-label ip-apitalize">Residential Address</label> <i
+						class="fa-solid fa-triangle-exclamation"
+						ng-if="!accDetail.userData[0].residentialAddress"></i>
+					<textarea class="form-control" id="exampleFormControlTextarea1"
+						ng-model="accDetail.userData[0].residentialAddress" rows="3"></textarea>
+				</div>
+			</div>
+
+			<div class="button-account-detail ">
+				<div class="button-row">
+					<button class="button-50 submit-btn50" type="button"
+						ng-click="UpdatePopupOpen()" role="button">Submit</button>
+				</div>
+				<div class="button-row">
+					<a href="/"><button class="button-50 cancel-btn50"
+							type="button" role="button">Home</button></a>
+				</div>
+			</div>
+			<!-- change role -->
+			<div sec:authorize="hasAnyRole('ROLE_ADMIN')"
+				th:replace="~{admin/admin-change-role :: admin-change-role}"></div>
+
+			<div
+				sec:authorize="hasAnyRole('ROLE_SALE', 'ROLE_USER', 'ROLE_STOCK')"
+				th:replace="~{user/box-role-user :: box-role-user}"></div>
+		</form>
+	</div>
+	<span sec:authentication="name" id="user-name"></span>
+
+	<div class="popup-auth-update"
+		ng-class="{ 'open-popup': isUpdatePopupOpen }" id="popup">
+		<img th:src="@{/images/icons/question_mark_PNG55.png}" alt="">
+		<h2>Warning</h2>
+		<p>Are you sure about this operation?</p>
+		<div class="box-btn">
+			<button type="button" class="btn-alert-confirm"
+				ng-click="accDetail.updateDataAccount()">OK</button>
+			<button type="button" class="btn-alert-cancel"
+				ng-click="UpdatePopupClose()">Cancel</button>
+		</div>
+
+	</div>
+	
+	<div class="popup" ng-class="{ 'open-popup': isPopupOpen }">
+		<img th:src="@{/images/icons/tick.png}" alt="">
+		<h2>Success</h2>
+		<p>The change has been updated, please refresh the page to verify.</p>
+		<button type="button" ng-click="closePopup()">OK</button>
+	</div>
+	
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script th:src="@{/assets/js/account-detail.js}"></script>
+	<script th:src="@{/assets/js/popup.js}"></script>
+
+	<script>
+		
+	</script>
+</body>
+
+</html>
