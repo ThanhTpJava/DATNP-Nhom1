@@ -39,6 +39,7 @@ public class Product implements Serializable{
 
 	@Column(name = "Price")
 	private double price;
+	
 
 	@Column(name = "Quantity")
 	private Integer Quantity;
