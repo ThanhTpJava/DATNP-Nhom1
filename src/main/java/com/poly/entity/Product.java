@@ -39,7 +39,10 @@ public class Product implements Serializable{
 
 	@Column(name = "Price")
 	private double price;
-	
+
+	//giảm giá bao nhiêu phần trăm
+	@Column(name = "sale")
+	private Double sale;
 
 	@Column(name = "Quantity")
 	private Integer Quantity;
@@ -47,9 +50,12 @@ public class Product implements Serializable{
 	@Column(name = "Product_information", columnDefinition = "nvarchar(max)")
 	private String Product_information;
 
+	@Column(name = "Date_import")
+	private Date date_import;
+
 	//Thời gian bảo hành
 	@Column(name ="warranty_period")
-	private Integer Parranty_period;
+	private Integer warranty_period;
 
 	@Column(name ="main_image")
 	private String main_image;
@@ -62,6 +68,7 @@ public class Product implements Serializable{
 	@OneToMany(mappedBy = "product")
 	private List<OrderDetail> orderDetails;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<ProductImage> productImage;
 }
