@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.poly.entity.Order;
 @Repository
-public interface OrderDAO extends JpaRepository<Order, Long>{
+public interface OrderDAO extends JpaRepository<Order, String>{
 	@Query("SELECT o FROM Order o WHERE o.account.username=?1")
 	List<Order> findByUsername(String username);
 
@@ -17,4 +17,7 @@ public interface OrderDAO extends JpaRepository<Order, Long>{
 
 	@Query("SELECT DAY(o.createDate), sum(o.TotalAmount) FROM Order o WHERE o.Status = 0 AND MONTH(o.createDate)= 11 GROUP BY DAY(o.createDate)")
 	List<Object[]> findDeliveredOrdersByMonth();
+
+	@Query("SELECT od.id FROM Order od")
+	List<String> getAllOrderId();
 }

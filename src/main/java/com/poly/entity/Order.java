@@ -1,17 +1,7 @@
 package com.poly.entity;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name ="Orders")
 public class Order {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "orderid", columnDefinition = "varchar(8)")
+	private String id;
 
 	@ManyToOne
 	@JoinColumn(name = "UserID")
@@ -58,5 +48,13 @@ public class Order {
 	@JsonIgnore
 	@OneToMany(mappedBy = "order")
 	List<OrderDetail> orderDetails;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "order")
+	List<OrderStatus> orderStatuses;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "orderResponsi")
+	List<Responsibility> listOrderResponsi;
 
 }

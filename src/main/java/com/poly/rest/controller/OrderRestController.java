@@ -25,7 +25,7 @@ public class OrderRestController {
 		return orderService.findAll();
 	}
 	@GetMapping("{id}")
-	public Order findByID(@PathVariable("id") Long id){
+	public Order findByID(@PathVariable("id") String id){
 		return orderService.findById(id);
 	}
 	
@@ -40,7 +40,7 @@ public class OrderRestController {
 	}
 
 	@DeleteMapping("{id}")
-	public void deleteOrder(@PathVariable Long id){
+	public void deleteOrder(@PathVariable String id){
 		orderService.delete(id);
 	}
 

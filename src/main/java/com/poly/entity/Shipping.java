@@ -16,7 +16,7 @@ import lombok.Setter;
 @Table(name = "Shipping")
 public class Shipping {
 	@Id
-    @Column(name = "ShippingType", columnDefinition = "nvarchar(max)" )
+    @Column(name = "ShippingType", columnDefinition = "nvarchar(50)" )
     private String ShippingType;
 
     @Column(name = "Time")

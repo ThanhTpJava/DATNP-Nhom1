@@ -59,11 +59,16 @@
 		<div class="card-header bg-info text-white">ORDER PURCHASING</div>
 		<div class="card-body">
 			<div class="row mb-3">
+				<div class="col-sm-12">
+					<div>Order Id:</div>
+					<div class="form-control" id = "order-id" ng-value="orderId" ng-model = "order.id">[[${orderId}]]</div>
+				</div>
 				<div class="col-sm-6">
 					<div>Purchaser:</div>
 					<div class="form-control">{{$auth.username}}
 						({{$auth.email}})</div>
 				</div>
+
 				<div class="col-sm-6">
 					<div>Order Date:</div>
 					<div class="form-control">{{order.createDate | date :
