@@ -3,6 +3,8 @@ package com.poly.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.poly.util.CreateOrderId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,13 +31,21 @@ public class OrderController {
 	
 	@Autowired
 	HttpSession session;
+
+	@Autowired
+	CreateOrderId createOrderId;
 	
 	@RequestMapping("/order/checkout")
-	public String checkout(HttpServletRequest request) {
+	public String checkout(HttpServletRequest request, Model model) {
+			
 		 HttpSession session = request.getSession();
 		if(session.getAttribute("authentication") != null){
+			String orderId = createOrderId.generateInvoiceCode();
+			System.out.println("Mã hóa đơn: " +orderId);
+			model.addAttribute("orderId", orderId);
 			return "user/order-checkout";
 		}
+		
 		return "redirect:/auth/login/form";
 		
 	}
