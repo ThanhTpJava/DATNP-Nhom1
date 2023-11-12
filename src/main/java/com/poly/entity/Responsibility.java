@@ -19,12 +19,12 @@ public class Responsibility implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "username")
     private Account account;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "orderid", columnDefinition = "varchar(8)")
+    private Order orderResponsi;
 
     @ManyToOne
     @JoinColumn(name ="role_id")

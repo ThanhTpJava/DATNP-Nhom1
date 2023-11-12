@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService{
 		return order;
 	}
 	
-	public Order findById(Long id) {
+	public Order findById(String id) {
 		return dao.findById(id).get();
 	}
 	
@@ -63,12 +63,17 @@ public class OrderServiceImpl implements OrderService{
 		}
 	}
 
-	public void delete(Long id) {
+	public void delete(String id) {
 		dao.deleteById(id);
 	}
 
 	@Override
 	public List<Object[]> deliveredOrdersByMonth() {
 		return dao.findDeliveredOrdersByMonth();
+	}
+
+	@Override
+	public List<String> getListOrderId() {
+		return dao.getAllOrderId();
 	}
 }

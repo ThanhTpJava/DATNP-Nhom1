@@ -50,9 +50,13 @@ public class DataInitializer implements CommandLineRunner{
 			Role roleUser = new Role();
 			roleUser.setId("ROLE_USER");
 			roleUser.setName("User");
+
+			Role roleShip = new Role();
+			roleShip.setId("ROLE_SHIP");
+			roleShip.setName("Ship");
 			//roleService.createRole(roleUser);
 			
-			roleService.saveAllRole(Arrays.asList(roleAdmin, roleSale, roleStock, roleUser));
+			roleService.saveAllRole(Arrays.asList(roleAdmin, roleSale, roleStock, roleUser, roleShip));
 			
 			Account accAdmin = new Account();
 			accAdmin.setUsername("admin1");
@@ -81,8 +85,14 @@ public class DataInitializer implements CommandLineRunner{
 			accUser.setEmail("user1@gmail.com");
 			accUser.setSurname("user1");
 			accUser.setName("1");
-			
-			accountService.saveAllAccounts(Arrays.asList(accAdmin, accSale, accStock, accUser));
+
+			Account accShip = new Account();
+			accShip.setUsername("ship1");
+			accShip.setPassword("ship1");
+			accShip.setEmail("ship1@gmail.com");
+			accShip.setSurname("shipping");
+			accShip.setName("ship1");
+			accountService.saveAllAccounts(Arrays.asList(accAdmin, accSale, accStock, accUser, accShip));
 			
 			Authority authorityAdmin = new Authority();
 			authorityAdmin.setRole(roleService.findRole("ROLE_ADMIN"));
@@ -99,9 +109,13 @@ public class DataInitializer implements CommandLineRunner{
 			Authority authorityUser = new Authority();
 			authorityUser.setRole(roleService.findRole("ROLE_USER"));
 			authorityUser.setAccount(accountService.findById("user1"));
-			
+
+			Authority authorityShip = new Authority();
+			authorityShip.setRole(roleService.findRole("ROLE_SHIP"));
+			authorityShip.setAccount(accountService.findById("ship1"));
+
 			authorityService.saveAllAuthorities(Arrays.asList(authorityAdmin,
-					authoritySale, authorityStock, authorityUser));
+					authoritySale, authorityStock, authorityUser, authorityShip));
 			
 			initialized = true;
 		}

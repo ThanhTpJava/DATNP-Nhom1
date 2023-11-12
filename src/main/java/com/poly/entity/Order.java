@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name ="Orders")
 public class Order {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "orderid", columnDefinition = "varchar(8)")
+	private String id;
 
 	@ManyToOne
 	@JoinColumn(name = "UserID")
@@ -53,6 +53,8 @@ public class Order {
 	@OneToMany(mappedBy = "order")
 	List<OrderStatus> orderStatuses;
 
-
+	@JsonIgnore
+	@OneToMany(mappedBy = "orderResponsi")
+	List<Responsibility> listOrderResponsi;
 
 }

@@ -41,7 +41,7 @@ public class OrderController {
 	}
 
 	@RequestMapping("/order/detail/{id}")
-	public String detail(Model model, @PathVariable("id") Long id) {
+	public String detail(Model model, @PathVariable("id") String id) {
 		model.addAttribute("order", orderService.findById(id));
 		return "user/order-detail";
 	}

@@ -11,7 +11,7 @@ public interface OrderService {
 
 	public Order create(JsonNode orderData) ;
 	
-	public Order findById(Long id) ;
+	public Order findById(String id) ;
 	
 	public List<Order> findByUsername(String username) ;
 
@@ -19,7 +19,9 @@ public interface OrderService {
 
 	public Order EditbyID(Order order);
 
-	public void delete(Long id) ;
+	public void delete(String id) ;
 
 	public List<Object[]> deliveredOrdersByMonth();
+
+	List<String> getListOrderId();
 }
