@@ -77,25 +77,43 @@
 			</div>
 			<div class="mb-3">
 				<div>Shipping Address:</div>
-<!--				<div class="row">-->
-<!--					<div class="col-3">-->
-<!--						<select ng-model="order.address.city" ng-change="updateAddress()" class="form-control" ng-options="city for city in cities" placeholder="Thành phố">-->
-<!--							<option value="">Chọn Thành phố</option>-->
-<!--						</select>-->
-<!--					</div>-->
-<!--					<div class="col-3">-->
-<!--						<select ng-model="order.address.district" ng-change="updateAddress()" class="form-control" ng-options="district for district in districts" placeholder="Quận">-->
-<!--							<option value="">Chọn Quận</option>-->
-<!--						</select>-->
-<!--					</div>-->
-<!--					<div class="col-3">-->
-<!--						<select ng-model="order.address.street" ng-change="updateAddress()" class="form-control" ng-options="street for street in streets" placeholder="Đường">-->
-<!--							<option value="">Chọn Đường</option>-->
-<!--						</select>-->
-<!--					</div>-->
-<!--				</div>-->
-			</div>
+				<form action="" class="row ">
+					<div class="form-group col-4 m-0 ">
+						<label for="province">Tỉnh/Thành phố:</label>
+						<select class="form-control" id="province">
+							<!-- Thêm các option cho tỉnh/thành phố -->
+						</select>
+					</div>
 
+					<div class="form-group col-4">
+						<label for="district">Quận/Huyện:</label>
+						<select class="form-control" id="district">
+							<option value="">Chọn quận</option>
+							<!-- Thêm các option cho quận/huyện -->
+						</select>
+					</div>
+
+					<div class="form-group col-4">
+						<label for="ward">Phường/Xã:</label>
+						<select class="form-control" id="ward">
+							<option value="">Chọn phường</option>
+							<!-- Thêm các option cho phường/xã -->
+						</select>
+					</div>
+				</form>
+				<div class="row">
+					<div class="form-group col-6">
+						<label for="numberHour">Số nhà:</label>
+						<input type="text" class="form-control" id="numberHour">
+					</div>
+					<div class="form-group col-6">
+						<label for="streetName">Tên đường:</label>
+						<input type="text" class="form-control" id="streetName">
+					</div>
+				</div>
+			</div>
+			<button onclick="printResult()">Print Result</button>
+			<input ng-model="" class="form-control" readonly id="result" >
 
 
 		</div>
@@ -104,9 +122,15 @@
 				class="btn btn-success">Purchase</button>
 		</div>
 	</div>
+
+
+
 	<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>'
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script th:src="@{/js/adress.js}"></script>
 	<!-- Footer -->
 	<footer th:replace="user/index :: footer"></footer>
 
