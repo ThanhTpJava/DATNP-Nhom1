@@ -12,13 +12,16 @@ import java.text.SimpleDateFormat;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.poly.dao.DataDAO;
+import com.poly.dao.OrderDAO;
 import com.poly.entity.Data;
 
 @Controller
 public class ProductAdminController {
 	@Autowired
 	DataDAO dataDAO;
-
+	
+	@Autowired
+	OrderDAO orderDAO;
 
     @RequestMapping("/admin/index")
     public String Dashboard(Model model) {
@@ -40,8 +43,8 @@ public class ProductAdminController {
     }
     
     @RequestMapping("/admin/orders")
-
     public String Order(Model model) {
+    	model.addAttribute("oders", orderDAO.findAll());
         return "admin/order";
     }
     
