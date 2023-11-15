@@ -4,7 +4,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script th:src="@{/assets/js/shopping-cart-app.js}"></script>
-<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -112,9 +111,6 @@
 					</div>
 				</div>
 			</div>
-			<button onclick="printResult()">Print Result</button>
-			<input ng-model="" class="form-control" readonly id="result" >
-
 
 		</div>
 		<div class="card-footer text-end">
@@ -123,17 +119,14 @@
 		</div>
 	</div>
 
-
-
-	<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>'
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script th:src="@{/js/adress.js}"></script>
+
 	<!-- Footer -->
 	<footer th:replace="user/index :: footer"></footer>
-
+	<script th:src="@{/js/adress.js}"></script>
 
 	<!-- Back to top -->
 	<div th:replace="user/index :: backtop"></div>
@@ -195,7 +188,6 @@
 	</script>
 	<!--===============================================================================================-->
 	<script th:src="@{/js/main.js}"></script>
-	<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
