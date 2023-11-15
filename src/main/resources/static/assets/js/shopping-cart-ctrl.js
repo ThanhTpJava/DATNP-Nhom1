@@ -78,7 +78,6 @@ app.controller("cart-ctrl", function($scope, $http) {
 			return { username: $auth.username }
 		},
 		createDate: new Date(),
-		address: "",
 		status: 0,
 		totalAmount: $cart.amount,
 		get orderDetails() {
@@ -107,10 +106,4 @@ app.controller("cart-ctrl", function($scope, $http) {
 			})
 		}
 	}
-
-	$http.get('/json/address.json').then(function(response) {
-		// Xử lý dữ liệu JSON trước khi gán nó cho biến đối tượng
-		$scope.addresses = response.data; // Biến addresses phải được khai báo trước đó là một đối tượng
-		console.log($scope.addresses)
-	});
 })
