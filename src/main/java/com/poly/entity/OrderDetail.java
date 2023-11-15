@@ -20,7 +20,7 @@ public class OrderDetail implements Serializable{
 
 //    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "OrderID")
+    @JoinColumn(name = "orderid")
     private Order order;
 
     @ManyToOne

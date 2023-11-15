@@ -13,7 +13,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.poly.dao.DataDAO;
 import com.poly.dao.OrderDAO;
+import com.poly.dao.OrderDetailDAO;
 import com.poly.entity.Data;
+import com.poly.service.OrderDetailService;
 
 @Controller
 public class ProductAdminController {
@@ -21,7 +23,7 @@ public class ProductAdminController {
 	DataDAO dataDAO;
 	
 	@Autowired
-	OrderDAO orderDAO;
+	OrderDetailService orderDetailService;
 
     @RequestMapping("/admin/index")
     public String Dashboard(Model model) {
@@ -44,7 +46,7 @@ public class ProductAdminController {
     
     @RequestMapping("/admin/orders")
     public String Order(Model model) {
-    	model.addAttribute("oders", orderDAO.findAll());
+    	model.addAttribute("oders", orderDetailService.findAll());
         return "admin/order";
     }
     
