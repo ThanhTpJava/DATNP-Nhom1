@@ -124,7 +124,7 @@
                 <div class="row h-100">
                     <!-- DataTales Example -->
                     <div class="col-lg-8 overflow-auto" style="height: 500px">
-                        <table class="table table-bordered w-100 table-responsive" id="dataTable">
+                        <table class="table table-bordered w-100 table-responsive">
                             <thead>
                             <tr>
                                 <th>Order ID</th>
@@ -133,25 +133,20 @@
                                 <th>Phone</th>
                                 <th>OrderDate</th>
                                 <th>Status</th>
-                                <th>Quantity</th>
+                                <th>QuantityOrder</th>
                                 <th>TotalAmount</th>
-                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="item ,no:${oders} " ng-repeat="pro in items | startFrom:currentPage*pageSize | limitTo:pageSize">
-                                <td>{{pro.id}}</td>
-                                <td>{{pro.name}}</td>
-                                 <td><img alt="" src="{{pro.image}}" class="object-fit-contain h-100 w-100"></td>
-                                <td>{{pro.category.name}}</td>
-                                <td>{{pro.price}}</td>
-                                <td>{{pro.createDate | date:'dd-MM-yyyy'}}</td>
-                                <td>{{pro.quantity}}</td>
-                                <td>{{pro.available?'Còn hàng':'Hết hàng'}}</td>
-                                <td>
-                                    <button class="btn btn-dark" ng-click="detail(pro.id)">Edit</button>
-                                    <button class="btn btn-danger" ng-click="delete(pro.id)">Del</button>
-                                </td>
+                            <tr th:each="item ,no:${oders} ">
+                                <td>${item.order.id }</td>
+                                <td>${item.order.account.username }</td>
+                                <td>${item.order.address }</td>
+                                <td>${item.order.account.phonenumber }</td>
+                                <td>${item.order.createDate }</td>
+                                <td>${item.order.Status }</td>
+                                <td>${item.Quantity }</td>
+                                <td>${item.order.TotalAmount }</td>
                             </tr>
                             </tbody>
                         </table>

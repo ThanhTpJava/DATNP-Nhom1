@@ -15,24 +15,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderDetail implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int OrderItemID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	@ManyToOne
-	@JoinColumn(name = "OrderID")
-	private Order order;
+//    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "OrderID")
+    private Order order;
 
-	@ManyToOne
-	@JoinColumn(name = "ProductID")
-	private Product product;
+    @ManyToOne
+    @JoinColumn(name = "ProductID")
+    private Product product;
 
-	@ManyToOne
-	@JoinColumn(name = "UserID")
-	private Account account;
+    @Column(name = "Quantity")
+    private Integer Quantity;
 
-	@Column(name = "Quantity")
-	private Integer Quantity;
-
-	@Column(name = "Subtotal"/*, precision = 10, scale = 2*/)
-	private double Subtotal;
+    @Column(name = "Subtotal")
+    private double Subtotal;
 }
