@@ -85,10 +85,10 @@
 						</td>
 						<td>
 							<!-- Nút hủy đơn hàng -->
-							<button th:if="${order.status == 0}" class="btn btn-danger" th:onclick="'cancelOrder(\'' + ${order.id} + '\')'">Hủy Đơn Hàng</button>
+							<button th:if="${order.status == 0}" ng-click="updateStatus(order, 4)" class="btn btn-danger" >Hủy Đơn Hàng</button>
 
 							<!-- Nút trả hàng -->
-							<button th:if="${order.status == 2}" class="btn btn-warning" th:onclick="'returnOrder(\'' + ${order.id} + '\')'">Trả Hàng</button>
+							<button th:if="${order.status == 2}" ng-click="updateStatus(order, 4)" class="btn btn-warning">Trả Hàng</button>
 						</td>
 					</tr>
 					</tbody>
@@ -98,6 +98,7 @@
 		</div>
 	</main>
 	<!-- Footer -->
+	<script th:src="@{/js/adminJs/order.js}"></script>
 	<footer th:replace="user/index :: footer"></footer>
 
 

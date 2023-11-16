@@ -107,12 +107,6 @@ app.controller("cart-ctrl", function($scope, $http) {
         }
     }
 
-    $http.get('/json/address.json').then(function(response) {
-        // Xử lý dữ liệu JSON trước khi gán nó cho biến đối tượng
-        $scope.addresses = response.data; // Biến addresses phải được khai báo trước đó là một đối tượng
-        console.log($scope.addresses)
-    });
-
 // 1. what is API
 // 2. How do I call API
 // 3. Explain code
