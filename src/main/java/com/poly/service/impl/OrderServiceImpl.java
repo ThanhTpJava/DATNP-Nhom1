@@ -76,4 +76,9 @@ public class OrderServiceImpl implements OrderService{
 	public List<String> getListOrderId() {
 		return dao.getAllOrderId();
 	}
+
+	@Override
+	public Order update(Order order) {
+		return dao.save(order);
+	}
 }

@@ -52,8 +52,8 @@ public class Order {
 	List<OrderDetail> orderDetails;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "order")
-	List<OrderStatus> orderStatuses;
+	@OneToOne(mappedBy = "order")
+	OrderStatus orderStatuses;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "orderResponsi")
