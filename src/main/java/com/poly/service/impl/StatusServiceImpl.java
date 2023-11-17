@@ -18,5 +18,4 @@ public class StatusServiceImpl implements StatusService{
 		// TODO Auto-generated method stub
 		return statusDao.findById(id).get();
 	}
-
 }

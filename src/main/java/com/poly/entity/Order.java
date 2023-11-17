@@ -20,6 +20,7 @@ public class Order {
 	@Column(name = "orderid", columnDefinition = "varchar(8)")
 	private String id;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "UserID")
 	private Account account;
@@ -38,6 +39,7 @@ public class Order {
 	private Voucher voucher; // Trường này để lưu mã voucher áp dụng cho đơn hàng
 
 	// Người chịu trách nhiệm cho đơn hàng (có thể là User hoặc Admin/Nhân viên)
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "assignedTo")
 	private Account assignedTo;
@@ -47,8 +49,8 @@ public class Order {
 	List<OrderDetail> orderDetails;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "order")
-	List<OrderStatus> orderStatuses;
+	@OneToOne(mappedBy = "order")
+	OrderStatus orderStatuses;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "orderResponsi")

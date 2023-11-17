@@ -1,5 +1,6 @@
 package com.poly.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,10 +19,12 @@ public class OrderStatus implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "OrderID")
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "OrderID", unique = true)
     private Order order;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "StatusID")
     private Status status;

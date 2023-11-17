@@ -72,23 +72,23 @@
 						<td th:text="${order.id}"></td>
 						<td th:text="${order.createDate}"></td>
 						<td th:text="${order.address}"></td>
-						<td th:text="${order.status == 0 ? 'Đang xác nhận' :
-                (order.status == 1 ? 'Đã thanh toán' :
-                (order.status == 2 ? 'Đã giao' :
-                (order.status == 3 ? 'Trả hàng': 'Đã hủy')))}"
-							th:class="${order.status == 0 ? 'text-warning fw-bold' :
-                (order.status == 1 ? 'text-success fw-bold' :
-                (order.status == 2 ? 'text-primary fw-bold' : 'text-warning fw-bold'))}">
-						</td>
+<!--						<td th:text="${order.status == 0 ? 'Đang xác nhận' :-->
+<!--                (order.status == 1 ? 'Đã thanh toán' :-->
+<!--                (order.status == 2 ? 'Đã giao' :-->
+<!--                (order.status == 3 ? 'Trả hàng': 'Đã hủy')))}"-->
+<!--							th:class="${order.status == 0 ? 'text-warning fw-bold' :-->
+<!--                (order.status == 1 ? 'text-success fw-bold' :-->
+<!--                (order.status == 2 ? 'text-primary fw-bold' : 'text-warning fw-bold'))}">-->
+<!--						</td>-->
 						<td>
 							<a th:href="@{|/order/detail/${order.id}|}"><i class="bi bi-search"></i></a>
 						</td>
 						<td>
 							<!-- Nút hủy đơn hàng -->
-							<button th:if="${order.status == 0}" class="btn btn-danger" th:onclick="'cancelOrder(\'' + ${order.id} + '\')'">Hủy Đơn Hàng</button>
+							<button th:if="${order.status == 0}" ng-click="updateStatus(order, 4)" class="btn btn-danger" >Hủy Đơn Hàng</button>
 
 							<!-- Nút trả hàng -->
-							<button th:if="${order.status == 2}" class="btn btn-warning" th:onclick="'returnOrder(\'' + ${order.id} + '\')'">Trả Hàng</button>
+							<button th:if="${order.status == 2}" ng-click="updateStatus(order, 4)" class="btn btn-warning">Trả Hàng</button>
 						</td>
 					</tr>
 					</tbody>
@@ -98,6 +98,7 @@
 		</div>
 	</main>
 	<!-- Footer -->
+	<script th:src="@{/js/adminJs/order.js}"></script>
 	<footer th:replace="user/index :: footer"></footer>
 
 

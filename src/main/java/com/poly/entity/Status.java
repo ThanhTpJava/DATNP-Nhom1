@@ -17,9 +17,9 @@ import java.util.List;
 @Entity
 @Table(name ="Status")
 public class Status implements Serializable {
+
     @Id
     private Integer id;
-
     @Column(name = "name",columnDefinition = "nvarchar(100)")
     private String name;
 
