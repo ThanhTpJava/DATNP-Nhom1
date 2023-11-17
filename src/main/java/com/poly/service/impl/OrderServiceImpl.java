@@ -51,29 +51,22 @@ public class OrderServiceImpl implements OrderService{
 		return dao.findAll();
 	}
 
-	public Order EditbyID(Order updatedOrder) {
-		Optional<Order> optionalOrder = dao.findById(updatedOrder.getId());
-		if (optionalOrder.isPresent()) {
-			Order existingOrder = optionalOrder.get();
-			existingOrder.setStatus(updatedOrder.getStatus());
-			return dao.save(existingOrder);
-		} else {
-			// Xử lý trường hợp không tìm thấy đơn hàng
-			throw new NoSuchElementException("Không tìm thấy đơn hàng với ID: " + updatedOrder.getId());
-		}
-	}
-
 	public void delete(String id) {
 		dao.deleteById(id);
 	}
 
-	@Override
-	public List<Object[]> deliveredOrdersByMonth() {
-		return dao.findDeliveredOrdersByMonth();
-	}
+//	@Override
+//	public List<Object[]> deliveredOrdersByMonth() {
+//		return dao.findDeliveredOrdersByMonth();
+//	}
 
 	@Override
 	public List<String> getListOrderId() {
 		return dao.getAllOrderId();
+	}
+
+	@Override
+	public Order update(Order order) {
+		return dao.save(order);
 	}
 }

@@ -1,6 +1,9 @@
 package com.poly.rest.controller;
 
 import com.poly.dao.OrderDAO;
+import com.poly.entity.OrderStatus;
+import com.poly.entity.Status;
+import com.poly.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +14,6 @@ import com.poly.entity.Order;
 import com.poly.service.OrderService;
 
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
@@ -19,6 +21,9 @@ import java.util.Map;
 public class OrderRestController {
 	@Autowired
 	OrderService orderService;
+
+	@Autowired
+	StatusService statusService;
 
 	@GetMapping
 	public List<Order> GetAll(){
@@ -34,19 +39,49 @@ public class OrderRestController {
 		return new ResponseEntity<Order>(orderService.create(orderData), HttpStatus.OK);
 	}
 
-	@PutMapping("{id}")
-	public Order editStatus(@PathVariable("id") Long id, @RequestBody Order order){
-		return orderService.EditbyID(order);
-	}
+//	@PutMapping("{id}")
+//	public Order editStatus(@PathVariable("id") Long id, @RequestBody Order order){
+//		return orderService.EditbyID(order);
+//	}
 
 	@DeleteMapping("{id}")
 	public void deleteOrder(@PathVariable String id){
 		orderService.delete(id);
 	}
 
-	@GetMapping("/deliveredOrdersByMonth")
-	public List<Object[]> deliveredOrdersByMonth() {
-		return orderService.deliveredOrdersByMonth();
+//	@GetMapping("/deliveredOrdersByMonth")
+//	public List<Object[]> deliveredOrdersByMonth() {
+//		return orderService.deliveredOrdersByMonth();
+//	}
+
+
+	// Endpoint để thay đổi trạng thái của đơn hàng
+	@PutMapping("/{orderId}/update-status/{statusId}")
+	public ResponseEntity<String> updateOrderStatus(@PathVariable String orderId, @PathVariable Integer statusId) {
+		// Lấy đơn hàng từ database
+		Order order = orderService.findById(orderId);
+
+		if (order == null) {
+			return new ResponseEntity<>("Order not found", HttpStatus.NOT_FOUND);
+		}
+
+		// Lấy trạng thái từ database
+		Status newStatus = statusService.findById(statusId);
+
+		if (newStatus == null) {
+			return new ResponseEntity<>("Status not found", HttpStatus.NOT_FOUND);
+		}
+
+		// Lấy OrderStatus hiện tại
+		OrderStatus orderStatus = order.getOrderStatuses();
+
+		// Cập nhật trạng thái mới
+		orderStatus.setStatus(newStatus);
+
+		// Lưu thay đổi
+		orderService.update(order);
+
+		return new ResponseEntity<>("Order status updated successfully", HttpStatus.OK);
 	}
 
 }

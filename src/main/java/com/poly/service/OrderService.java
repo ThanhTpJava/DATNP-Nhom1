@@ -17,11 +17,11 @@ public interface OrderService {
 
 	public List<Order> findAll();
 
-	public Order EditbyID(Order order);
-
 	public void delete(String id) ;
 
-	public List<Object[]> deliveredOrdersByMonth();
+//	public List<Object[]> deliveredOrdersByMonth();
 
 	List<String> getListOrderId();
+
+	public Order update(Order order);
 }

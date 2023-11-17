@@ -65,15 +65,15 @@
                             <td>{{order.createDate}}</td>
                             <td>{{order.address}}</td>
                             <td>{{order.totalAmount | currency:''}} đ</td>
-                            <td class="font-weight-bold" ng-class="{
-                'text-warning': order.status === 0,
-                'text-success': order.status === 1,
-                'text-primary': order.status === 2,
-                'text-secondary ': order.status === 3,
-                'text-danger': order.status === 4
-            }">
-                                {{order.status === 0 ? 'Đang xác nhận' : order.status === 1 ? 'Đã thanh toán' : order.status === 2 ? 'Đã giao' : order.status === 3 ? 'Trả hàng' : 'Đã hủy'}}
-                            </td>
+<!--                            <td class="font-weight-bold" ng-class="{-->
+<!--                'text-warning': order.status === 0,-->
+<!--                'text-success': order.status === 1,-->
+<!--                'text-primary': order.status === 2,-->
+<!--                'text-secondary ': order.status === 3,-->
+<!--                'text-danger': order.status === 4-->
+<!--            }">-->
+<!--                                {{order.status === 0 ? 'Đang xác nhận' : order.status === 1 ? 'Đã thanh toán' : order.status === 2 ? 'Đã giao' : order.status === 3 ? 'Trả hàng' : 'Đã hủy'}}-->
+<!--                            </td>-->
                             <td>
                                 <button class="btn btn-danger" ng-if="order.status === 0 || order.status === 2"  ng-click="updateStatus(order, 4)">Hủy đơn hàng</button>
                                 <button class="btn btn-primary" ng-if="order.status === 1" ng-click="updateStatus(order, 1)">Giao hàng</button>
