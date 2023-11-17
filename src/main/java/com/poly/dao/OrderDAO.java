@@ -15,8 +15,8 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 //	@Query("SELECT o FROM Order o WHERE o.Status = 2 AND YEAR(o.createDate) = :year")
 //	List<Order> findDeliveredOrdersByYear(@Param("year") int year);
 
-	@Query("SELECT DAY(o.createDate), sum(o.TotalAmount) FROM Order o WHERE o.Status = 0 AND MONTH(o.createDate)= 11 GROUP BY DAY(o.createDate)")
-	List<Object[]> findDeliveredOrdersByMonth();
+//	@Query("SELECT DAY(o.createDate), sum(o.TotalAmount) FROM Order o WHERE o.Status = 0 AND MONTH(o.createDate)= 11 GROUP BY DAY(o.createDate)")
+//	List<Object[]> findDeliveredOrdersByMonth();
 
 	@Query("SELECT od.id FROM Order od")
 	List<String> getAllOrderId();

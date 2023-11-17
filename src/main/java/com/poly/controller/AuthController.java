@@ -50,7 +50,7 @@ public class AuthController {
         return switch (getLoginAuthority()) {
             case "ROLE_ADMIN" -> "redirect:/admin/products";
             case "ROLE_USER" -> "redirect:/user/home";
-            case "ROLE_SALE" -> "redirect:/";
+            case "ROLE_SALE" -> "redirect:/admin/products";
             case "ROLE_STOCK" -> "redirect:/";
             default -> "forward:/auth/login/form";
 //			default -> throw new IllegalStateException("Unexpected value: " + getLoginAuthority());
