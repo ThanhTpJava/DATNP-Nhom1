@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -41,24 +43,36 @@ public class WebSecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //		String staticResources = "/static/**";
 		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
-		http.authorizeHttpRequests((authorize) ->
+		
+		http
+		.authorizeHttpRequests((authorize) ->
 			authorize
 			.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-					.requestMatchers("/rest/**").permitAll()
-//			.requestMatchers(".r/**").authenticated()
-//			.requestMatchers("/qcshop/signup/newaccount").permitAll()
-//			.requestMatchers(staticResources).permitAll()
-			.anyRequest().permitAll())
+			.requestMatchers("/rest/**").permitAll()
+			.anyRequest().permitAll()
+			
+			)
+			
+			.oauth2Login((oauth2) ->
+				oauth2.loginPage("/auth/login/form")
+				.defaultSuccessUrl("/login/oauth2/success", true)
+				.failureUrl("/auth/login/error")
+				.authorizationEndpoint((authEndPoint)
+						-> authEndPoint.baseUri("/oauth2/authorization"))	
+			)
+		
 			.csrf(csrf -> csrf.disable())
+			
 			.formLogin((login) ->
-			login.loginPage("/auth/login/form")
-			.loginProcessingUrl("/security/login")
-			.defaultSuccessUrl("/auth/login/success", false)
-			.failureUrl("/auth/login/error"))
+				login.loginPage("/auth/login/form")
+				.loginProcessingUrl("/security/login")
+				.defaultSuccessUrl("/auth/login/success", false)
+				.failureUrl("/auth/login/error"))
+			
 			.logout((logout) ->
-			logout.logoutUrl("/auth/logoff/success")
-			.logoutSuccessUrl("/auth/login/form")
-			.permitAll());
+				logout.logoutUrl("/auth/logoff/success")
+				.logoutSuccessUrl("/auth/login/form")
+			.	permitAll());
 		return http.build();
 	}
 

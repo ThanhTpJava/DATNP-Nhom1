@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -68,6 +70,16 @@ public class AuthController {
 		model.addAttribute("message", "Đăng xuất thành công!");
 		session.setAttribute("authentication",null);
 		return "forward:/auth/login/form";
+	}
+	
+	@RequestMapping("/login/oauth2/success")
+	public String oauthSuccess(OAuth2AuthenticationToken oauth2) {
+		 OAuth2User oauth2User = oauth2.getPrincipal();
+		    
+		    // In thông tin người dùng ra console
+		    System.out.println("User Name: " + oauth2User.getName());
+		    System.out.println("User Attributes: " + oauth2User.getAttributes());
+		return "redirect:/user/home";
 	}
 
 	public void printAuthenticationInfo() {
