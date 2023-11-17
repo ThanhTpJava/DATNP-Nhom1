@@ -3,6 +3,7 @@ package com.poly.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import com.poly.util.CreateOrderId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +14,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.dao.AccountDAO;
 import com.poly.entity.Order;
+import com.poly.service.AccountService;
+import com.poly.service.EmailService;
 import com.poly.service.OrderService;
 import com.poly.entity.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class OrderController {
-	
+	  private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 	@Autowired
 	OrderService orderService;
 	
@@ -34,7 +41,10 @@ public class OrderController {
 
 	@Autowired
 	CreateOrderId createOrderId;
-	
+	  @Autowired
+	    private EmailService emailService;
+	  @Autowired
+	  private AccountService accountService;
 	@RequestMapping("/order/checkout")
 	public String checkout(HttpServletRequest request, Model model) {
 			
@@ -56,15 +66,6 @@ public class OrderController {
 		return "user/order-detail";
 	}
 	
-//	@RequestMapping("/order/list")
-//	public String detail(Model model, HttpServletRequest request) {
-//		String username = request.getRemoteUser();
-//		
-////		String username = (String) session.getAttribute("auth.user.username");
-//		System.out.println(username);           	
-//		model.addAttribute("orders", orderService.findByUsername(username));
-//		return "user/order-list";
-//	}
 	
 	@RequestMapping("/order/list")
 	public String detail(Model model, HttpServletRequest request) {
@@ -77,5 +78,42 @@ public class OrderController {
 		else {
 			return "/auth/login/form"; //login
 		}
+	}
+	@PostMapping("/confirm-otp")
+	public String confirmOtp(@RequestParam("otp") String otp, HttpServletRequest request) {
+	    HttpSession session = request.getSession();
+	    if (session.getAttribute("otp") != null && session.getAttribute("otp").equals(otp)) {
+	        Order order = (Order) session.getAttribute("order"); 
+	        orderService.save(order); 
+	        return "redirect:/success"; 
+	    } else {
+	        return "redirect:/error"; 
+	    }
+	}
+
+
+    @PostMapping("/send-otp")
+    @ResponseBody
+    public String sendOtp(@RequestParam("email") String email, HttpServletRequest request) {
+        Account account = accountService.findByEmail(email);
+        if (account != null) {
+            String otp = generateOtp();
+            HttpSession session = request.getSession();
+            session.setAttribute("otp", otp);
+            emailService.sendOtpEmail(account, otp);
+            logger.info("OTP đã được gửi đến " + email);
+            return "OTP đã được gửi đến " + email;
+        } else {
+        	logger.error("Không thể gửi OTP. Email không tồn tại.");
+            return "Không thể gửi OTP. Email không tồn tại.";
+
+        }
+    }
+
+
+	private String generateOtp() {
+	    Random random = new Random();
+	    int otpValue = 100000 + random.nextInt(900000);
+	    return String.valueOf(otpValue);
 	}
 }

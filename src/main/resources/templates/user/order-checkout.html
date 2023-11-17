@@ -95,9 +95,21 @@
 <!--					</div>-->
 <!--				</div>-->
 			</div>
+<form action="/send-otp" method="post" class="mt-4">
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Gửi OTP</button>
+</form>
 
-
-
+<form action="/confirm-otp" method="post" class="mt-4">
+    <div class="form-group">
+        <label for="otp">Mã OTP:</label>
+        <input type="text" class="form-control" id="otp" name="otp" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Xác nhận</button>
+</form>
 		</div>
 		<div class="card-footer text-end">
 			<button ng-click="order.purchase()" type="submit"

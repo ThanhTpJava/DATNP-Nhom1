@@ -58,7 +58,7 @@ public class OrderServiceImpl implements OrderService{
 			existingOrder.setStatus(updatedOrder.getStatus());
 			return dao.save(existingOrder);
 		} else {
-			// Xử lý trường hợp không tìm thấy đơn hàng
+
 			throw new NoSuchElementException("Không tìm thấy đơn hàng với ID: " + updatedOrder.getId());
 		}
 	}
@@ -76,4 +76,8 @@ public class OrderServiceImpl implements OrderService{
 	public List<String> getListOrderId() {
 		return dao.getAllOrderId();
 	}
+	   @Override
+	    public Order save(Order order) {
+	        return dao.save(order);
+	    }
 }

@@ -24,4 +24,6 @@ public interface OrderService {
 	public List<Object[]> deliveredOrdersByMonth();
 
 	List<String> getListOrderId();
+
+    Order save(Order order);
 }

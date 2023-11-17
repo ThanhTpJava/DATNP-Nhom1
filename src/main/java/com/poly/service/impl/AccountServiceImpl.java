@@ -26,6 +26,11 @@ public class AccountServiceImpl implements AccountService{
 	@Autowired
 	AccountDTOMapper accountDTOMapper;
 	
+	@Override
+	    public Account findByEmail(String email) {
+	        return dao.findByEmail(email).orElse(null);
+	    }
+	
 	public List<Account> findAll() {
 		return dao.findAll();
 	}
@@ -100,4 +105,5 @@ public class AccountServiceImpl implements AccountService{
 		 
 	}
 		
+	
 }
