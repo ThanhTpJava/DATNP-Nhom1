@@ -72,14 +72,14 @@
 						<td th:text="${order.id}"></td>
 						<td th:text="${order.createDate}"></td>
 						<td th:text="${order.address}"></td>
-						<td th:text="${order.status == 0 ? 'Đang xác nhận' :
-                (order.status == 1 ? 'Đã thanh toán' :
-                (order.status == 2 ? 'Đã giao' :
-                (order.status == 3 ? 'Trả hàng': 'Đã hủy')))}"
-							th:class="${order.status == 0 ? 'text-warning fw-bold' :
-                (order.status == 1 ? 'text-success fw-bold' :
-                (order.status == 2 ? 'text-primary fw-bold' : 'text-warning fw-bold'))}">
-						</td>
+<!--						<td th:text="${order.status == 0 ? 'Đang xác nhận' :-->
+<!--                (order.status == 1 ? 'Đã thanh toán' :-->
+<!--                (order.status == 2 ? 'Đã giao' :-->
+<!--                (order.status == 3 ? 'Trả hàng': 'Đã hủy')))}"-->
+<!--							th:class="${order.status == 0 ? 'text-warning fw-bold' :-->
+<!--                (order.status == 1 ? 'text-success fw-bold' :-->
+<!--                (order.status == 2 ? 'text-primary fw-bold' : 'text-warning fw-bold'))}">-->
+<!--						</td>-->
 						<td>
 							<a th:href="@{|/order/detail/${order.id}|}"><i class="bi bi-search"></i></a>
 						</td>

@@ -28,9 +28,6 @@ public class Order {
 	@Column(name = "createDate")
 	private Date createDate;
 
-	@Column(name = "Status")
-	private int Status;
-
 	@Column(name = "TotalAmount"/*, precision = 10, scale = 2*/)
 	private double TotalAmount;
 

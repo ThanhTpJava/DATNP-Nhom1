@@ -39,20 +39,20 @@ public class OrderRestController {
 		return new ResponseEntity<Order>(orderService.create(orderData), HttpStatus.OK);
 	}
 
-	@PutMapping("{id}")
-	public Order editStatus(@PathVariable("id") Long id, @RequestBody Order order){
-		return orderService.EditbyID(order);
-	}
+//	@PutMapping("{id}")
+//	public Order editStatus(@PathVariable("id") Long id, @RequestBody Order order){
+//		return orderService.EditbyID(order);
+//	}
 
 	@DeleteMapping("{id}")
 	public void deleteOrder(@PathVariable String id){
 		orderService.delete(id);
 	}
 
-	@GetMapping("/deliveredOrdersByMonth")
-	public List<Object[]> deliveredOrdersByMonth() {
-		return orderService.deliveredOrdersByMonth();
-	}
+//	@GetMapping("/deliveredOrdersByMonth")
+//	public List<Object[]> deliveredOrdersByMonth() {
+//		return orderService.deliveredOrdersByMonth();
+//	}
 
 
 	// Endpoint để thay đổi trạng thái của đơn hàng

@@ -78,7 +78,6 @@ app.controller("cart-ctrl", function($scope, $http) {
             return { username: $auth.username }
         },
         createDate: new Date(),
-        status: 0,
         totalAmount: $cart.amount,
         get orderDetails() {
             return $cart.items.map(item => {
