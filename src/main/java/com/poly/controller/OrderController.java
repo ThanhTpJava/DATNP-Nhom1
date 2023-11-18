@@ -71,7 +71,8 @@ public class OrderController {
 
 	   Account account = (Account) session.getAttribute("authentication");
 		if(account != null){
-			model.addAttribute("orders", orderService.findByUsername(account.getUsername()));
+//			model.addAttribute("orders", orderService.findByUsername(account.getUsername()));
+			model.addAttribute("orders", orderService.findOrdersDTOsByUsername(account.getUsername()));
 			return "user/order-list";
 		}
 		else {

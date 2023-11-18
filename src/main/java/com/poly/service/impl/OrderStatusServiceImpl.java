@@ -19,4 +19,10 @@ public class OrderStatusServiceImpl implements OrderStatusService{
 		return odsttDao.save(orderStatus);
 	}
 
+	@Override
+	public OrderStatus findByOrderId(String orderId) {
+		// TODO Auto-generated method stub
+		return odsttDao.findOrderStatusByOrderid(orderId);
+	}
+
 }

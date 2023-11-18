@@ -146,6 +146,10 @@ body{
     background-color: #29A1FF;
 }
 
+.table-body .auth.Ship{
+    background-color: #ff0080;
+}
+
 @media(max-width: 1000px){
     table-body .td:not(:first-of-type){
         min-width: 12.1rem;
