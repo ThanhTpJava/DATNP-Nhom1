@@ -1,6 +1,7 @@
 package com.poly.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.poly.dto.AccountDTO;
 import com.poly.entity.Account;
@@ -27,4 +28,6 @@ public interface AccountService {
 	List<Account> saveAllAccounts(List<Account> listAccounts);
 	
 	void updateAccount(AccountDTO accDTO);
+	
+	 Account findByEmail(String email);
 }

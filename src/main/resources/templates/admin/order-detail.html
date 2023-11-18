@@ -13,10 +13,9 @@
 
     <title>SB Admin - Dashboard</title>
 
-  <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-	integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet">
     <script
             src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <!-- Custom fonts for this template-->
@@ -40,7 +39,50 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul th:replace="~{admin/index :: sidebar}"></ul>
+    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"
+        id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center"
+           href="/admin/products">
+            <img src="https://assets.website-files.com/60a70f8574f9eb38a2b19c99/643d83dec4b1258659fd0402_apple-authorized-reseller-logo-white.png"
+                 style="width: 130px">
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item"><a class="nav-link"
+                                href="/admin/index"> <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active"><a class="nav-link"
+                                       href="/admin/products"> <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Products</span></a>
+        </li>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item"><a class="nav-link"
+                                href="/admin/accounts"> <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Accounts</span></a>
+        </li>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item"><a class="nav-link"
+                                href="/admin/orders"> <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Orders</span></a>
+        </li>
+        
+        <li class="nav-item"><a class="nav-link"
+                                href="/statistical"> <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Statistical</span></a>
+        </li>
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+    </ul>
     <!-- End of Sidebar -->
 	
     <!-- Content Wrapper -->
@@ -254,137 +296,88 @@
 
             </nav>
             <!-- End of Topbar -->
-            <nav class="navbar bg-white border-top border-bottom">
-                <div class="">
-                    <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id != null" >
-                        <i class="fas fa-plus"></i> Create
-                    </button>
-                    <button ng-click="update()" class="btn btn-warning" ng-disabled="form.id == null">
-                        <i class="fas fa-rotate"></i> Update
-                    </button>
-                    <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="form.id == null">
-                        <i class="fas fa-solid fa-ban"></i> Delete
-                    </button>
-                    <button ng-click="reset()" class="btn btn-secondary">
-                        <i class="fas fa-regular fa-window-restore"></i> Reset
-                    </button>
-                </div>
-                <div class="input-append">
-                    <input type="text" ng-model="query" ng-change="search()" class="input-large search-query" placeholder="Search">
-                    <span class="add-on"><i class="icon-search"></i></span>
-                </div>
-            </nav>
+            
 
             <!-- Begin Page Content -->
             <div class="h-100">
                 <div class="row h-100">
-                    <form class="col-lg-4 pl-4" name="myForm">
-
-                        <div class="mt-3">
-                            <div class="mb-3">
-                                <input ng-model="form.id" class="form-control" disabled readonly>
-                            </div>
-                            <div class="mb-3">
-                                <input ng-model="form.name" class="form-control"
-                                       placeholder="Name">
-                            </div>
-                            <div class="mb-3">
-                                <select ng-model="form.category.id"
-                                        class="form-select">
-                                    <option ng-repeat="c in categoryItems" ng-value="c.id">{{c.name}}</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <input ng-model="form.price" type="number" min="100000"
-                                       class="form-control" placeholder="Price" step="50000">
-                            </div>
-                            <div class="mb-3">
-                                <input ng-model="form.sale" type="number" min="5"
-                                       class="form-control" placeholder="sale" step="5">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Date Of Import:</label>
-                                <input ng-model="form.date_import" type="date" class="form-control"  name="date_import" required>
-<!--                                <div ng-show="myForm.date_import.$touched && myForm.date_import.$error.required" style="color:red">-->
-<!--                                    Start Date là bắt buộc-->
-<!--                                </div>-->
-                            </div>
-<!--                            <div class="mb-3" ng-class="{'has-error': myForm.date_import.$invalid && myForm.date_import.$dirty}">-->
-<!--                                <input name="date_import" ng-model="form.date_import" class="form-control" ng-model-options="{updateOn: 'blur'}"-->
-<!--                                       placeholder="Date Import" ng-pattern="/^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/">-->
-<!--                                <span class="help-block" ng-show="myForm.date_import.$error.pattern && myForm.date_import.$dirty">-->
-<!--        Date must be in the format dd-MM-yyyy-->
-<!--    </span>-->
-<!--                            </div>-->
-
-
-                            <div class="mb-3">
-                                <input ng-model="form.quantity" type="number"  step="5"
-                                       class="form-control" placeholder="Quantity">
-                            </div>
-							<div class="mb-3">
-                                <input ng-model="form.main_image" class="form-control"
-                                       placeholder="Link Cnd Product">
-                            </div>
-
-                            <div class="mb-3">
-                                <input ng-model="form.description" class="form-control"
-                                       placeholder="Description">
-                            </div>
-                            <div class="mb-3">
-                                <input type="number" min="1" ng-model="form.warranty_period" class="form-control"
-                                       placeholder="Warranty Period">
-                            </div>
-                        </div>
-                        <div class="bg-white border w-50 mb-3 rounded">
-
-                            <img ng-src="{{form.main_image}}" ng-alt="{{form.main_image}}" class="object-fit-contain h-100 w-100"
-                                 alt="...">
-                        </div>
-                    </form>
-
+                    
                     <!-- DataTales Example -->
-                    <div class="col-lg-8 overflow-auto" style="height: 500px">
-                        <table class="table table-bordered w-100 table-responsive" id="dataTable">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Sale</th>
-                                <th>Date of Import</th>
-                                <th>Quantity</th>
-                                <th>Status</th>
-                                <th>Description</th>
-                                <th>Product Information</th>
-                                <th>Warranty Period</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="pro in items | startFrom:currentPage*pageSize | limitTo:pageSize">
-                                <td>{{pro.id}}</td>
-                                <td>{{pro.name}}</td>
-                                <td><img alt="" src="{{pro.main_image}}" class="object-fit-contain h-100 w-100"></td>
-                                <td>{{pro.category.name}}</td>
-                                <td>{{pro.price}}</td>
-                                <td>{{pro.sale}}</td>
-                                <td>{{pro.date_import | date:'dd-MM-yyyy'}}</td>
-                                <td>{{pro.quantity}}</td>
-                                <td>{{pro.quantity > 0?'Còn hàng':'Hết hàng'}}</td>
-                                <td>{{pro.description}}</td>
-                                <td>{{pro.product_information}}</td>
-                                <td>{{pro.warranty_period}}</td>
-                                <td>
-                                    <button class="btn btn-success" ng-click="detail(pro.id)"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger" ng-click="delete(pro.id)"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-lg-8 overflow-auto m-auto" style="height: 1000px">
+                        <div class="text-center"><h2 class="text-primary"> <b>Order Detail</b> </h2></div>
+				        <div class="card">
+				            <div class="card-body">
+				                <form th:action="@{/update}" th:object="${oders}" method="post">
+				                	<div class="form-group row">
+				                		<div class="col-sm-6">
+				                        	<label for="id" class="">OrderID:</label>
+				                        	<input type="text" class="form-control" id="id" th:value="${oders.id}" th:field="*{id}">
+				                    	</div>
+				                    	
+				                    	<div class="col-sm-6">
+				                        	<label for="username">Username:</label>
+				                        	<input type="text" class="form-control" id="username" th:value="${oders.account.username}" th:field="*{account.username}">
+				                   		</div>
+				                	</div>
+				                    
+				                    <div class="form-group row">
+				                    	<div class="col-sm-6">
+				                        	<label for="email">Email:</label>
+				                        	<input type="text" class="form-control" id="email" th:value="${oders.account.email}" th:field="*{account.email}">
+				                    	</div>
+				                    	
+				                    	<div class="col-sm-6">
+				                        	<label for="phonenumber">Số điện thoại:</label>
+				                        	<input type="text" class="form-control" id="phonenumber" th:value="${oders.account.phonenumber}" th:field="*{account.phonenumber}">
+				                    	</div>
+				                    </div>
+				                    
+				                    <div class="form-group row">
+				                    	<div class="col-sm-6">
+				                        	<label for="address">Address:</label>
+				                        	<input type="text" class="form-control" id="address" th:value="${oders.address}" th:field="*{address}">
+				                    	</div>
+				                    	
+				                    	<div class="col-sm-6">
+				                        	<label for="TotalAmount">Thành Tiền:</label>
+				                        	<input type="text" class="form-control" id="TotalAmount" th:value="${oders.TotalAmount}" th:field="*{TotalAmount}">
+				                    	</div>
+				                    </div>
+				                    
+				                    <div class="form-group row m-auto">
+				                    	<div th:each="res : ${responsi}">
+					                    	<div class="col-sm-12 text-center" th:data-thumb="${res.account.username}">
+					                    		<label for="username">Nhân Viên Quản Lý Hóa Đơn:</label>
+					                    		<input type="text" class="form-control text-center" id="username" th:value="${res.account.username}">
+					                    	</div>
+				                    	</div>
+				                    	
+				                    </div>
+				                    
+				                    <table class="table table-bordered w-100 mt-2 mb-2">
+			                            <thead>
+			                            <tr class="text-center">
+				                            <th>Product Name</th>
+				                            <th>Quantity</th>
+				                            <th>Price</th>
+				                            <th>Total</th>
+			                        	</tr>
+			                            </thead>
+			                            <tbody >
+			                            <tr th:each="ot, iterStat : ${orderdetail}" class="text-center"> 
+			                            	<td th:text="${ot.product.name}"></td>
+			                            	<td th:text="${ot.product.Quantity}"></td>
+			                            	<td th:text="${ot.product.price} + ' ' + 'VND'"></td>
+			                            	<td th:text="*{TotalAmount}"></td>
+			                        	</tr>
+			                            </tbody>
+                            
+                        			</table>
+				               
+				                </form>
+				
+				            </div>
+				        </div>
                     </div>
                 </div>
             </div>
@@ -393,29 +386,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer class="sticky-footer px-3 bg-white">
-            <!--            <div class="float-start">-->
-            <!--                {{currentPage+1}} entries of {{items.lenght}} entries-->
-            <!--            </div>-->
-
-            <div class="float-end">
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination">
-				    <li class="page-item"><a class="page-link" href="#" ng-disabled="currentPage == 0"
-				                             ng-click="currentPage=currentPage-1">Previous</a></li>
-				    <li ng-repeat="n in range(numberOfPages())" ng-if="n >= currentPage - 1 && n <= currentPage + 2" class="page-item"
-				        ng-class="{active: n == currentPage}"
-				        ng-click="setPage()">
-				        <a class="page-link" href ng-bind="n + 1"></a>
-				        <span ng-if="n == currentPage" class="sr-only">(current)</span>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#"
-				                             ng-disabled="currentPage >= items.length/pageSize - 1"
-				                             ng-click="currentPage=currentPage+1">Next</a></li>
-				  </ul>
-				</nav>
-            </div>
-        </footer>
+        
         <!-- End of Footer -->
 
     </div>

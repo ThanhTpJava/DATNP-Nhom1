@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.dto.OrdersDTO;
 import com.poly.entity.Order;
+import com.poly.entity.Product;
 
 public interface OrderService {
 
