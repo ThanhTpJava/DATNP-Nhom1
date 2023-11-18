@@ -47,8 +47,9 @@ public class WebSecurityConfig {
 		http
 		.authorizeHttpRequests((authorize) ->
 			authorize
-			.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 					.requestMatchers("/admin/shipping").hasAuthority("ROLE_SHIP")
+			.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+
 			.requestMatchers("/rest/**").permitAll()
 			.anyRequest().permitAll()
 			
