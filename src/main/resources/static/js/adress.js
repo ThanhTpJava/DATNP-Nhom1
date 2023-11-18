@@ -1,4 +1,4 @@
-app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window ) {
+app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window) {
 	// quản lý giỏ hàng
 	$scope.isPopupOpen = false;
 	$scope.isPopupOpenErrors = false;
@@ -7,16 +7,19 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 	$scope.iconUrlPopup = "/images/icons/tick.png"
 	$scope.successIconUrl = "/images/icons/tick.png"
 	$scope.errorIconUrl = "/images/icons/errors.png"
+	$scope.checkOrder = false;
 
 	$scope.closePopup = function() {
 		$scope.isPopupOpen = false;
-		var delayTime = 750;
-		var newUrl = '/order/detail/' + $scope.order.id;
-		$timeout(function() {
-			// Điều hướng đến URL mới
-			/*$window.location.href = newUrl*/
-			$window.location.replace(newUrl);
-		}, delayTime);
+		if ($scope.checkOrder == true) {
+			var delayTime = 750;
+			var newUrl = '/order/detail/' + $scope.order.id;
+			$timeout(function() {
+				// Điều hướng đến URL mới
+				/*$window.location.href = newUrl*/
+				$window.location.replace(newUrl);
+			}, delayTime);		
+		}
 	};
 
 	var $cart = $scope.cart = {
@@ -127,6 +130,7 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 				$scope.PopupTitle = "Thành công!"
 				$scope.PopupMessage = "Đơn hàng của bạn đã được tạo"
 				$scope.isPopupOpen = true;
+				$scope.checkOrder = true;
 				var order = angular.copy(this);
 				console.log(order)
 				// Thực hiện đặt hàng
