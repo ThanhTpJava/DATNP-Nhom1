@@ -137,24 +137,33 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         }
     }
 
-    // Hàm updateStatus để cập nhật trạng thái
-    $scope.updateStatus = function(order, newStatus) {
-        // Gọi API hoặc thực hiện xử lý cập nhật trạng thái ở đây
-        // Ví dụ:
-        // Cập nhật trạng thái mới vào đối tượng đơn hàng
-        order.status = newStatus;
+    $scope.updateOrderStatus = function(orderId, statusId) {
 
-        // Gọi API để cập nhật trạng thái trên máy chủ
-        $http.put('/rest/orders/' + order.id, { status: newStatus })
+        // Gọi đến API sử dụng $http.put
+        $http.put('/rest/orders/' + orderId + '/update-status/' + statusId)
             .then(function(response) {
-                // Xử lý phản hồi sau khi cập nhật thành công (nếu cần)
-                console.log('Cập nhật trạng thái thành công', response);
+                // Xử lý khi thành công
+                console.log(response.data);
             })
             .catch(function(error) {
-                // Xử lý lỗi nếu có
-                console.error('Lỗi khi cập nhật trạng thái', error);
+                // Xử lý khi có lỗi
+                console.error('Error updating order status:', error.data);
             });
     };
+
+    $scope.getStatus = function (orderId) {
+        var url = `${host}/orders/orderID/${orderId}`;
+        return $http.get(url)
+            .then(function (response) {
+                $scope.orderStatus = response.data;
+            })
+            .catch(function(error) {
+                console.error('Error fetching order status:', error);
+            });
+    };
+
+
+
 
     //load data to table
     $scope.load_all();

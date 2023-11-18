@@ -24,7 +24,7 @@ public class Status implements Serializable {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "status")
-    private List<OrderStatus> orderStatus;
+    @OneToOne(mappedBy = "status")
+    private OrderStatus orderStatus;
 
 }

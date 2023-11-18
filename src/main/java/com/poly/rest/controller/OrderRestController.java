@@ -18,6 +18,7 @@ import com.poly.service.StatusService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -84,5 +85,45 @@ public class OrderRestController {
 //	public List<Object[]> deliveredOrdersByMonth() {
 //		return orderService.deliveredOrdersByMonth();
 //	}
+
+	// Endpoint để thay đổi trạng thái của đơn hàng
+	@PutMapping("/{orderId}/update-status/{statusId}")
+	public ResponseEntity<String> updateOrderStatus(@PathVariable String orderId, @PathVariable Integer statusId) {
+		// Lấy đơn hàng từ database
+		Order order = orderService.findById(orderId);
+
+		if (order == null) {
+			return new ResponseEntity<>("Order not found", HttpStatus.NOT_FOUND);
+		}
+
+		// Lấy trạng thái từ database
+		Status newStatus = statusService.findStatusById(statusId);
+
+		if (newStatus == null) {
+			return new ResponseEntity<>("Status not found", HttpStatus.NOT_FOUND);
+		}
+
+		Order findOrderData = orderService.findById(orderId);
+		Status findDttData = statusService.findStatusById(statusId);
+
+		OrderStatus orderStatus = new OrderStatus();
+		orderStatus.setOrder(findOrderData);
+		orderStatus.setStatus(findDttData);
+
+		orderStatusService.saveOrderStatus(orderStatus);
+
+		return new ResponseEntity<>("Order status updated successfully", HttpStatus.OK);
+	}
+
+	@GetMapping("/orderID/{orderId}")
+	public Long getOrderStatusByOrder(@PathVariable String orderId) {
+		OrderStatus orderStatus = orderStatusService.findOrderStatusbyOrder(orderId);
+
+		if (orderStatus != null) {
+			return orderStatus.getId();
+		} else {
+			return null;
+		}
+	}
 
 }

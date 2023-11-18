@@ -1,5 +1,6 @@
 package com.poly.service.impl;
 
+import com.poly.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,12 @@ public class OrderStatusServiceImpl implements OrderStatusService{
 		// TODO Auto-generated method stub
 		return odsttDao.save(orderStatus);
 	}
+
+
+	@Override
+	public OrderStatus findOrderStatusbyOrder(String orderid) {
+		return odsttDao.findOrderStatusByOrder(orderid);
+	}
+
 
 }
