@@ -11,6 +11,7 @@ import com.poly.dao.OrderDAO;
 import com.poly.dao.OrderDetailDAO;
 import com.poly.entity.Order;
 import com.poly.entity.OrderDetail;
+import com.poly.entity.Product;
 import com.poly.service.OrderService;
 
 @Service
@@ -35,11 +36,19 @@ public class OrderServiceImpl implements OrderService{
 		return order;
 	}
 	
-	public Order findById(Long id) {
+	public Order findById(String id) {
 		return dao.findById(id).get();
 	}
 	
 	public List<Order> findByUsername(String username) {
 		return dao.findByUsername(username);
 	}
+
+	@Override
+	public List<Order> findAll() {
+		// TODO Auto-generated method stub
+		return dao.findAll();
+	}
+
+
 }

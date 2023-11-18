@@ -303,41 +303,82 @@
                 <div class="row h-100">
                     
                     <!-- DataTales Example -->
-                    <div class="col-lg-10 overflow-auto m-auto" style="height: 500px">
-                        <table class="table table-bordered w-100 mt-2 mb-2">
-                            <thead>
-                            <tr class="text-center">
-	                            <th>Order ID</th>
-	                            <th>Username</th>
-	                            <th>Order Date</th>
-	                            <th>Shipping Address</th>
-	                            <th>Total Amount</th>
-	                            <th>Status</th>
-	                            <th>Delivery status</th>
-	                            <th>Detail Order</th>
-                        	</tr>
-                            </thead>
-                            <tbody >
-                            <tr th:each="od, iterStat : ${oders}">
-	                            <td class="text-center">[[${od.id}]]</td>
-	                            <td class="text-center">[[${od.account.username}]]</td>
-	                            <td> [[${od.createDate}]]</td>
-	                            <td>[[${od.address}]]</td>
-	                            <td >[[${od.totalAmount}]] VND</td>
-	                            <td class="font-weight-bold" th:text="${od.status == 0 ? 'Đang xác nhận' : (od.status == 1 ? 'Đã thanh toán' : (od.status == 2 ? 'Đã giao' : (od.status == 3 ? 'Trả hàng' : 'Đã hủy')))}" 
-	                            	th:classappend="${od.status == 0 ? 'text-warning' : (od.status == 1 ? 'text-success' : (od.status == 2 ? 'text-primary' : (od.status == 3 ? 'text-danger' : '')))}">
-	                            	[[${od.status}]]
-	                            </td>
-	                            <td class="text-center">
-	                                <button class="btn btn-danger" th:text="${od.status == 0 || od.status == 2 ? 'Đang xác nhận' : (od.status == 1 ? 'Giao hàng' : (od.status == 4 ? 'Hoàn tác' : ''))}">[[${od.status}]]</button>
-	                                
-	                            </td>
-	                            <td class="text-center"> <a th:href="@{'/admin/order-detail/' + ${od.id}}">Views</a></td>
+                    <div class="col-lg-8 overflow-auto m-auto" style="height: 1000px">
+                        <div class="text-center"><h2 class="text-primary"> <b>Order Detail</b> </h2></div>
+				        <div class="card">
+				            <div class="card-body">
+				                <form th:action="@{/update}" th:object="${oders}" method="post">
+				                	<div class="form-group row">
+				                		<div class="col-sm-6">
+				                        	<label for="id" class="">OrderID:</label>
+				                        	<input type="text" class="form-control" id="id" th:value="${oders.id}" th:field="*{id}">
+				                    	</div>
+				                    	
+				                    	<div class="col-sm-6">
+				                        	<label for="username">Username:</label>
+				                        	<input type="text" class="form-control" id="username" th:value="${oders.account.username}" th:field="*{account.username}">
+				                   		</div>
+				                	</div>
+				                    
+				                    <div class="form-group row">
+				                    	<div class="col-sm-6">
+				                        	<label for="email">Email:</label>
+				                        	<input type="text" class="form-control" id="email" th:value="${oders.account.email}" th:field="*{account.email}">
+				                    	</div>
+				                    	
+				                    	<div class="col-sm-6">
+				                        	<label for="phonenumber">Số điện thoại:</label>
+				                        	<input type="text" class="form-control" id="phonenumber" th:value="${oders.account.phonenumber}" th:field="*{account.phonenumber}">
+				                    	</div>
+				                    </div>
+				                    
+				                    <div class="form-group row">
+				                    	<div class="col-sm-6">
+				                        	<label for="address">Address:</label>
+				                        	<input type="text" class="form-control" id="address" th:value="${oders.address}" th:field="*{address}">
+				                    	</div>
+				                    	
+				                    	<div class="col-sm-6">
+				                        	<label for="TotalAmount">Thành Tiền:</label>
+				                        	<input type="text" class="form-control" id="TotalAmount" th:value="${oders.TotalAmount}" th:field="*{TotalAmount}">
+				                    	</div>
+				                    </div>
+				                    
+				                    <div class="form-group row m-auto">
+				                    	<div th:each="res : ${responsi}">
+					                    	<div class="col-sm-12 text-center" th:data-thumb="${res.account.username}">
+					                    		<label for="username">Nhân Viên Quản Lý Hóa Đơn:</label>
+					                    		<input type="text" class="form-control text-center" id="username" th:value="${res.account.username}">
+					                    	</div>
+				                    	</div>
+				                    	
+				                    </div>
+				                    
+				                    <table class="table table-bordered w-100 mt-2 mb-2">
+			                            <thead>
+			                            <tr class="text-center">
+				                            <th>Product Name</th>
+				                            <th>Quantity</th>
+				                            <th>Price</th>
+				                            <th>Total</th>
+			                        	</tr>
+			                            </thead>
+			                            <tbody >
+			                            <tr th:each="ot, iterStat : ${orderdetail}" class="text-center"> 
+			                            	<td th:text="${ot.product.name}"></td>
+			                            	<td th:text="${ot.product.Quantity}"></td>
+			                            	<td th:text="${ot.product.price} + ' ' + 'VND'"></td>
+			                            	<td th:text="*{TotalAmount}"></td>
+			                        	</tr>
+			                            </tbody>
                             
-                        	</tr>
-                            </tbody>
-                            
-                        </table>
+                        			</table>
+				                    
+				                    
+				                </form>
+				
+				            </div>
+				        </div>
                     </div>
                 </div>
             </div>

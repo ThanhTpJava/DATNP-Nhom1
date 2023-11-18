@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.text.SimpleDateFormat;
@@ -16,6 +17,10 @@ import com.poly.dao.OrderDAO;
 import com.poly.dao.OrderDetailDAO;
 import com.poly.entity.Data;
 import com.poly.service.OrderDetailService;
+import com.poly.service.OrderService;
+import com.poly.entity.Order;
+import com.poly.entity.OrderDetail;
+import com.poly.entity.Responsibility;
 
 @Controller
 public class ProductAdminController {
@@ -24,6 +29,9 @@ public class ProductAdminController {
 	
 	@Autowired
 	OrderDetailService orderDetailService;
+	
+	@Autowired
+	OrderService orderService;
 
     @RequestMapping("/admin/index")
     public String Dashboard(Model model) {
@@ -46,8 +54,21 @@ public class ProductAdminController {
     
     @RequestMapping("/admin/orders")
     public String Order(Model model) {
-    	model.addAttribute("oders", orderDetailService.findAll());
+    	model.addAttribute("oders", orderService.findAll());
         return "admin/order";
+    }
+    
+    @RequestMapping("/admin/order-detail/{id}")
+    public String OrderDetail(@PathVariable String id, Model model) {
+    	Order orders = orderService.findById(id);
+    	model.addAttribute("oders", orders);
+    	
+    	List<OrderDetail> orderDetail = orders.getOrderDetails();
+    	model.addAttribute("orderdetail", orderDetail);
+    	
+    	List<Responsibility> responsi = orders.getListOrderResponsi();
+    	model.addAttribute("responsi", responsi);
+        return "admin/order-detail";
     }
     
     @RequestMapping("/statistical")
