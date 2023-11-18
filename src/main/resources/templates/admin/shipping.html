@@ -75,9 +75,8 @@
                        <td>[[${ship.account.username}]]</td>
                        <td>[[${ship.address}]]</td>
                         <td></td>
-<!--                        <td><a href="#"-->
-<!--                               th:attr="ng-click=@{|accDetail.getDetailAccount('${acc.username}')|}"-->
-<!--                               class="btn-detail">Xem chi tiết</a></td>-->
+                        <td><a href="#" th:attr="ng-click=@{|open()|}"
+                                                     class="btn-detail">Xem chi tiết</a></td>
                     </tr>
 
                     </tbody>
@@ -121,120 +120,19 @@
         </div>
     </div>
 </div>
+
 <!-- Acc detail form  -->
 <div th:fragment="infomation-account" class="container-acc-detail">
     <form class="acc-detail"
           ng-class="{ 'open-acc-detail': isOpenAccDetail }" id="acc-detail"
           action="">
-        <img ng-if="avatar != ''" ng-src="{{avatar}}" alt="" class="avatar col-3">
 
-        <div class="first-info row col-9">
-            <div class="col">
-                <label for="inputFirstName" class="form-label">First Name</label> <input
-                    ng-model="accDetail.userData[0].surname" type="text"
-                    class="form-control ip-apitalize" id="inputFirstName">
-            </div>
-            <div class="col-5">
-                <label for="inputLastName" class="form-label">Last Name</label> <input
-                    ng-model="accDetail.userData[0].name" type="text"
-                    class="form-control ip-apitalize" id="inputLastName"
-                    placeholder="">
-            </div>
-        </div>
 
-        <div class="second-info row col-9">
-            <div class="col ">
-                <label for="inputBirthDay" class="form-label">Birth Day</label> <i
-                    class="fa-solid fa-triangle-exclamation"
-                    ng-if="!accDetail.userData[0].dateOfBirth"></i> <input type="date"
-                                                                           ng-model="accDetail.userData[0].dateOfBirth"
-                                                                           class="form-control" id="inputBirthDay">
-            </div>
-            <div class="col-6">
-                <label for="gender-select" class="form-label">Gender</label> <i
-                    class="fa-solid fa-triangle-exclamation"
-                    ng-if="accDetail.userData[0].gender == 'UNKNOW'"></i> <br>
-                <div class="form-check form-check-inline mt-2" id="gender-select">
-                    <input class="form-check-input" type="radio"
-                           name="inlineRadioOptions" id="inlineRadio1"
-                           value="MALE" ng-model="accDetail.userData[0].gender"
-                           ng-checked="accDetail.userData[0].gender == 'MALE'">
-                    <label class="form-check-label" for="inlineRadio1">Male</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio"
-                           name="inlineRadioOptions" id="inlineRadio2"
-                           value="FEMALE" ng-model="accDetail.userData[0].gender"
-                           ng-checked="accDetail.userData[0].gender == 'FEMALE'">
-                    <label class="form-check-label" for="inlineRadio2">Female</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="third-info row col-10">
-            <div class="col">
-                <label for="inputFirstName" class="form-label">Phone Number</label>
-                <i class="fa-solid fa-triangle-exclamation"
-                   ng-if="!accDetail.userData[0].phoneNumber"></i> <input type="text"
-                                                                          ng-model="accDetail.userData[0].phoneNumber"
-                                                                          class="form-control" id="inputFirstName">
-            </div>
-            <div class="col-6">
-                <label for="inputLastName" class="form-label">CCCD/CMND</label> <i
-                    class="fa-solid fa-triangle-exclamation"
-                    ng-if="!accDetail.userData[0].idCard"></i> <input type="text"
-                                                                      ng-model="accDetail.userData[0].idCard"
-                                                                      class="form-control" id="inputLastName" placeholder="">
-            </div>
-        </div>
-
-        <div class="fourth-info row col-12">
-            <div class="col">
-                <label for="inputFirstName" class="form-label">Email</label> <input
-                    ng-model="accDetail.userData[0].email" type="email"
-                    class="form-control" id="inputFirstName">
-            </div>
-            <div class="col-6">
-                <label for="inputLastName" class="form-label">Home town</label> <i
-                    class="fa-solid fa-triangle-exclamation"
-                    ng-if="!accDetail.userData[0].hometown"></i> <input type="text"
-                                                                        class="form-control ip-apitalize" id="inputLastName"
-                                                                        ng-model="accDetail.userData[0].hometown"
-                                                                        placeholder="">
-            </div>
-        </div>
-
-        <div class="five-info row col-12">
-            <div class="col">
-                <label for="exampleFormControlTextarea1"
-                       class="form-label ip-apitalize">Delivery address</label> <i
-                    class="fa-solid fa-triangle-exclamation"
-                    ng-if="!accDetail.userData[0].deliveryAddress"></i>
-                <textarea class="form-control ip-apitalize" id="exampleFormControlTextarea1"
-                          ng-model="accDetail.userData[0].deliveryAddress"
-                          rows="3"></textarea>
-            </div>
-            <div class="col-6">
-                <label for="exampleFormControlTextarea1"
-                       class="form-label ip-apitalize">Residential Address</label> <i
-                    class="fa-solid fa-triangle-exclamation"
-                    ng-if="!accDetail.userData[0].residentialAddress"></i>
-                <textarea class="form-control" id="exampleFormControlTextarea1"
-                          ng-model="accDetail.userData[0].residentialAddress"
-                          rows="3"></textarea>
-            </div>
-        </div>
-
-        <div class="button-account-detail ">
 
             <div class="button-row">
                 <button class="button-50 cancel-btn50" type="button"
                         ng-click="CloseAccDetail()" role="button">Cancel</button>
             </div>
-        </div>
-        <!-- change role -->
-        <div sec:authorize="hasAnyRole('ROLE_ADMIN')"
-             th:replace="~{admin/admin-change-role :: admin-change-role}"></div>
 
     </form>
 </div>
@@ -274,6 +172,7 @@
         src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script th:src="@{/js/ship.js}"></script>
 <script th:src="@{/assets/js/popup.js}"></script>
+
 </body>
 
 </html>

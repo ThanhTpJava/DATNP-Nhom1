@@ -29,6 +29,10 @@ app.controller("ctrl", function($scope, $http, $timeout) {
         $scope.isOpenAccDetail = false;
     }
 
+    $scope.open = function() {
+        $scope.isOpenAccDetail = true;
+    }
+
     $scope.AuthPopupOpen = function() {
         $scope.isAuthPopupOpen = true;
     }
@@ -52,7 +56,7 @@ app.controller("ctrl", function($scope, $http, $timeout) {
     $scope.url = '/images/';
     $scope.avatar = '';
 
-    $scope.accDetail = {
+    $scope.shipDetail = {
 
         userData: [],
 

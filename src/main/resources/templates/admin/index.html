@@ -77,7 +77,7 @@
         </li>
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
+        <li sec:authorize="hasRole('ROLE_SHIP')"  class="nav-item"><a class="nav-link"
                                 href="/admin/shipping"> <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Shipping</span></a>
         </li>

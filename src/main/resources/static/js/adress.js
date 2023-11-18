@@ -12,11 +12,11 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 		$scope.isPopupOpen = false;
 		var delayTime = 750;
 		var newUrl = '/order/detail/' + $scope.order.id;
-		$timeout(function() {
-			// Điều hướng đến URL mới
-			/*$window.location.href = newUrl*/
-			$window.location.replace(newUrl);
-		}, delayTime);
+		// $timeout(function() {
+		// 	// Điều hướng đến URL mới
+		// 	/*$window.location.href = newUrl*/
+		// 	$window.location.replace(newUrl);
+		// }, delayTime);
 	};
 
 	var $cart = $scope.cart = {
