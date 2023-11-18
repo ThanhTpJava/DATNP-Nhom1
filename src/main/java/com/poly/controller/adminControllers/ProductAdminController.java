@@ -11,6 +11,7 @@ import com.poly.entity.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -86,11 +87,11 @@ public class ProductAdminController {
 //        return "admin/authorize/roles";
     }
     
-    @RequestMapping("/admin/orders")
-    public String Order(Model model) {
-    	model.addAttribute("oders", orderService.findAll());
-        return "admin/order";
-    }
+//    @RequestMapping("/admin/orders")
+//    public String Order(Model model) {
+//    	model.addAttribute("oders", orderService.findAll());
+//        return "admin/order";
+//    }
 
     @RequestMapping("/admin/order-detail/{id}")
     public String OrderDetail(@PathVariable String id, Model model) {

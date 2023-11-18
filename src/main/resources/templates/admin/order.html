@@ -39,50 +39,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"
-        id="accordionSidebar">
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="/admin/products">
-            <img src="https://assets.website-files.com/60a70f8574f9eb38a2b19c99/643d83dec4b1258659fd0402_apple-authorized-reseller-logo-white.png"
-                 style="width: 130px">
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/index"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active"><a class="nav-link"
-                                       href="/admin/products"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Products</span></a>
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/accounts"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Accounts</span></a>
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/orders"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Orders</span></a>
-        </li>
-
-        <li class="nav-item"><a class="nav-link"
-                                href="/statistical"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Statistical</span></a>
-        </li>
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-    </ul>
     <ul th:replace="~{admin/index :: sidebar}"></ul>
     <!-- End of Sidebar -->
 	
@@ -319,23 +276,23 @@
                         	</tr>
                             </thead>
                             <tbody >
-                            <tr th:each="od, iterStat : ${oders}">
-	                            <td class="text-center">[[${od.id}]]</td>
-	                            <td class="text-center">[[${od.account.username}]]</td>
-	                            <td> [[${od.createDate}]]</td>
-	                            <td>[[${od.address}]]</td>
-	                            <td >[[${od.totalAmount}]] VND</td>
-	                            <td class="font-weight-bold" th:text="${od.status == 0 ? 'Đang xác nhận' : (od.status == 1 ? 'Đã thanh toán' : (od.status == 2 ? 'Đã giao' : (od.status == 3 ? 'Trả hàng' : 'Đã hủy')))}"
-	                            	th:classappend="${od.status == 0 ? 'text-warning' : (od.status == 1 ? 'text-success' : (od.status == 2 ? 'text-primary' : (od.status == 3 ? 'text-danger' : '')))}">
-	                            	[[${od.status}]]
-	                            </td>
-	                            <td class="text-center">
-	                                <button class="btn btn-danger" th:text="${od.status == 0 || od.status == 2 ? 'Đang xác nhận' : (od.status == 1 ? 'Giao hàng' : (od.status == 4 ? 'Hoàn tác' : ''))}">[[${od.status}]]</button>
+<!--                            <tr th:each="od, iterStat : ${oders}">-->
+<!--	                            <td class="text-center">[[${od.id}]]</td>-->
+<!--	                            <td class="text-center">[[${od.account.username}]]</td>-->
+<!--	                            <td> [[${od.createDate}]]</td>-->
+<!--	                            <td>[[${od.address}]]</td>-->
+<!--	                            <td >[[${od.totalAmount}]] VND</td>-->
+<!--	                            <td class="font-weight-bold" th:text="${od.status == 0 ? 'Đang xác nhận' : (od.status == 1 ? 'Đã thanh toán' : (od.status == 2 ? 'Đã giao' : (od.status == 3 ? 'Trả hàng' : 'Đã hủy')))}"-->
+<!--	                            	th:classappend="${od.status == 0 ? 'text-warning' : (od.status == 1 ? 'text-success' : (od.status == 2 ? 'text-primary' : (od.status == 3 ? 'text-danger' : '')))}">-->
+<!--	                            	[[${od.status}]]-->
+<!--	                            </td>-->
+<!--	                            <td class="text-center">-->
+<!--	                                <button class="btn btn-danger" th:text="${od.status == 0 || od.status == 2 ? 'Đang xác nhận' : (od.status == 1 ? 'Giao hàng' : (od.status == 4 ? 'Hoàn tác' : ''))}">[[${od.status}]]</button>-->
 
-	                            </td>
-	                            <td class="text-center"> <a th:href="@{'/admin/order-detail/' + ${od.id}}">Views</a></td>
+<!--	                            </td>-->
+<!--	                            <td class="text-center"> <a th:href="@{'/admin/order-detail/' + ${od.id}}">Views</a></td>-->
 
-                        	</tr>
+<!--                        	</tr>-->
                             </tbody>
 
                         </table>
