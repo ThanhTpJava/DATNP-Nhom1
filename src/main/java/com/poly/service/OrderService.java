@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.poly.dto.OrdersDTO;
 import com.poly.entity.Order;
 
 public interface OrderService {
@@ -24,4 +25,6 @@ public interface OrderService {
 //	public List<Object[]> deliveredOrdersByMonth();
 
 	List<String> getListOrderId();
+	
+	List<OrdersDTO> findOrdersDTOsByUsername(String username);
 }

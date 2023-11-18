@@ -42,6 +42,7 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<link rel="stylesheet" th:href="@{/assets/css/orderStatus.css}">
 <!--===============================================================================================-->
 </head>
 <body ng-app="app" ng-controller="cart-ctrl">
@@ -62,16 +63,27 @@
 						<th>Order Date</th>
 						<th>Shipping Address</th>
 						<th>Status</th>
-						<th></th>
-						<th></th> <!-- Thêm cột cho nút hủy đơn hàng và trả hàng -->
+						<th>View</th>
+						
 					</tr>
 					</thead>
-					<tbody>
+					<tbody class = "table-order-body">
 					<tr th:each="order, state: ${orders}">
-						<td th:text="${state.index}"></td>
-						<td th:text="${order.id}"></td>
-						<td th:text="${order.createDate}"></td>
+						<td th:text="${state.index + 1}"></td>
+						<td th:text="${order.orderId}"></td>
+						<td th:text="${#dates.format(order.createDate, 'dd-MM-yyyy')}"></td>
 						<td th:text="${order.address}"></td>
+						<td >
+						 	<span  th:switch="${order.orderStatus}">
+	        					<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="0">Hủy đơn</span>
+	        					<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="1">Đang xác nhận</span>
+	       						<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="2">Đã xác nhận</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="3">Đang giao</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="4">Đã giao</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="5">Trả hàng</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="*">Trạng thái không xác định</span>
+    						</span>
+						</td>
 <!--						<td th:text="${order.status == 0 ? 'Đang xác nhận' :-->
 <!--                (order.status == 1 ? 'Đã thanh toán' :-->
 <!--                (order.status == 2 ? 'Đã giao' :-->
@@ -81,7 +93,7 @@
 <!--                (order.status == 2 ? 'text-primary fw-bold' : 'text-warning fw-bold'))}">-->
 <!--						</td>-->
 						<td>
-							<a th:href="@{|/order/detail/${order.id}|}"><i class="bi bi-search"></i></a>
+							<a th:href="@{|/order/detail/${order.orderId}|}"><i class="bi bi-search"></i></a>
 						</td>
 <!--						<td>-->
 <!--							&lt;!&ndash; Nút hủy đơn hàng &ndash;&gt;-->

@@ -11,6 +11,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.dao.OrderDAO;
 import com.poly.dao.OrderDetailDAO;
+import com.poly.dto.OrdersDTO;
+import com.poly.dto.OrdersDTOMapper;
 import com.poly.entity.Order;
 import com.poly.entity.OrderDetail;
 import com.poly.service.OrderService;
@@ -22,6 +24,9 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	OrderDetailDAO ddao;
+	
+	@Autowired
+	OrdersDTOMapper orderDtoMapper;
 	
 	public Order create(JsonNode orderData) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -75,5 +80,11 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public List<String> getListOrderId() {
 		return dao.getAllOrderId();
+	}
+
+	@Override
+	public List<OrdersDTO> findOrdersDTOsByUsername(String username) {
+		// TODO Auto-generated method stub
+		return dao.findOrderDTOByUsername(username).stream().map(orderDtoMapper).collect(Collectors.toList());
 	}
 }

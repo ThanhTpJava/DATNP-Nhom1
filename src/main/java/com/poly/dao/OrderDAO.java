@@ -12,6 +12,9 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 	@Query("SELECT o FROM Order o WHERE o.account.username=?1")
 	List<Order> findByUsername(String username);
 
+	@Query("SELECT o FROM Order o WHERE o.account.username=?1")
+	List<Order> findOrderDTOByUsername(String username);
+
 //	@Query("SELECT o FROM Order o WHERE o.Status = 2 AND YEAR(o.createDate) = :year")
 //	List<Order> findDeliveredOrdersByYear(@Param("year") int year);
 

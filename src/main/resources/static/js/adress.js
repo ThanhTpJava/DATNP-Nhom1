@@ -1,4 +1,4 @@
-app.controller("cart-ctrl", function($scope, $http) {
+app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window ) {
 	// quản lý giỏ hàng
 	$scope.isPopupOpen = false;
 	$scope.isPopupOpenErrors = false;
@@ -9,8 +9,14 @@ app.controller("cart-ctrl", function($scope, $http) {
 	$scope.errorIconUrl = "/images/icons/errors.png"
 
 	$scope.closePopup = function() {
-
 		$scope.isPopupOpen = false;
+		var delayTime = 750;
+		var newUrl = '/order/detail/' + $scope.order.id;
+		$timeout(function() {
+			// Điều hướng đến URL mới
+			/*$window.location.href = newUrl*/
+			$window.location.replace(newUrl);
+		}, delayTime);
 	};
 
 	var $cart = $scope.cart = {
@@ -91,7 +97,7 @@ app.controller("cart-ctrl", function($scope, $http) {
 			return { username: $auth.username }
 		},
 		createDate: new Date(),
-		
+
 		address: null,
 		totalAmount: $cart.amount,
 		get orderDetails() {
@@ -105,10 +111,10 @@ app.controller("cart-ctrl", function($scope, $http) {
 				}
 			});
 		},
-		
+
 		purchase() {
 			var order = angular.copy(this);
-				console.log(order)
+			console.log(order)
 			if ($scope.order.address == null) {
 				$scope.iconUrlPopup = $scope.errorIconUrl
 				$scope.PopupTitle = "Lỗi!!!"
@@ -241,7 +247,7 @@ app.controller("cart-ctrl", function($scope, $http) {
 			$scope.order.address = result;
 
 		}
-	/*	console.log("Address - :", $scope.order.address)*/
+		/*	console.log("Address - :", $scope.order.address)*/
 
 	};
 
