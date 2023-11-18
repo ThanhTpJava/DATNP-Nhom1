@@ -58,6 +58,8 @@ public interface AccountDAO extends JpaRepository<Account, String>{
 //			+ "WHERE auth.role.Id = :roleName")
 //    List<AccountDTO> findAccountsAndRolesByRole(@Param("roleName") String roleName);
 
+	Optional<Account> findByEmail(String email);
+
 	
 
 }

@@ -25,8 +25,8 @@ public class Banner {
 	@Column(name = "Caption",  columnDefinition = "nvarchar(max)")
 	private String Caption;
 
-	@Column(name = "Order")
-	private int Order;
+	@Column(name = "Orderr")
+	private int Orderr;
 
 	@Column(name = "CreatedAt")
 	private Date CreatedAt;
