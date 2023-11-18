@@ -17,4 +17,10 @@ public class OrderAdminController {
         model.addAttribute("orders",orderService.findAll());
         return "admin/order";
     }
+
+    @RequestMapping("/admin/shipping")
+    public String Shipping(Model model){
+        model.addAttribute("listShipping",orderService.findAll());
+        return "admin/shipping";
+    }
 }
