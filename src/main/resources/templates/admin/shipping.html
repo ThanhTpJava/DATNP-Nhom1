@@ -126,13 +126,39 @@
     <form class="acc-detail"
           ng-class="{ 'open-acc-detail': isOpenAccDetail }" id="acc-detail"
           action="">
+        <div class="first-info row col-9">
+            <div class="col">
+                <label for="inputFirstName" class="form-label">First Name</label> <input
+                    ng-model="" type="text"
+                    class="form-control ip-apitalize" id="inputFirstName">
+            </div>
+            <div class="col-5">
+                <label for="inputLastName" class="form-label">Last Name</label> <input
+                    ng-model="" type="text"
+                    class="form-control ip-apitalize" id="inputLastName"
+                    placeholder="">
+            </div>
+        </div>
+        <div class="third-info row col-9">
+            <div class="col">
+                <label for="inputFirstName" class="form-label">Phone Number</label>
+                <i class="fa-solid fa-triangle-exclamation"
+                   ng-if=""></i> <input type="text" ng-model="" class="form-control" id="inputFirstName">
+            </div>
+            <div class="col-6">
+                <label for="inputLastName" class="form-label">Purchase</label> <i
+                    class="fa-solid fa-triangle-exclamation"
+                    ng-if=""></i> <input type="text" ng-model=""  class="form-control" id="inputLastName" placeholder="">
+            </div>
+        </div>
 
-
+        <div class="button-account-detail ">
 
             <div class="button-row">
                 <button class="button-50 cancel-btn50" type="button"
                         ng-click="CloseAccDetail()" role="button">Cancel</button>
             </div>
+        </div>
 
     </form>
 </div>
