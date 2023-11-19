@@ -52,6 +52,7 @@ public class AuthController {
             case "ROLE_USER" -> "redirect:/user/home";
             case "ROLE_SALE" -> "redirect:/admin/products";
             case "ROLE_STOCK" -> "redirect:/";
+			case "ROLE_SHIP" -> "redirect:/admin/shipping";
             default -> "forward:/auth/login/form";
 //			default -> throw new IllegalStateException("Unexpected value: " + getLoginAuthority());
 			//
@@ -113,6 +114,9 @@ public class AuthController {
 					break;
 				case "ROLE_STOCK":
 					role = "ROLE_STOCK";
+					break;
+				case "ROLE_SHIP":
+					role = "ROLE_SHIP";
 					break;
 				default:
 					role = "No specific role";
