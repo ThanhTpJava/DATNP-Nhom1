@@ -3,7 +3,8 @@ package com.poly.service.impl;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.poly.dto.OrderShipDTO;
+import com.poly.entity.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -15,7 +16,6 @@ import com.poly.dto.OrdersDTO;
 import com.poly.dto.OrdersDTOMapper;
 import com.poly.entity.Order;
 import com.poly.entity.OrderDetail;
-import com.poly.entity.Product;
 import com.poly.service.OrderService;
 
 @Service
@@ -88,4 +88,29 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		return dao.findOrderDTOByUsername(username).stream().map(orderDtoMapper).collect(Collectors.toList());
 	}
+	@Override
+	public OrderShipDTO findByIdShip(String id) {
+		Order order = dao.findById(id).orElse(null);
+
+		if (order != null) {
+
+			List<Integer> orderStatusIntList = order.getOrderStatuses()
+					.stream()
+					.map(OrderStatus::getId) // Assuming getOrderStatus returns an int
+					.collect(Collectors.toList());
+
+			return new OrderShipDTO(
+					order.getId(),
+					order.getCreateDate(),
+					order.getTotalAmount(),
+					order.getAddress(),
+					order.getAccount(),
+					orderStatusIntList
+			);
+		} else {
+			return null; // or throw an exception or handle accordingly based on your requirements
+		}
+	}
+
+
 }

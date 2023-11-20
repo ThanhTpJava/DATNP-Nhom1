@@ -60,10 +60,11 @@ app.controller("ctrl", function($scope, $http, $timeout) {
 
         userData: [],
 
-
-
-        getDetailShip(username) {
-
+        getDetailShip(id) {
+            $http.get(`/rest/orders/ship/${id}`).then(resp => {
+                console.log(resp.data)
+                $scope.shipDetail.userData.push(resp.data);
+            })
             $scope.isOpenAccDetail = true;
 
         }

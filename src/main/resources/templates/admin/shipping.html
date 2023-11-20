@@ -38,6 +38,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/button17.css}">
     <link rel="stylesheet" th:href="@{/assets/css/button50.css}">
     <link rel="stylesheet" th:href="@{/assets/css/popup.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/orderShipStatus.css}">
 </head>
 
 <body id="page-top" ng-app="app" ng-controller="ctrl">
@@ -75,7 +76,7 @@
                        <td>[[${ship.account.username}]]</td>
                        <td>[[${ship.address}]]</td>
                         <td></td>
-                        <td><a href="#" th:attr="ng-click=@{|open()|}"
+                        <td><a href="#" th:attr="ng-click=@{|shipDetail.getDetailShip('${ship.id}')|}"
                                                      class="btn-detail">Xem chi tiết</a></td>
                     </tr>
 
@@ -126,31 +127,55 @@
     <form class="acc-detail"
           ng-class="{ 'open-acc-detail': isOpenAccDetail }" id="acc-detail"
           action="">
-        <div class="first-info row col-9">
+        <div class=" row col-12">
             <div class="col">
-                <label for="inputFirstName" class="form-label">First Name</label> <input
-                    ng-model="" type="text"
-                    class="form-control ip-apitalize" id="inputFirstName">
+                <label for="inputFirstName" class="form-label">First Name</label> <input disabled
+                    ng-model="shipDetail.userData[0].account.surname" type="text"
+                    class="form-control ip-apitalize" id="firstname">
             </div>
-            <div class="col-5">
-                <label for="inputLastName" class="form-label">Last Name</label> <input
-                    ng-model="" type="text"
-                    class="form-control ip-apitalize" id="inputLastName"
+            <div class="col-6">
+                <label for="inputLastName" class="form-label">Last Name</label> <input disabled
+                    ng-model="shipDetail.userData[0].account.name" type="text"
+                    class="form-control ip-apitalize" id="lastName"
                     placeholder="">
             </div>
         </div>
-        <div class="third-info row col-9">
+        <div class=" row col-12">
             <div class="col">
                 <label for="inputFirstName" class="form-label">Phone Number</label>
                 <i class="fa-solid fa-triangle-exclamation"
-                   ng-if=""></i> <input type="text" ng-model="" class="form-control" id="inputFirstName">
+                   ng-if=""></i> <input disabled type="text" ng-model="shipDetail.userData[0].phonenumber" class="form-control" id="inputFirstName">
             </div>
             <div class="col-6">
                 <label for="inputLastName" class="form-label">Purchase</label> <i
                     class="fa-solid fa-triangle-exclamation"
-                    ng-if=""></i> <input type="text" ng-model=""  class="form-control" id="inputLastName" placeholder="">
+                    ng-if=""></i> <input disabled type="text" ng-model="shipDetail.userData[0].account.username"  class="form-control" id="inputLastName" placeholder="">
             </div>
         </div>
+        <div class="col-12">
+                <label for="Address" class="form-label">Address</label>
+                <i class="fa-solid fa-triangle-exclamation"
+                   ng-if=""></i> <input disabled type="text" ng-model="shipDetail.userData[0].address" class="form-control" id="Address">
+        </div>
+        <div class="col-12 row mt-5">
+            <div class="col-4">
+                <label class="form-label">Status</label>
+                <i class="fa-solid fa-triangle-exclamation"
+                   ng-if=""></i>
+            </div>
+            <div class="col-8">
+                <div ng-switch="shipDetail.userData[0].orderStatus" class="table-order-body">
+                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="0">Hủy đơn</div>
+                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="1">Đang xác nhận</div>
+                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="2">Đã xác nhận</div>
+                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="3">Đang giao</div>
+                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="4">Đã giao</div>
+                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="5">Trả hàng</div>
+                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-default>Trang thái không xác định</div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="button-account-detail ">
 
