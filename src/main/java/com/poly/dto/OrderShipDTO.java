@@ -12,7 +12,7 @@ public record OrderShipDTO(
         String address,
 
         Account account,
-        java.util.List<Integer> orderStatus
+        int orderStatus
 ) {
 
 }

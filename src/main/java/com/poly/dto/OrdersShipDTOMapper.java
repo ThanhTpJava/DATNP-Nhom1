@@ -19,10 +19,12 @@ public class OrdersShipDTOMapper implements Function<Order, OrderShipDTO>{
 				od.getTotalAmount(),
 				od.getAddress(),
 				od.getAccount(),
-                Collections.singletonList(od.getOrderStatuses().stream()
-                        .map(odstt -> odstt.getStatus().getId())
-                        .findFirst().orElse(99))
+				od.getOrderStatuses().stream()
+						.map(odstt -> odstt.getStatus().getId())
+						.findFirst().orElse(99)
 		);
 	}
 
-}
+	}
+
+

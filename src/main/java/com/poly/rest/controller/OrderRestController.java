@@ -92,4 +92,9 @@ public class OrderRestController {
 //		return orderService.deliveredOrdersByMonth();
 //	}
 
+	@PutMapping("updateStatus/{orderId}/{statusId}")
+	public void updateStatusShip(@PathVariable String orderId, @PathVariable Integer statusId){
+		orderService.updateOrderStatus(orderId, statusId);
+	}
+
 }

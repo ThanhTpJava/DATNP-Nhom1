@@ -31,4 +31,6 @@ public interface OrderService {
 	List<OrdersDTO> findOrdersDTOsByUsername(String username);
 
 	public OrderShipDTO findByIdShip(String id);
+
+	public void updateOrderStatus(String orderId, Integer statusId);
 }

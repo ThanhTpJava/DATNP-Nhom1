@@ -3,8 +3,12 @@ package com.poly.service.impl;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.poly.dao.OrderStatusDAO;
+import com.poly.dao.StatusDAO;
 import com.poly.dto.OrderShipDTO;
 import com.poly.entity.OrderStatus;
+import com.poly.entity.Status;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -28,6 +32,12 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	OrdersDTOMapper orderDtoMapper;
+
+	@Autowired
+	OrderStatusDAO orderStatusDAO;
+
+	@Autowired
+	StatusDAO statusDAO;
 
 	public Order create(JsonNode orderData) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -94,23 +104,42 @@ public class OrderServiceImpl implements OrderService{
 
 		if (order != null) {
 
-			List<Integer> orderStatusIntList = order.getOrderStatuses()
-					.stream()
-					.map(OrderStatus::getId) // Assuming getOrderStatus returns an int
-					.collect(Collectors.toList());
-
+Integer statusId =order.getOrderStatuses().get(0).getStatus().getId();
+			System.out.println(statusId);
 			return new OrderShipDTO(
 					order.getId(),
 					order.getCreateDate(),
 					order.getTotalAmount(),
 					order.getAddress(),
 					order.getAccount(),
-					orderStatusIntList
+					statusId
 			);
 		} else {
 			return null; // or throw an exception or handle accordingly based on your requirements
 		}
 	}
+    @Override
+	@Transactional
+	public void updateOrderStatus(String orderId, Integer statusId) {
+		// Retrieve the Order and Status entities
+		Order order = dao.findById(orderId).orElse(null);
+		Status status = statusDAO.findById(statusId).orElse(null);
+
+		if (order != null && status != null) {
+			orderStatusDAO.deleteByOrderId(order.getId());
+
+			// Create a new OrderStatus entity with the updated status
+			OrderStatus orderStatus = new OrderStatus();
+			orderStatus.setOrder(order);
+			orderStatus.setStatus(status);
+
+			// Save the new OrderStatus
+			orderStatusDAO.save(orderStatus);
+		} else {
+			throw new IllegalArgumentException("Order or Status not found");
+		}
+	}
+
 
 
 }

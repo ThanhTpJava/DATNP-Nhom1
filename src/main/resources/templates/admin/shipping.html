@@ -157,7 +157,7 @@
                 <i class="fa-solid fa-triangle-exclamation"
                    ng-if=""></i> <input disabled type="text" ng-model="shipDetail.userData[0].address" class="form-control" id="Address">
         </div>
-        <div class="col-12 row mt-5">
+        <div class="col-12 row mt-5 mb-5">
             <div class="col-4">
                 <label class="form-label">Status</label>
                 <i class="fa-solid fa-triangle-exclamation"
@@ -176,6 +176,11 @@
             </div>
         </div>
 
+        <div class=" row col-8 row m-auto">
+        <button ng-if="shipDetail.userData[0].orderStatus = " class="col-4" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId,2 )">Khách không nhận hàng</button>
+        <button class="col-4" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId,4 )">Đã giao xong</button>
+            <button class="col-4" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId,5 )">Khách yêu cầu trả hàng</button>
+        </div>
 
         <div class="button-account-detail ">
 
