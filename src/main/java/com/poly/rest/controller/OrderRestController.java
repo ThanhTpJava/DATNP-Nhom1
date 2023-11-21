@@ -1,6 +1,8 @@
 package com.poly.rest.controller;
 
 import com.poly.dao.OrderDAO;
+import com.poly.dto.OrderShipDTO;
+import com.poly.dto.OrdersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,11 @@ public class OrderRestController {
 	@GetMapping("{id}")
 	public Order findByID(@PathVariable("id") String id) {
 		return orderService.findById(id);
+	}
+
+	@GetMapping("/ship/{id}")
+	public OrderShipDTO findShipByID(@PathVariable("id") String id) {
+		return orderService.findByIdShip(id);
 	}
 
 	@PostMapping
@@ -84,5 +91,10 @@ public class OrderRestController {
 //	public List<Object[]> deliveredOrdersByMonth() {
 //		return orderService.deliveredOrdersByMonth();
 //	}
+
+	@PutMapping("updateStatus/{orderId}/{statusId}")
+	public void updateStatusShip(@PathVariable String orderId, @PathVariable Integer statusId){
+		orderService.updateOrderStatus(orderId, statusId);
+	}
 
 }
