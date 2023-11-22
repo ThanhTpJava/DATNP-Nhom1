@@ -1,6 +1,5 @@
 @import
-	url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap')
-	;
+	url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
 
 * {
 	font-family: 'Poppins', sans-serif;
@@ -123,6 +122,11 @@
 
 .payment-container form .pm-rw .col .inputBox .title-inputBox {
 	margin-bottom: 7px;
+}
+
+.payment-container form .pm-rw .col .inputBox .not-allowed{
+	cursor: not-allowed; 
+	
 }
 
 .payment-container form .pm-rw .col .inputBox-fix {

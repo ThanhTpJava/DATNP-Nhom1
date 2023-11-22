@@ -48,6 +48,7 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/assets/css/payment.css}">
 <link rel="stylesheet" th:href="@{/assets/css/popup.css}">
+<link rel="stylesheet" th:href="@{/assets/css/otp.css}">
 <!--===============================================================================================-->
 
 </head>
@@ -79,14 +80,14 @@
 						</div>
 
 						<div class="inputBox">
-							<span>Ngày tạo đơn : </span> <input type="text" readonly
+							<span>Ngày tạo đơn : </span> <input type="text" readonly class = "not-allowed"
 								placeholder="Name" name="" id=""
 								value="{{order.createDate | date :
 						'dd-MM-yyyy'}}">
 						</div>
 
 						<div class="inputBox">
-							<span>Email</span> <input type="text" placeholder="Address"
+							<span>Email</span> <input type="text" placeholder="Address" readonly class = "not-allowed"
 								name="" id="email" value="{{$auth.email}}">
 						</div>
 
@@ -143,7 +144,7 @@
 				<div class="payment-box">
 				<span class="title-payment-box">Hình thức thanh toán: </span>
 				<div class="payment_method">
-					<input type="button" ng-click="sendOTP()" value="COD"
+					<input type="button" ng-click="order.purchase()" value="COD"
 						class="submit-btn cod" name="" id=""> <input type="submit"
 						value="MOMO" class="submit-btn momo" name="" id=""> <input
 						type="submit" value="VNPAY" class="submit-btn vnpay" name="" id="">
@@ -165,8 +166,23 @@
 		<img ng-src="{{ iconUrlPopup }}" alt="">
 		<h2 ng-bind="PopupTitle"></h2>
 		<p ng-bind="PopupMessage"></p>
-		<input ng-model="otp" class="otp-value">
-		<button type="button" ng-click="comfirmOTP(otp)">OK</button>
+		<div class="otp-container"> 
+        <div id="inputs-otp" class="inputs-otp"> 
+            <input class="input-otp" type="text" 
+                inputmode="numeric" maxlength="1" ng-model="otp[0]"/> 
+            <input class="input-otp" type="text" 
+                inputmode="numeric" maxlength="1" ng-model="otp[1]"/> 
+            <input class="input-otp" type="text" 
+                inputmode="numeric" maxlength="1" ng-model="otp[2]"/> 
+            <input class="input-otp" type="text" 
+                inputmode="numeric" maxlength="1" ng-model="otp[3]"/> 
+            <input class="input-otp" type="text" 
+                inputmode="numeric" maxlength="1" ng-model="otp[4]"/> 
+            <input class="input-otp" type="text" 
+                inputmode="numeric" maxlength="1" ng-model="otp[5]"/> 
+        </div> 
+    </div> 
+		<button type="button" ng-click="comfirmOTP()">Verify OTP</button>
 	</div>
 
 	<script
@@ -244,6 +260,7 @@
 	</script>
 	<!--===============================================================================================-->
 	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/assets/js/otp-input.js}"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
