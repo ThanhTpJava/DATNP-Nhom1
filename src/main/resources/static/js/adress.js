@@ -2,19 +2,21 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 	// quản lý giỏ hàng
 	$scope.isPopupOpen = false;
 	$scope.isPopupOpenErrors = false;
+	$scope.isPopupOpenOTP = false;
 	$scope.PopupTitle = ""
 	$scope.PopupMessage = ""
 	$scope.iconUrlPopup = "/images/icons/tick.png"
 	$scope.successIconUrl = "/images/icons/tick.png"
 	$scope.errorIconUrl = "/images/icons/errors.png"
+	$scope.iconUrlotp = "/images/icons/otp.png"
 	$scope.checkOrder = false;
-
-	$scope.closePopup = function() {
+	$scope.checkOtp = false;
+	$scope.closePopup = function () {
 		$scope.isPopupOpen = false;
 		if ($scope.checkOrder == true) {
 			var delayTime = 750;
 			var newUrl = '/order/detail/' + $scope.order.id;
-			$timeout(function() {
+			$timeout(function () {
 				// Điều hướng đến URL mới
 				$window.location.href = newUrl
 				$window.location.replace(newUrl);
@@ -86,13 +88,46 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 
 	$cart.loadFromLocalStorage();
 	var orderElement = angular.element(document.getElementById('order-id'));
-
+	
 	// Lấy văn bản trong phần tử
 	var orderText = orderElement.text();
 
-	// In ra kết quả
+    $scope.sendOTP = function (){
+		if ($scope.checkOtp == false) {
+			var emailText = $auth.email;
+			console.log(emailText)
+			$http.post('/otp/send-otp?email=' + emailText).then((response) => {
+				console.log(response)
 
+			}).catch(error => {
 
+				console.log(error)
+			});
+
+			$scope.PopupTitle = "OTP"
+			$scope.PopupMessage = "Vui long xac OTP "
+			$scope.iconUrlPopup = $scope.iconUrlotp
+			$scope.isPopupOpenOTP = true
+		}else{
+			$scope.order.purchase()
+		}
+	}
+
+	$scope.comfirmOTP = function (otp) {
+		$scope.isPopupOpenOTP = false;
+		console.log(otp);
+		$http.post('/otp/confirm-otp?otp=' + otp).then((response) => {
+			console.log("good",response);
+			$scope.checkOtp = true;
+			$scope.order.purchase()
+		}).catch(error => {
+			console.log("bad",error);
+			$scope.iconUrlPopup = $scope.errorIconUrl
+				$scope.PopupTitle = "Lỗi!!!"
+				$scope.PopupMessage = "Sai OTP"
+				$scope.isPopupOpen = true;
+		});
+	}
 	// Đặt hàng
 	$scope.order = {
 		id: orderText,
@@ -144,7 +179,7 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 					$scope.PopupMessage = "Đơn hàng của bạn đã được tạo"
 					$scope.isPopupOpen = true;
 					$cart.clear();
-					/*location.href = "/order/detail/" + resp.data.id;*/
+
 				}).catch(error => {
 					alert("Đặt hàng lỗi!")
 					console.log(error)
@@ -154,7 +189,7 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 		}
 	}
 
-	$http.get('/json/address.json').then(function(response) {
+	$http.get('/json/address.json').then(function (response) {
 		// Xử lý dữ liệu JSON trước khi gán nó cho biến đối tượng
 		$scope.addresses = response.data; // Biến addresses phải được khai báo trước đó là một đối tượng
 		console.log("Address: ", $scope.addresses)
@@ -206,7 +241,7 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 
 
 	var printResult = () => {
-		let provinceText = $("#province option:selected").text() ;
+		let provinceText = $("#province option:selected").text();
 		let districtText = $("#district option:selected").text() + ",";
 		let wardText = $("#ward option:selected").text() + ",";
 		let numberHourAndstreetName = ($("#numberHourAndstreetName").val() === '') ? 'Tên đường và số nhà,' : $("#numberHourAndstreetName").val();
@@ -214,11 +249,11 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 		/*if (provinceText == "" || districtText == "" || wardText == "" || numberHourAndstreetName == "") {
 			$scope.order.address = null
 		} else */
-			let result = numberHourAndstreetName + " " + wardText + " " + districtText + " " + provinceText ;
-			// let idValue = order.address.replace(/\W/g, '_');
-			$scope.$apply(function() {
-				$auth.delivery_address = result;
-			});
+		let result = numberHourAndstreetName + " " + wardText + " " + districtText + " " + provinceText;
+		// let idValue = order.address.replace(/\W/g, '_');
+		$scope.$apply(function () {
+			$auth.delivery_address = result;
+		});
 
 		/*	console.log("Address - :", $scope.order.address)*/
 
