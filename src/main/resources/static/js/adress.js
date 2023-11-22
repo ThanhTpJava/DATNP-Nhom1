@@ -1,4 +1,4 @@
-app.controller("cart-ctrl", function($scope, $http, $rootScope, $timeout, $window) {
+app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window ) {
 	// quản lý giỏ hàng
 	$scope.isPopupOpen = false;
 	$scope.isPopupOpenErrors = false;
@@ -86,13 +86,13 @@ app.controller("cart-ctrl", function($scope, $http, $rootScope, $timeout, $windo
 
 	$cart.loadFromLocalStorage();
 	var orderElement = angular.element(document.getElementById('order-id'));
-	
+
 	// Lấy văn bản trong phần tử
 	var orderText = orderElement.text();
-	
+
 	// In ra kết quả
-	
-	 
+
+
 	// Đặt hàng
 	$scope.order = {
 		id: orderText,
@@ -144,7 +144,7 @@ app.controller("cart-ctrl", function($scope, $http, $rootScope, $timeout, $windo
 					$scope.PopupMessage = "Đơn hàng của bạn đã được tạo"
 					$scope.isPopupOpen = true;
 					$cart.clear();
-					
+					/*location.href = "/order/detail/" + resp.data.id;*/
 				}).catch(error => {
 					alert("Đặt hàng lỗi!")
 					console.log(error)
@@ -219,7 +219,7 @@ app.controller("cart-ctrl", function($scope, $http, $rootScope, $timeout, $windo
 			$scope.$apply(function() {
 				$auth.delivery_address = result;
 			});
-		
+
 		/*	console.log("Address - :", $scope.order.address)*/
 
 	};

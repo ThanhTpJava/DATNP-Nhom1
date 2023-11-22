@@ -34,7 +34,7 @@ public class AuthController {
 
 	@Autowired
 	AccountService accService;
-	
+
 	@GetMapping(value = "/auth/login/form")
 	public String loginForm() {
 		System.out.println("------------------------------------------------------------------");
@@ -56,8 +56,8 @@ public class AuthController {
             case "ROLE_ADMIN" -> "redirect:/admin/products";
             case "ROLE_USER" -> "redirect:/user/home";
             case "ROLE_SALE" -> "redirect:/admin/products";
-            case "ROLE_STOCK" -> "redirect:/admin/products";
-            case "ROLE_SHIP" -> "";
+            case "ROLE_STOCK" -> "redirect:/";
+			case "ROLE_SHIP" -> "redirect:/admin/shipping";
             default -> "forward:/auth/login/form";
 //			default -> throw new IllegalStateException("Unexpected value: " + getLoginAuthority());
 			//
@@ -105,7 +105,7 @@ public class AuthController {
 		String username = authentication.getName(); // Lấy tên người dùng
 		String role = "";
 
-		if (authentication.isAuthenticated()) {	
+		if (authentication.isAuthenticated()) {
 			// Người dùng đã được xác thực
 			switch (authentication.getAuthorities().stream().findFirst().orElse(null).getAuthority()) {
 				case "ROLE_ADMIN":
@@ -129,10 +129,10 @@ public class AuthController {
 			}
 			Account account = accountDAO.findAccountsByUsername(username);
 			session.setAttribute("authentication", account);
-			
+
 			AccountDTO accountDTO = accService.getDetailAccountDTO(username);
 			session.setAttribute("account", accountDTO);
-			
+
 			return role;
 		} else {
 			// Người dùng chưa xác thực

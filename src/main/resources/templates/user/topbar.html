@@ -9,11 +9,11 @@
 			href="/auth/login/form" class="flex-c-m trans-04 p-lr-25">
 				Login </a>
 		
-			<a sec:authorize="hasRole('ROLE_USER')" 
+			<a sec:authorize="hasRole('ROLE_USER')"
 				href="/order/list" class="flex-c-m trans-04 p-lr-25">My Order
 			</a>
 			
-		<th:block sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_SHIP')">
+		<th:block sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER','ROLE_SHIP')">
 			<a class="flex-c-m trans-04 p-lr-25" href="/auth/logoff/success">
 				Logout</a>
 		</th:block> 
