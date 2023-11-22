@@ -11,7 +11,7 @@
 var app = angular.module("app", []);
 
 
-app.controller("ctrl", function($scope, $http, $timeout) {
+app.controller("ctrl", function($scope, $http, $timeout, $window) {
 
     $scope.isOpenAccDetail = false;
 
@@ -41,8 +41,9 @@ app.controller("ctrl", function($scope, $http, $timeout) {
         $scope.isAuthPopupOpen = false;
     }
 
-    $scope.closePopup = function() {
+    $scope.reload = function() {
         $scope.isPopupOpen = false;
+        $window.location.reload();
     }
 
     $scope.UpdatePopupClose = function() {

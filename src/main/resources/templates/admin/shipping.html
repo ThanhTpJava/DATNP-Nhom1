@@ -75,8 +75,18 @@
                        <td>[[${ship.account.phonenumber}]]</td>
                        <td>[[${ship.account.username}]]</td>
                        <td>[[${ship.address}]]</td>
-                        <td></td>
-                        <td><a href="#" th:attr="ng-click=@{|shipDetail.getDetailShip('${ship.id}')|}"
+                        <td class="table-order-body">
+                            	<span  th:switch="${ship.orderStatus}">
+	        					<span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="0">Hủy đơn</span>
+	        					<span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="1">Đang xác nhận</span>
+	       						<span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="2">Đã xác nhận</span>
+						        <span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="3">Đang giao</span>
+						        <span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="4">Đã giao</span>
+						        <span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="5">Trả hàng</span>
+						        <span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="*">Trạng thái không xác định</span>
+    						</span>
+                        </td>
+                        <td><a href="#" th:attr="ng-click=@{|shipDetail.getDetailShip('${ship.orderId}')|}"
                                                      class="btn-detail">Xem chi tiết</a></td>
                     </tr>
 
@@ -192,7 +202,7 @@
 
             <div class="button-row">
                 <button class="button-50 cancel-btn50" type="button"
-                        ng-click="CloseAccDetail()" role="button">Cancel</button>
+                        ng-click="reload()" role="button">Cancel</button>
             </div>
         </div>
 
