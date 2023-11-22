@@ -96,3 +96,11 @@
     color: #333;
     margin-left: 20px;
 }
+
+.popup .otp-value{
+    align-items: center;
+	margin: auto;
+    border: #333 solid 1px;
+    width: 150px;
+    height: 50px;
+}

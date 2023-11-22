@@ -87,7 +87,7 @@
 
 						<div class="inputBox">
 							<span>Email</span> <input type="text" placeholder="Address"
-								name="" id="" value="{{$auth.email}}">
+								name="" id="email" value="{{$auth.email}}">
 						</div>
 
 					</div>
@@ -143,7 +143,7 @@
 				<div class="payment-box">
 				<span class="title-payment-box">Hình thức thanh toán: </span>
 				<div class="payment_method">
-					<input type="button" ng-click="order.purchase()" value="COD"
+					<input type="button" ng-click="sendOTP()" value="COD"
 						class="submit-btn cod" name="" id=""> <input type="submit"
 						value="MOMO" class="submit-btn momo" name="" id=""> <input
 						type="submit" value="VNPAY" class="submit-btn vnpay" name="" id="">
@@ -161,6 +161,13 @@
 		<button type="button" ng-click="closePopup()">OK</button>
 	</div>
 
+	<div class="popup" ng-class="{ 'open-popup': isPopupOpenOTP }">
+		<img ng-src="{{ iconUrlPopup }}" alt="">
+		<h2 ng-bind="PopupTitle"></h2>
+		<p ng-bind="PopupMessage"></p>
+		<input ng-model="otp" class="otp-value">
+		<button type="button" ng-click="comfirmOTP(otp)">OK</button>
+	</div>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

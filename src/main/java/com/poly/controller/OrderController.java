@@ -80,41 +80,5 @@ public class OrderController {
 			return "/auth/login/form"; //login
 		}
 	}
-//	@PostMapping("/confirm-otp")
-//	public String confirmOtp(@RequestParam("otp") String otp, HttpServletRequest request) {
-//	    HttpSession session = request.getSession();
-//	    if (session.getAttribute("otp") != null && session.getAttribute("otp").equals(otp)) {
-//	        Order order = (Order) session.getAttribute("order");
-//	        orderService.save(order);
-//	        return "redirect:/success";
-//	    } else {
-//	        return "redirect:/error";
-//	    }
-//	}
 
-//
-//    @PostMapping("/send-otp")
-//    @ResponseBody
-//    public String sendOtp(@RequestParam("email") String email, HttpServletRequest request) {
-//        Account account = accountService.findByEmail(email);
-//        if (account != null) {
-//            String otp = generateOtp();
-//            HttpSession session = request.getSession();
-//            session.setAttribute("otp", otp);
-//            emailService.sendOtpEmail(account, otp);
-//            logger.info("OTP đã được gửi đến " + email);
-//            return "OTP đã được gửi đến " + email;
-//        } else {
-//        	logger.error("Không thể gửi OTP. Email không tồn tại.");
-//            return "Không thể gửi OTP. Email không tồn tại.";
-//
-//        }
-//    }
-
-
-//	private String generateOtp() {
-//	    Random random = new Random();
-//	    int otpValue = 100000 + random.nextInt(900000);
-//	    return String.valueOf(otpValue);
-//	}
 }
