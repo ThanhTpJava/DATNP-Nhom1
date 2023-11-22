@@ -1457,7 +1457,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   background-color: rgba(0,0,0,0.9);
 }
 
-.prev-slick3 {left: 0px;}
+.prev-slick3 {left: 0.3px;}
 .next-slick3 {right: 0;}
 
 /*---------------------------------------------*/
