@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.poly.dao.OrderStatusDAO;
 import com.poly.dao.StatusDAO;
 import com.poly.dto.OrderShipDTO;
+import com.poly.dto.OrdersShipDTOMapper;
 import com.poly.entity.OrderStatus;
 import com.poly.entity.Status;
 import jakarta.transaction.Transactional;
@@ -32,6 +33,9 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	OrdersDTOMapper orderDtoMapper;
+
+	@Autowired
+	OrdersShipDTOMapper ordersShipDTOMapper;
 
 	@Autowired
 	OrderStatusDAO orderStatusDAO;
@@ -63,8 +67,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<Order> findAll() {
-		return dao.findAll();
+	public List<OrderShipDTO> findAll() {
+		return dao.findAll().stream().map(ordersShipDTOMapper).collect(Collectors.toList());
 	}
 
 //	public Order EditbyID(Order updatedOrder) {

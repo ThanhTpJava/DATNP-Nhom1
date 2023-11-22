@@ -35,7 +35,7 @@ public class OrderRestController {
 	OrderStatusService orderStatusService;
 
 	@GetMapping
-	public List<Order> GetAll() {
+	public List<OrderShipDTO> GetAll() {
 		return orderService.findAll();
 	}
 

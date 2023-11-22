@@ -23,4 +23,5 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 
 	@Query("SELECT od.id FROM Order od")
 	List<String> getAllOrderId();
+
 }
