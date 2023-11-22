@@ -47,7 +47,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
 <link rel="stylesheet" type="text/css"
 	th:href="@{/assets/css/payment.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/popup.css}">
+<link rel="stylesheet" th:href="@{/assets/css/popup.css}">
 <!--===============================================================================================-->
 
 </head>
@@ -59,14 +59,14 @@
 	<div th:replace="user/index :: cart"></div>
 
 	<div class="card">
-	<h1 class = "title-card ">Thông Tin Hóa Đơn</h1>
-	<hr class = "line-card">
+		<h1 class="title-card ">Thông Tin Hóa Đơn</h1>
+		<hr class="line-card">
 		<div class="payment-container">
 			<form action="">
 				<div class="pm-rw">
 					<div class="col">
 						<h3 class="title">
-							Order: <span id = "order-id" ng-value="orderId">[[${orderId}]]</span>
+							Order: <span id="order-id" ng-value="orderId">[[${orderId}]]</span>
 						</h3>
 						<div class="inputBox">
 							<span>Họ tên : </span> <input type="text" placeholder="Name"
@@ -128,23 +128,27 @@
 									id="numberHourAndstreetName">
 							</div>
 						</div>
+
 						<div class="inputBox inputBox-fix">
-							<span class="title-inputBox">Hình thức thanh toán: </span>
-							<div class="payment_method">
-								<input type="button" ng-click="order.purchase()" value="COD"
-									class="submit-btn cod" name="" id=""> <input
-									type="submit" value="MOMO" class="submit-btn momo" name=""
-									id=""> <input type="submit" value="VNPAY"
-									class="submit-btn vnpay" name="" id="">
-							</div>
+							<span>Xác nhận địa chỉ: </span>
+							<textarea rows="3" placeholder="Địa chỉ đầy đủ"  id="deliveryAddress"
+								ng-model="$auth.delivery_address"></textarea>
 						</div>
 
-
+						
 
 					</div>
+
 				</div>
-
-
+				<div class="payment-box">
+				<span class="title-payment-box">Hình thức thanh toán: </span>
+				<div class="payment_method">
+					<input type="button" ng-click="order.purchase()" value="COD"
+						class="submit-btn cod" name="" id=""> <input type="submit"
+						value="MOMO" class="submit-btn momo" name="" id=""> <input
+						type="submit" value="VNPAY" class="submit-btn vnpay" name="" id="">
+				</div>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -152,8 +156,8 @@
 	<!-- Alert -->
 	<div class="popup" ng-class="{ 'open-popup': isPopupOpen }">
 		<img ng-src="{{ iconUrlPopup }}" alt="">
-		<h2 ng-bind="PopupTitle" ></h2>
-		<p ng-bind="PopupMessage" ></p>
+		<h2 ng-bind="PopupTitle"></h2>
+		<p ng-bind="PopupMessage"></p>
 		<button type="button" ng-click="closePopup()">OK</button>
 	</div>
 

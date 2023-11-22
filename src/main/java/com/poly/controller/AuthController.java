@@ -3,7 +3,9 @@ package com.poly.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.dao.AccountDAO;
+import com.poly.dto.AccountDTO;
 import com.poly.entity.Account;
+import com.poly.service.AccountService;
 import com.poly.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class AuthController {
 	@Autowired
 	AccountDAO accountDAO;
 
+	@Autowired
+	AccountService accService;
+	
 	@GetMapping(value = "/auth/login/form")
 	public String loginForm() {
 		System.out.println("------------------------------------------------------------------");
@@ -100,7 +105,7 @@ public class AuthController {
 		String username = authentication.getName(); // Lấy tên người dùng
 		String role = "";
 
-		if (authentication.isAuthenticated()) {
+		if (authentication.isAuthenticated()) {	
 			// Người dùng đã được xác thực
 			switch (authentication.getAuthorities().stream().findFirst().orElse(null).getAuthority()) {
 				case "ROLE_ADMIN":
@@ -124,6 +129,10 @@ public class AuthController {
 			}
 			Account account = accountDAO.findAccountsByUsername(username);
 			session.setAttribute("authentication", account);
+			
+			AccountDTO accountDTO = accService.getDetailAccountDTO(username);
+			session.setAttribute("account", accountDTO);
+			
 			return role;
 		} else {
 			// Người dùng chưa xác thực

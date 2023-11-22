@@ -1,4 +1,4 @@
-app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window) {
+app.controller("cart-ctrl", function($scope, $http, $rootScope, $timeout, $window) {
 	// quản lý giỏ hàng
 	$scope.isPopupOpen = false;
 	$scope.isPopupOpenErrors = false;
@@ -16,9 +16,9 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 			var newUrl = '/order/detail/' + $scope.order.id;
 			$timeout(function() {
 				// Điều hướng đến URL mới
-				/*$window.location.href = newUrl*/
+				$window.location.href = newUrl
 				$window.location.replace(newUrl);
-			}, delayTime);		
+			}, delayTime);
 		}
 	};
 
@@ -86,13 +86,13 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 
 	$cart.loadFromLocalStorage();
 	var orderElement = angular.element(document.getElementById('order-id'));
-
+	
 	// Lấy văn bản trong phần tử
 	var orderText = orderElement.text();
-
+	
 	// In ra kết quả
-
-
+	
+	 
 	// Đặt hàng
 	$scope.order = {
 		id: orderText,
@@ -101,7 +101,7 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 		},
 		createDate: new Date(),
 
-		address: null,
+		address: "",
 		totalAmount: $cart.amount,
 		get orderDetails() {
 			return $cart.items.map(item => {
@@ -118,7 +118,9 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 		purchase() {
 			var order = angular.copy(this);
 			console.log(order)
-			if ($scope.order.address == null) {
+			$scope.order.address = $auth.delivery_address
+			console.log("address: ", $scope.order.address)
+			if ($scope.order.address == null || $scope.order.address == '') {
 				$scope.iconUrlPopup = $scope.errorIconUrl
 				$scope.PopupTitle = "Lỗi!!!"
 				$scope.PopupMessage = "Nhập đầy đủ địa chỉ giao hàng"
@@ -142,7 +144,7 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 					$scope.PopupMessage = "Đơn hàng của bạn đã được tạo"
 					$scope.isPopupOpen = true;
 					$cart.clear();
-					/*location.href = "/order/detail/" + resp.data.id;*/
+					
 				}).catch(error => {
 					alert("Đặt hàng lỗi!")
 					console.log(error)
@@ -202,55 +204,22 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 		printResult();
 	})
 
-	// var printResult = () => {
-	//     if ($("#district").val() != "" && $("#province").val() != "" &&
-	//         $("#ward").val() != "") {
-	//         let result = $("#province option:selected").text() +
-	//             " | " + $("#district option:selected").text() + " | " +
-	//             $("#ward option:selected").text();
-	//         $("#result").text(result)
-	//     }
-
-	// }
-
-	// var printResult = () => {
-	//     if ($("#district").val() != "" && $("#province").val() != "" &&
-	//         $("#ward").val() != "") {
-	//         let result = $("#province option:selected").text() +
-	//             " " + $("#district option:selected").text() + " " +
-	//             $("#ward option:selected").text();
-	//         $("#result").text(result)
-	//     }
-	//
-	// }
-	// var printResult = () => {
-	//     if ($("#district").val() != "" && $("#province").val() != "" &&
-	//         $("#ward").val() != "" && $("#numberHour").val() != null && $("#streetName").val() != null) {
-	//         let result =
-	//             $("#province option:selected").text() +
-	//             " " + $("#district option:selected").text() + " " +
-	//             $("#ward option:selected").text() +
-	//             " " + $("#numberHour").val() +
-	//             " " + $("#streetName").val();
-	//         $("#result").text(result);
-	// }
-	// }
 
 	var printResult = () => {
-		let provinceText = $("#province option:selected").text();
-		let districtText = $("#district option:selected").text();
-		let wardText = $("#ward option:selected").text();
-		let numberHourAndstreetName = $("#numberHourAndstreetName").val();
+		let provinceText = $("#province option:selected").text() ;
+		let districtText = $("#district option:selected").text() + ",";
+		let wardText = $("#ward option:selected").text() + ",";
+		let numberHourAndstreetName = ($("#numberHourAndstreetName").val() === '') ? 'Tên đường và số nhà,' : $("#numberHourAndstreetName").val();
 
-		if (provinceText == "" || districtText == "" || wardText == "" || numberHourAndstreetName == "") {
+		/*if (provinceText == "" || districtText == "" || wardText == "" || numberHourAndstreetName == "") {
 			$scope.order.address = null
-		} else {
-			let result = provinceText + " " + districtText + " " + wardText + " " + numberHourAndstreetName;
+		} else */
+			let result = numberHourAndstreetName + " " + wardText + " " + districtText + " " + provinceText ;
 			// let idValue = order.address.replace(/\W/g, '_');
-			$("#result").text(result);
-			$scope.order.address = result;
-
-		}
+			$scope.$apply(function() {
+				$auth.delivery_address = result;
+			});
+		
 		/*	console.log("Address - :", $scope.order.address)*/
 
 	};
