@@ -42,6 +42,7 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<link rel="stylesheet" th:href="@{/assets/css/orderStatus.css}">
 <!--===============================================================================================-->
 </head>
 <body ng-app="app" ng-controller="cart-ctrl">
@@ -56,31 +57,55 @@
 				<div class="panel-heading">YOUR PURCHASED ORDERS</div>
 				<table class="table table-striped">
 					<thead>
-						<tr>
-							<th>No.</th>
-							<th>Order No.</th>
-							<th>Order Date</th>
-							<th>Shipping Address</th>
-							<th>Status</th>
-							<th></th>
-						</tr>
+					<tr>
+						<th>No.</th>
+						<th>Order No.</th>
+						<th>Order Date</th>
+						<th>Shipping Address</th>
+						<th>Status</th>
+						<th>View</th>
+						
+					</tr>
 					</thead>
-					<tbody>
-						<tr th:each="order, state: ${orders}">
-							<td th:text="${state.index}"></td>
-							<td th:text="${order.id}"></td>
-							<td th:text="${order.createDate}"></td>
-							<td th:text="${order.address}"></td>
-							<td><a th:href="@{|/order/detail/${order.id}|}"> <i
-									class="bi bi-search"></i>
-							</a></td>
-							<td th:text="${order.status ? 'Chờ xử lý':'Đang giao hàng'}"
-								th:class="${order.status ? 'text-success fw-bold' : 'text-warning fw-bold'}">
-							</td>
+					<tbody class = "table-order-body">
+					<tr th:each="order, state: ${orders}">
+						<td th:text="${state.index + 1}"></td>
+						<td th:text="${order.orderId}"></td>
+						<td th:text="${#dates.format(order.createDate, 'dd-MM-yyyy')}"></td>
+						<td th:text="${order.address}"></td>
+						<td >
+						 	<span  th:switch="${order.orderStatus}">
+	        					<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="0">Hủy đơn</span>
+	        					<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="1">Đang xác nhận</span>
+	       						<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="2">Đã xác nhận</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="3">Đang giao</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="4">Đã giao</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="5">Trả hàng</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="*">Trạng thái không xác định</span>
+    						</span>
+						</td>
+<!--						<td th:text="${order.status == 0 ? 'Đang xác nhận' :-->
+<!--                (order.status == 1 ? 'Đã thanh toán' :-->
+<!--                (order.status == 2 ? 'Đã giao' :-->
+<!--                (order.status == 3 ? 'Trả hàng': 'Đã hủy')))}"-->
+<!--							th:class="${order.status == 0 ? 'text-warning fw-bold' :-->
+<!--                (order.status == 1 ? 'text-success fw-bold' :-->
+<!--                (order.status == 2 ? 'text-primary fw-bold' : 'text-warning fw-bold'))}">-->
+<!--						</td>-->
+						<td>
+							<a th:href="@{|/order/detail/${order.orderId}|}"><i class="bi bi-search"></i></a>
+						</td>
+<!--						<td>-->
+<!--							&lt;!&ndash; Nút hủy đơn hàng &ndash;&gt;-->
+<!--							<button th:if="${order.status == 0}" class="btn btn-danger" th:onclick="'cancelOrder(\'' + ${order.id} + '\')'">Hủy Đơn Hàng</button>-->
 
-						</tr>
+<!--							&lt;!&ndash; Nút trả hàng &ndash;&gt;-->
+<!--							<button th:if="${order.status == 2}" class="btn btn-warning" th:onclick="'returnOrder(\'' + ${order.id} + '\')'">Trả Hàng</button>-->
+<!--						</td>-->
+					</tr>
 					</tbody>
 				</table>
+
 			</div>
 		</div>
 	</main>

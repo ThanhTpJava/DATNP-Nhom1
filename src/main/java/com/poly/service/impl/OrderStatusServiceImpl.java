@@ -1,5 +1,7 @@
 package com.poly.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,12 @@ public class OrderStatusServiceImpl implements OrderStatusService{
 	public OrderStatus findByOrderId(String orderId) {
 		// TODO Auto-generated method stub
 		return odsttDao.findOrderStatusByOrderid(orderId);
+	}
+
+	@Override
+	public List<OrderStatus> findAll() {
+		// TODO Auto-generated method stub
+		return odsttDao.findAll();
 	}
 
 }

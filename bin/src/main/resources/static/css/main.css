@@ -1913,7 +1913,7 @@ input.num-product::-webkit-inner-spin-button {
 .table-shopping-cart {
   border-collapse: collapse;
   width: 100%;
-  min-width: 900px;
+  min-width: 680px;
 }
 
 .table-shopping-cart tr {
@@ -2378,13 +2378,13 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .ltext-107 {
-  font-family: Poppins-Bold;
+  font-family: "Times New Roman";
   font-size: 30px;
   line-height: 1.1;
 }
 
 .ltext-108 {
-  font-family: Poppins-Bold, "Times New Roman";
+  font-family: "Times New Roman";
   font-size: 26px;
   line-height: 1.3846;
 }

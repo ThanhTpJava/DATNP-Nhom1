@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+	<script
+			src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script th:src="@{/assets/js/shopping-cart-app.js}"></script>
+	<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
+	<link th:href="@{/assets/css/shopping-cart-app.css}" rel="stylesheet" />
 	<title>Blog</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,8 +35,8 @@
 	<!--===============================================================================================-->
 </head>
 
-<body class="animsition">
-	
+<body class="animsition" ng-app="app" ng-controller="cart-ctrl">
+
 	<!-- Header -->
 	<header th:replace="user/index :: header"></header>
 
@@ -39,12 +44,11 @@
 	<div th:replace="user/index :: cart"></div>
 
 
-	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-02.jpg');">
-		<h2 class="ltext-105 cl0 txt-center">
-			Blog
-		</h2>
-	</section>	
+	<section class="p-lr-15 p-tb-92">
+		<h1 class="txt-center">
+			Blog Sản Phẩm
+		</h1>
+	</section>
 
 
 	<!-- Content page -->
@@ -54,41 +58,31 @@
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-45 p-r-0-lg">
 						<!-- item blog -->
-						<div class="p-b-63">
-							<a href="blog-detail.html" class="hov-img0 how-pos5-parent">
-								<img src="images/blog-04.jpg" alt="IMG-BLOG">
-
-								<div class="flex-col-c-m size-123 bg9 how-pos5">
-									<span class="ltext-107 cl2 txt-center">
-										22
-									</span>
-
-									<span class="stext-109 cl3 txt-center">
-										Jan 2018
-									</span>
-								</div>
-							</a>
+						<div class="p-b-63" th:each="b:${items}">
 
 							<div class="p-t-32">
+								<a th:href="@{'blog/detail/'+${b.id}}" class="hov-img0 how-pos5-parent">
+									<img th:src="${b.Image}" alt="IMG-BLOG">
+								</a>
 								<h4 class="p-b-15">
-									<a href="blog-detail.html" class="ltext-108 cl2 hov-cl1 trans-04">
-										8 Inspiring Ways to Wear Dresses in the Winter
+									<a th:text="${b.Title}" th:href="@{'blog/detail/'+${b.id}}" class="ltext-108 cl2 hov-cl1 trans-04">
 									</a>
 								</h4>
 
-								<p class="stext-117 cl6">
-									Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce eget dictum tortor. Donec dictum vitae sapien eu varius
-								</p>
+								<p class="stext-117 cl6" th:text="${#strings.length(b.Content) > 300} ? ${b.Content.substring(0, 300) + '...'} : ${b.Content}"></p>
 
 								<div class="flex-w flex-sb-m p-t-18">
 									<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
+
 										<span>
-											<span class="cl4">By</span> Admin  
-											<span class="cl12 m-l-4 m-r-6">|</span>
+											<span class="cl4"> By</span> Admin
+											<span class="cl12 m-l-4 m-r-6">| </span>
+											<span th:utext="${#dates.format(b.PublishDate, 'dd/MM/yyyy HH:mm')}"></span>
+											<span class="cl12 m-l-4 m-r-6">| </span>
 										</span>
 
 										<span>
-											StreetStyle, Fashion, Couple  
+											StreetStyle, Fashion, Couple
 											<span class="cl12 m-l-4 m-r-6">|</span>
 										</span>
 
@@ -97,113 +91,7 @@
 										</span>
 									</span>
 
-									<a href="blog-detail.html" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
-										Continue Reading
-
-										<i class="fa fa-long-arrow-right m-l-9"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-
-						<!-- item blog -->
-						<div class="p-b-63">
-							<a href="blog-detail.html" class="hov-img0 how-pos5-parent">
-								<img src="images/blog-05.jpg" alt="IMG-BLOG">
-
-								<div class="flex-col-c-m size-123 bg9 how-pos5">
-									<span class="ltext-107 cl2 txt-center">
-										18
-									</span>
-
-									<span class="stext-109 cl3 txt-center">
-										Jan 2018
-									</span>
-								</div>
-							</a>
-
-							<div class="p-t-32">
-								<h4 class="p-b-15">
-									<a href="blog-detail.html" class="ltext-108 cl2 hov-cl1 trans-04">
-										The Great Big List of Men’s Gifts for the Holidays 
-									</a>
-								</h4>
-
-								<p class="stext-117 cl6">
-									Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce eget dictum tortor. Donec dictum vitae sapien eu varius
-								</p>
-
-								<div class="flex-w flex-sb-m p-t-18">
-									<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
-										<span>
-											<span class="cl4">By</span> Admin  
-											<span class="cl12 m-l-4 m-r-6">|</span>
-										</span>
-
-										<span>
-											StreetStyle, Fashion, Couple  
-											<span class="cl12 m-l-4 m-r-6">|</span>
-										</span>
-
-										<span>
-											8 Comments
-										</span>
-									</span>
-
-									<a href="blog-detail.html" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
-										Continue Reading
-
-										<i class="fa fa-long-arrow-right m-l-9"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-
-						<!-- item blog -->
-						<div class="p-b-63">
-							<a href="blog-detail.html" class="hov-img0 how-pos5-parent">
-								<img src="images/blog-06.jpg" alt="IMG-BLOG">
-
-								<div class="flex-col-c-m size-123 bg9 how-pos5">
-									<span class="ltext-107 cl2 txt-center">
-										16
-									</span>
-
-									<span class="stext-109 cl3 txt-center">
-										Jan 2018
-									</span>
-								</div>
-							</a>
-
-							<div class="p-t-32">
-								<h4 class="p-b-15">
-									<a href="blog-detail.html" class="ltext-108 cl2 hov-cl1 trans-04">
-										5 Winter-to-Spring Fashion Trends to Try Now
-									</a>
-								</h4>
-
-								<p class="stext-117 cl6">
-									Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce eget dictum tortor. Donec dictum vitae sapien eu varius
-								</p>
-
-								<div class="flex-w flex-sb-m p-t-18">
-									<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
-										<span>
-											<span class="cl4">By</span> Admin  
-											<span class="cl12 m-l-4 m-r-6">|</span>
-										</span>
-
-										<span>
-											StreetStyle, Fashion, Couple  
-											<span class="cl12 m-l-4 m-r-6">|</span>
-										</span>
-
-										<span>
-											8 Comments
-										</span>
-									</span>
-
-									<a href="blog-detail.html" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
+									<a  th:href="@{'blog/detail/'+${b.id}}" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
 										Continue Reading
 
 										<i class="fa fa-long-arrow-right m-l-9"></i>
@@ -213,14 +101,44 @@
 						</div>
 
 						<!-- Pagination -->
-						<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
-							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-								1
-							</a>
+<!--						<div class="flex-l-m flex-w w-full p-t-10 m-lr&#45;&#45;7">-->
+<!--							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">-->
+<!--								1-->
+<!--							</a>-->
 
-							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-								2
-							</a>
+<!--							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">-->
+<!--								2-->
+<!--							</a>-->
+<!--						</div>-->
+
+						<div class="flex-c-m flex-w w-full p-t-45">
+
+							<div class="pagination justify-content-center">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li th:if="${currentPage > 0}" class="page-item"><a
+												th:href="@{/user/home(page=${currentPage - 1})}"
+												class="page-link" aria-label="Previous"> <span
+												aria-hidden="true">&laquo;</span>
+										</a></li>
+
+										<li class="page-item"
+											th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+											th:class="${i == currentPage ? 'active' : ''}"><a
+												th:href="@{/user/blog(page=${i})}" class="page-link"
+												th:text="${i + 1}"></a></li>
+
+										<li th:if="${currentPage < totalPages - 1}" class="page-item">
+											<a th:href="@{/user/home(page=${currentPage + 1})}"
+											   class="page-link" aria-label="Next"> <span
+													aria-hidden="true">&raquo;</span>
+											</a>
+										</li>
+									</ul>
+								</nav>
+
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -484,6 +402,9 @@
 	<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
 	<!--===============================================================================================-->
 	<script th:src="@{/vendor/select2/select2.min.js}"></script>
+
+	<script th:src="@{/assets/js/shopping-cart-app.js}"></script>
+
 	<script>
 		$(".js-select2").each(function(){
 			$(this).select2({
@@ -513,6 +434,5 @@
 	</script>
 	<!--===============================================================================================-->
 	<script th:src="@{/js/main.js}"></script>
-
 </body>
 </html>

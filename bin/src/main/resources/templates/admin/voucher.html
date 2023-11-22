@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="dynamic(main)">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Dashboard</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <!-- Custom fonts for this template-->
+    <link href="/vendor-admin/fontawesome-free/css/all.min.css"
+          rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/css/adminStyle/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for table -->
+    <link href="/vendor-admin/datatables/dataTables.bootstrap4.min.css"
+          rel="stylesheet">
+
+</head>
+
+<body id="page-top" ng-app="app" ng-controller="ctrl">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="~{admin/index :: sidebar}"></ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column vh-100">
+        <div class="container">
+            <h2>Quản lý hình ảnh sản phẩm</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form name="myForm">
+                        <div class="form-group">
+                            <label>ID Voucher:</label>
+                            <input readonly ng-model="form.id" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Name Voucher:</label>
+                            <input ng-model="form.name" type="text" class="form-control" required>
+                            <div ng-show="myForm.name.$touched && myForm.name.$error.required" style="color:red">ID Voucher là bắt buộc</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Discount(%):</label>
+                            <input ng-model="form.discount" type="number" class="form-control" required>
+                            <div ng-show="myForm.discount.$touched && myForm.discount.$error.required" style="color:red">ID Voucher là bắt buộc</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Start Date:</label>
+                            <input ng-model="form.startDate" type="date" class="form-control" name="startDate" required>
+                            <div ng-show="myForm.startDate.$touched && myForm.startDate.$error.required" style="color:red">
+                                Start Date là bắt buộc
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>End Date:</label>
+                            <input ng-model="form.endDate" type="date" class="form-control" name="endDate" required
+                                   ng-change="validateEndDate()" min="{{form.startDate}}">
+                            <div ng-show="myForm.endDate.$touched && myForm.endDate.$error.required" style="color:red">
+                                End Date là bắt buộc
+                            </div>
+                            <div ng-show="myForm.endDate.$error.dateError" style="color:red">
+                                End Date phải sau Start Date
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Code Voucher:</label>
+                            <input ng-model="form.code_voucher" type="text" class="form-control" required>
+                            <div ng-show="myForm.code_voucher.$touched && myForm.code_voucher.$error.required" style="color:red">Code Voucher là bắt buộc</div>
+                        </div>
+
+                        <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid  || form.id != null">
+                            <i class="fas fa-plus"></i> Create
+                        </button>
+                        <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid  || form.id == null">
+                            <i class="fas fa-rotate"></i> Update
+                        </button>
+                        <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="myForm.$invalid || form.id == null">
+                            <i class="fas fa-solid fa-ban"></i> Delete
+                        </button>
+                        <button ng-click="reset()" class="btn btn-secondary">
+                            <i class="fas fa-regular fa-window-restore"></i> Reset
+                        </button>
+
+                        <!--                            <div class="input-append">-->
+                        <!--                                <input type="text" ng-model="query" ng-change="search()" class="input-large search-query" placeholder="Search">-->
+                        <!--                                <span class="add-on"><i class="icon-search"></i></span>-->
+                        <!--                            </div>-->
+                    </form>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Danh sách hình ảnh sản phẩm</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <td>Tên voucher</td>
+                            <th>Giảm giá</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <td>Mã code Voucher</td>
+                            <th>Chỉnh sửa</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Thêm dòng cho mỗi hình ảnh sản phẩm ở đây -->
+                        <tr ng-repeat="v in items | startFrom:currentPage*pageSize | limitTo:pageSize">
+                            <td>{{v.id}}</td>
+                            <td>{{v.name}}</td>
+                            <td>{{v.discount}}%</td>
+                            <td>{{v.startDate | date: 'dd/MM/yyyy'}}</td>
+                            <td>{{v.endDate | date: 'dd/MM/yyyy'}}</td>
+                            <td>{{v.code_voucher}}</td>
+<!--                            <td>{{v.product.id}}</td>-->
+<!--                            <td>{{v.product.name}}</td>-->
+                            <td>
+                                <button ng-click="detail(v.id)" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                <button ng-click="delete(v.id)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <!-- Kết thúc danh sách -->
+                        </tbody>
+                    </table>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#" ng-disabled="currentPage == 0"
+                                                     ng-click="currentPage=currentPage-1">Previous</a></li>
+                            </li>
+                            <li ng-repeat="n in range(numberOfPages())" class="page-item"
+                                ng-class="{active: n == currentPage}"
+                                ng-click="setPage()">
+                                <a class="page-link" href ng-bind="n + 1">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#"
+                                                     ng-disabled="currentPage >= items.length/pageSize - 1"
+                                                     ng-click="currentPage=currentPage+1">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top"> <i
+        class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready
+                to end your current session.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button"
+                        data-dismiss="modal">Cancel
+                </button>
+                <a class="btn btn-primary" href="/auth/logoff/success">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var sortingOrder = 'name';
+</script>
+<script src="/js/adminJs/voucher.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor-admin/jquery/jquery.min.js"></script>
+<script src="/vendor-admin/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor-admin/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/adminJs/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/vendor-admin/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/js/adminJs/demo/chart-area-demo.js"></script>
+<script src="/js/adminJs/demo/chart-pie-demo.js"></script>
+
+
+<!-- Page level plugins -->
+<!--<script src="/vendor-admin/datatables/jquery.dataTables.min.js"></script>-->
+<!--<script src="/vendor-admin/datatables/dataTables.bootstrap4.min.js"></script>-->
+
+<!-- Page level custom scripts -->
+<!--<script src="/js/adminJs/demo/datatables-demo.js"></script>-->
+
+
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<div th:fragment="admin-change-role">
+	<form action="">
+		<div class="change-role row col-8">
+			<div class="role-change-box admin">
+				<div class="row mt-3 mb-2">
+					<h5 class="col-3 mt-2 ms-3">Authority:</h5>
+					<div class="role-select col-2">
+						<input type="checkbox" ng-model="isCheckSale"
+							ng-change="accDetail.changeUserRole('ROLE_SALE')"
+							class="btn-check" id="role-sale" autocomplete="off" /> <label
+							class="btn btn-outline-success" for="role-sale">Sale</label>
+					</div>
+					<div class="role-select col-2">
+						<input type="checkbox" ng-model="isCheckStock"
+							ng-change="accDetail.changeUserRole('ROLE_STOCK')"
+							class="btn-check" id="role-stock" autocomplete="off" /> <label
+							class="btn btn-outline-warning" for="role-stock">Stock</label>
+					</div>
+					<div class="role-select col-3">
+						<input type="checkbox" ng-model="isCheckAdmin"
+							ng-change="accDetail.changeUserRole('ROLE_ADMIN')"
+							class="btn-check" id="role-admin" autocomplete="off" /> <label
+							class="btn btn-outline-primary" for="role-admin">Admin</label>
+					</div>
+				</div>
+
+				<div class="btn-change-role row">
+					<div class="col-3 m-auto">
+						<button class="button-17 confirm" type="button"
+							ng-click="AuthPopupOpen()" role="button">Confirm</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>
