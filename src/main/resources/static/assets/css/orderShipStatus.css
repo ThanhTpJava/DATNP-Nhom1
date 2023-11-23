@@ -5,6 +5,7 @@
     border-radius: 2rem;
     text-align: center;
     width: 300px;
+    white-space: nowrap;
 }
 
 .table-order-body .orderstt.stt0{
