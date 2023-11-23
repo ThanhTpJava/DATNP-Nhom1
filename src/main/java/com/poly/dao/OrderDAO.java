@@ -24,4 +24,8 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 	@Query("SELECT od.id FROM Order od")
 	List<String> getAllOrderId();
 
+	@Query("SELECT o FROM Order o JOIN o.orderStatuses os WHERE os.status.id = 1") //test
+	List<Order> findDeliveredOrders();
+
+
 }
