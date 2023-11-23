@@ -266,7 +266,7 @@
                             <thead>
                             <tr class="text-center">
 	                            <th>Order ID</th>
-	                            <th>Username</th>
+	                            <th>Name</th>
 	                            <th>Order Date</th>
 	                            <th>Shipping Address</th>
 	                            <th>Total Amount</th>
@@ -277,7 +277,7 @@
                             <tbody >
 	                            <tr th:each="od, iterStat : ${orders}">
 		                            <td class="text-center">[[${od.order.id}]]</td>
-		                            <td class="text-center">[[${od.order.account.username}]]</td>
+		                            <td class="text-center">[[${od.order.account.name}]]</td>
 		                            <td> [[${od.order.createDate}]]</td>
 		                            <td>[[${od.order.address}]]</td>
 		                            <td >[[${od.order.totalAmount}]] VND</td>

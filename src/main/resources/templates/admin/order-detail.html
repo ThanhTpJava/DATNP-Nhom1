@@ -272,8 +272,8 @@
 				                    	</div>
 				                    	
 				                    	<div class="col-sm-6">
-				                        	<label for="username">Username:</label>
-				                        	<input type="text" class="form-control text-center" id="username" th:value="${oders.account.username}" th:field="*{account.username}">
+				                        	<label for="username">Name:</label>
+				                        	<input type="text" class="form-control text-center" id="username" th:value="${#strings.concat(oders.account.surname, ' ', oders.account.name)}" >
 				                   		</div>
 				                	</div>
 				                    

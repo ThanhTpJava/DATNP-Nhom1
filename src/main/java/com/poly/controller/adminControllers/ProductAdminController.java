@@ -59,39 +59,15 @@ public class ProductAdminController {
         return "admin/products";
     }
 
-//    @RequestMapping("/admin/accounts")
-//
-//    public String Account(Model model,
-//    		@RequestParam(name = "role", required = false, defaultValue = "All") String role) {
-//
-//    	List<AccountDTO> lisAccountDTOs;
-//
-//    	if("All".equalsIgnoreCase(role)) {
-//    		lisAccountDTOs = accService.findAllAccountDTO();
-//    	}else {
-//    		lisAccountDTOs = accService.findAccountDTOByRole(role);
-//    		if (lisAccountDTOs.isEmpty()) {
-//				System.out.println("Rỗng");
-//			}
-//		}
-//
-//    	model.addAttribute("listAccounts", lisAccountDTOs);
-//
-//        return "admin/accounts";
-//
-//    }
+
 
     public String Account(Model model) {
 
         return "admin/accounts";
 //        return "admin/authorize/roles";
     }
-    
-//    @RequestMapping("/admin/orders")
-//    public String Order(Model model) {
-//    	model.addAttribute("oders", orderService.findAll());
-//        return "admin/order";
-//    }
+
+
 
     @RequestMapping("/admin/order-detail/{id}")
     public String OrderDetail(@PathVariable String id, Model model) {
@@ -99,6 +75,7 @@ public class ProductAdminController {
     	model.addAttribute("oders", orders);
 
     	List<OrderDetail> orderDetail = orders.getOrderDetails();
+
     	model.addAttribute("orderdetail", orderDetail);
 
     	List<Responsibility> responsi = orders.getListOrderResponsi();
@@ -111,10 +88,7 @@ public class ProductAdminController {
         return "admin/statistical";
     }
     
-//    @RequestMapping("/ac")
-//    public String ac(Model model) {
-//        return "admin/ac";
-//    }
+
 
     @RequestMapping("/thongke")
     @ResponseBody
