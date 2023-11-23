@@ -305,7 +305,7 @@
 				                    	<div th:each="res : ${responsi}">
 					                    	<div class="col-sm-12 text-center" th:data-thumb="${res.account.username}">
 					                    		<label for="username">Nhân Viên Quản Lý Hóa Đơn:</label>
-					                    		<input type="text" class="form-control text-center" id="username" th:value="${res.account.username}">
+					                    		<input type="text" class="form-control text-center" id="username" th:value="${#strings.concat(res.account.username, '(', res.account.surname, ' ', res.account.name, ')')}">
 					                    	</div>
 				                    	</div>
 				                    	
