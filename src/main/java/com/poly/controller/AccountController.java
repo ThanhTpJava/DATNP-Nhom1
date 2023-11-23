@@ -11,4 +11,9 @@ public class AccountController {
 	public String accountDetail() {
 		return "user/account-detail-for-user";
 	}
+	
+	@RequestMapping("/staff/account/detail")
+	public String staffAccountDetail() {
+		return "admin/staffaccountdetail";
+	}
 }
