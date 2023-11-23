@@ -39,50 +39,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"
-        id="accordionSidebar">
-
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="/admin/products">
-            <img src="https://assets.website-files.com/60a70f8574f9eb38a2b19c99/643d83dec4b1258659fd0402_apple-authorized-reseller-logo-white.png"
-                 style="width: 130px">
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/index"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active"><a class="nav-link"
-                                       href="/admin/products"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Products</span></a>
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/accounts"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Accounts</span></a>
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/orders"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Orders</span></a>
-        </li>
-        
-        <li class="nav-item"><a class="nav-link"
-                                href="/statistical"> <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Statistical</span></a>
-        </li>
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-    </ul>
+        <ul th:replace="~{admin/index :: sidebar}"></ul>
     <!-- End of Sidebar -->
 	
     <!-- Content Wrapper -->
@@ -311,24 +268,24 @@
 				                	<div class="form-group row">
 				                		<div class="col-sm-6">
 				                        	<label for="id" class="">OrderID:</label>
-				                        	<input type="text" class="form-control" id="id" th:value="${oders.id}" th:field="*{id}">
+				                        	<input type="text" class="form-control text-center" id="id" th:value="${oders.id}" th:field="*{id}">
 				                    	</div>
 				                    	
 				                    	<div class="col-sm-6">
 				                        	<label for="username">Username:</label>
-				                        	<input type="text" class="form-control" id="username" th:value="${oders.account.username}" th:field="*{account.username}">
+				                        	<input type="text" class="form-control text-center" id="username" th:value="${oders.account.username}" th:field="*{account.username}">
 				                   		</div>
 				                	</div>
 				                    
 				                    <div class="form-group row">
 				                    	<div class="col-sm-6">
 				                        	<label for="email">Email:</label>
-				                        	<input type="text" class="form-control" id="email" th:value="${oders.account.email}" th:field="*{account.email}">
+				                        	<input type="text" class="form-control text-center" id="email" th:value="${oders.account.email}" th:field="*{account.email}">
 				                    	</div>
 				                    	
 				                    	<div class="col-sm-6">
 				                        	<label for="phonenumber">Số điện thoại:</label>
-				                        	<input type="text" class="form-control" id="phonenumber" th:value="${oders.account.phonenumber}" th:field="*{account.phonenumber}">
+				                        	<input type="text" class="form-control text-center" id="phonenumber" th:value="${oders.account.phonenumber}" th:field="*{account.phonenumber}">
 				                    	</div>
 				                    </div>
 				                    
@@ -340,7 +297,7 @@
 				                    	
 				                    	<div class="col-sm-6">
 				                        	<label for="TotalAmount">Thành Tiền:</label>
-				                        	<input type="text" class="form-control" id="TotalAmount" th:value="${oders.TotalAmount}" th:field="*{TotalAmount}">
+				                        	<input type="text" class="form-control text-center" id="TotalAmount" th:value="${oders.TotalAmount}" th:field="*{TotalAmount}">
 				                    	</div>
 				                    </div>
 				                    
@@ -348,7 +305,7 @@
 				                    	<div th:each="res : ${responsi}">
 					                    	<div class="col-sm-12 text-center" th:data-thumb="${res.account.username}">
 					                    		<label for="username">Nhân Viên Quản Lý Hóa Đơn:</label>
-					                    		<input type="text" class="form-control text-center" id="username" th:value="${res.account.username}">
+					                    		<input type="text" class="form-control text-center" id="username" th:value="${#strings.concat(res.account.username, '(', res.account.surname, ' ', res.account.name, ')')}">
 					                    	</div>
 				                    	</div>
 				                    	

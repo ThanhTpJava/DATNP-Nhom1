@@ -271,7 +271,6 @@
 	                            <th>Shipping Address</th>
 	                            <th>Total Amount</th>
 	                            <th>Status</th>
-	                            <th>Delivery status</th>
 	                            <th>Detail Order</th>
                         	</tr>
                             </thead>
@@ -282,13 +281,9 @@
 		                            <td> [[${od.order.createDate}]]</td>
 		                            <td>[[${od.order.address}]]</td>
 		                            <td >[[${od.order.totalAmount}]] VND</td>
-		                            <td class="font-weight-bold" th:text="${od.status.id == 0 ? 'Đang xác nhận' : (od.status.id == 1 ? 'Đã thanh toán' : (od.status.id == 2 ? 'Đã giao' : (od.status.id == 3 ? 'Trả hàng' : 'Đã hủy')))}" 
-	                            		th:classappend="${od.status.id == 0 ? 'text-warning' : (od.status.id == 1 ? 'text-success' : (od.status.id == 2 ? 'text-primary' : (od.status.id == 3 ? 'text-danger' : '')))}">
-	                            		[[${od.status.id}]]
-	                            	</td>
 		                            <td class="text-center">
-		                                <button class="btn" th:text="${od.status.id == 0 || od.status.id == 2 ? 'Đang xác nhận' : (od.status.id == 1 ? 'Giao hàng' : (od.status.id == 4 ? 'Hoàn tác' : ''))}" 
-		                                th:classappend="${od.status.id == 0 || od.status.id == 2 ? 'btn-danger' : (od.status.id == 1 ? 'btn-success' : (od.status.id == 4 ? 'btn-warning' : ''))}">[[${od.status.id}]]</button>
+		                                <button class="btn" th:text="${od.status.id == 0 ? 'Hủy đơn' : (od.status.id == 1 ? 'Đang xác nhận' : (od.status.id == 2 ? 'Đã xác nhận' : (od.status.id == 3 ? 'Đang giao' : (od.status.id == 4 ? 'Đã giao' : (od.status.id == 5 ? 'Trả hàng' : '')))))}" 
+		                                th:classappend="${od.status.id == 0 || od.status.id == 1 ? 'btn-danger' : (od.status.id == 2 || od.status.id == 3 ? 'btn-success' : (od.status.id == 4 || od.status.id == 5 ? 'btn-warning' : ''))}">[[${od.status.id}]]</button>
 	
 		                            </td>
 		                            <td class="text-center"> <a th:href="@{'/admin/order-detail/' + ${od.order.id}}">Views</a></td>
