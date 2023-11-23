@@ -4,7 +4,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script th:src="@{/assets/js/shopping-cart-app.js}"></script>
-<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -46,6 +45,9 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/payment.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/popup.css}">
 <!--===============================================================================================-->
 
 </head>
@@ -55,39 +57,122 @@
 
 	<!-- Cart -->
 	<div th:replace="user/index :: cart"></div>
-	<div class="card">
-		<div class="card-header bg-info text-white">ORDER PURCHASING</div>
-		<div class="card-body">
-			<div class="row mb-3">
-				<div class="col-sm-6">
-					<div>Purchaser:</div>
-					<div class="form-control">{{$auth.user.fullname}}
-						({{$auth.user.email}})</div>
-				</div>
-				<div class="col-sm-6">
-					<div>Order Date:</div>
-					<div class="form-control">{{order.createDate | date :
-						'dd-MM-yyyy'}}</div>
-				</div>
-			</div>
-			<div class="mb-3">
-				<div>Shipping Address:</div>
-				<textarea ng-model="order.address"
-					class="form-control"></textarea>
-			</div>
 
-		</div>
-		<div class="card-footer text-end">
-			<button ng-click="order.purchase()" type="submit"  ng-disabled="!order.address || order.address.trim().length === 0"
-				class="btn btn-success">Purchase</button>
+	<div class="card">
+	<h1 class = "title-card ">Thông Tin Hóa Đơn</h1>
+	<hr class = "line-card">
+		<div class="payment-container">
+			<form action="">
+				<div class="pm-rw">
+					<div class="col">
+						<h3 class="title">
+							Order: <span id = "order-id" ng-value="orderId">[[${orderId}]]</span>
+						</h3>
+						<div class="inputBox">
+							<span>Họ tên : </span> <input type="text" placeholder="Name"
+								name="" id="" value="{{$auth.surname + ' ' + $auth.name}}">
+						</div>
+						<div class="inputBox">
+							<span>Số điện thoại : </span> <input type="text"
+								placeholder="Phone number" name="" id=""
+								value="{{$auth.phonenumber == null ? 'Chưa cập nhật' : $auth.phonenumber}}">
+						</div>
+
+						<div class="inputBox">
+							<span>Ngày tạo đơn : </span> <input type="text" readonly
+								placeholder="Name" name="" id=""
+								value="{{order.createDate | date :
+						'dd-MM-yyyy'}}">
+						</div>
+
+						<div class="inputBox">
+							<span>Email</span> <input type="text" placeholder="Address"
+								name="" id="" value="{{$auth.email}}">
+						</div>
+
+					</div>
+
+					<div class="col">
+						<h3 class="title"></h3>
+						<span>Địa chỉ giao hàng</span>
+						<div class="flex flex-box-1">
+							<div class="inputBox">
+
+								<span for="province">Tỉnh/Thành phố:</span> <select
+									class="form-control select-box" id="province">
+									<!-- Thêm các option cho tỉnh/thành phố -->
+								</select>
+							</div>
+							<div class="inputBox">
+								<span for="district">Quận/Huyện:</span> <select
+									class="form-control select-box" id="district">
+									<option value="">Chọn quận</option>
+									<!-- Thêm các option cho quận/huyện -->
+								</select>
+							</div>
+						</div>
+
+						<div class="flex">
+
+							<div class="inputBox">
+								<span for="ward" class="title-inputBox">Phường/Xã:</span> <select
+									class="form-control select-box" id="ward">
+									<option value="">Chọn phường</option>
+									<!-- Thêm các option cho phường/xã -->
+								</select>
+
+							</div>
+							<div class="inputBox">
+								<span class="title-inputBox">Tên đường, số Nhà : </span> <input
+									type="text" placeholder="Tên đường và số nhà" name=""
+									id="numberHourAndstreetName">
+							</div>
+						</div>
+						<div class="inputBox inputBox-fix">
+							<span class="title-inputBox">Hình thức thanh toán: </span>
+							<div class="payment_method">
+								<input type="button" ng-click="order.purchase()" value="COD"
+									class="submit-btn cod" name="" id=""> <input
+									type="submit" value="MOMO" class="submit-btn momo" name=""
+									id=""> <input type="submit" value="VNPAY"
+									class="submit-btn vnpay" name="" id="">
+							</div>
+						</div>
+
+
+
+					</div>
+				</div>
+
+
+			</form>
 		</div>
 	</div>
-	<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
+
+	<!-- Alert -->
+	<div class="popup" ng-class="{ 'open-popup': isPopupOpen }">
+		<img ng-src="{{ iconUrlPopup }}" alt="">
+		<h2 ng-bind="PopupTitle" ></h2>
+		<p ng-bind="PopupMessage" ></p>
+		<button type="button" ng-click="closePopup()">OK</button>
+	</div>
+
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	'
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+		integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+		integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 	<!-- Footer -->
 	<footer th:replace="user/index :: footer"></footer>
-
+	<script th:src="@{/js/adress.js}"></script>
 
 	<!-- Back to top -->
 	<div th:replace="user/index :: backtop"></div>
@@ -145,11 +230,9 @@
 		        }
 		    };
 		}); */
-
 	</script>
 	<!--===============================================================================================-->
 	<script th:src="@{/js/main.js}"></script>
-	<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

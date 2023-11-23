@@ -76,48 +76,31 @@
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
 								<div class="slick3 gallery-lb">
-									<div class="item-slick3"
-										th:data-thumb="@{|*{image}|}">
-										<div class="wrap-pic-w pos-relative">
-											<img th:src="@{|*{image}|}"> <a
-												class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-												href="images/product-detail-01.jpg"> <i
-												class="fa fa-expand"></i>
-											</a>
+									<th:block th:each="image : ${images}">
+										<div class="item-slick3" th:data-thumb="${image.ImageURL}">
+											<div class="wrap-pic-w pos-relative">
+												<img width="400px" th:src="${image.ImageURL}">
+												<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
+													<i class="fa fa-expand"></i>
+												</a>
+											</div>
 										</div>
-									</div>
-
-									<div class="item-slick3"
-										th:data-thumb="@{|*{image}|}">
-										<div class="wrap-pic-w pos-relative">
-											<img th:src="@{|*{image}|}"> <a
-												class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-												href="images/product-detail-02.jpg"> <i
-												class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3"
-										th:data-thumb="@{|*{image}|}">
-										<div class="wrap-pic-w pos-relative">
-											<img th:src="@{|*{image}|}"> <a
-												class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-												href="images/product-detail-03.jpg"> <i
-												class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
+									</th:block>
 								</div>
+
+
 							</div>
 						</div>
 					</div>
 
 					<div class="col-md-6 col-lg-5 p-b-30">
 						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14" th:text="*{name}"></h4>
+						<div class="text-center">
+							<h4 class="mtext-105 cl2 js-name-detail p-b-14 text-danger font-weight-bold" th:text="*{name}"></h4>
+						</div>
+							
 
-							<span th:text="*{#numbers.formatDecimal(price, 0, 'POINT', 0, 'COMMA')} +'₫'" class="mtext-106 cl2"></span>
+							Giá: <span th:text="*{#numbers.formatDecimal(price, 0, 'POINT', 0, 'COMMA')} +' ' +'VNĐ'" class="mtext-106 cl2"></span>
 							<p class="stext-102 cl3 p-t-23">
 								0% installment support <br>
 								Warranty 12 months <br>
@@ -127,38 +110,9 @@
 
 							<!--  -->
 							<div class="p-t-33">
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">Size</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>128GB</option>
-												<option>256GB</option>
-												<option>512GB</option>
-												
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">Color</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>Choose an option</option>
-												<option>Red</option>
-												<option>Blue</option>
-												<option>White</option>
-												<option>Grey</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
+								<p class="font-weight-bold">Description:</p>
+								<div class="text-center mb-2">
+									<span class="cl2 js-name-detail p-b-14" th:text="*{Description}"></span>
 								</div>
 
 								<div class="flex-w flex-r-m p-b-10">
@@ -178,7 +132,7 @@
 											</div>
 
 										</div> -->
-										<th:block th:fragment="item_id(id)">
+										<th:block th:fragment="item_id(id)" th:if="${item.quantity != 0}">
 											<button th:attr="ng-click=@{|cart.add(${id})|}"
 												class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">Add
 												to Cart</button>
@@ -281,7 +235,7 @@
 											<!-- Review -->
 											<div class="flex-w flex-t p-b-68">
 												<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-													<img src="images/avatar-01.jpg" alt="AVATAR">
+													<img src="" alt="AVATAR">
 												</div>
 
 												<div class="size-207">
@@ -378,7 +332,7 @@
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-pic hov-img0">
-									<img th:src="${p.image}" alt="IMG-PRODUCT">
+									<img th:src="${p.main_image}" alt="IMG-PRODUCT">
 
 									<a th:href="@{'detail/' + ${p.id}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 										Quick View
