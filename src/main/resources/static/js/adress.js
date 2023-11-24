@@ -1,3 +1,13 @@
+function validatePhoneNumber() {
+	var input = document.getElementById("deliveryPhone");
+	// Loại bỏ tất cả ký tự không phải số
+	input.value = input.value.replace(/\D/g, '');
+	// Giới hạn độ dài tối đa là 10 số
+	if (input.value.length > 10) {
+		input.value = input.value.slice(0, 10);
+	}
+}
+
 app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 
 	$scope.isPopupOpen = false;
@@ -87,6 +97,15 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 		}
 	}
 
+	//Validate Số điện thoại
+	$scope.validatePhoneNumber = function() {
+		var deliveryPhoneElement = angular.element(document.getElementById('deliveryPhone'));
+		var deliveryPhone = deliveryPhoneElement.val();
+		$auth.phonenumber = deliveryPhone
+		//console.log($auth.phonenumber)
+	};
+
+	// Lấy giá trị được nhập trong OTP để nối thành chuỗi
 	$scope.getOtpValue = function() {
 		var otpInputValue = '';
 
@@ -110,6 +129,7 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 		return otpInputValue
 	};
 
+	//Làm trống toàn bộ thẻ input OTP
 	$scope.clearOtpInputs = function() {
 		// Lấy tất cả các input có class 'input-otp'
 		var inputElements = document.querySelectorAll('.input-otp');
@@ -151,13 +171,13 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 	$scope.comfirmOTP = function() {
 		var otp = $scope.getOtpValue()
 		$scope.isPopupOpenOTP = false;
-		console.log(otp);
+		//console.log(otp);
 		$http.post('/otp/confirm-otp?otp=' + otp).then((response) => {
-			console.log("good", response);
+			//console.log("good", response);
 			$scope.checkOtp = true;
 			$scope.order.purchase()
 		}).catch(error => {
-			console.log("bad", error);
+			//console.log("bad", error);
 			$scope.iconUrlPopup = $scope.errorIconUrl
 			$scope.PopupTitle = "Lỗi!!!"
 			$scope.PopupMessage = "Mã OTP sai, vui lòng kiểm tra lại"
@@ -173,6 +193,7 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 		createDate: new Date(),
 
 		address: "",
+		delivery_phone: "",
 		totalAmount: $cart.amount,
 		get orderDetails() {
 			return $cart.items.map(item => {
@@ -186,46 +207,63 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 			});
 		},
 
-		purchase() {
-
-			var order = angular.copy(this);
-			console.log(order)
-			$scope.order.address = $auth.delivery_address
-			console.log("address: ", $scope.order.address)
+		validatePurchase() {
+			if(/^[0-9]+$/.test($scope.order.delivery_phone) === false || $scope.order.delivery_phone.length !== 10){
+				$scope.iconUrlPopup = $scope.errorIconUrl
+				$scope.PopupTitle = "Lỗi!!!"
+				$scope.PopupMessage = "Số điện thoại giao hàng không hợp lệ"
+				$scope.isPopupOpen = true;
+				return false
+			}
+			
 			if ($scope.order.address == null || $scope.order.address == '') {
 				$scope.iconUrlPopup = $scope.errorIconUrl
 				$scope.PopupTitle = "Lỗi!!!"
 				$scope.PopupMessage = "Nhập đầy đủ địa chỉ giao hàng"
 				$scope.isPopupOpen = true;
-				return
-			} else {
-				if ($scope.checkOtp == false) {
-					$scope.sendOTP();
-				} else {
-					console.log("Suscess")
-					$scope.iconUrlPopup = $scope.successIconUrl
-					$scope.PopupTitle = "Thành công!"
-					$scope.PopupMessage = "Đơn hàng của bạn đã được tạo"
-					$scope.isPopupOpen = true;
-					$scope.checkOrder = true;
-					var order = angular.copy(this);
-					console.log(order)
-					// Thực hiện đặt hàng
-					$http.post("/rest/orders", order).then(resp => {
-
-						console.log($scope.order.id)
-						$scope.iconUrlPopup = $scope.successIconUrl
-						$scope.PopupTitle = "Thành công!"
-						$scope.PopupMessage = "Đơn hàng của bạn đã được tạo"
-						$scope.isPopupOpen = true;
-						$cart.clear();
-
-					}).catch(error => {
-						alert("Đặt hàng lỗi!")
-						console.log(error)
-					})
-				}
+				return false
 			}
+
+			if ($scope.checkOtp == false) {
+				$scope.sendOTP();
+				return false
+			}
+
+			return true
+		},
+		
+		purchase() {
+			var order = angular.copy(this);
+			/*console.log(order)*/
+			$scope.order.address = $auth.delivery_address;
+			/*console.log("address: ", $scope.order.address);*/
+			$scope.order.delivery_phone = $auth.phonenumber;
+			console.log(typeof $scope.order.delivery_phone);
+			
+			var isValid = this.validatePurchase();
+
+			if (!isValid) {
+				return;  // Dừng thực hiện nếu không hợp lệ
+			}
+
+			/*console.log("Suscess")*/
+			var order = angular.copy(this);
+			/*console.log(order)*/
+			// Thực hiện đặt hàng
+			$http.post("/rest/orders", order).then(resp => {
+
+				console.log($scope.order.id)
+				$scope.iconUrlPopup = $scope.successIconUrl
+				$scope.PopupTitle = "Thành công!"
+				$scope.PopupMessage = "Đơn hàng của bạn đã được tạo"
+				$scope.isPopupOpen = true;
+				$scope.checkOrder = true;
+				$cart.clear();
+
+			}).catch(error => {
+				alert("Đặt hàng lỗi!")
+				console.log(error)
+			})
 		}
 	}
 

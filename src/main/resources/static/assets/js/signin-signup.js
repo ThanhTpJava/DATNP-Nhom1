@@ -33,8 +33,8 @@ if (currentURL.includes("/login/error")) {
 
 let host = "http://localhost:8080/auth"
 
-const app = angular.module("app-sign", []);
-app.controller("ctrl", function($scope, $http, $timeout) {
+const app = angular.module("app-sign", ["ngSanitize"]);
+app.controller("ctrl", function($scope, $http, $timeout, $sce) {
 
 	$scope.isLoading = false;
 	$scope.form = {}
@@ -52,7 +52,7 @@ app.controller("ctrl", function($scope, $http, $timeout) {
 	$scope.iconUrlPopup = "/images/icons/tick.png"
 	$scope.successIconUrl = "/images/icons/tick.png"
 	$scope.errorIconUrl = "/images/icons/errors.png"
-	$scope.iconUrlotp = "/images/icons/otp.png"
+	$scope.iconUrlotp = "/images/icons/otp2.png"
 
 
 	$scope.usernameReset = "";
@@ -91,9 +91,11 @@ app.controller("ctrl", function($scope, $http, $timeout) {
 			$http.get(url)
 				.then(function(response) {
 					if (response.status === 200) {
+						console.log(response)
+						var maskedEmail = response.data.maskedEmail;
 						$scope.isLoading = false;
 						$scope.PopupTitle = "Xác Nhận OTP"
-						$scope.PopupMessage = "Vui lòng kiểm tra email của bạn\nMã OTP thường được gửi từ 1 - 5 phút"
+						$scope.PopupMessage = $sce.trustAsHtml("Vui lòng kiểm tra email <strong>" + maskedEmail + "</strong> của bạn. Mã OTP thường được gửi từ 1 - 5 phút");
 						$scope.iconUrlPopup = $scope.iconUrlotp
 						$scope.isPopupOpenOTP = true;
 						console.log("Success", response)

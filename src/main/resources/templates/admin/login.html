@@ -205,7 +205,7 @@
 	<div class="popup" ng-class="{ 'open-popup': isPopupOpenOTP }">
 		<img ng-src="{{ iconUrlPopup }}" alt="">
 		<h2 ng-bind="PopupTitle"></h2>
-		<p ng-bind="PopupMessage"></p>
+		<p ng-bind-html="PopupMessage"></p>
 		<div class="otp-container">
 			<div id="inputs-otp" class="inputs-otp">
 				<input class="input-otp" type="text" inputmode="numeric"
@@ -225,7 +225,7 @@
 	<div class = "loading" ng-class="{ 'open-loading': isLoading }">
 		<img th:src="@{/images/icons/loading2.gif}" alt="Loading...">
 	</div>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.js"></script>
 	<script th:src="@{/assets/js/signin-signup.js}"></script>
 	<script th:src="@{/assets/js/otp-input.js}"></script>
 </body>

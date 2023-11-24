@@ -63,7 +63,7 @@
 		<h1 class="title-card ">Thông Tin Hóa Đơn</h1>
 		<hr class="line-card">
 		<div class="payment-container">
-			<form action="">
+			<form name="myForm" action="">
 				<div class="pm-rw">
 					<div class="col">
 						<h3 class="title">
@@ -74,21 +74,23 @@
 								name="" id="" value="{{$auth.surname + ' ' + $auth.name}}">
 						</div>
 						<div class="inputBox">
-							<span>Số điện thoại : </span> <input type="text"
-								placeholder="Phone number" name="" id=""
-								value="{{$auth.phonenumber == null ? 'Chưa cập nhật' : $auth.phonenumber}}">
+							<span>Số điện thoại : </span> <input
+								ng-change="validatePhoneNumber()" ng-pattern="/^\d+$/" ng-model="$auth.phonenumber"
+								maxlength="10" type="text"
+								placeholder="Chưa cập nhật" name="" id="deliveryPhone" required>
 						</div>
 
 						<div class="inputBox">
-							<span>Ngày tạo đơn : </span> <input type="text" readonly class = "not-allowed"
-								placeholder="Name" name="" id=""
+							<span>Ngày tạo đơn : </span> <input type="text" readonly
+								class="not-allowed" placeholder="Name" name="" id=""
 								value="{{order.createDate | date :
 						'dd-MM-yyyy'}}">
 						</div>
 
 						<div class="inputBox">
-							<span>Email</span> <input type="text" placeholder="Address" readonly class = "not-allowed"
-								name="" id="email" value="{{$auth.email}}">
+							<span>Email</span> <input type="text" placeholder="Address"
+								readonly class="not-allowed" name="" id="email"
+								value="{{$auth.email}}">
 						</div>
 
 					</div>
@@ -132,23 +134,24 @@
 
 						<div class="inputBox inputBox-fix">
 							<span>Xác nhận địa chỉ: </span>
-							<textarea rows="3" placeholder="Địa chỉ đầy đủ"  id="deliveryAddress"
-								ng-model="$auth.delivery_address"></textarea>
+							<textarea rows="3" placeholder="Địa chỉ đầy đủ"
+								id="deliveryAddress" ng-model="$auth.delivery_address" required></textarea>
 						</div>
 
-						
+
 
 					</div>
 
 				</div>
 				<div class="payment-box">
-				<span class="title-payment-box">Hình thức thanh toán: </span>
-				<div class="payment_method">
-					<input type="button" ng-click="order.purchase()" value="COD"
-						class="submit-btn cod" name="" id=""> <input type="submit"
-						value="MOMO" class="submit-btn momo" name="" id=""> <input
-						type="submit" value="VNPAY" class="submit-btn vnpay" name="" id="">
-				</div>
+					<span class="title-payment-box">Hình thức thanh toán: </span>
+					<div class="payment_method">
+						<input type="button" ng-click="order.purchase()" value="COD"
+							class="submit-btn cod" name="" id=""> <input
+							type="submit" value="MOMO" class="submit-btn momo" name="" id="">
+						<input type="submit" value="VNPAY" class="submit-btn vnpay"
+							name="" id="">
+					</div>
 				</div>
 			</form>
 		</div>
@@ -166,22 +169,19 @@
 		<img ng-src="{{ iconUrlPopup }}" alt="">
 		<h2 ng-bind="PopupTitle"></h2>
 		<p ng-bind="PopupMessage"></p>
-		<div class="otp-container"> 
-        <div id="inputs-otp" class="inputs-otp"> 
-            <input class="input-otp" type="text" 
-                inputmode="numeric" maxlength="1" ng-model="otp[0]"/> 
-            <input class="input-otp" type="text" 
-                inputmode="numeric" maxlength="1" ng-model="otp[1]"/> 
-            <input class="input-otp" type="text" 
-                inputmode="numeric" maxlength="1" ng-model="otp[2]"/> 
-            <input class="input-otp" type="text" 
-                inputmode="numeric" maxlength="1" ng-model="otp[3]"/> 
-            <input class="input-otp" type="text" 
-                inputmode="numeric" maxlength="1" ng-model="otp[4]"/> 
-            <input class="input-otp" type="text" 
-                inputmode="numeric" maxlength="1" ng-model="otp[5]"/> 
-        </div> 
-    </div> 
+		<div class="otp-container">
+			<div id="inputs-otp" class="inputs-otp">
+				<input class="input-otp" type="text" inputmode="numeric"
+					maxlength="1" ng-model="otp[0]" /> <input class="input-otp"
+					type="text" inputmode="numeric" maxlength="1" ng-model="otp[1]" />
+				<input class="input-otp" type="text" inputmode="numeric"
+					maxlength="1" ng-model="otp[2]" /> <input class="input-otp"
+					type="text" inputmode="numeric" maxlength="1" ng-model="otp[3]" />
+				<input class="input-otp" type="text" inputmode="numeric"
+					maxlength="1" ng-model="otp[4]" /> <input class="input-otp"
+					type="text" inputmode="numeric" maxlength="1" ng-model="otp[5]" />
+			</div>
+		</div>
 		<button type="button" ng-click="comfirmOTP()">Verify OTP</button>
 	</div>
 

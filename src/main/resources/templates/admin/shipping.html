@@ -109,7 +109,7 @@
                     <tbody>
                     <tr th:each="ship, iterStat : ${listShipping}"  th:if="${ship.orderStatus == 3 || ship.orderStatus == 4}">
                         <td>[[${iterStat.count}]]</td>
-                       <td>[[${ship.account.phonenumber}]]</td>
+                       <td>[[${ship.delivery_phone}]]</td>
                        <td>[[${ship.account.surname}]] [[${ship.account.name}]] </td>
                        <td>[[${ship.address}]]</td>
                         <td class="table-order-body">
@@ -191,7 +191,7 @@
             <div class="col">
                 <label for="inputFirstName" class="form-label">Phone Number</label>
                 <i class="fa-solid fa-triangle-exclamation"
-                   ng-if=""></i> <input disabled type="text" ng-model="shipDetail.userData[0].phonenumber" class="form-control" id="inputFirstName">
+                   ng-if=""></i> <input disabled type="text" ng-model="shipDetail.userData[0].delivery_phone" class="form-control" id="inputFirstName">
             </div>
             <div class="col-6">
                 <label for="inputLastName" class="form-label">Purchase</label> <i

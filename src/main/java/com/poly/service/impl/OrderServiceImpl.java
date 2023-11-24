@@ -115,6 +115,7 @@ Integer statusId =order.getOrderStatuses().get(0).getStatus().getId();
 					order.getCreateDate(),
 					order.getTotalAmount(),
 					order.getAddress(),
+					order.getDelivery_phone(),
 					order.getAccount(),
 					statusId
 			);

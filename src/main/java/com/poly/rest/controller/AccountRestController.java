@@ -1,5 +1,6 @@
 package com.poly.rest.controller;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,7 +117,8 @@ public class AccountRestController {
 	}
 
 	@GetMapping("/forgotpassword/{username}")
-	public ResponseEntity<String> forgotPassword(@PathVariable String username, HttpServletRequest request) {
+	public ResponseEntity<Map<String, String>> forgotPassword(@PathVariable String username,
+			HttpServletRequest request) {
 		System.out.println(username);
 		boolean isAvailable = accountService.userExit(username);
 		if (isAvailable) {
@@ -124,10 +126,21 @@ public class AccountRestController {
 			String otp = generateOtp();
 			HttpSession session = request.getSession();
 			session.setAttribute("otp", otp);
+
 			emailService.sendOTPResetPassword(accForgotPassword, otp, "ĐẶT LẠI MẬT KHẨU");
-			return new ResponseEntity<>("{\"message\":\"success\"}", HttpStatus.OK);
+
+			String maskedEmail = maskEmail(accForgotPassword.getEmail());
+			System.out.println(maskedEmail);
+
+			Map<String, String> response = new HashMap<>();
+			response.put("message", "success");
+			response.put("maskedEmail", maskedEmail);
+
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("{\"message\":\"errors\"}", HttpStatus.NOT_FOUND);
+			Map<String, String> response = new HashMap<>();
+			response.put("message", "errors");
+			return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 		}
 
 	}
@@ -156,5 +169,16 @@ public class AccountRestController {
 		Random random = new Random();
 		int otpValue = 100000 + random.nextInt(900000);
 		return String.valueOf(otpValue);
+	}
+
+	public static String maskEmail(String email) {
+
+		int atIndex = email.indexOf('@');
+
+		if (atIndex >= 5) {
+	        return email.substring(0, atIndex - 5) + "*****" + email.substring(atIndex);
+	    } else {
+	        return "*****" + email.substring(atIndex);
+	    }
 	}
 }

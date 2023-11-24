@@ -10,7 +10,7 @@ public record OrderShipDTO(
         Date createDate,
         double TotalAmount,
         String address,
-
+        String delivery_phone,
         Account account,
         int orderStatus
 ) {

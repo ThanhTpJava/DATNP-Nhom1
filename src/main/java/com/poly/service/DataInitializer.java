@@ -62,36 +62,36 @@ public class DataInitializer implements CommandLineRunner{
 			accAdmin.setUsername("admin1");
 			accAdmin.setPassword("admin1");
 			accAdmin.setEmail("admin1@gmail.com");
-			accAdmin.setSurname("admin");
-			accAdmin.setName("1");
+			accAdmin.setSurname("Elon");
+			accAdmin.setName("Musk");
 			
 			Account accSale = new Account();
 			accSale.setUsername("sale1");
 			accSale.setPassword("sale1");
 			accSale.setEmail("sale1@gmail.com");
-			accSale.setSurname("sale");
-			accSale.setName("1");
+			accSale.setSurname("Phạm Đình Chí");
+			accSale.setName("Kiên");
 			
 			Account accStock = new Account();
 			accStock.setUsername("stock1");
 			accStock.setPassword("stock1");
 			accStock.setEmail("stock1@gmail.com");
-			accStock.setSurname("stock1");
-			accStock.setName("1");
+			accStock.setSurname("Nguyễn Quang");
+			accStock.setName("Mạnh");
 			
 			Account accUser = new Account();
 			accUser.setUsername("user1");
 			accUser.setPassword("user1");
 			accUser.setEmail("user1@gmail.com");
-			accUser.setSurname("user1");
-			accUser.setName("1");
+			accUser.setSurname("Nguyễn Thị");
+			accUser.setName("Trâm");
 
 			Account accShip = new Account();
 			accShip.setUsername("ship1");
 			accShip.setPassword("ship1");
 			accShip.setEmail("ship1@gmail.com");
-			accShip.setSurname("shipping");
-			accShip.setName("ship1");
+			accShip.setSurname("Bùi Phúc");
+			accShip.setName("Hưng");
 			accountService.saveAllAccounts(Arrays.asList(accAdmin, accSale, accStock, accUser, accShip));
 			
 			Authority authorityAdmin = new Authority();

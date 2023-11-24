@@ -12,6 +12,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,10 @@ public class Order {
 	@Column(name = "address", columnDefinition = "nvarchar(200)")
 	private String address;
 
+	@Column(name ="delivery_phone", columnDefinition = "VARCHAR(10)")
+	@Pattern(regexp = "^\\d{10}$", message = "Số điện thoại không hợp lệ")
+	private String  delivery_phone;
+	
 	@ManyToOne
 	@JoinColumn(name = "voucherId")
 	private Voucher voucher; // Trường này để lưu mã voucher áp dụng cho đơn hàng

@@ -18,6 +18,7 @@ public class OrdersShipDTOMapper implements Function<Order, OrderShipDTO>{
 				od.getCreateDate(),
 				od.getTotalAmount(),
 				od.getAddress(),
+				od.getDelivery_phone(),
 				od.getAccount(),
 				od.getOrderStatuses().stream()
 						.map(odstt -> odstt.getStatus().getId())
