@@ -73,10 +73,10 @@ app.controller("ctrl", function($scope, $http, $timeout, $sce) {
 
 		$scope.getValueReset();
 		console.log($scope.usernameReset)
-		if ($scope.passReset == '') {
+		if ($scope.passReset.length <= 4) {
 			$scope.iconUrlPopup = $scope.errorIconUrl
 			$scope.PopupTitle = "Lỗi!!!"
-			$scope.PopupMessage = "Mật khẩu không được để trống!"
+			$scope.PopupMessage = "Mật khẩu phải có ít nhất 5 ký tự!"
 			$scope.isPopupOpenVer2 = true;
 		}
 		else if ($scope.passReset !== $scope.passwordResetConfirm) {
