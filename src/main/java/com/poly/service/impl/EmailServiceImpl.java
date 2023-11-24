@@ -21,4 +21,14 @@ public class EmailServiceImpl implements EmailService  {
 	        message.setText("Mã OTP của bạn là: " + otp);
 	        javaMailSender.send(message);
 	    }
+	@Override
+	public void sendOTPResetPassword(Account account, String otp, String subject) {
+		// TODO Auto-generated method stub
+		SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("khoisieudeptrai2304@gmail.com");
+        message.setTo(account.getEmail());
+        message.setSubject(subject);
+        message.setText("Mã OTP của bạn là: " + otp);
+        javaMailSender.send(message);
+	}
 }

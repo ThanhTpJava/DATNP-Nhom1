@@ -45,21 +45,12 @@ public interface AccountDAO extends JpaRepository<Account, String>{
            "a.phonenumber = :#{#dto.phoneNumber} " +        
            "WHERE a.username = :#{#dto.username}")
     void updateAccountFromDTO(@Param("dto") AccountDTO dto);
-//
-//	@Query("SELECT NEW AccountDTO(a.username, a.name, a.surname, a.hometown, a.residentialAddress,"
-//			+ " a.deliveryAddress, a.idCard, a.dateOfBirth, a.gender, a.email, a.phoneNumber,"
-//			+ " auth.role.Id) FROM Account a JOIN a.authorities auth")
-//    List<AccountDTO> findAllAccountsAndRoles();
-//
-//	@Query("SELECT NEW AccountDTO"
-//			+ "(a.username, a.name, a.surname, a.hometown, a.residentialAddress, a.deliveryAddress,"
-//			+ " a.idCard, a.dateOfBirth, a.gender, a.email, a.phoneNumber, auth.role.Id) "
-//			+ "FROM Account a JOIN a.authorities auth ON a.username = auth.account.username "
-//			+ "WHERE auth.role.Id = :roleName")
-//    List<AccountDTO> findAccountsAndRolesByRole(@Param("roleName") String roleName);
 
 	Optional<Account> findByEmail(String email);
 
-	
+	@Modifying
+	@Transactional
+	@Query("UPDATE Account acc SET acc.password = ?1 WHERE acc.username = ?2")
+	void updatePasswordByUsername(String password, String username);
 
 }

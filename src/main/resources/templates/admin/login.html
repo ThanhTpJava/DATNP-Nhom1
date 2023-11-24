@@ -10,6 +10,8 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" th:href="@{/assets/css/signin-signup.css}">
 <link rel="stylesheet" th:href="@{/assets/css/popup.css}">
+<link rel="stylesheet" th:href="@{/assets/css/inputresetpassword.css}">
+<link rel="stylesheet" th:href="@{/assets/css/otp.css}">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <script
@@ -34,13 +36,15 @@
 						<i class="fas fa-lock"></i> <input type="password"
 							placeholder="Password" name="password" id="">
 					</div>
-					<a href="">Quên mật khẩu, click vào đây</a>
-					<input type="submit" name="submit" class="btn solid" value="Login">
+					<a class="resetpass" ng-click="openResetPassPopup()">Quên mật
+						khẩu, click vào đây</a> <input type="submit" name="submit"
+						class="btn solid" value="Login">
 					<p class="social-text">Or Sign in with social platforms</p>
 					<div class="social-media">
 						<a href="#" class="scoial-icon"> <i class="fab fa-facebook-f"></i>
 						</a> <a href="#" class="scoial-icon"> <i class="fab fa-twitter"></i>
-						</a> <a th:href="@{/oauth2/authorization/google}" class="scoial-icon"> <i class="fab fa-google"></i>
+						</a> <a th:href="@{/oauth2/authorization/google}" class="scoial-icon">
+							<i class="fab fa-google"></i>
 						</a> <a href="#" class="scoial-icon"> <i
 							class="fab fa-linkedin-in"></i>
 						</a>
@@ -74,22 +78,22 @@
 						<div class="error-message" ng-show="errors.confirm">{{
 							errors.confirm }}</div>
 					</div>
-					
-					<div class="box-fullname">
-                        <div class="input-field box-sur-name ">
-                            <i class="fa-solid fa-pen-nib"></i>
-                            <input type="text" placeholder="First name" ng-model="form.surname" id="">
-                            <div class="error-message" ng-show="errors.surname">{{
-							errors.surname }}</div>
-                        </div>
 
-                        <div class="input-field box-name">
-                            <i class="fa-solid fa-pen-nib"></i>
-                            <input type="text" placeholder="Name" ng-model="form.name" id="">
-                            <div class="error-message" ng-show="errors.name">{{
-							errors.name }}</div>
-                        </div>
-                    </div>
+					<div class="box-fullname">
+						<div class="input-field box-sur-name ">
+							<i class="fa-solid fa-pen-nib"></i> <input type="text"
+								placeholder="First name" ng-model="form.surname" id="">
+							<div class="error-message" ng-show="errors.surname">{{
+								errors.surname }}</div>
+						</div>
+
+						<div class="input-field box-name">
+							<i class="fa-solid fa-pen-nib"></i> <input type="text"
+								placeholder="Name" ng-model="form.name" id="">
+							<div class="error-message" ng-show="errors.name">{{
+								errors.name }}</div>
+						</div>
+					</div>
 
 					<div class="input-field">
 						<i class="fas fa-envelope"></i> <input ng-model="form.email"
@@ -104,7 +108,8 @@
 					<div class="social-media">
 						<a href="#" class="scoial-icon"> <i class="fab fa-facebook-f"></i>
 						</a> <a href="#" class="scoial-icon"> <i class="fab fa-twitter"></i>
-						</a> <a href="/oauth2/authorization/google" class="scoial-icon"> <i class="fab fa-google"></i>
+						</a> <a href="/oauth2/authorization/google" class="scoial-icon"> <i
+							class="fab fa-google"></i>
 						</a> <a href="#" class="scoial-icon"> <i
 							class="fab fa-linkedin-in"></i>
 						</a>
@@ -137,7 +142,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="popup" ng-class="{ 'open-popup': isPopupOpen }">
 		<img th:src="@{/images/icons/tick.png}" alt="">
 		<h2>Thank You</h2>
@@ -145,13 +150,84 @@
 		<button type="button" ng-click="closePopup()">OK</button>
 	</div>
 
-	<div class="popup" id="popup" ng-class="{ 'open-popup': isPopupOpenErrors }">
+	<div class="popup" id="popup"
+		ng-class="{ 'open-popup': isPopupOpenErrors }">
 		<img th:src="@{/images/icons/errors.png}" alt="">
 		<h2>Thất bại</h2>
 		<p>Vui lòng kiểm tra lại thông tin</p>
 		<button type="button" onclick="closePopup()">OK</button>
 	</div>
+
+
+	<div class="popup resetpass"
+		ng-class="{ 'open-popup': isResetPasswordPopupOpen }">
+		<img th:src="@{/images/icons/lock.png}" alt="">
+		<h2>Quên mật khẩu</h2>
+		<p>Nhập tài khoản đăng nhập và mật khẩu mới</p>
+		<form class="reset-pass-form">
+
+			<div class="group">
+				<input class="ip-rs-pw" id="username-reset-password" type="text"
+					required> <span class="highlight"></span> <span class="bar"></span>
+				<label class="lbl-rs-pw">Username</label>
+			</div>
+
+			<div class="group">
+				<input class="ip-rs-pw" id="password-reset" type="password" required>
+				<span class="highlight"></span> <span class="bar"></span> <label
+					class="lbl-rs-pw">Mật khẩu</label>
+			</div>
+
+
+			<div class="group group-bottom">
+				<input class="ip-rs-pw" id="password-reset-confirm" type="password"
+					required> <span class="highlight"></span> <span class="bar"></span>
+				<label class="lbl-rs-pw">Xác nhận mật khẩu</label>
+			</div>
+
+		</form>
+		<div class="button-resetpass-popup">
+			<button class="button-resetpass" type="button"
+				ng-click="resetPassword()">SEND OTP</button>
+			<button class="button-resetpass btn-rsp-2" type="button"
+				ng-click="closeResetPassPopup()">CLOSE</button>
+		</div>
+
+	</div>
+
+	<div class="popup" ng-class="{ 'open-popup': isPopupOpenVer2 }">
+		<img ng-src="{{ iconUrlPopup }}" alt="">
+		<h2 ng-bind="PopupTitle"></h2>
+		<p ng-bind="PopupMessage"></p>
+		<button type="button" ng-click="closePopupVer2()">OK</button>
+	</div>
+
+	<div class="popup" ng-class="{ 'open-popup': isPopupOpenOTP }">
+		<img ng-src="{{ iconUrlPopup }}" alt="">
+		<h2 ng-bind="PopupTitle"></h2>
+		<p ng-bind="PopupMessage"></p>
+		<div class="otp-container">
+			<div id="inputs-otp" class="inputs-otp">
+				<input class="input-otp" type="text" inputmode="numeric"
+					maxlength="1" ng-model="otp[0]" /> <input class="input-otp"
+					type="text" inputmode="numeric" maxlength="1" ng-model="otp[1]" />
+				<input class="input-otp" type="text" inputmode="numeric"
+					maxlength="1" ng-model="otp[2]" /> <input class="input-otp"
+					type="text" inputmode="numeric" maxlength="1" ng-model="otp[3]" />
+				<input class="input-otp" type="text" inputmode="numeric"
+					maxlength="1" ng-model="otp[4]" /> <input class="input-otp"
+					type="text" inputmode="numeric" maxlength="1" ng-model="otp[5]" />
+			</div>
+		</div>
+		<button type="button" ng-click="comfirmOTP()">Verify OTP</button>
+	</div>
+
+	<div class = "loading" ng-class="{ 'open-loading': isLoading }">
+		<img th:src="@{/images/icons/loading2.gif}" alt="Loading...">
+	</div>
+
 	<script th:src="@{/assets/js/signin-signup.js}"></script>
+	<script th:src="@{/assets/js/otp-input.js}"></script>
 </body>
 
 </html>

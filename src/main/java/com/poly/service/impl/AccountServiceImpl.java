@@ -104,6 +104,13 @@ public class AccountServiceImpl implements AccountService{
 		  dao.updateAccountFromDTO(accDTO);
 		 
 	}
+
+	@Override
+	public void updatePasswordByUsername(String password, String username) {
+		// TODO Auto-generated method stub
+		String passwordEncode = passwordEncoder.encode(password);
+		dao.updatePasswordByUsername(passwordEncode, username);
+	}
 		
 	
 }

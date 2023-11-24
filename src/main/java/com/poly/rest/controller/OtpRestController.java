@@ -25,6 +25,7 @@ public class OtpRestController {
 	  private AccountService accountService;
 	  @Autowired
     private EmailService emailService;
+	  
 	  @PostMapping("/confirm-otp")
 	  public ResponseEntity<?> confirmOtp(@RequestParam("otp") String otp, HttpServletRequest request) {
 	      HttpSession session = request.getSession();

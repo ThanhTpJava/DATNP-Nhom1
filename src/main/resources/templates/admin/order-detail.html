@@ -323,7 +323,7 @@
 			                            <tbody >
 			                            <tr th:each="ot, iterStat : ${orderdetail}" class="text-center"> 
 			                            	<td th:text="${ot.product.name}"></td>
-			                            	<td th:text="${ot.product.Quantity}"></td>
+			                            	<td th:text="${ot.Quantity}"></td>
 			                            	<td th:text="${ot.product.price} + ' ' + 'VND'"></td>
 			                            	<td th:text="*{TotalAmount}"></td>
 			                        	</tr>
