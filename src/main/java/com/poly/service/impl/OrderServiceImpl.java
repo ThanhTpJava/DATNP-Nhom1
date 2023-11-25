@@ -144,6 +144,20 @@ Integer statusId =order.getOrderStatuses().get(0).getStatus().getId();
 		}
 	}
 
+	@Override
+	public Double calculateTotalRevenue() {
+		return dao.calculateTotalRevenue();
+	}
+
+	@Override
+	public List<Object[]> calculateTotalRevenueByDate(Integer day, Integer month, Integer year) {
+		return dao.calculateTotalRevenueByDate(day, month, year);
+	}
+
+	@Override
+	public List<Object[]> calculateTotalRevenueByMonth(Integer month, Integer year) {
+		return dao.calculateTotalRevenueByMonth(month, year);
+	}
 
 
 }

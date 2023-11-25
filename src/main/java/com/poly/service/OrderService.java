@@ -32,4 +32,11 @@ public interface OrderService {
 	public OrderShipDTO findByIdShip(String id);
 
 	public void updateOrderStatus(String orderId, Integer statusId);
+
+	Double calculateTotalRevenue();
+
+	List<Object[]> calculateTotalRevenueByDate(Integer day, Integer month, Integer year);
+	List<Object[]> calculateTotalRevenueByMonth(Integer month, Integer year);
+
+
 }
