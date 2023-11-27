@@ -1,10 +1,15 @@
 package com.poly.controller;
 
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.poly.entity.Data;
 import com.poly.util.CreateOrderId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -80,5 +85,14 @@ public class OrderController {
 			return "/auth/login/form"; //login
 		}
 	}
+
+//	@RequestMapping("/calculateTotalRevenueByMonth/")
+//	@ResponseBody
+//	public String getDataFromDB(@RequestParam int month, @RequestParam int year) {
+//		List<Object[]> dataList = orderService.calculateTotalRevenueByMonth(month, year);
+//
+//
+//
+//	}
 
 }

@@ -97,4 +97,20 @@ public class OrderRestController {
 		orderService.updateOrderStatus(orderId, statusId);
 	}
 
+	@GetMapping("calculateTotalRevenue")
+	public Double findDeliveredOrders(){
+		return orderService.calculateTotalRevenue();
+	}
+
+	@GetMapping("/calculateTotalRevenueByDate")
+	public List<Object[]> calculateTotalRevenueByDate(@RequestParam int day, @RequestParam int month, @RequestParam int year) {
+		return orderService.calculateTotalRevenueByDate(day, month, year);
+	}
+
+	@GetMapping("/calculateTotalRevenueByMonth")
+	public List<Object[]> calculateTotalRevenueByMonth(@RequestParam int month, @RequestParam int year) {
+		return orderService.calculateTotalRevenueByMonth(month, year);
+	}
+
+
 }
