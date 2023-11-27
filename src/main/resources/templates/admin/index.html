@@ -117,7 +117,38 @@
     <div id="content-wrapper" class="d-flex flex-column vh-100">
 <!--        <div id="columnchart_values" style="width: 900px; height: 300px;"></div>-->
         <div class="container">
-            <canvas class="" id="revenueChart" width="400px" height="200px"></canvas>
+
+                    <canvas class="" id="revenueChart" width="400px" height="200px"></canvas>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="year">Year:</label>
+                            <select class="form-control" id="year"></select>
+                        </div>
+                        <div class="col-6">
+                            <label for="month">Month:</label>
+                            <select value="11"  class="form-control" id="month">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                        <!--                <div class="col-4">-->
+                        <!--                    <label for="day">Day:</label>-->
+                        <!--                    <select  class="form-control" id="day"></select>-->
+                        <!--                </div>-->
+                    <canvas class="" id="TotalRevenueChart" width="400px" height="200px"></canvas>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -158,6 +189,8 @@
 <script>
     var sortingOrder = 'name';
 </script>
+<!--<script src="/js/adminJs/Input3date.js"></script>-->
+<script src="/js/adminJs/TotalRevenue.js"></script>
 <script src="/js/adminJs/broadband.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor-admin/jquery/jquery.min.js"></script>

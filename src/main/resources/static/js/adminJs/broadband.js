@@ -1,11 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+
     // Replace 'yourApiEndpoint' with the actual endpoint of your Spring Boot application
-    fetch('http://localhost:8080/rest/orders/calculateTotalRevenueByMonth?month=11&year=2023')
+    fetch('/rest/orders/calculateTotalRevenueByMonth?month=11&year=2023')
         .then(response => response.json())
         .then(data => {
             renderChart(data);
         })
         .catch(error => console.error('Error fetching data:', error));
+
+    // Initialize years and days based on the current year and month
+    updateYears();
+
+    // Set default values for year and month
+    document.getElementById("year").value = new Date().getFullYear();
+    document.getElementById("month").value = 11;
+
+    document.getElementById("year").addEventListener("change", updateChart);
+    document.getElementById("month").addEventListener("change", updateChart);
+
+    // Trigger the chart update with default values
+    updateChart();
 });
 
 function formatDate(dateString) {
@@ -27,7 +42,7 @@ function renderChart(data) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Tổng doand thu',
+                label: 'Tổng doand thu theo tháng',
                 data: values,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -50,3 +65,30 @@ function renderChart(data) {
         }
     });
 }
+
+function updateYears() {
+    var currentYear = new Date().getFullYear();
+    var yearSelect = document.getElementById("year");
+
+    for (var i = 2010; i <= currentYear; i++) {
+        var option = document.createElement("option");
+        option.value = i;
+        option.text = i;
+        yearSelect.add(option);
+    }
+}
+
+function updateChart() {
+    var year = document.getElementById("year").value;
+    var month = document.getElementById("month").value;
+
+    // Update the chart with new data
+    fetch(`http://localhost:8080/rest/orders/calculateTotalRevenueByMonth?month=${month}&year=${year}`)
+        .then(response => response.json())
+        .then(data => {
+            renderChart(data);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}
+
+
