@@ -38,5 +38,10 @@ public interface OrderService {
 	List<Object[]> calculateTotalRevenueByDate(Integer day, Integer month, Integer year);
 	List<Object[]> calculateTotalRevenueByMonth(Integer month, Integer year);
 
+	List<Object[]> calculateTotalOrderByMonth(Integer month, Integer year);
+
+	Double calculateTotalRevenueByYear(Integer year);
+
+	Integer calculateTotalOrderByYear(Integer year);
 
 }

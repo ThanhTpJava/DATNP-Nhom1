@@ -160,5 +160,20 @@ Integer statusId =order.getOrderStatuses().get(0).getStatus().getId();
 		return dao.calculateTotalRevenueByMonth(month, year);
 	}
 
+	@Override
+	public List<Object[]> calculateTotalOrderByMonth(Integer month, Integer year) {
+		return  dao.calculateTotalOrderByMonth(month, year);
+	}
+
+	@Override
+	public Double calculateTotalRevenueByYear(Integer year) {
+		return dao.calculateTotalRevenueByYear(year);
+	}
+
+	@Override
+	public Integer calculateTotalOrderByYear(Integer year) {
+		return dao.calculateTotalOrderByYear(year);
+	}
+
 
 }
