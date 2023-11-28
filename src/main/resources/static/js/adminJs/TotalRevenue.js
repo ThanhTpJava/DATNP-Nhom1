@@ -11,9 +11,9 @@ function createChart(data) {
     var ctx = document.getElementById('TotalRevenueChart').getContext('2d');
 
     var myChart = new Chart(ctx, {
-        type: 'pie', // Chuyển đổi thành biểu đồ cột
+        type: 'bar', // Chuyển đổi thành biểu đồ cột
         data: {
-            labels: ['Tổng doand thu'],
+            labels: ['Tổng số hóa đơn'],
             datasets: [{
                 data: [data], // Sử dụng trực tiếp giá trị doanh thu
                 backgroundColor: 'rgba(75, 192, 192, 0.5)',
@@ -24,15 +24,7 @@ function createChart(data) {
         options: {
             title: {
                 display: true,
-                text: 'Tổng doand thu'
-            },
-            scales: {
-                xAxes: [{
-                    display: false, // Ẩn trục x
-                }],
-                yAxes: [{
-                    display: false, // Ẩn trục y
-                }]
+                text: 'Tổng số hóa đơn'
             }
         }
     });

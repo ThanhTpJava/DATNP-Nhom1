@@ -18,6 +18,7 @@ import com.poly.service.OrderService;
 import com.poly.service.OrderStatusService;
 import com.poly.service.StatusService;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -108,8 +109,31 @@ public class OrderRestController {
 	}
 
 	@GetMapping("/calculateTotalRevenueByMonth")
-	public List<Object[]> calculateTotalRevenueByMonth(@RequestParam int month, @RequestParam int year) {
-		return orderService.calculateTotalRevenueByMonth(month, year);
+	public ResponseEntity<List<Object[]>> calculateTotalRevenueByMonth(@RequestParam int month, @RequestParam int year) {
+		List<Object[]> result = orderService.calculateTotalRevenueByMonth(month, year);
+
+		// Kiểm tra xem dữ liệu có giá trị hay không
+		if (result != null && !result.isEmpty()) {
+			return ResponseEntity.ok(result);
+		} else {
+			// Trả về danh sách rỗng []
+			return ResponseEntity.ok(Collections.emptyList());
+		}
+	}
+
+
+	@GetMapping("/calculateTotalOrderByMonth")
+	public List<Object[]> calculateTotalOrderByMonth(@RequestParam int month, @RequestParam int year) {
+		return orderService.calculateTotalOrderByMonth(month, year);
+	}
+	@GetMapping("/calculateTotalRevenueByYear")
+	public Double calculateTotalRevenueByYear(@RequestParam int year) {
+		return orderService.calculateTotalRevenueByYear(year);
+	}
+
+	@GetMapping("/calculateTotalOrderByYear")
+	public Integer calculateTotalOrderByYear(@RequestParam int year) {
+		return orderService.calculateTotalOrderByYear(year);
 	}
 
 

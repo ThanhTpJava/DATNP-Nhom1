@@ -1,26 +1,33 @@
+
+updateYears();
+
+let hasRunOnce = false;
+
+function runOnceOnLoad() {
+    if (!hasRunOnce) {
+        document.getElementById("year").value = new Date().getFullYear();
+        document.getElementById("month").value = 11;
+        // Thực hiện các công việc bạn muốn chạy một lần ở đây
+        updateChart();
+
+        console.log('Đã chạy một lần khi khởi động trang web.');
+
+        // Đặt biến flag thành true để không chạy lại lần nữa
+        hasRunOnce = true;
+    }
+}
+
+runOnceOnLoad();
+
 document.addEventListener('DOMContentLoaded', function () {
 
 
-    // Replace 'yourApiEndpoint' with the actual endpoint of your Spring Boot application
-    fetch('/rest/orders/calculateTotalRevenueByMonth?month=11&year=2023')
-        .then(response => response.json())
-        .then(data => {
-            renderChart(data);
-        })
-        .catch(error => console.error('Error fetching data:', error));
 
-    // Initialize years and days based on the current year and month
-    updateYears();
-
-    // Set default values for year and month
-    document.getElementById("year").value = new Date().getFullYear();
-    document.getElementById("month").value = 11;
 
     document.getElementById("year").addEventListener("change", updateChart);
     document.getElementById("month").addEventListener("change", updateChart);
 
-    // Trigger the chart update with default values
-    updateChart();
+
 });
 
 function formatDate(dateString) {
@@ -66,6 +73,34 @@ function renderChart(data) {
     });
 }
 
+function CountOrderChar(data) {
+    const labels = data.map(row => formatDate(row[1]));
+    const values = data.map(row => row[0]);
+
+    const ctx = document.getElementById('CountOrderChar').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Tổng số hóa đơn theo tháng',
+                data: values,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                barPercentage: 0.8 // Đặt giá trị này để điều chỉnh khoảng cách giữa các cột
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
 function updateYears() {
     var currentYear = new Date().getFullYear();
     var yearSelect = document.getElementById("year");
@@ -82,11 +117,67 @@ function updateChart() {
     var year = document.getElementById("year").value;
     var month = document.getElementById("month").value;
 
+
+
     // Update the chart with new data
     fetch(`http://localhost:8080/rest/orders/calculateTotalRevenueByMonth?month=${month}&year=${year}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+                // Hàm renderChart chỉ được gọi khi mảng có dữ liệu
+                renderChart(data);
+            } else {
+                console.log(year)
+                console.log('The array is empty.');
+                return renderChart([]);
+            }
+        })
+        .catch(error => {
+            renderChart([]);
+            console.error('Error fetching data:', error);
+        });
+
+
+
+    fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth?month=${month}&year=${year}`)
         .then(response => response.json())
         .then(data => {
-            renderChart(data);
+            CountOrderChar(data);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
+    // Update the chart with new data
+    fetch(`http://localhost:8080/rest/orders/calculateTotalRevenueByYear?year=${year}`)
+        .then(response => {
+            // Check if the response is successful (status code 2xx)
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update the content of <b> tag with the total revenue
+            document.getElementById("year1").textContent = year;
+            document.getElementById("sum1").textContent = data;
+        })
+        .catch(error => {
+            document.getElementById("sum1").textContent = 0;
+            document.getElementById("year1").textContent = year;
+            return 0;
+        });
+
+
+    fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByYear?year=${year}`)
+        .then(response => response.json())
+        .then(data => {
+            // Update the content of <b> tag with the total order count
+            document.getElementById("year2").textContent = year;
+            document.getElementById("sum2").textContent = data;
         })
         .catch(error => console.error('Error fetching data:', error));
 }
