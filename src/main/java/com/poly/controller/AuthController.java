@@ -55,7 +55,7 @@ public class AuthController {
         return switch (getLoginAuthority()) {
             case "ROLE_ADMIN" -> "redirect:/admin/products";
             case "ROLE_USER" -> "redirect:/user/home";
-            case "ROLE_SALE" -> "redirect:/admin/products";
+            case "ROLE_SALE" -> "redirect:/admin/sale";
             case "ROLE_STOCK" -> "redirect:/";
 			case "ROLE_SHIP" -> "redirect:/admin/shipping";
             default -> "forward:/auth/login/form";

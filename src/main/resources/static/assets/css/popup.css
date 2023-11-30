@@ -129,3 +129,8 @@
 	top: 50%;
 	transform: translate(-50%, -50%) scale(1);
 }
+
+.btn-disabled-changeStatus{
+	pointer-events: none;
+    opacity: 0.5; /* hoặc một giá trị khác để làm mờ nút */
+}
