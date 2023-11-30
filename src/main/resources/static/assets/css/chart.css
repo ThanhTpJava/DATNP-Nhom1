@@ -1,0 +1,12 @@
+.container .select-time {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fc;
+    width: 100%;
+    z-index: 100; /* Đảm bảo nó nằm trên các phần tử khác trên trang */
+}
+
+.color-text{
+	color: black;
+}
