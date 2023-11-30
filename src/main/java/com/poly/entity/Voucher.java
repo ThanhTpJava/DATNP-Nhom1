@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,5 +34,12 @@ public class Voucher {
 
 	@Column(name ="code_voucher")
 	public String code_voucher;
+
+	@ManyToMany(mappedBy = "voucherList")
+	private List<Account> accounts;
+
+
+
+
 
 }

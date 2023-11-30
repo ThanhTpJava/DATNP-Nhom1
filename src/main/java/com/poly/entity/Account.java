@@ -88,4 +88,11 @@ public class Account implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "account")
 	List<BlogPost> blogPosts;
+
+	@ManyToMany
+	@JoinTable(
+			name = "account_voucher",
+			joinColumns = @JoinColumn(name = "account_username"),
+			inverseJoinColumns = @JoinColumn(name = "voucher_id"))
+	private List<Voucher> voucherList;
 }
