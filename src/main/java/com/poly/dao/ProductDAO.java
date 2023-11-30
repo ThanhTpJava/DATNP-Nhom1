@@ -28,4 +28,8 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
     @Query("SELECT p FROM Product p WHERE p.name LIKE %:name%")
     List<Product> findProductsByName(@Param("name") String name);
 
+    @Query(value = "SELECT TOP 4 * FROM Products ORDER BY Date_import DESC", nativeQuery = true)
+    List<Product> findLatestProducts();
+
+
 }
