@@ -266,33 +266,29 @@
                             <thead>
                             <tr class="text-center">
 	                            <th>Order ID</th>
-	                            <th>Username</th>
+	                            <th>Name</th>
 	                            <th>Order Date</th>
 	                            <th>Shipping Address</th>
 	                            <th>Total Amount</th>
 	                            <th>Status</th>
-	                            <th>Delivery status</th>
 	                            <th>Detail Order</th>
                         	</tr>
                             </thead>
                             <tbody >
-<!--                            <tr th:each="od, iterStat : ${oders}">-->
-<!--	                            <td class="text-center">[[${od.id}]]</td>-->
-<!--	                            <td class="text-center">[[${od.account.username}]]</td>-->
-<!--	                            <td> [[${od.createDate}]]</td>-->
-<!--	                            <td>[[${od.address}]]</td>-->
-<!--	                            <td >[[${od.totalAmount}]] VND</td>-->
-<!--	                            <td class="font-weight-bold" th:text="${od.status == 0 ? 'Đang xác nhận' : (od.status == 1 ? 'Đã thanh toán' : (od.status == 2 ? 'Đã giao' : (od.status == 3 ? 'Trả hàng' : 'Đã hủy')))}"-->
-<!--	                            	th:classappend="${od.status == 0 ? 'text-warning' : (od.status == 1 ? 'text-success' : (od.status == 2 ? 'text-primary' : (od.status == 3 ? 'text-danger' : '')))}">-->
-<!--	                            	[[${od.status}]]-->
-<!--	                            </td>-->
-<!--	                            <td class="text-center">-->
-<!--	                                <button class="btn btn-danger" th:text="${od.status == 0 || od.status == 2 ? 'Đang xác nhận' : (od.status == 1 ? 'Giao hàng' : (od.status == 4 ? 'Hoàn tác' : ''))}">[[${od.status}]]</button>-->
-
-<!--	                            </td>-->
-<!--	                            <td class="text-center"> <a th:href="@{'/admin/order-detail/' + ${od.id}}">Views</a></td>-->
-
-<!--                        	</tr>-->
+	                            <tr th:each="od, iterStat : ${orders}">
+		                            <td class="text-center">[[${od.order.id}]]</td>
+		                            <td class="text-center">[[${od.order.account.name}]]</td>
+		                            <td> [[${od.order.createDate}]]</td>
+		                            <td>[[${od.order.address}]]</td>
+		                            <td >[[${od.order.totalAmount}]] VND</td>
+		                            <td class="text-center">
+		                                <button class="btn" th:text="${od.status.id == 0 ? 'Hủy đơn' : (od.status.id == 1 ? 'Đang xác nhận' : (od.status.id == 2 ? 'Đã xác nhận' : (od.status.id == 3 ? 'Đang giao' : (od.status.id == 4 ? 'Đã giao' : (od.status.id == 5 ? 'Trả hàng' : '')))))}" 
+		                                th:classappend="${od.status.id == 0 || od.status.id == 1 ? 'btn-danger' : (od.status.id == 2 || od.status.id == 3 ? 'btn-success' : (od.status.id == 4 || od.status.id == 5 ? 'btn-warning' : ''))}">[[${od.status.id}]]</button>
+	
+		                            </td>
+		                            <td class="text-center"> <a th:href="@{'/admin/order-detail/' + ${od.order.id}}">Views</a></td>
+	
+	                        	</tr>
                             </tbody>
 
                         </table>

@@ -175,5 +175,11 @@ Integer statusId =order.getOrderStatuses().get(0).getStatus().getId();
 		return dao.calculateTotalOrderByYear(year);
 	}
 
+	@Override
+	public List<Order> findAll1() {
+		// TODO Auto-generated method stub
+		return dao.findAll();
+	}
+
 
 }

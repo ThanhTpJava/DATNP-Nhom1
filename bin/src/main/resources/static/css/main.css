@@ -1457,8 +1457,8 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   background-color: rgba(0,0,0,0.9);
 }
 
-.prev-slick3 {left: 0px;}
-.next-slick3 {right: 0px;}
+.prev-slick3 {left: 0.3px;}
+.next-slick3 {right: 0;}
 
 /*---------------------------------------------*/
 .wrap-slick3-dots {
@@ -1482,7 +1482,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 .slick3-dot-overlay {
   position: absolute;
-  width: 100%;
+  width: 80%;
   height: 100%;
   top: 0;
   left: 0;
@@ -2902,7 +2902,7 @@ input.num-product::-webkit-inner-spin-button {
 .how-pos1 {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 12%;
 }
 
 /*---------------------------------------------*/
