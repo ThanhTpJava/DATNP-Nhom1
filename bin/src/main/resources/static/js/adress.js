@@ -1,22 +1,38 @@
-app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window ) {
-	// quản lý giỏ hàng
+function validatePhoneNumber() {
+	var input = document.getElementById("deliveryPhone");
+	// Loại bỏ tất cả ký tự không phải số
+	input.value = input.value.replace(/\D/g, '');
+	// Giới hạn độ dài tối đa là 10 số
+	if (input.value.length > 10) {
+		input.value = input.value.slice(0, 10);
+	}
+}
+
+app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
+
 	$scope.isPopupOpen = false;
 	$scope.isPopupOpenErrors = false;
+	$scope.isPopupOpenOTP = false;
 	$scope.PopupTitle = ""
 	$scope.PopupMessage = ""
 	$scope.iconUrlPopup = "/images/icons/tick.png"
 	$scope.successIconUrl = "/images/icons/tick.png"
 	$scope.errorIconUrl = "/images/icons/errors.png"
+	$scope.iconUrlotp = "/images/icons/otp.png"
+	$scope.checkOrder = false;
+	$scope.checkOtp = false;
 
 	$scope.closePopup = function() {
 		$scope.isPopupOpen = false;
-		var delayTime = 750;
-		var newUrl = '/order/detail/' + $scope.order.id;
-		$timeout(function() {
-			// Điều hướng đến URL mới
-			/*$window.location.href = newUrl*/
-			$window.location.replace(newUrl);
-		}, delayTime);
+		if ($scope.checkOrder == true) {
+			var delayTime = 750;
+			var newUrl = '/order/detail/' + $scope.order.id;
+			$timeout(function() {
+				// Điều hướng đến URL mới
+				$window.location.href = newUrl
+				$window.location.replace(newUrl);
+			}, delayTime);
+		}
 	};
 
 	var $cart = $scope.cart = {
@@ -81,15 +97,93 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 		}
 	}
 
+	//Validate Số điện thoại
+	$scope.validatePhoneNumber = function() {
+		var deliveryPhoneElement = angular.element(document.getElementById('deliveryPhone'));
+		var deliveryPhone = deliveryPhoneElement.val();
+		$auth.phonenumber = deliveryPhone
+		//console.log($auth.phonenumber)
+	};
+
+	// Lấy giá trị được nhập trong OTP để nối thành chuỗi
+	$scope.getOtpValue = function() {
+		var otpInputValue = '';
+
+		// Lấy tất cả các input có class 'input-otp'
+		var inputElements = document.querySelectorAll('.input-otp');
+
+		// Chuyển đổi NodeList thành mảng
+		var inputArray = Array.from(inputElements);
+
+		// Sắp xếp mảng theo thứ tự xuất hiện trong DOM
+		inputArray.sort(function(a, b) {
+			return Array.from(a.parentElement.children).indexOf(a) - Array.from(b.parentElement.children).indexOf(b);
+		});
+
+		// Nối giá trị của các input lại thành chuỗi
+		inputArray.forEach(function(element) {
+			otpInputValue += element.value;
+		});
+
+		$scope.clearOtpInputs()
+		return otpInputValue
+	};
+
+	//Làm trống toàn bộ thẻ input OTP
+	$scope.clearOtpInputs = function() {
+		// Lấy tất cả các input có class 'input-otp'
+		var inputElements = document.querySelectorAll('.input-otp');
+
+		// Chuyển đổi NodeList thành mảng
+		var inputArray = Array.from(inputElements);
+
+		// Thiết lập giá trị của từng input về rỗng
+		inputArray.forEach(function(element) {
+			element.value = "";
+		});
+	};
+
 	$cart.loadFromLocalStorage();
 	var orderElement = angular.element(document.getElementById('order-id'));
 
 	// Lấy văn bản trong phần tử
 	var orderText = orderElement.text();
 
-	// In ra kết quả
+	// Gửi mã OTP
+	$scope.sendOTP = function() {
 
+		var emailText = $auth.email;
+		console.log(emailText)
+		$http.post('/otp/send-otp?email=' + emailText).then((response) => {
+			console.log(response)
 
+		}).catch(error => {
+			console.log(error)
+		});
+
+		$scope.PopupTitle = "Xác Nhận OTP"
+		$scope.PopupMessage = "Vui lòng kiểm tra email của bạn\nMã OTP thường được gửi từ 1 - 5 phút"
+		$scope.iconUrlPopup = $scope.iconUrlotp
+		$scope.isPopupOpenOTP = true
+	}
+
+	//Kiểm tra mã OTP
+	$scope.comfirmOTP = function() {
+		var otp = $scope.getOtpValue()
+		$scope.isPopupOpenOTP = false;
+		//console.log(otp);
+		$http.post('/otp/confirm-otp?otp=' + otp).then((response) => {
+			//console.log("good", response);
+			$scope.checkOtp = true;
+			$scope.order.purchase()
+		}).catch(error => {
+			//console.log("bad", error);
+			$scope.iconUrlPopup = $scope.errorIconUrl
+			$scope.PopupTitle = "Lỗi!!!"
+			$scope.PopupMessage = "Mã OTP sai, vui lòng kiểm tra lại"
+			$scope.isPopupOpen = true;
+		});
+	}
 	// Đặt hàng
 	$scope.order = {
 		id: orderText,
@@ -98,7 +192,8 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 		},
 		createDate: new Date(),
 
-		address: null,
+		address: "",
+		delivery_phone: "",
 		totalAmount: $cart.amount,
 		get orderDetails() {
 			return $cart.items.map(item => {
@@ -112,39 +207,63 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 			});
 		},
 
-		purchase() {
-			var order = angular.copy(this);
-			console.log(order)
-			if ($scope.order.address == null) {
+		validatePurchase() {
+			if(/^[0-9]+$/.test($scope.order.delivery_phone) === false || $scope.order.delivery_phone.length !== 10){
+				$scope.iconUrlPopup = $scope.errorIconUrl
+				$scope.PopupTitle = "Lỗi!!!"
+				$scope.PopupMessage = "Số điện thoại giao hàng không hợp lệ"
+				$scope.isPopupOpen = true;
+				return false
+			}
+			
+			if ($scope.order.address == null || $scope.order.address == '') {
 				$scope.iconUrlPopup = $scope.errorIconUrl
 				$scope.PopupTitle = "Lỗi!!!"
 				$scope.PopupMessage = "Nhập đầy đủ địa chỉ giao hàng"
 				$scope.isPopupOpen = true;
-				return
-			} else {
-				console.log("Suscess")
+				return false
+			}
+
+			if ($scope.checkOtp == false) {
+				$scope.sendOTP();
+				return false
+			}
+
+			return true
+		},
+		
+		purchase() {
+			var order = angular.copy(this);
+			/*console.log(order)*/
+			$scope.order.address = $auth.delivery_address;
+			/*console.log("address: ", $scope.order.address);*/
+			$scope.order.delivery_phone = $auth.phonenumber;
+			console.log(typeof $scope.order.delivery_phone);
+			
+			var isValid = this.validatePurchase();
+
+			if (!isValid) {
+				return;  // Dừng thực hiện nếu không hợp lệ
+			}
+
+			/*console.log("Suscess")*/
+			var order = angular.copy(this);
+			/*console.log(order)*/
+			// Thực hiện đặt hàng
+			$http.post("/rest/orders", order).then(resp => {
+
+				console.log($scope.order.id)
 				$scope.iconUrlPopup = $scope.successIconUrl
 				$scope.PopupTitle = "Thành công!"
 				$scope.PopupMessage = "Đơn hàng của bạn đã được tạo"
 				$scope.isPopupOpen = true;
-				var order = angular.copy(this);
-				console.log(order)
-				// Thực hiện đặt hàng
-				$http.post("/rest/orders", order).then(resp => {
+				$scope.checkOrder = true;
+				$cart.clear();
 
-					console.log($scope.order.id)
-					$scope.iconUrlPopup = $scope.successIconUrl
-					$scope.PopupTitle = "Thành công!"
-					$scope.PopupMessage = "Đơn hàng của bạn đã được tạo"
-					$scope.isPopupOpen = true;
-					$cart.clear();
-					/*location.href = "/order/detail/" + resp.data.id;*/
-				}).catch(error => {
-					alert("Đặt hàng lỗi!")
-					console.log(error)
-				})
-			}
-
+			}).catch(error => {
+				alert("Đặt hàng lỗi!")
+				console.log(error)
+			})
 		}
 	}
 
@@ -198,55 +317,26 @@ app.controller("cart-ctrl", function($scope, $http, $location, $timeout, $window
 		printResult();
 	})
 
-	// var printResult = () => {
-	//     if ($("#district").val() != "" && $("#province").val() != "" &&
-	//         $("#ward").val() != "") {
-	//         let result = $("#province option:selected").text() +
-	//             " | " + $("#district option:selected").text() + " | " +
-	//             $("#ward option:selected").text();
-	//         $("#result").text(result)
-	//     }
+	$("#deliveryAddress").on('input', function() {
+		$auth.delivery_address = $("#deliveryAddress").val();
 
-	// }
-
-	// var printResult = () => {
-	//     if ($("#district").val() != "" && $("#province").val() != "" &&
-	//         $("#ward").val() != "") {
-	//         let result = $("#province option:selected").text() +
-	//             " " + $("#district option:selected").text() + " " +
-	//             $("#ward option:selected").text();
-	//         $("#result").text(result)
-	//     }
-	//
-	// }
-	// var printResult = () => {
-	//     if ($("#district").val() != "" && $("#province").val() != "" &&
-	//         $("#ward").val() != "" && $("#numberHour").val() != null && $("#streetName").val() != null) {
-	//         let result =
-	//             $("#province option:selected").text() +
-	//             " " + $("#district option:selected").text() + " " +
-	//             $("#ward option:selected").text() +
-	//             " " + $("#numberHour").val() +
-	//             " " + $("#streetName").val();
-	//         $("#result").text(result);
-	// }
-	// }
+	});
 
 	var printResult = () => {
 		let provinceText = $("#province option:selected").text();
-		let districtText = $("#district option:selected").text();
-		let wardText = $("#ward option:selected").text();
-		let numberHourAndstreetName = $("#numberHourAndstreetName").val();
+		let districtText = $("#district option:selected").text() + ",";
+		let wardText = $("#ward option:selected").text() + ",";
+		let numberHourAndstreetName = ($("#numberHourAndstreetName").val() === '') ? 'Tên đường và số nhà,' : $("#numberHourAndstreetName").val();
 
-		if (provinceText == "" || districtText == "" || wardText == "" || numberHourAndstreetName == "") {
+		/*if (provinceText == "" || districtText == "" || wardText == "" || numberHourAndstreetName == "") {
 			$scope.order.address = null
-		} else {
-			let result = provinceText + " " + districtText + " " + wardText + " " + numberHourAndstreetName;
-			// let idValue = order.address.replace(/\W/g, '_');
-			$("#result").text(result);
-			$scope.order.address = result;
+		} else */
+		let result = numberHourAndstreetName + " " + wardText + " " + districtText + " " + provinceText;
+		// let idValue = order.address.replace(/\W/g, '_');
+		$scope.$apply(function() {
+			$auth.delivery_address = result;
+		});
 
-		}
 		/*	console.log("Address - :", $scope.order.address)*/
 
 	};
