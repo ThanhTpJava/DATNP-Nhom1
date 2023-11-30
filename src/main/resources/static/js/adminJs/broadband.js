@@ -21,9 +21,6 @@ runOnceOnLoad();
 
 document.addEventListener('DOMContentLoaded', function () {
 
-
-
-
     document.getElementById("year").addEventListener("change", updateChart);
     document.getElementById("month").addEventListener("change", updateChart);
 
@@ -130,6 +127,7 @@ function updateChart() {
         .then(data => {
             if (Array.isArray(data) && data.length > 0) {
                 // Hàm renderChart chỉ được gọi khi mảng có dữ liệu
+                console.log(data)
                 renderChart(data);
             } else {
                 console.log(year)
