@@ -28,4 +28,6 @@ public interface ProductService {
 	public Product update(Product product) ;
 
 	public void delete(Integer id) ;
+
+    List<Product> findLatestProducts();
 }

@@ -4,6 +4,7 @@ import com.poly.entity.BlogPost;
 import com.poly.entity.Product;
 import com.poly.entity.ProductImage;
 import com.poly.service.BlogService;
+import com.poly.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,9 @@ public class BlogController {
     @Autowired
     BlogService blogService;
 
+    @Autowired
+    ProductService productService;
+
     private final int pageSize = 3;
     @GetMapping("/blog")
     public String SeeBlog(@RequestParam(defaultValue = "0") int page, Model model){
@@ -29,6 +33,10 @@ public class BlogController {
         List<BlogPost> list = blogService.findPaginated(pageable);
 
         int totalPages = (int) Math.ceil((double) blogService.getTotalBlog() / pageSize);
+
+        List<Product> listProduct = productService.findLatestProducts();
+        model.addAttribute("itemsProduct", listProduct);
+
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("items", list);
@@ -43,6 +51,9 @@ public class BlogController {
 
         List<BlogPost> list = blogService.findAll();
         model.addAttribute("items", list);
+
+        List<Product> listProduct = productService.findLatestProducts();
+        model.addAttribute("itemsProduct", listProduct);
 
         return "user/blog-detail";
     }
