@@ -18,7 +18,7 @@ import com.poly.service.RoleService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/sale")
+@RequestMapping("/rest")
 public class SaleRestController {
 
 	@Autowired
@@ -33,8 +33,8 @@ public class SaleRestController {
 	@Autowired
 	ResponsibilityService responsibilityService;
 
-	@PutMapping("/updates/status/{orderID}/{username}/{statusID}")
-	public ResponseEntity<?> updateStatus(@PathVariable("orderID") String orderId,
+	@PutMapping("/sale/updates/status/{orderID}/{username}/{statusID}")
+	public ResponseEntity<?> updateStatusStock(@PathVariable("orderID") String orderId,
 			@PathVariable("username") String username, @PathVariable("statusID") Integer statusID) {
 		System.out.println(orderId + " " +  username+ " " +statusID);
 		Account acc = accService.findById(username);
@@ -42,6 +42,22 @@ public class SaleRestController {
 		Order order = orderService.findById(orderId);
 
 		Role role = roleService.findRole("ROLE_SALE");
+
+		responsibilityService.saveResponsibility(acc, order, role);
+		
+		orderService.updateOrderStatus(orderId, statusID);
+		return ResponseEntity.ok().build();
+	}
+	
+	@PutMapping("/stock/updates/status/{orderID}/{username}/{statusID}")
+	public ResponseEntity<?> updateStatus(@PathVariable("orderID") String orderId,
+			@PathVariable("username") String username, @PathVariable("statusID") Integer statusID) {
+		System.out.println(orderId + " " +  username+ " " +statusID);
+		Account acc = accService.findById(username);
+		
+		Order order = orderService.findById(orderId);
+
+		Role role = roleService.findRole("ROLE_STOCK");
 
 		responsibilityService.saveResponsibility(acc, order, role);
 		
