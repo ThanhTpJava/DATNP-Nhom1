@@ -181,5 +181,9 @@ Integer statusId =order.getOrderStatuses().get(0).getStatus().getId();
 		return dao.findAll();
 	}
 
-
+	@Override
+	public List<Order> findAllByStock(){
+		return dao.findOrdersWithStatusNotEqualToOne();
+	}
+	
 }

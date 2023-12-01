@@ -49,6 +49,7 @@ public class WebSecurityConfig {
 			authorize
 				.requestMatchers("/admin/shipping").hasAuthority("ROLE_SHIP")
 				.requestMatchers("/admin/sale").hasAuthority("ROLE_SALE")
+					.requestMatchers("/admin/stock").hasAuthority("ROLE_STOCK")
 				.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 
 				.requestMatchers("/rest/**").permitAll()

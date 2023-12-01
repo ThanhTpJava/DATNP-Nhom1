@@ -61,21 +61,21 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
 	
 	
 	
-	$scope.saleDetail = {
+	$scope.stockDetail = {
 
-        saleData: {},
+        stockData: {},
 
-        getDetailSale(id) {
+        getDetailStock(id) {
             $http.get(`/rest/orders/ship/${id}`).then(resp => {
                 console.log(resp.data)
-                $scope.saleDetail.saleData = resp.data;
-                if($scope.saleDetail.saleData.orderStatus == 3 || $scope.saleDetail.saleData.orderStatus == 4){
-					$scope.statusDisabled = true;
-					 /*console.log("statusDisabled", $scope.statusDisabled)*/
-				}else{
-					$scope.statusDisabled = false;
-					/*console.log("statusDisabled", $scope.statusDisabled)*/
-				}
+                $scope.stockDetail.stockData = resp.data;
+                // if($scope.stockDetail.stockData.orderStatus == 3 || $scope.stockDetail.stockData.orderStatus == 4){
+				// 	$scope.statusDisabled = true;
+				// 	 /*console.log("statusDisabled", $scope.statusDisabled)*/
+				// }else{
+				// 	$scope.statusDisabled = false;
+				// 	/*console.log("statusDisabled", $scope.statusDisabled)*/
+				// }
             }).catch(error => {
 				console.log("get error", error)
 			})
@@ -83,7 +83,7 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
 
         },
         
-     	saleUpdateSatus(){
+     	stockUpdateSatus(){
 			 $scope.isUpdatePopupOpen = true;
 			 var orderId = $scope.orderIdValue
 			 var statusId = $scope.statusIdValue
@@ -91,9 +91,9 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
 			/* console.log("OrderId", orderId)
 			 console.log("Username", username)
 			 console.log("Status Id", statusId)*/
-			$http.put(`/rest/sale/updates/status/${orderId}/${username}/${statusId}`).then(resp => {
+			$http.put(`/rest/stock/updates/status/${orderId}/${username}/${statusId}`).then(resp => {
                 console.log("Update success", resp.data)
-                $scope.saleDetail.saleData = resp.data;
+                $scope.stockDetail.stockData = resp.data;
                 $scope.isUpdatePopupOpen = false;
                 $scope.isPopupOpen = true;         
             }).catch(error => {
@@ -102,20 +102,3 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
 		 }
     }
 })
-
-        stockUpdateSatus(){
-        			 $scope.isUpdatePopupOpen = true;
-        			 var orderId = $scope.orderIdValue
-        			 var statusId = $scope.statusIdValue
-        			 var username =  angular.element(document.getElementById('user-name')).text();
-        			$http.put(`/rest/stock/updates/status/${orderId}/${username}/${statusId}`).then(resp => {
-                        console.log("Update success", resp.data)
-                        $scope.saleDetail.saleData = resp.data;
-                        $scope.isUpdatePopupOpen = false;
-                        $scope.isPopupOpen = true;
-                    }).catch(error => {
-        				console.log("Update error", error)
-        			})
-        		 }
-            }
-        })
