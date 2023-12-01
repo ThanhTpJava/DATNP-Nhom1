@@ -102,3 +102,20 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
 		 }
     }
 })
+
+        stockUpdateSatus(){
+        			 $scope.isUpdatePopupOpen = true;
+        			 var orderId = $scope.orderIdValue
+        			 var statusId = $scope.statusIdValue
+        			 var username =  angular.element(document.getElementById('user-name')).text();
+        			$http.put(`/rest/stock/updates/status/${orderId}/${username}/${statusId}`).then(resp => {
+                        console.log("Update success", resp.data)
+                        $scope.saleDetail.saleData = resp.data;
+                        $scope.isUpdatePopupOpen = false;
+                        $scope.isPopupOpen = true;
+                    }).catch(error => {
+        				console.log("Update error", error)
+        			})
+        		 }
+            }
+        })

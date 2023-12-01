@@ -1,6 +1,7 @@
 package com.poly.controller;
 
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,11 +28,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.dao.AccountDAO;
 import com.poly.entity.Order;
+import com.poly.entity.OrderExcelExcelExporter;
 import com.poly.service.AccountService;
 //import com.poly.service.EmailService;
 import com.poly.service.OrderService;
 import com.poly.entity.Account;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,6 +88,20 @@ public class OrderController {
 		else {
 			return "/auth/login/form"; //login
 		}
+	}
+	
+	@GetMapping("/orders/export")
+	public void exportToExcel(HttpServletResponse response) throws IOException {
+		response.setContentType("application/octet-stream");
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachement; filename=order.xlsx";
+		
+		response.setHeader(headerKey, headerValue);
+		
+		List<Order> listOrder = orderService.findAll1();
+		
+		OrderExcelExcelExporter excelExport = new OrderExcelExcelExporter(listOrder);
+		excelExport.export(response);
 	}
 
 //	@RequestMapping("/calculateTotalRevenueByMonth/")

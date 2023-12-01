@@ -328,7 +328,7 @@
 				<!-- Slide2 -->
 				<div class="wrap-slick2">
 					<div class="slick2">
-						<div th:each="p:${items}" class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+						<div th:each="p:${relatedProducts}" class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
 							<!-- Block2 -->
 							<div class="block2">
 								<div class="block2-pic hov-img0">
@@ -344,7 +344,7 @@
 										<a th:text="${p.name}" th:href="@{'/user/detail/' + ${p.id}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										</a>
 
-										<span th:text="${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')} +'₫'" class="stext-105 cl3">₫</span>
+										<b>Giá:<span th:text="${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')} +'VND'" class="stext-105 cl3">VND</span></b>
 									</div>
 
 									<div class="block2-txt-child2 flex-r p-t-3">

@@ -26,6 +26,8 @@ public interface ProductService {
     public Product create(Product product) ;
 
 	public Product update(Product product) ;
+	
+	List<Product> findProductsByCategoryId(String categoryId);
 
 	public void delete(Integer id) ;
 

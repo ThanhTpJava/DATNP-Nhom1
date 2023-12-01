@@ -7,4 +7,6 @@ import com.poly.entity.Product;
 
 public interface OrderDetailService {
 	List<OrderDetail> findAll();
+
+	List<OrderDetail> findByOrderId(String orderId);
 }
