@@ -73,7 +73,7 @@ function renderChart(data) {
 function CountOrderChar(data) {
     const labels = data.map(row => formatDate(row[1]));
     const values = data.map(row => row[0]);
-
+	console.log("Data value", values)
     const ctx = document.getElementById('CountOrderChar').getContext('2d');
     new Chart(ctx, {
         type: 'bar',

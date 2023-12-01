@@ -128,7 +128,11 @@ public class OrderRestController {
 	}
 	@GetMapping("/calculateTotalRevenueByYear")
 	public Double calculateTotalRevenueByYear(@RequestParam int year) {
-		return orderService.calculateTotalRevenueByYear(year);
+		if(orderService.calculateTotalRevenueByYear(year) != null) {
+			return orderService.calculateTotalRevenueByYear(year);
+		}else {
+			return 0.0;
+		}	
 	}
 
 	@GetMapping("/calculateTotalOrderByYear")
