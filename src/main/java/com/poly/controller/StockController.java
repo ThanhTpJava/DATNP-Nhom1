@@ -15,7 +15,7 @@ public class StockController {
 	
 	@GetMapping("/admin/stock")
 	public String saleOrder(Model model) {
-		 model.addAttribute("listStock",orderService.findAllByStock());
+		model.addAttribute("listSale",orderService.findAll());
 	     return "admin/stock";
 	}
 }

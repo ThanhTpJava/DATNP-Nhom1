@@ -83,6 +83,13 @@
 				</a></li>
 			</th:block>
 
+			<th:block sec:authorize="hasAnyRole('ROLE_STOCK')">
+				<li class="nav-item"><a class="nav-link"
+										href="/admin/stock"> <i class="fa-solid fa-list-check"></i>
+					<span>List Order</span></a>
+				</li>
+			</th:block>
+
 			<li class="nav-item"><a class="nav-link"
 				href="/auth/logoff/success"> <i
 					class="fa-solid fa-right-from-bracket"></i> <span>Log Out</span></a></li>
