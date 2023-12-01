@@ -46,6 +46,6 @@ public interface OrderService {
 
 	Integer calculateTotalOrderByYear(Integer year);
 	
-	
+	List<Order> findAllByStock();
 
 }

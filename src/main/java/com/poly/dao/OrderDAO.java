@@ -70,5 +70,6 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 			"GROUP BY o.createDate")
 	List<Object[]> calculateTotalRevenueByDate(@Param("day") int day, @Param("month") int month, @Param("year") int year);
 
-
+	@Query("SELECT o FROM Order o JOIN o.orderStatuses os WHERE os.status.id <> 1")
+    List<Order> findOrdersWithStatusNotEqualToOne();
 }
