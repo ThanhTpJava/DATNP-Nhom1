@@ -78,9 +78,9 @@ public class SaleRestController {
 
 
 
-//		responsibilityService.saveResponsibility(acc, order, role);
-//
-//		orderService.updateOrderStatus(orderId, statusID);
+		responsibilityService.saveResponsibility(acc, order, role);
+
+		orderService.updateOrderStatus(orderId, statusID);
 		return ResponseEntity.ok().build();
 	}
 }
