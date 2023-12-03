@@ -6,15 +6,15 @@ let hasRunOnce = false;
 function runOnceOnLoad() {
     if (!hasRunOnce) {
         document.getElementById("year").value = new Date().getFullYear();
-        document.getElementById("month").value = 11;
+
+        // Đặt biến flag thành true để không chạy lại lần nữa
+        hasRunOnce = true;
+    }        document.getElementById("month").value = 12;
         // Thực hiện các công việc bạn muốn chạy một lần ở đây
         updateChart();
 
         console.log('Đã chạy một lần khi khởi động trang web.');
 
-        // Đặt biến flag thành true để không chạy lại lần nữa
-        hasRunOnce = true;
-    }
 }
 
 runOnceOnLoad();
@@ -70,22 +70,39 @@ function renderChart(data) {
     });
 }
 
-function CountOrderChar(data) {
-    const labels = data.map(row => formatDate(row[1]));
-    const values = data.map(row => row[0]);
+function CountOrderChar(status4, status0, allStatus) {
+    const labels = allStatus.map(row => formatDate(row.createDate));
+    console.log(labels)
+    const value4 = status4.map(row => row[0]);
+    const value0 = status0.map(row => row[0]);
+    const value = allStatus.map(row => row[0]);
 
     const ctx = document.getElementById('CountOrderChar').getContext('2d');
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: labels,
+            labels: [],
             datasets: [{
-                label: 'Tổng số hóa đơn theo tháng',
-                data: values,
+                label: 'Đơn đã giao',
+                data: value4,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
-                barPercentage: 0.8 // Đặt giá trị này để điều chỉnh khoảng cách giữa các cột
+                barPercentage: 0.25
+            }, {
+                label: 'Đơn bị hủy',
+                data: value0,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+                barPercentage: 0.25
+            }, {
+                label: 'Tất cả trạng thái',
+                data: value,
+                backgroundColor: 'rgba(255, 255, 0, 0.2)',
+                borderColor: 'rgba(255, 255, 0, 1)',
+                borderWidth: 1,
+                barPercentage: 0.25
             }]
         },
         options: {
@@ -97,6 +114,7 @@ function CountOrderChar(data) {
         }
     });
 }
+
 
 function updateYears() {
     var currentYear = new Date().getFullYear();
@@ -113,7 +131,7 @@ function updateYears() {
 function updateChart() {
     var year = document.getElementById("year").value;
     var month = document.getElementById("month").value;
-
+    var status =-1;
 
 
     // Update the chart with new data
@@ -127,7 +145,6 @@ function updateChart() {
         .then(data => {
             if (Array.isArray(data) && data.length > 0) {
                 // Hàm renderChart chỉ được gọi khi mảng có dữ liệu
-                console.log(data)
                 renderChart(data);
             } else {
                 console.log(year)
@@ -142,12 +159,49 @@ function updateChart() {
 
 
 
-    fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth?month=${month}&year=${year}`)
+    // fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth4?month=${month}&year=${year}`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         CountOrderChar(data);
+    //     })
+    //     .catch(error => console.error('Error fetching data:', error));
+    //
+    // fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth0?month=${month}&year=${year}`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         CountOrderChar(data);
+    //     })
+    //     .catch(error => console.error('Error fetching data:', error));
+    //
+    // fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonthAll?month=${month}&year=${year}`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         // Update other UI elements if needed
+    //     })
+    //     .catch(error => console.error('Error fetching data:', error));
+
+    // Fetch data for status 4
+    fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth4?month=${month}&year=${year}`)
         .then(response => response.json())
-        .then(data => {
-            CountOrderChar(data);
+        .then(dataStatus4 => {
+            // Fetch data for status 0
+            fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth0?month=${month}&year=${year}`)
+                .then(response => response.json())
+                .then(dataStatus0 => {
+                    // Fetch data for all statuses
+                    fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth?month=${month}&year=${year}`)
+                        .then(response => response.json())
+                        .then(dataAllStatus => {
+                            // Update the charts
+                            // renderChart(dataStatus4);
+                            CountOrderChar(dataStatus4, dataStatus0, dataAllStatus);
+                        })
+                        .catch(error => console.error('Error fetching data for all statuses:', error));
+                })
+                .catch(error => console.error('Error fetching data for status 0:', error));
         })
-        .catch(error => console.error('Error fetching data:', error));
+        .catch(error => console.error('Error fetching data for status 4:', error));
+
 
     // Update the chart with new data
     fetch(`http://localhost:8080/rest/orders/calculateTotalRevenueByYear?year=${year}`)
@@ -179,5 +233,3 @@ function updateChart() {
         })
         .catch(error => console.error('Error fetching data:', error));
 }
-
-
