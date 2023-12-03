@@ -44,26 +44,10 @@ public class AdminAccountRestController {
 		String username = (String) requestData.get("username");
         Map<String, Boolean> roles = (Map<String, Boolean>) requestData.get("roles");
 
-//        System.out.println(username);
-//      
-//        System.out.println("JSON Data: ");
-//        for (Map.Entry<String, Boolean> entry : roles.entrySet()) {
-//        	
-//            String roleName = entry.getKey();
-//            Boolean roleValue = entry.getValue();
-//            System.out.println("Role: " + roleName + ", Value: " + roleValue);
-//            
-//        }
         System.out.println("-------------------------------");
         Map<String, Boolean> mapRoleCheck =
         authService.rolesCheck(username);
-        
-//        System.out.println("Map Data Role check : ");
-//        for (Map.Entry<String, Boolean> rolec : mapRoleCheck.entrySet()) {
-//        	String roleName = rolec.getKey();
-//            Boolean roleValue = rolec.getValue();
-//            System.out.println("Role: " + roleName + ", Value: " + roleValue);
-//		}
+
         
         for (Map.Entry<String, Boolean> entry : roles.entrySet()) {
             String roleName = entry.getKey();

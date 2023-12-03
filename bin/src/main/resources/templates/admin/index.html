@@ -33,7 +33,7 @@
     <!-- Custom styles for table -->
     <link href="/vendor-admin/datatables/dataTables.bootstrap4.min.css"
           rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body id="page-top" ng-app="app" ng-controller="ctrl">
@@ -75,6 +75,12 @@
                                 href="/admin/orders"> <i class="fas fa-cog"></i>
             <span>Orders</span></a>
         </li>
+
+        <!-- Nav Item - Dashboard -->
+<!--        <li sec:authorize="hasRole('ROLE_SHIP')"  class="nav-item"><a class="nav-link"-->
+<!--                                href="/admin/shipping"> <i class="fas fa-fw fa-tachometer-alt"></i>-->
+<!--            <span>Shipping</span></a>-->
+<!--        </li>-->
         
         <li class="nav-item"><a class="nav-link"
                                 href="/statistical"> <i class="fas fa-chart-bar"></i>
@@ -109,13 +115,49 @@
 	
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column vh-100">
-        <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
-        
+<!--        <div id="columnchart_values" style="width: 900px; height: 300px;"></div>-->
+        <div class="container">
+            <h3 class="m-auto">Tổng doand thu theo tháng</h3>
+            <div class="row">
+                <div class="col-6">
+                    <label for="year">Year:</label>
+                    <select class="form-control" id="year"></select>
+                </div>
+                <div class="col-6">
+                    <label for="month">Month:</label>
+                    <select class="form-control" id="month">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <!--                <div class="col-4">-->
+                <!--                    <label for="day">Day:</label>-->
+                <!--                    <select  class="form-control" id="day"></select>-->
+                <!--                </div>-->
+                <!--                    <canvas class="" id="TotalRevenueChart" width="400px" height="200px"></canvas>-->
+                <h3></h3>
+            </div>
+                    <canvas class="" id="revenueChart" width="400px" height="200px"></canvas>
+                    <canvas class="" id="CountOrderChar" width="400px" height="200px"></canvas>
+                    <h5 class="m-auto">Tổng doand thu năm <b id="year1"></b>: <span id="sum1"></span> VNĐ</h5>
+                    <h5 class="m-auto">Tổng Tổng số hóa đơn năm <b id="year2"> </b>: <span id="sum2"></span> đơn</h5>
+            </div>
+
+
+        </div>
+
     </div>
     <!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top"> <i
@@ -149,6 +191,7 @@
 <script>
     var sortingOrder = 'name';
 </script>
+<!--<script src="/js/adminJs/Input3date.js"></script>-->
 <script src="/js/adminJs/broadband.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor-admin/jquery/jquery.min.js"></script>
@@ -166,7 +209,8 @@
 <!-- Page level custom scripts -->
 <script src="/js/adminJs/demo/chart-area-demo.js"></script>
 <script src="/js/adminJs/demo/chart-pie-demo.js"></script>
-
+<script src="/js/highcharts.js"></script>
+<script src="/jquery.js"></script>
 
 <!-- Page level plugins -->
 <!--<script src="/vendor-admin/datatables/jquery.dataTables.min.js"></script>-->

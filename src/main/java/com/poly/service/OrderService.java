@@ -18,6 +18,8 @@ public interface OrderService {
 	public List<Order> findByUsername(String username) ;
 
 	public List<OrderShipDTO> findAll();
+	
+	public List<Order> findAll1();
 
 //	public Order EditbyID(Order order);
 
@@ -47,5 +49,7 @@ public interface OrderService {
 	Double calculateTotalRevenueByYear(Integer year);
 
 	Integer calculateTotalOrderByYear(Integer year);
+	
+	List<Order> findAllByStock();
 
 }
