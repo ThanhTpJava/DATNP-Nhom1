@@ -70,28 +70,25 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 //	List<Object[]> calculateTotalOrderByMonth(@Param("month") int month, @Param("year") int year, @Param("status") int status);
 
 	//Tong hoa don theo thang
-	@Query("SELECT count(o.id), o.createDate FROM Order o " +
+	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
 			"JOIN o.orderStatuses os " +
 			"WHERE os.status.id = 4 " +
 			"AND MONTH(o.createDate) = :month " +
-			"AND YEAR(o.createDate) = :year " +
-			"GROUP BY o.createDate")
+			"AND YEAR(o.createDate) = :year ")
 	List<Object[]> calculateTotalOrderByMonth4(@Param("month") int month, @Param("year") int year);
 
-	@Query("SELECT count(o.id), o.createDate FROM Order o " +
+	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
 			"JOIN o.orderStatuses os " +
 			"WHERE os.status.id = 0 " +
 			"AND MONTH(o.createDate) = :month " +
-			"AND YEAR(o.createDate) = :year " +
-			"GROUP BY o.createDate")
+			"AND YEAR(o.createDate) = :year ")
 	List<Object[]> calculateTotalOrderByMonth0(@Param("month") int month, @Param("year") int year);
 
-	@Query("SELECT count(o.id), o.createDate FROM Order o " +
+	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
 			"JOIN o.orderStatuses os " +
 			"WHERE os.status.id > -1 " +
 			"AND MONTH(o.createDate) = :month " +
-			"AND YEAR(o.createDate) = :year " +
-			"GROUP BY o.createDate")
+			"AND YEAR(o.createDate) = :year ")
 	List<Object[]> calculateTotalOrderByMonthAll(@Param("month") int month, @Param("year") int year);
 
 	@Query("SELECT SUM(o.TotalAmount), o.createDate FROM Order o " +

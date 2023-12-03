@@ -6,26 +6,15 @@ let hasRunOnce = false;
 function runOnceOnLoad() {
     if (!hasRunOnce) {
         document.getElementById("year").value = new Date().getFullYear();
-
+        document.getElementById("month").value = 12;
         // Đặt biến flag thành true để không chạy lại lần nữa
         hasRunOnce = true;
-    }        document.getElementById("month").value = 12;
-        // Thực hiện các công việc bạn muốn chạy một lần ở đây
+    }
         updateChart();
-
-        console.log('Đã chạy một lần khi khởi động trang web.');
 
 }
 
 runOnceOnLoad();
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    document.getElementById("year").addEventListener("change", updateChart);
-    document.getElementById("month").addEventListener("change", updateChart);
-
-
-});
 
 function formatDate(dateString) {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -72,16 +61,16 @@ function renderChart(data) {
 
 function CountOrderChar(status4, status0, allStatus) {
     const labels = allStatus.map(row => formatDate(row.createDate));
-    console.log(labels)
+
     const value4 = status4.map(row => row[0]);
     const value0 = status0.map(row => row[0]);
     const value = allStatus.map(row => row[0]);
-
+    console.log(value)
     const ctx = document.getElementById('CountOrderChar').getContext('2d');
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: [],
+            labels: labels,
             datasets: [{
                 label: 'Đơn đã giao',
                 data: value4,
@@ -127,109 +116,59 @@ function updateYears() {
         yearSelect.add(option);
     }
 }
+// Define the fetchData function to handle fetch requests
+async function fetchData(url) {
+    const response = await fetch(url);
 
-function updateChart() {
-    var year = document.getElementById("year").value;
-    var month = document.getElementById("month").value;
-    var status =-1;
+    if (!response.ok) {
+        throw new Error(`Network response was not ok for ${url}`);
+    }
 
-
-    // Update the chart with new data
-    fetch(`http://localhost:8080/rest/orders/calculateTotalRevenueByMonth?month=${month}&year=${year}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (Array.isArray(data) && data.length > 0) {
-                // Hàm renderChart chỉ được gọi khi mảng có dữ liệu
-                renderChart(data);
-            } else {
-                console.log(year)
-                console.log('The array is empty.');
-                return renderChart([]);
-            }
-        })
-        .catch(error => {
-            renderChart([]);
-            console.error('Error fetching data:', error);
-        });
-
-
-
-    // fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth4?month=${month}&year=${year}`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         CountOrderChar(data);
-    //     })
-    //     .catch(error => console.error('Error fetching data:', error));
-    //
-    // fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth0?month=${month}&year=${year}`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         CountOrderChar(data);
-    //     })
-    //     .catch(error => console.error('Error fetching data:', error));
-    //
-    // fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonthAll?month=${month}&year=${year}`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         // Update other UI elements if needed
-    //     })
-    //     .catch(error => console.error('Error fetching data:', error));
-
-    // Fetch data for status 4
-    fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth4?month=${month}&year=${year}`)
-        .then(response => response.json())
-        .then(dataStatus4 => {
-            // Fetch data for status 0
-            fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth0?month=${month}&year=${year}`)
-                .then(response => response.json())
-                .then(dataStatus0 => {
-                    // Fetch data for all statuses
-                    fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth?month=${month}&year=${year}`)
-                        .then(response => response.json())
-                        .then(dataAllStatus => {
-                            // Update the charts
-                            // renderChart(dataStatus4);
-                            CountOrderChar(dataStatus4, dataStatus0, dataAllStatus);
-                        })
-                        .catch(error => console.error('Error fetching data for all statuses:', error));
-                })
-                .catch(error => console.error('Error fetching data for status 0:', error));
-        })
-        .catch(error => console.error('Error fetching data for status 4:', error));
-
-
-    // Update the chart with new data
-    fetch(`http://localhost:8080/rest/orders/calculateTotalRevenueByYear?year=${year}`)
-        .then(response => {
-            // Check if the response is successful (status code 2xx)
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Update the content of <b> tag with the total revenue
-            document.getElementById("year1").textContent = year;
-            document.getElementById("sum1").textContent = data;
-        })
-        .catch(error => {
-            document.getElementById("sum1").textContent = 0;
-            document.getElementById("year1").textContent = year;
-            return 0;
-        });
-
-
-    fetch(`http://localhost:8080/rest/orders/calculateTotalOrderByYear?year=${year}`)
-        .then(response => response.json())
-        .then(data => {
-            // Update the content of <b> tag with the total order count
-            document.getElementById("year2").textContent = year;
-            document.getElementById("sum2").textContent = data;
-        })
-        .catch(error => console.error('Error fetching data:', error));
+    return response.json();
 }
+
+async function updateChart() {
+    try {
+        const year = document.getElementById("year").value;
+        const month = document.getElementById("month").value;
+
+        // Fetch data for total revenue by month
+        const revenueData = await fetchData(`http://localhost:8080/rest/orders/calculateTotalRevenueByMonth?month=${month}&year=${year}`);
+        renderChart(revenueData);
+
+        // Fetch data for status 4
+        const dataStatus4 = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth4?month=${month}&year=${year}`);
+
+        // Fetch data for status 0
+        const dataStatus0 = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth0?month=${month}&year=${year}`);
+
+        // Fetch data for all statuses
+        const dataAllStatus = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth?month=${month}&year=${year}`);
+
+        // Update the charts for order count by status
+        CountOrderChar(dataStatus4, dataStatus0, dataAllStatus);
+
+        // Fetch data for total revenue by year
+        const totalRevenueData = await fetchData(`http://localhost:8080/rest/orders/calculateTotalRevenueByYear?year=${year}`);
+        document.getElementById("year1").textContent = year;
+        document.getElementById("sum1").textContent = totalRevenueData;
+
+        // Fetch data for total order count by year
+        const totalOrderCountData = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByYear?year=${year}`);
+        document.getElementById("year2").textContent = year;
+        document.getElementById("sum2").textContent = totalOrderCountData;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        // Handle errors or update UI as needed
+    }
+}
+
+// Rest of your code remains unchanged
+// ...
+
+// Call the updateChart function on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', updateChart);
+
+// Update the chart when year or month changes
+document.getElementById("year").addEventListener("change", updateChart);
+document.getElementById("month").addEventListener("change", updateChart);
