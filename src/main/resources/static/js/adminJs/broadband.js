@@ -37,8 +37,8 @@ function renderChart(data) {
             datasets: [{
                 label: 'Tổng doand thu theo tháng',
                 data: values,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgb(18,239,239)',
+                borderColor: 'rgb(5,41,225)',
                 borderWidth: 1,
                 barPercentage: 0.8 // Đặt giá trị này để điều chỉnh khoảng cách giữa các cột
             }]
@@ -60,8 +60,8 @@ function renderChart(data) {
 }
 
 function CountOrderChar(status4, status0, allStatus) {
-    const labels = allStatus.map(row => formatDate(row.createDate));
-
+    // const labels = allStatus.map(row => formatDate(row.createDate));
+    const customLabels = ['Label 1', 'Label 2', 'Label 3'];
     const value4 = status4.map(row => row[0]);
     const value0 = status0.map(row => row[0]);
     const value = allStatus.map(row => row[0]);
@@ -70,28 +70,29 @@ function CountOrderChar(status4, status0, allStatus) {
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: labels,
+
             datasets: [{
                 label: 'Đơn đã giao',
                 data: value4,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgb(18,239,239)',
+                borderColor: 'rgb(5,41,225)',
                 borderWidth: 1,
                 barPercentage: 0.25
             }, {
                 label: 'Đơn bị hủy',
                 data: value0,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgb(218,0,46)',
+                borderColor: 'rgb(236,34,76)',
                 borderWidth: 1,
                 barPercentage: 0.25
             }, {
                 label: 'Tất cả trạng thái',
                 data: value,
-                backgroundColor: 'rgba(255, 255, 0, 0.2)',
-                borderColor: 'rgba(255, 255, 0, 1)',
+                backgroundColor: 'rgb(241,241,0)',
+                borderColor: 'rgba(245,223,98,0.7)',
                 borderWidth: 1,
-                barPercentage: 0.25
+                barPercentage: 0.25,
+                stack: 'stack1'
             }]
         },
         options: {
