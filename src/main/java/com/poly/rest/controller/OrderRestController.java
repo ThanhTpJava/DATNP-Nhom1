@@ -122,6 +122,16 @@ public class OrderRestController {
 	}
 
 
+	@GetMapping("/calculateTotalOrderByMonth0")
+	public List<Object[]> calculateTotalOrderByMonth0(@RequestParam int month, @RequestParam int year) {
+		return orderService.calculateTotalOrderByMonth0(month, year);
+	}
+
+	@GetMapping("/calculateTotalOrderByMonth4")
+	public List<Object[]> calculateTotalOrderByMonth4(@RequestParam int month, @RequestParam int year) {
+		return orderService.calculateTotalOrderByMonth4(month, year);
+	}
+
 	@GetMapping("/calculateTotalOrderByMonth")
 	public List<Object[]> calculateTotalOrderByMonth(@RequestParam int month, @RequestParam int year) {
 		return orderService.calculateTotalOrderByMonth(month, year);

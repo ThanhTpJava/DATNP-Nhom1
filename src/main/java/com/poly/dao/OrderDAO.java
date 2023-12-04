@@ -37,13 +37,23 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 	Double calculateTotalRevenueByYear(@Param("year") int year);
 
 	//Tong doand thu theo thang
-	@Query("SELECT SUM(o.TotalAmount), o.createDate FROM Order o " +
+//	@Query("SELECT SUM(o.TotalAmount), o.createDate FROM Order o " +
+//			"JOIN o.orderStatuses os " +
+//			"WHERE os.status.id = 4 " +
+//			"AND MONTH(o.createDate) = :month " +
+//			"AND YEAR(o.createDate) = :year " +
+//			"GROUP BY o.createDate")
+//	List<Object[]> calculateTotalRevenueByMonth(@Param("month") int month, @Param("year") int year);
+
+	//Tong doand thu theo thang
+	@Query("SELECT SUM(o.TotalAmount), DAY(o.createDate) FROM Order o " +
 			"JOIN o.orderStatuses os " +
 			"WHERE os.status.id = 4 " +
 			"AND MONTH(o.createDate) = :month " +
 			"AND YEAR(o.createDate) = :year " +
-			"GROUP BY o.createDate")
-	List<Object[]> calculateTotalRevenueByMonth(@Param("month") int month, @Param("year") int year);
+			"GROUP BY DAY(o.createDate)")
+	List<Object[]> calculateTotalRevenueByDay(@Param("month") int month, @Param("year") int year);
+
 
 	//Tong so luong hoa don theo nam
 	@Query("SELECT count(o.id) FROM Order o " +
@@ -53,13 +63,43 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 	Integer calculateTotalOrderByYear(@Param("year") int year);
 
 	//Tong hoa don theo thang
-	@Query("SELECT count(o.id), o.createDate FROM Order o " +
+//	@Query("SELECT count(o.id), o.createDate FROM Order o " +
+//			"JOIN o.orderStatuses os " +
+//			"WHERE os.status.id = 4 " +
+//			"AND MONTH(o.createDate) = :month " +
+//			"AND YEAR(o.createDate) = :year " +
+//			"GROUP BY o.createDate")
+//	List<Object[]> calculateTotalOrderByMonth(@Param("month") int month, @Param("year") int year);
+
+//		@Query("SELECT count(o.id), o.createDate FROM Order o " +
+//			"JOIN o.orderStatuses os " +
+//			"WHERE os.status.id = :status " +
+//			"AND MONTH(o.createDate) = :month " +
+//			"AND YEAR(o.createDate) = :year " +
+//			"GROUP BY o.createDate")
+//	List<Object[]> calculateTotalOrderByMonth(@Param("month") int month, @Param("year") int year, @Param("status") int status);
+
+	//Tong hoa don theo thang
+	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
 			"JOIN o.orderStatuses os " +
 			"WHERE os.status.id = 4 " +
 			"AND MONTH(o.createDate) = :month " +
-			"AND YEAR(o.createDate) = :year " +
-			"GROUP BY o.createDate")
-	List<Object[]> calculateTotalOrderByMonth(@Param("month") int month, @Param("year") int year);
+			"AND YEAR(o.createDate) = :year ")
+	List<Object[]> calculateTotalOrderByMonth4(@Param("month") int month, @Param("year") int year);
+
+	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
+			"JOIN o.orderStatuses os " +
+			"WHERE os.status.id = 0 " +
+			"AND MONTH(o.createDate) = :month " +
+			"AND YEAR(o.createDate) = :year ")
+	List<Object[]> calculateTotalOrderByMonth0(@Param("month") int month, @Param("year") int year);
+
+	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
+			"JOIN o.orderStatuses os " +
+			"WHERE os.status.id > -1 " +
+			"AND MONTH(o.createDate) = :month " +
+			"AND YEAR(o.createDate) = :year ")
+	List<Object[]> calculateTotalOrderByMonthAll(@Param("month") int month, @Param("year") int year);
 
 	@Query("SELECT SUM(o.TotalAmount), o.createDate FROM Order o " +
 			"JOIN o.orderStatuses os " +

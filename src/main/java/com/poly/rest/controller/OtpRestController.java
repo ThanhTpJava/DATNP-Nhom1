@@ -60,6 +60,7 @@ public class OtpRestController {
 	private String generateOtp() {
 	    Random random = new Random();
 	    int otpValue = 100000 + random.nextInt(900000);
+		System.out.println(otpValue);
 	    return String.valueOf(otpValue);
 	}
 	
