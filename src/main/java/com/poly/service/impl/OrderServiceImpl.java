@@ -157,7 +157,7 @@ Integer statusId =order.getOrderStatuses().get(0).getStatus().getId();
 
 	@Override
 	public List<Object[]> calculateTotalRevenueByMonth(Integer month, Integer year) {
-		return dao.calculateTotalRevenueByMonth(month, year);
+		return dao.calculateTotalRevenueByDay(month, year);
 	}
 
 	@Override

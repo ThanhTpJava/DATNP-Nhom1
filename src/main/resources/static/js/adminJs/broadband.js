@@ -1,6 +1,8 @@
 
 updateYears();
-
+function formatCurrency(value) {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+}
 let hasRunOnce = false;
 
 function runOnceOnLoad() {
@@ -22,12 +24,29 @@ function formatDate(dateString) {
 }
 
 
-function formatCurrency(value) {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
-}
+
 
 function renderChart(data) {
-    const labels = data.map(row => formatDate(row[1]));
+    // const labels = data.map(row => formatDate(row[1]));
+
+    let yearInput = document.getElementById("year");
+    let monthInput = document.getElementById("month");
+
+    const labels = data.map(row => {
+        // Lấy giá trị ngày, tháng và năm từ các nguồn khác nhau
+        const day = row[1];
+        const month = monthInput.value;
+        const year = yearInput.value;
+
+        // Tạo đối tượng Date từ thông tin thu được
+        const date = new Date(`${year}-${month}-${day}`);
+
+        // Sử dụng formatDate để định dạng ngày
+        const formattedDate = formatDate(date);
+
+        return formattedDate;
+    });
+    // const labels = data.map(row => row[1]);
     const values = data.map(row => row[0]);
 
     const ctx = document.getElementById('revenueChart').getContext('2d');
@@ -36,7 +55,7 @@ function renderChart(data) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Tổng doand thu theo tháng',
+                label: 'Tổng doand thu theo tháng (đơn vị: VND)',
                 data: values,
                 backgroundColor: 'rgb(18,239,239)',
                 borderColor: 'rgb(5,41,225)',
@@ -47,18 +66,13 @@ function renderChart(data) {
         options: {
             scales: {
                 y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 50000, // Tăng khoảng cách giữa các giá trị trên trục y
-                        callback: function (value, index, values) {
-                            return formatCurrency(value);
-                        }
-                    }
+                    beginAtZero: true
                 }
             }
         }
     });
 }
+console.log(formatCurrency(1000000)); // Replace 1000000 with a sample value
 
 function CountOrderChar(status4, status0, allStatus) {
     // const s0 = status4.map(row => formatDate(row.createDate));
@@ -73,7 +87,7 @@ function CountOrderChar(status4, status0, allStatus) {
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['  '],
+            labels: [' '],
             datasets: [{
                 label: 'Đơn đã giao',
                 data: value4,
@@ -89,7 +103,7 @@ function CountOrderChar(status4, status0, allStatus) {
                 borderWidth: 1,
                 barPercentage: 0.25
             }, {
-                label: 'Tất cả trạng thái',
+                label: 'Tất cả đơn',
                 data: value,
                 backgroundColor: 'rgb(241,241,0)',
                 borderColor: 'rgba(245,223,98,0.7)',

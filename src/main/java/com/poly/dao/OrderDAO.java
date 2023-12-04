@@ -37,13 +37,23 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 	Double calculateTotalRevenueByYear(@Param("year") int year);
 
 	//Tong doand thu theo thang
-	@Query("SELECT SUM(o.TotalAmount), o.createDate FROM Order o " +
+//	@Query("SELECT SUM(o.TotalAmount), o.createDate FROM Order o " +
+//			"JOIN o.orderStatuses os " +
+//			"WHERE os.status.id = 4 " +
+//			"AND MONTH(o.createDate) = :month " +
+//			"AND YEAR(o.createDate) = :year " +
+//			"GROUP BY o.createDate")
+//	List<Object[]> calculateTotalRevenueByMonth(@Param("month") int month, @Param("year") int year);
+
+	//Tong doand thu theo thang
+	@Query("SELECT SUM(o.TotalAmount), DAY(o.createDate) FROM Order o " +
 			"JOIN o.orderStatuses os " +
 			"WHERE os.status.id = 4 " +
 			"AND MONTH(o.createDate) = :month " +
 			"AND YEAR(o.createDate) = :year " +
-			"GROUP BY o.createDate")
-	List<Object[]> calculateTotalRevenueByMonth(@Param("month") int month, @Param("year") int year);
+			"GROUP BY DAY(o.createDate)")
+	List<Object[]> calculateTotalRevenueByDay(@Param("month") int month, @Param("year") int year);
+
 
 	//Tong so luong hoa don theo nam
 	@Query("SELECT count(o.id) FROM Order o " +
