@@ -21,6 +21,7 @@ function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
+
 function formatCurrency(value) {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
 }
@@ -60,8 +61,10 @@ function renderChart(data) {
 }
 
 function CountOrderChar(status4, status0, allStatus) {
-    // const labels = allStatus.map(row => formatDate(row.createDate));
-    const customLabels = ['Label 1', 'Label 2', 'Label 3'];
+    // const s0 = status4.map(row => formatDate(row.createDate));
+    // const s4 = status0.map(row => formatDate(row.createDate));
+    // const sall = allStatus.map(row => formatDate(row.createDate));
+
     const value4 = status4.map(row => row[0]);
     const value0 = status0.map(row => row[0]);
     const value = allStatus.map(row => row[0]);
@@ -70,7 +73,7 @@ function CountOrderChar(status4, status0, allStatus) {
     new Chart(ctx, {
         type: 'bar',
         data: {
-
+            labels: ['  '],
             datasets: [{
                 label: 'Đơn đã giao',
                 data: value4,
