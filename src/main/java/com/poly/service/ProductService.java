@@ -32,4 +32,8 @@ public interface ProductService {
 	public void delete(Integer id) ;
 
     List<Product> findLatestProducts();
+    
+    void UpdateReduceProductQuantity(Integer productId, Integer quantity);
+    
+    void updateIncreaseProductQuantity(Integer productId, Integer quantity);
 }
