@@ -20,7 +20,7 @@ import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/rest/sale")
 public class SaleRestController {
 
 	@Autowired
@@ -37,7 +37,7 @@ public class SaleRestController {
 	@Autowired
 	ResponsibilityService responsibilityService;
 
-	@PutMapping("/sale/updates/status/{orderID}/{username}/{statusID}")
+	@PutMapping("/updates/status/{orderID}/{username}/{statusID}")
 	public ResponseEntity<?> updateStatusSale(@PathVariable("orderID") String orderId,
 			@PathVariable("username") String username, @PathVariable("statusID") Integer statusID) {
 		System.out.println(orderId + " " +  username+ " " +statusID);
@@ -53,34 +53,5 @@ public class SaleRestController {
 		return ResponseEntity.ok().build();
 	}
 
-	@PutMapping("/stock/updates/status/{orderID}/{username}/{statusID}")
-	public ResponseEntity<?> updateStatusStock(@PathVariable("orderID") String orderId,
-											   @PathVariable("username") String username, @PathVariable("statusID") Integer statusID) {
-		System.out.println(orderId + " " +  username+ " " +statusID);
-
-		Map<Integer, Integer> productQuantiOrder = new HashMap<>();
-		List<OrderDetail> orderDetails = orderDetailService.findByOrderId(orderId);
-		for (OrderDetail order : orderDetails) {
-			// Sử dụng order.getProductId() làm key và order.getQuanty() làm giá trị
-			productQuantiOrder.put(order.getProduct().getId(), order.getQuantity());
-		}
-
-		// In ra các phần tử trong productQuantiOrder
-		for (Map.Entry<Integer, Integer> entry : productQuantiOrder.entrySet()) {
-			System.out.println("ProductId: " + entry.getKey() + ", Quanty: " + entry.getValue());
-		}
-
-		Account acc = accService.findById(username);
-
-		Order order = orderService.findById(orderId);
-
-		Role role = roleService.findRole("ROLE_SALE");
-
-
-
-		responsibilityService.saveResponsibility(acc, order, role);
-
-		orderService.updateOrderStatus(orderId, statusID);
-		return ResponseEntity.ok().build();
-	}
+	
 }

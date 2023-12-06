@@ -7,9 +7,11 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,5 +36,13 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
     @Query(value = "SELECT TOP 4 * FROM Products ORDER BY Date_import DESC", nativeQuery = true)
     List<Product> findLatestProducts();
 
-
+    @Transactional
+    @Modifying
+    @Query("UPDATE Product pr SET pr.Quantity = (SELECT pr.Quantity FROM Product pr WHERE pr.id = :productId) - :quantity WHERE pr.id = :productId")
+    void updateReduceProductQuantity(@Param("productId") Integer productId, @Param("quantity") Integer quantity);
+    
+    @Transactional
+    @Modifying
+    @Query("UPDATE Product pr SET pr.Quantity = (SELECT pr.Quantity FROM Product pr WHERE pr.id = :productId) + :quantity WHERE pr.id = :productId")
+    void updateIncreaseProductQuantity(@Param("productId") Integer productId, @Param("quantity") Integer quantity);
 }

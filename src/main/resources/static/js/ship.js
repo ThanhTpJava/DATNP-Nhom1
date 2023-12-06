@@ -43,7 +43,7 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
 
     $scope.reload = function() {
         $scope.isOpenAccDetail = false;
-       
+        $window.location.reload();
     }
 
     $scope.UpdatePopupClose = function() {
