@@ -93,9 +93,7 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 			console.log(this.items)
 		},
 		loadFromLocalStorage() { // đọc giỏ hàng từ local storage
-
 			var self = this; // Giữ tham chiếu đến đối tượng $cart
-
 			$timeout(function() {
 				console.log("username: ", $auth.username)
 				var json = localStorage.getItem("cart_" + $auth.username);
