@@ -89,11 +89,18 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 		},
 		saveToLocalStorage() { // lưu giỏ hàng vào local storage
 			var json = JSON.stringify(angular.copy(this.items));
-			localStorage.setItem("cart", json);
+			localStorage.setItem("cart_" + $auth.username, json);
+			console.log(this.items)
 		},
 		loadFromLocalStorage() { // đọc giỏ hàng từ local storage
-			var json = localStorage.getItem("cart");
-			this.items = json ? JSON.parse(json) : [];
+
+			var self = this; // Giữ tham chiếu đến đối tượng $cart
+
+			$timeout(function() {
+				console.log("username: ", $auth.username)
+				var json = localStorage.getItem("cart_" + $auth.username);
+				self.items = json ? JSON.parse(json) : [];
+			}, 100);
 		}
 	}
 
@@ -208,14 +215,14 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 		},
 
 		validatePurchase() {
-			if(/^[0-9]+$/.test($scope.order.delivery_phone) === false || $scope.order.delivery_phone.length !== 10){
+			if (/^[0-9]+$/.test($scope.order.delivery_phone) === false || $scope.order.delivery_phone.length !== 10) {
 				$scope.iconUrlPopup = $scope.errorIconUrl
 				$scope.PopupTitle = "Lỗi!!!"
 				$scope.PopupMessage = "Số điện thoại giao hàng không hợp lệ"
 				$scope.isPopupOpen = true;
 				return false
 			}
-			
+
 			if ($scope.order.address == null || $scope.order.address == '') {
 				$scope.iconUrlPopup = $scope.errorIconUrl
 				$scope.PopupTitle = "Lỗi!!!"
@@ -231,15 +238,15 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 
 			return true
 		},
-		
+
 		purchase() {
 			var order = angular.copy(this);
 			/*console.log(order)*/
 			$scope.order.address = $auth.delivery_address;
 			/*console.log("address: ", $scope.order.address);*/
 			$scope.order.delivery_phone = $auth.phonenumber;
-			console.log(typeof $scope.order.delivery_phone);
-			
+			/*console.log(typeof $scope.order.delivery_phone);*/
+
 			var isValid = this.validatePurchase();
 
 			if (!isValid) {

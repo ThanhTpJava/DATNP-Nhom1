@@ -5,9 +5,9 @@ app.run(function($http, $rootScope){
     	if(resp.data){
     		$auth = $rootScope.$auth = resp.data;
         	$http.defaults.headers.common["Authorization"] = $auth.token;
-
+			
 			const data = resp.data;
-			console.log(data);
+			console.log("Data: ", data);
     	}
     });
 })
