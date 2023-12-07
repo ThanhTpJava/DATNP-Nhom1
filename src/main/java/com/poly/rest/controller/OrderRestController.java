@@ -145,15 +145,39 @@ public class OrderRestController {
 		}
 	}
 
-
+	//Chua xac nhan
 	@GetMapping("/calculateTotalOrderByMonth0")
 	public List<Object[]> calculateTotalOrderByMonth0(@RequestParam int month, @RequestParam int year) {
 		return orderService.calculateTotalOrderByMonth0(month, year);
 	}
+	//Dang xac nhan
+	@GetMapping("/calculateTotalOrderByMonth1")
+	public List<Object[]> calculateTotalOrderByMonth1(@RequestParam int month, @RequestParam int year) {
+		return orderService.calculateTotalOrderByMonth1(month, year);
+	}
 
+	//Da xac nhan
+	@GetMapping("/calculateTotalOrderByMonth2")
+	public List<Object[]> calculateTotalOrderByMonth2(@RequestParam int month, @RequestParam int year) {
+		return orderService.calculateTotalOrderByMonth2(month, year);
+	}
+
+	//Đang giao
+	@GetMapping("/calculateTotalOrderByMonth3")
+	public List<Object[]> calculateTotalOrderByMonth3(@RequestParam int month, @RequestParam int year) {
+		return orderService.calculateTotalOrderByMonth3(month, year);
+	}
+
+	//Đa giao
 	@GetMapping("/calculateTotalOrderByMonth4")
 	public List<Object[]> calculateTotalOrderByMonth4(@RequestParam int month, @RequestParam int year) {
 		return orderService.calculateTotalOrderByMonth4(month, year);
+	}
+
+	//Trả hàng
+	@GetMapping("/calculateTotalOrderByMonth5")
+	public List<Object[]> calculateTotalOrderByMonth5(@RequestParam int month, @RequestParam int year) {
+		return orderService.calculateTotalOrderByMonth5(month, year);
 	}
 
 	@GetMapping("/calculateTotalOrderByMonth")
