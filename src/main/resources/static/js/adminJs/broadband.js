@@ -74,13 +74,17 @@ function renderChart(data) {
 }
 console.log(formatCurrency(1000000)); // Replace 1000000 with a sample value
 
-function CountOrderChar(status4, status0, allStatus) {
+function CountOrderChar(status0, status1, status2, status3, status4, status5,  allStatus) {
     // const s0 = status4.map(row => formatDate(row.createDate));
     // const s4 = status0.map(row => formatDate(row.createDate));
     // const sall = allStatus.map(row => formatDate(row.createDate));
 
-    const value4 = status4.map(row => row[0]);
     const value0 = status0.map(row => row[0]);
+    const value1 = status1.map(row => row[0]);
+    const value2 = status2.map(row => row[0]);
+    const value3 = status3.map(row => row[0]);
+    const value4 = status4.map(row => row[0]);
+    const value5 = status5.map(row => row[0]);
     const value = allStatus.map(row => row[0]);
     console.log(value)
     const ctx = document.getElementById('CountOrderChar').getContext('2d');
@@ -88,29 +92,65 @@ function CountOrderChar(status4, status0, allStatus) {
         type: 'bar',
         data: {
             labels: [' '],
-            datasets: [{
-                label: 'Đơn đã giao',
-                data: value4,
-                backgroundColor: 'rgb(18,239,239)',
-                borderColor: 'rgb(5,41,225)',
-                borderWidth: 1,
-                barPercentage: 0.25
-            }, {
-                label: 'Đơn bị hủy',
-                data: value0,
-                backgroundColor: 'rgb(218,0,46)',
-                borderColor: 'rgb(236,34,76)',
-                borderWidth: 1,
-                barPercentage: 0.25
-            }, {
-                label: 'Tất cả đơn',
-                data: value,
-                backgroundColor: 'rgb(241,241,0)',
-                borderColor: 'rgba(245,223,98,0.7)',
-                borderWidth: 1,
-                barPercentage: 0.25,
-                stack: 'stack1'
-            }]
+            datasets: [
+                {
+                    label: 'Đơn bị hủy',
+                    data: value0,
+                    backgroundColor: 'rgb(218, 0, 46)',
+                    borderColor: 'rgb(236, 34, 76)',
+                    borderWidth: 1,
+                    barPercentage: 0.25
+                },
+                {
+                    label: 'Đơn Đang xác nhận',
+                    data: value1,
+                    backgroundColor: 'rgb(0, 128, 0)',
+                    borderColor: 'rgb(34, 139, 34)',
+                    borderWidth: 1,
+                    barPercentage: 0.25
+                },
+                {
+                    label: 'Đơn đã xác nhận',
+                    data: value2,
+                    backgroundColor: 'rgb(255, 165, 0)',
+                    borderColor: 'rgb(255, 140, 0)',
+                    borderWidth: 1,
+                    barPercentage: 0.25
+                },
+                {
+                    label: 'Đơn đang giao',
+                    data: value3,
+                    backgroundColor: 'rgb(70, 130, 180)',
+                    borderColor: 'rgb(0, 0, 128)',
+                    borderWidth: 1,
+                    barPercentage: 0.25
+                },
+                {
+                    label: 'Đơn đã giao',
+                    data: value4,
+                    backgroundColor: 'rgb(18, 239, 239)',
+                    borderColor: 'rgb(5, 41, 225)',
+                    borderWidth: 1,
+                    barPercentage: 0.25
+                },
+                {
+                    label: 'Đơn bị trả',
+                    data: value5,
+                    backgroundColor: 'rgb(255, 69, 0)',
+                    borderColor: 'rgb(255, 99, 71)',
+                    borderWidth: 1,
+                    barPercentage: 0.25
+                },
+                {
+                    label: 'Tất cả đơn',
+                    data: value,
+                    backgroundColor: 'rgb(241, 241, 0)',
+                    borderColor: 'rgba(245, 223, 98, 0.7)',
+                    borderWidth: 1,
+                    barPercentage: 0.25,
+                    stack: 'stack1'
+                }
+            ]
         },
         options: {
             scales: {
@@ -154,17 +194,29 @@ async function updateChart() {
         const revenueData = await fetchData(`http://localhost:8080/rest/orders/calculateTotalRevenueByMonth?month=${month}&year=${year}`);
         renderChart(revenueData);
 
+        // Fetch data for status 0
+        const dataStatus0 = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth0?month=${month}&year=${year}`);
+
+        // Fetch data for status 1
+        const dataStatus1 = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth1?month=${month}&year=${year}`);
+
+        // Fetch data for status 0
+        const dataStatus2 = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth2?month=${month}&year=${year}`);
+
+        // Fetch data for status 0
+        const dataStatus3 = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth3?month=${month}&year=${year}`);
+
         // Fetch data for status 4
         const dataStatus4 = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth4?month=${month}&year=${year}`);
 
-        // Fetch data for status 0
-        const dataStatus0 = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth0?month=${month}&year=${year}`);
+        // Fetch data for status 5
+        const dataStatus5 = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth5?month=${month}&year=${year}`);
 
         // Fetch data for all statuses
         const dataAllStatus = await fetchData(`http://localhost:8080/rest/orders/calculateTotalOrderByMonth?month=${month}&year=${year}`);
 
         // Update the charts for order count by status
-        CountOrderChar(dataStatus4, dataStatus0, dataAllStatus);
+        CountOrderChar(dataStatus0, dataStatus1, dataStatus2, dataStatus3, dataStatus4, dataStatus5, dataAllStatus);
 
         // Fetch data for total revenue by year
         const totalRevenueData = await fetchData(`http://localhost:8080/rest/orders/calculateTotalRevenueByYear?year=${year}`);
