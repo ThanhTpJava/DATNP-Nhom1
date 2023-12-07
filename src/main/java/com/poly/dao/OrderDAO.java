@@ -79,7 +79,37 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 //			"GROUP BY o.createDate")
 //	List<Object[]> calculateTotalOrderByMonth(@Param("month") int month, @Param("year") int year, @Param("status") int status);
 
-	//Tong hoa don theo thang
+
+
+	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
+			"JOIN o.orderStatuses os " +
+			"WHERE os.status.id = 0 " +
+			"AND MONTH(o.createDate) = :month " +
+			"AND YEAR(o.createDate) = :year ")
+	List<Object[]> calculateTotalOrderByMonth0(@Param("month") int month, @Param("year") int year);
+
+	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
+			"JOIN o.orderStatuses os " +
+			"WHERE os.status.id = 1 " +
+			"AND MONTH(o.createDate) = :month " +
+			"AND YEAR(o.createDate) = :year ")
+	List<Object[]> calculateTotalOrderByMonth1(@Param("month") int month, @Param("year") int year);
+
+	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
+			"JOIN o.orderStatuses os " +
+			"WHERE os.status.id = 2 " +
+			"AND MONTH(o.createDate) = :month " +
+			"AND YEAR(o.createDate) = :year ")
+	List<Object[]> calculateTotalOrderByMonth2(@Param("month") int month, @Param("year") int year);
+
+	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
+			"JOIN o.orderStatuses os " +
+			"WHERE os.status.id = 3 " +
+			"AND MONTH(o.createDate) = :month " +
+			"AND YEAR(o.createDate) = :year ")
+	List<Object[]> calculateTotalOrderByMonth3(@Param("month") int month, @Param("year") int year);
+
+
 	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
 			"JOIN o.orderStatuses os " +
 			"WHERE os.status.id = 4 " +
@@ -89,11 +119,12 @@ public interface OrderDAO extends JpaRepository<Order, String>{
 
 	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
 			"JOIN o.orderStatuses os " +
-			"WHERE os.status.id = 0 " +
+			"WHERE os.status.id = 5 " +
 			"AND MONTH(o.createDate) = :month " +
 			"AND YEAR(o.createDate) = :year ")
-	List<Object[]> calculateTotalOrderByMonth0(@Param("month") int month, @Param("year") int year);
+	List<Object[]> calculateTotalOrderByMonth5(@Param("month") int month, @Param("year") int year);
 
+	//Tong hoa don theo thang
 	@Query("SELECT COUNT(DISTINCT o.id) FROM Order o " +
 			"JOIN o.orderStatuses os " +
 			"WHERE os.status.id > -1 " +
