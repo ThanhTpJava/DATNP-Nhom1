@@ -26,4 +26,10 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 		return orderDetailDAO.findByOrderid(orderId);
 	}
 
+	@Override
+	public List<OrderDetail> createOrderDetailPaymentApi(List<OrderDetail> listOrderDetail) {
+		// TODO Auto-generated method stub
+		return orderDetailDAO.saveAll(listOrderDetail);
+	}
+
 }

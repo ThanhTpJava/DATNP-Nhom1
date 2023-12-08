@@ -1,4 +1,4 @@
-
+/*const app = angular.module("app", []);*/
 
 app.controller("cart-ctrl", function($scope, $http, $rootScope, $timeout) {
 	// quản lý giỏ hàng
@@ -65,6 +65,7 @@ app.controller("cart-ctrl", function($scope, $http, $rootScope, $timeout) {
 			var self = this; // Giữ tham chiếu đến đối tượng $cart
 			$timeout(function() {
 				console.log("username: ", $auth.username)
+				
 				var json = localStorage.getItem("cart_" + $auth.username);
 				self.items = json ? JSON.parse(json) : [];
 			}, 100);
@@ -72,6 +73,12 @@ app.controller("cart-ctrl", function($scope, $http, $rootScope, $timeout) {
 	}
 
 	$cart.loadFromLocalStorage();
+	
+	$scope.formatAmount = function(amount) {
+        // Sử dụng toFixed(0) để làm tròn số và loại bỏ phần thập phân
+        return parseFloat(amount).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+    
 	var orderElement = angular.element(document.getElementById('order-id'));
 
 	// Lấy văn bản trong phần tử

@@ -19,9 +19,13 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 	$scope.successIconUrl = "/images/icons/tick.png"
 	$scope.errorIconUrl = "/images/icons/errors.png"
 	$scope.iconUrlotp = "/images/icons/otp.png"
+	$scope.redirect_icon = "/images/icons/redirect_icon.png"
 	$scope.checkOrder = false;
 	$scope.checkOtp = false;
 
+	$scope.paymentApiUrl = ""
+	$scope.isApiPayment = false
+	
 	$scope.closePopup = function() {
 		$scope.isPopupOpen = false;
 		if ($scope.checkOrder == true) {
@@ -229,10 +233,7 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 				return false
 			}
 
-			if ($scope.checkOtp == false) {
-				$scope.sendOTP();
-				return false
-			}
+			
 
 			return true
 		},
@@ -250,6 +251,11 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 			if (!isValid) {
 				return;  // Dừng thực hiện nếu không hợp lệ
 			}
+			
+			if ($scope.checkOtp == false) {
+				$scope.sendOTP();
+				return false
+			}
 
 			/*console.log("Suscess")*/
 			var order = angular.copy(this);
@@ -266,11 +272,50 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 				$cart.clear();
 
 			}).catch(error => {
+				
+				alert("Đặt hàng lỗi!")
+				console.log(error)
+			})
+		},
+		
+		vnpayPurchase(){
+			
+			/*console.log(order)*/
+			$scope.order.address = $auth.delivery_address;
+			/*console.log("address: ", $scope.order.address);*/
+			$scope.order.delivery_phone = $auth.phonenumber;
+			/*console.log(typeof $scope.order.delivery_phone);*/
+			var amountUrl = $cart.amount
+			$scope.order.totalAmount = amountUrl
+			var order = angular.copy(this);
+			var isValid = this.validatePurchase();
+			
+			console.log("oder: ", order)
+			if (!isValid) {
+				return;  // Dừng thực hiện nếu không hợp lệ
+			}
+			
+			$http.post(`/api/vnpay/create_payment/${amountUrl}` ,order).then(resp => {
+				
+				console.log("URL VNpay: ", resp.data.paymentUrl)
+				console.log("Order id: ", $scope.order.id)
+				$scope.paymentApiUrl = resp.data.paymentUrl
+				$scope.iconUrlPopup = $scope.redirect_icon
+				$scope.PopupTitle = "Chuyển hướng!"
+				$scope.PopupMessage = "Click vào nút phía dưới, chúng tôi sẽ chuyển hướng bạn đến VNPay"
+				$scope.isApiPayment = true;
+
+			}).catch(error => {
+				
 				alert("Đặt hàng lỗi!")
 				console.log(error)
 			})
 		}
 	}
+	
+	$scope.openPaymentApiUrl = function() {
+       $window.location.href = $scope.paymentApiUrl;
+    };
 
 	$http.get('/json/address.json').then(function(response) {
 		// Xử lý dữ liệu JSON trước khi gán nó cho biến đối tượng

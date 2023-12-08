@@ -84,8 +84,6 @@ public class OrderRestController {
 			e.printStackTrace();
 			return new ResponseEntity<String>("{\"message\":\"errors\"}", HttpStatus.BAD_REQUEST);
 		}
-
-
 	}
 
 //	@PutMapping("{id}")

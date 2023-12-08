@@ -9,4 +9,6 @@ public interface OrderDetailService {
 	List<OrderDetail> findAll();
 
 	List<OrderDetail> findByOrderId(String orderId);
+	
+	List<OrderDetail> createOrderDetailPaymentApi(List<OrderDetail> listOrderDetail);
 }
