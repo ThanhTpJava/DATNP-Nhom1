@@ -76,6 +76,10 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
                 $scope.shipDetail.userData = [resp.data];
                 this.getDetailShip(orderId);
             })
+        },
+
+        reload(){
+            $window.location.reload();
         }
 
     }

@@ -35,6 +35,7 @@
           rel="stylesheet">
     <link rel="stylesheet" th:href="@{/assets/css/list-account.css}">
     <link rel="stylesheet" th:href="@{/assets/css/account-infomatinon.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/ship-infomatinon.css}">
     <link rel="stylesheet" th:href="@{/assets/css/button17.css}">
     <link rel="stylesheet" th:href="@{/assets/css/button50.css}">
     <link rel="stylesheet" th:href="@{/assets/css/popup.css}">
@@ -92,13 +93,14 @@
 
         <div class="table-list-acc">
             <section class="table-header">
-                <h1>Account</h1>
+                <h1>Shipping</h1>
             </section>
             <section class="table-body">
                 <table class="tbl-acc">
                     <thead>
                     <tr>
                         <th>Order No.</th>
+                        <th>Order Id</th>
                         <th>Phone number</th>
                         <th>Name purchaser</th>
                         <th>Address</th>
@@ -109,6 +111,7 @@
                     <tbody>
                     <tr th:each="ship, iterStat : ${listShipping}"  th:if="${ship.orderStatus == 3 || ship.orderStatus == 4}">
                         <td>[[${iterStat.count}]]</td>
+                       <td>[[${ship.orderId}]]</td>
                        <td>[[${ship.delivery_phone}]]</td>
                        <td>[[${ship.account.surname}]] [[${ship.account.name}]] </td>
                        <td>[[${ship.address}]]</td>
@@ -174,19 +177,19 @@
     <form class="acc-detail shipping-detail"
           ng-class="{ 'open-acc-detail': isOpenAccDetail }" id="acc-detail"
           action="">
-        <div class=" row col-12 mb-3">
-            <div class="col">
-                <label for="inputFirstName" class="form-label">First Name</label> <input disabled
-                    ng-model="shipDetail.userData[0].account.surname" type="text"
-                    class="form-control ip-apitalize" id="firstname">
-            </div>
-            <div class="col-6">
-                <label for="inputLastName" class="form-label">Last Name</label> <input disabled
-                    ng-model="shipDetail.userData[0].account.name" type="text"
-                    class="form-control ip-apitalize" id="lastName"
-                    placeholder="">
-            </div>
-        </div>
+<!--        <div class=" row col-12 mb-3">-->
+<!--            <div class="col">-->
+<!--                <label for="inputFirstName" class="form-label">First Name</label> <input disabled-->
+<!--                    ng-model="shipDetail.userData[0].account.surname" type="text"-->
+<!--                    class="form-control ip-apitalize" id="firstname">-->
+<!--            </div>-->
+<!--            <div class="col-6">-->
+<!--                <label for="inputLastName" class="form-label">Last Name</label> <input disabled-->
+<!--                    ng-model="shipDetail.userData[0].account.name" type="text"-->
+<!--                    class="form-control ip-apitalize" id="lastName"-->
+<!--                    placeholder="">-->
+<!--            </div>-->
+<!--        </div>-->
         <div class=" row col-12 mb-3">
             <div class="col">
                 <label for="inputFirstName" class="form-label">Phone Number</label>
@@ -196,7 +199,8 @@
             <div class="col-6">
                 <label for="inputLastName" class="form-label">Purchase</label> <i
                     class="fa-solid fa-triangle-exclamation"
-                    ng-if=""></i> <input disabled type="text" ng-model="shipDetail.userData[0].account.username"  class="form-control" id="inputLastName" placeholder="">
+                    ng-if=""></i>   <input disabled type="text" ng-value="shipDetail.userData[0].account.surname + ' ' + shipDetail.userData[0].account.name + ' ('+ shipDetail.userData[0].account.username + ')' " class="form-control" id="inputLastName" placeholder="">
+
             </div>
         </div>
         <div class="col-12">
@@ -204,12 +208,39 @@
                 <i class="fa-solid fa-triangle-exclamation"
                    ng-if=""></i> <input disabled type="text" ng-model="shipDetail.userData[0].address" class="form-control" id="Address">
         </div>
+        <div class="panel panel-primary mt-3">
+            <div class="panel-heading">ORDER LINES</div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Photo</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetail in shipDetail.userData[0].orderDetail">
+                        <td>{{ orderDetail.id }}</td>
+                        <!-- Thêm các trường khác tương ứng -->
+                        <td>{{ orderDetail.product.name }}</td>
+                        <td>{{ orderDetail.product.price | currency:'':0}} ₫</td>
+                        <td><img ng-src="{{ orderDetail.product.main_image }}" alt="Product Photo" style="max-width: 50px; max-height: 50px;"></td>
+                        <td>{{ orderDetail.quantity }}</td>
+                        <td>{{ orderDetail.subtotal | currency:'':0}} ₫</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="status-ship">
             <div class="">
                 <label class="form-label">Status</label>
                 <i class="fa-solid fa-triangle-exclamation"
                    ng-if=""></i>
             </div>
+
             <div class="">
                 <div ng-switch="shipDetail.userData[0].orderStatus" class="table-order-body">
                     <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="0">Hủy đơn</div>
@@ -236,11 +267,11 @@
 <!--            </div>-->
         </div>
 
-        <div class="button-account-detail ship-cancel">
+        <div class="ship-cancel">
 
             <div class="button-row">
                 <button class="button-50 cancel-btn50" type="button"
-                        ng-click="reload()" role="button">Cancel</button>
+                        ng-click="shipDetail.reload()" role="button">Cancel</button>
             </div>
         </div>
 
