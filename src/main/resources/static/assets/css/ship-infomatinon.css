@@ -51,7 +51,8 @@
 }
 
 .container-acc-detail .acc-detail.shipping-detail{
-	 height: 530px;
+	 height: 730px;
+     width: 730px;
 }
 
 .container-acc-detail .acc-detail input{
@@ -128,7 +129,7 @@
 }
 
 .acc-detail .button-account-detail{
-    /*position: absolute;*/
+    position: absolute;
     right: 25px;
     display: flex;
     flex-direction: column;
@@ -193,7 +194,9 @@
 }
 
 .ship-cancel{
-	left: 5%;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
 	margin-top: 20px;
 }
 

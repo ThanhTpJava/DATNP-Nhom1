@@ -20,6 +20,7 @@ public class OrdersShipDTOMapper implements Function<Order, OrderShipDTO>{
 				od.getAddress(),
 				od.getDelivery_phone(),
 				od.getAccount(),
+				od.getOrderDetails().stream().toList(),
 				od.getOrderStatuses().stream()
 						.map(odstt -> odstt.getStatus().getId())
 						.findFirst().orElse(99)

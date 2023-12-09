@@ -117,6 +117,7 @@ Integer statusId =order.getOrderStatuses().get(0).getStatus().getId();
 					order.getAddress(),
 					order.getDelivery_phone(),
 					order.getAccount(),
+					order.getOrderDetails().stream().toList(),
 					statusId
 			);
 		} else {
