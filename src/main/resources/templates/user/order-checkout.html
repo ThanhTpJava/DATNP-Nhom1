@@ -175,7 +175,7 @@
 									<th>Quantity</th>
 									<th>Price</th>
 									<th>Total</th>
-									<th>Action</th>
+									
 								</tr>
 								<tr class="table_row" ng-repeat="item in cart.items">
 									<td>{{item.name}}</td>
@@ -188,12 +188,7 @@
 
 									<td>{{ item.price | currency:"" }}đ</td>
 									<td>{{ (item.qty * item.price) | currency:"" }}đ</td>
-									<td>
-										<button type="submit" ng-click="cart.remove(item.id)"
-											class="btn btn-sm btn-danger">
-											<i class="bi bi-trash"></i>
-										</button>
-									</td>
+									
 								</tr>
 							</table>
 
