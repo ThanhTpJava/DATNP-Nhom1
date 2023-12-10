@@ -60,19 +60,19 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small"
-                               placeholder="Search for..." aria-label="Search"
-                               aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-dark" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+<!--                <form-->
+<!--                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">-->
+<!--                    <div class="input-group">-->
+<!--                        <input type="text" class="form-control bg-light border-0 small"-->
+<!--                               placeholder="Search for..." aria-label="Search"-->
+<!--                               aria-describedby="basic-addon2">-->
+<!--                        <div class="input-group-append">-->
+<!--                            <button class="btn btn-dark" type="button">-->
+<!--                                <i class="fas fa-search fa-sm"></i>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -269,10 +269,19 @@
                         <i class="fas fa-regular fa-window-restore"></i> Reset
                     </button>
                 </div>
-                <div class="input-append">
-                    <input type="text" ng-model="query" ng-change="search()" class="input-large search-query" placeholder="Search">
-                    <span class="add-on"><i class="icon-search"></i></span>
+                <div class="input-group col-lg-4">
+                    <input type="text" ng-model="searchText" ng-change="search()" class="form-control bg-light border-0 small"
+                           placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
                 </div>
+<!--                <div class="input-append">-->
+<!--                    <input type="text" ng-model="query" ng-change="search()" class="form-control" placeholder="Search">-->
+<!--                    <span class="add-on"><i class="icon-search"></i></span>-->
+<!--                </div>-->
             </nav>
 
             <!-- Begin Page Content -->
@@ -285,20 +294,24 @@
                                 <input ng-model="form.id" class="form-control" disabled readonly>
                             </div>
                             <div class="mb-3">
+                                <label>Name</label>
                                 <input ng-model="form.name" class="form-control"
                                        placeholder="Name">
                             </div>
                             <div class="mb-3">
+                                <label>Category</label>
                                 <select ng-model="form.category.id"
                                         class="form-control">
                                     <option ng-repeat="c in categoryItems" ng-value="c.id">{{c.name}}</option>
                                 </select>
                             </div>
                             <div class="mb-3">
+                                <label>Price</label>
                                 <input ng-model="form.price" type="number" min="100000"
                                        class="form-control" placeholder="Price" step="50000">
                             </div>
                             <div class="mb-3">
+                                <label>Sale</label>
                                 <input ng-model="form.sale" type="number" min="5"
                                        class="form-control" placeholder="sale" step="5">
                             </div>
@@ -320,19 +333,23 @@
 
 
                             <div class="mb-3">
+                                <label>Quantity</label>
                                 <input ng-model="form.quantity" type="number"  step="5"
                                        class="form-control" placeholder="Quantity">
                             </div>
 							<div class="mb-3">
+                                <label>Link Cnd Product</label>
                                 <input ng-model="form.main_image" class="form-control"
-                                       placeholder="Link Cnd Product">
+                                       placeholder="">
                             </div>
 
                             <div class="mb-3">
+                                <label>Description</label>
                                 <input ng-model="form.description" class="form-control"
                                        placeholder="Description">
                             </div>
                             <div class="mb-3">
+                                <label>Warranty Period</label>
                                 <input type="number" min="1" ng-model="form.warranty_period" class="form-control"
                                        placeholder="Warranty Period">
                             </div>

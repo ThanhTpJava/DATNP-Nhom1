@@ -84,5 +84,10 @@ public class ProductServiceImpl implements ProductService{
 		dao.updateIncreaseProductQuantity(productId, quantity);
 	}
 
+	@Override
+	public List<Product> findProductsByName(String name) {
+		return dao.findProductsByName(name);
+	}
+
 
 }
