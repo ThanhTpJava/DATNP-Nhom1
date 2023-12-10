@@ -112,6 +112,7 @@
                         <th>Image</th>
                         <th>Content</th>
                         <th>Create Date</th>
+                        <th>Status</th>
                         <th>Tag</th>
                         <th>Account</th>
                         <th>Action</th>
@@ -124,6 +125,7 @@
                         <td><img ng-src="{{b.image}}" class="object-fit-contain h-100 w-100"></td>
                         <td>{{ b.content | limitTo:200 }}{{ b.content.length > 200 ? '...' : '' }}</td>
                         <td>{{b.publishDate | date:'dd-MM-yyyy'}}</td>
+                        <td>{{b.status}}</td>
                         <td>{{b.tag}}</td>
                         <td>{{b.account.username}}</td>
                         <td>

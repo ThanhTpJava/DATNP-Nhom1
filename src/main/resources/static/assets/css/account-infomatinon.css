@@ -128,7 +128,7 @@
 }
 
 .acc-detail .button-account-detail{
-    /*position: absolute;*/
+    position: absolute;
     right: 25px;
     display: flex;
     flex-direction: column;
