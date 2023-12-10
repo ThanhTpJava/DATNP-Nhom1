@@ -216,5 +216,11 @@ Integer statusId =order.getOrderStatuses().get(0).getStatus().getId();
 	public List<Order> findAllByStock(){
 		return dao.findOrdersWithStatusNotEqualToOne();
 	}
+
+	@Override
+	public Order createOrderPaymentApi(Order order) {
+		// TODO Auto-generated method stub
+		return dao.save(order);
+	}
 	
 }

@@ -363,6 +363,21 @@
 
                     <!-- DataTales Example -->
                     <div class="col-lg-8 overflow-auto" style="height: 500px">
+                        <nav aria-label="Page navigation example" class="d-flex mt-3 justify-content-center">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#" ng-disabled="currentPage == 0"
+                                                         ng-click="currentPage=currentPage-1">Previous</a></li>
+                                <li ng-repeat="n in range(numberOfPages())" ng-if="n >= currentPage - 1 && n <= currentPage + 2" class="page-item"
+                                    ng-class="{active: n == currentPage}"
+                                    ng-click="setPage()">
+                                    <a class="page-link" href ng-bind="n + 1"></a>
+                                    <span ng-if="n == currentPage" class="sr-only">(current)</span>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#"
+                                                         ng-disabled="currentPage >= items.length/pageSize - 1"
+                                                         ng-click="currentPage=currentPage+1">Next</a></li>
+                            </ul>
+                        </nav>
                         <table class="table table-bordered w-100 table-responsive" id="dataTable">
                             <thead>
                             <tr>
@@ -401,8 +416,12 @@
                                 </td>
                             </tr>
                             </tbody>
+
                         </table>
+
                     </div>
+
+
                 </div>
             </div>
             <!-- End of Page Content -->
@@ -416,21 +435,7 @@
             <!--            </div>-->
 
             <div class="float-end">
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination">
-				    <li class="page-item"><a class="page-link" href="#" ng-disabled="currentPage == 0"
-				                             ng-click="currentPage=currentPage-1">Previous</a></li>
-				    <li ng-repeat="n in range(numberOfPages())" ng-if="n >= currentPage - 1 && n <= currentPage + 2" class="page-item"
-				        ng-class="{active: n == currentPage}"
-				        ng-click="setPage()">
-				        <a class="page-link" href ng-bind="n + 1"></a>
-				        <span ng-if="n == currentPage" class="sr-only">(current)</span>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#"
-				                             ng-disabled="currentPage >= items.length/pageSize - 1"
-				                             ng-click="currentPage=currentPage+1">Next</a></li>
-				  </ul>
-				</nav>
+
             </div>
         </footer>
         <!-- End of Footer -->

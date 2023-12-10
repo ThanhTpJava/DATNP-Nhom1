@@ -34,4 +34,8 @@ public interface ProductService {
     List<Product> findLatestProducts();
 
     List<Product> findProductsByName(String name);
+    
+    void UpdateReduceProductQuantity(Integer productId, Integer quantity);
+    
+    void updateIncreaseProductQuantity(Integer productId, Integer quantity);
 }

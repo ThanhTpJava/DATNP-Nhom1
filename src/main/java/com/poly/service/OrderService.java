@@ -13,6 +13,8 @@ public interface OrderService {
 
 	public Order create(JsonNode orderData) ;
 	
+	public Order createOrderPaymentApi(Order order);
+	
 	public Order findById(String id) ;
 	
 	public List<Order> findByUsername(String username) ;

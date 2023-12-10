@@ -12,13 +12,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.entity.Order;
+import com.poly.entity.OrderDetail;
 import com.poly.entity.OrderStatus;
 import com.poly.entity.Status;
+import com.poly.service.OrderDetailService;
 import com.poly.service.OrderService;
 import com.poly.service.OrderStatusService;
+import com.poly.service.ProductService;
 import com.poly.service.StatusService;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +39,12 @@ public class OrderRestController {
 	@Autowired
 	OrderStatusService orderStatusService;
 
+	@Autowired
+	ProductService productService;
+	
+	@Autowired
+	OrderDetailService orderDetailService;
+	
 	@GetMapping
 	public List<OrderShipDTO> GetAll() {
 		return orderService.findAll();
@@ -74,8 +84,6 @@ public class OrderRestController {
 			e.printStackTrace();
 			return new ResponseEntity<String>("{\"message\":\"errors\"}", HttpStatus.BAD_REQUEST);
 		}
-
-
 	}
 
 //	@PutMapping("{id}")
@@ -95,6 +103,20 @@ public class OrderRestController {
 
 	@PutMapping("updateStatus/{orderId}/{statusId}")
 	public void updateStatusShip(@PathVariable String orderId, @PathVariable Integer statusId){
+		if (statusId == 5) {
+			Map<Integer, Integer> productQuantiOrder = new HashMap<>();
+			List<OrderDetail> orderDetails = orderDetailService.findByOrderId(orderId);
+			for (OrderDetail order : orderDetails) {
+				// Sử dụng order.getProductId() làm key và order.getQuanty() làm giá trị
+				productQuantiOrder.put(order.getProduct().getId(), order.getQuantity());
+			}
+
+			// In ra các phần tử trong productQuantiOrder
+			for (Map.Entry<Integer, Integer> entry : productQuantiOrder.entrySet()) {
+				System.out.println("ProductId: " + entry.getKey() + ", Quanty: " + entry.getValue());
+				productService.updateIncreaseProductQuantity(entry.getKey(), entry.getValue());
+			}
+		}
 		orderService.updateOrderStatus(orderId, statusId);
 	}
 

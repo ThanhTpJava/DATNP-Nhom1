@@ -109,7 +109,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="ship, iterStat : ${listShipping}"  th:if="${ship.orderStatus == 3 || ship.orderStatus == 4}">
+                    <tr th:each="ship, iterStat : ${listShipping}"  th:if="${ship.orderStatus == 3}">
                         <td>[[${iterStat.count}]]</td>
                        <td>[[${ship.orderId}]]</td>
                        <td>[[${ship.delivery_phone}]]</td>
@@ -256,12 +256,15 @@
 
         <div class="row justify-content-center mt-4">
         <label style="width: 175px;" class = "">Thay đổi trạng thái: </label>
-            <div class="col-md-4">
-                <button class="btn btn-danger btn-block" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 3)">Khách không nhận hàng</button>
+        	
+        	<div class="col-md-4">
+                <button type="button" class="btn btn-success btn-block" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 4)">Đã giao xong</button>
             </div>
+            
             <div class="col-md-4">
-                <button class="btn btn-success btn-block" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 4)">Đã giao xong</button>
+                <button type="button" class="btn btn-danger btn-block" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 5)">Khách không nhận hàng</button>
             </div>
+            
 <!--            <div class="col-md-4">-->
 <!--                <button class="btn btn-warning btn-block" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 5)">Khách yêu cầu trả hàng</button>-->
 <!--            </div>-->

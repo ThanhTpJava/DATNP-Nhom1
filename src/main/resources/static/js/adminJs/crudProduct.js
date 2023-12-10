@@ -6,7 +6,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.categoryItems = []
 
     $scope.currentPage = 0;
-    $scope.pageSize = 2;
+    $scope.pageSize = 4;
     $scope.sortingOrder = sortingOrder;
     $scope.reverse = false;
 
@@ -95,6 +95,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.detail = function (id) {
         var url = `${host}/products/${id}`;
         $http.get(url).then(resp => {
+            resp.data.date_import = new Date(resp.data.date_import)
             $scope.form = resp.data;
             console.log("Success", resp)
         }).catch(error => {
@@ -144,7 +145,6 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             });
         }
     }
-
     //load data to table
     $scope.load_all();
     $scope.reset();

@@ -69,9 +69,19 @@ public class ProductServiceImpl implements ProductService{
 	public List<Product> findProductsByCategoryId(String categoryId) {
 		return dao.idcategoryID(categoryId);
 	}
+	
 	@Override
 	public List<Product> findLatestProducts() {
 		return dao.findLatestProducts();
+	}
+	
+	@Override
+	public void UpdateReduceProductQuantity(Integer productId, Integer quantity) {
+		dao.updateReduceProductQuantity(productId, quantity);	
+	}
+	@Override
+	public void updateIncreaseProductQuantity(Integer productId, Integer quantity) {
+		dao.updateIncreaseProductQuantity(productId, quantity);
 	}
 
 	@Override

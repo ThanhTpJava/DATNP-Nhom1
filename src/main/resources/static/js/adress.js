@@ -19,9 +19,13 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 	$scope.successIconUrl = "/images/icons/tick.png"
 	$scope.errorIconUrl = "/images/icons/errors.png"
 	$scope.iconUrlotp = "/images/icons/otp.png"
+	$scope.redirect_icon = "/images/icons/redirect_icon.png"
 	$scope.checkOrder = false;
 	$scope.checkOtp = false;
 
+	$scope.paymentApiUrl = ""
+	$scope.isApiPayment = false
+	
 	$scope.closePopup = function() {
 		$scope.isPopupOpen = false;
 		if ($scope.checkOrder == true) {
@@ -89,11 +93,16 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 		},
 		saveToLocalStorage() { // lưu giỏ hàng vào local storage
 			var json = JSON.stringify(angular.copy(this.items));
-			localStorage.setItem("cart", json);
+			localStorage.setItem("cart_" + $auth.username, json);
+			console.log(this.items)
 		},
 		loadFromLocalStorage() { // đọc giỏ hàng từ local storage
-			var json = localStorage.getItem("cart");
-			this.items = json ? JSON.parse(json) : [];
+			var self = this; // Giữ tham chiếu đến đối tượng $cart
+			$timeout(function() {
+				console.log("username: ", $auth.username)
+				var json = localStorage.getItem("cart_" + $auth.username);
+				self.items = json ? JSON.parse(json) : [];
+			}, 100);
 		}
 	}
 
@@ -208,14 +217,14 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 		},
 
 		validatePurchase() {
-			if(/^[0-9]+$/.test($scope.order.delivery_phone) === false || $scope.order.delivery_phone.length !== 10){
+			if (/^[0-9]+$/.test($scope.order.delivery_phone) === false || $scope.order.delivery_phone.length !== 10) {
 				$scope.iconUrlPopup = $scope.errorIconUrl
 				$scope.PopupTitle = "Lỗi!!!"
 				$scope.PopupMessage = "Số điện thoại giao hàng không hợp lệ"
 				$scope.isPopupOpen = true;
 				return false
 			}
-			
+
 			if ($scope.order.address == null || $scope.order.address == '') {
 				$scope.iconUrlPopup = $scope.errorIconUrl
 				$scope.PopupTitle = "Lỗi!!!"
@@ -224,26 +233,28 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 				return false
 			}
 
-			if ($scope.checkOtp == false) {
-				$scope.sendOTP();
-				return false
-			}
+			
 
 			return true
 		},
-		
+
 		purchase() {
 			var order = angular.copy(this);
 			/*console.log(order)*/
 			$scope.order.address = $auth.delivery_address;
 			/*console.log("address: ", $scope.order.address);*/
 			$scope.order.delivery_phone = $auth.phonenumber;
-			console.log(typeof $scope.order.delivery_phone);
-			
+			/*console.log(typeof $scope.order.delivery_phone);*/
+
 			var isValid = this.validatePurchase();
 
 			if (!isValid) {
 				return;  // Dừng thực hiện nếu không hợp lệ
+			}
+			
+			if ($scope.checkOtp == false) {
+				$scope.sendOTP();
+				return false
 			}
 
 			/*console.log("Suscess")*/
@@ -261,11 +272,50 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 				$cart.clear();
 
 			}).catch(error => {
+				
+				alert("Đặt hàng lỗi!")
+				console.log(error)
+			})
+		},
+		
+		vnpayPurchase(){
+			
+			/*console.log(order)*/
+			$scope.order.address = $auth.delivery_address;
+			/*console.log("address: ", $scope.order.address);*/
+			$scope.order.delivery_phone = $auth.phonenumber;
+			/*console.log(typeof $scope.order.delivery_phone);*/
+			var amountUrl = $cart.amount
+			$scope.order.totalAmount = amountUrl
+			var order = angular.copy(this);
+			var isValid = this.validatePurchase();
+			
+			console.log("oder: ", order)
+			if (!isValid) {
+				return;  // Dừng thực hiện nếu không hợp lệ
+			}
+			
+			$http.post(`/api/vnpay/create_payment/${amountUrl}` ,order).then(resp => {
+				
+				console.log("URL VNpay: ", resp.data.paymentUrl)
+				console.log("Order id: ", $scope.order.id)
+				$scope.paymentApiUrl = resp.data.paymentUrl
+				$scope.iconUrlPopup = $scope.redirect_icon
+				$scope.PopupTitle = "Chuyển hướng!"
+				$scope.PopupMessage = "Click vào nút phía dưới, chúng tôi sẽ chuyển hướng bạn đến VNPay"
+				$scope.isApiPayment = true;
+
+			}).catch(error => {
+				
 				alert("Đặt hàng lỗi!")
 				console.log(error)
 			})
 		}
 	}
+	
+	$scope.openPaymentApiUrl = function() {
+       $window.location.href = $scope.paymentApiUrl;
+    };
 
 	$http.get('/json/address.json').then(function(response) {
 		// Xử lý dữ liệu JSON trước khi gán nó cho biến đối tượng

@@ -1,6 +1,10 @@
-app.controller("cart-ctrl", function($scope, $http) {
+/*const app = angular.module("app", []);*/
+
+app.controller("cart-ctrl", function($scope, $http, $rootScope, $timeout) {
 	// quản lý giỏ hàng
+
 	var $cart = $scope.cart = {
+
 		items: [],
 		add(id) { // thêm sản phẩm vào giỏ hàng
 			var item = this.items.find(item => item.id == id);
@@ -54,23 +58,35 @@ app.controller("cart-ctrl", function($scope, $http) {
 		},
 		saveToLocalStorage() { // lưu giỏ hàng vào local storage
 			var json = JSON.stringify(angular.copy(this.items));
-			localStorage.setItem("cart", json);
+			localStorage.setItem("cart_" + $auth.username, json);
+			console.log("cart_" + $auth.username)
 		},
 		loadFromLocalStorage() { // đọc giỏ hàng từ local storage
-			var json = localStorage.getItem("cart");
-			this.items = json ? JSON.parse(json) : [];
+			var self = this; // Giữ tham chiếu đến đối tượng $cart
+			$timeout(function() {
+				console.log("username: ", $auth.username)
+				
+				var json = localStorage.getItem("cart_" + $auth.username);
+				self.items = json ? JSON.parse(json) : [];
+			}, 100);
 		}
 	}
 
 	$cart.loadFromLocalStorage();
+	
+	$scope.formatAmount = function(amount) {
+        // Sử dụng toFixed(0) để làm tròn số và loại bỏ phần thập phân
+        return parseFloat(amount).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+    
 	var orderElement = angular.element(document.getElementById('order-id'));
 
 	// Lấy văn bản trong phần tử
 	var orderText = orderElement.text();
 
 	// In ra kết quả
-	
-	
+
+
 	// Đặt hàng
 	$scope.order = {
 		id: orderText,

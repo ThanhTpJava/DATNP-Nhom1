@@ -1910,6 +1910,12 @@ input.num-product::-webkit-inner-spin-button {
   border-right: 1px solid #e6e6e6;
 }
 
+.wrap-table-shopping-cart.checkout {
+  overflow: auto;
+	border-left: 0px;
+  border-right: 0px;
+}
+
 .table-shopping-cart {
   border-collapse: collapse;
   width: 100%;
@@ -2741,6 +2747,15 @@ input.num-product::-webkit-inner-spin-button {
 .bor15 {
   border-left: 1px solid #e6e6e6;
   border-right: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.bor15.checkout {
+	justify-content: space-around;
+    -ms-align-items: center;
+    align-items: center;
+  border-left: 0px ;
+  border-right: 0px ;
   border-bottom: 1px solid #e6e6e6;
 }
 
