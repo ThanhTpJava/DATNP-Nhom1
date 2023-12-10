@@ -1,5 +1,6 @@
 package com.poly.rest.controller;
 
+import com.poly.dao.AccountDAO;
 import com.poly.dao.BlogPostDAO;
 
 import com.poly.entity.BlogPost;
@@ -16,6 +17,8 @@ public class BlogPostRestController {
     @Autowired
     BlogPostDAO blogPostDAO;
 
+    @Autowired
+    AccountDAO accountDAO;
     @GetMapping
     public List<BlogPost> getAll(Model model) {
         return blogPostDAO.findAll();

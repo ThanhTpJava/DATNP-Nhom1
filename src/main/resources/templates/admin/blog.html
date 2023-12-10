@@ -30,7 +30,6 @@
     <!-- Custom styles for table -->
     <link href="/vendor-admin/datatables/dataTables.bootstrap4.min.css"
           rel="stylesheet">
-
 </head>
 
 <body id="page-top" ng-app="app" ng-controller="ctrl">
@@ -72,22 +71,35 @@
                     <input type="text" class="form-control" ng-model="form.id" readonly placeholder="id">
                 </div>
                 <div class="form-group">
+                    <label>Title</label>
                     <input type="text" class="form-control" ng-model="form.title" placeholder="Title" required>
                     <span ng-show="myForm.title.$touched && myForm.title.$invalid">Title is required!</span>
                 </div>
                 <div class="form-group">
+                    <label>Link Image</label>
                     <input type="text" class="form-control" ng-model="form.image" placeholder="Link Image" required>
                     <span ng-show="myForm.image.$touched && myForm.image.$invalid">Image link is required!</span>
                 </div>
                 <div class="form-group">
+                    <label>Content</label>
                     <textarea class="form-control" ng-model="form.content" placeholder="Content" maxlength="700" style="max-width: 100%; height: 300px" required></textarea>
                     <span ng-show="myForm.content.$touched && myForm.content.$invalid">Content is required!</span>
+                </div>
+                <div class="form-group">
+                    <!--                    <span ng-value="form.account">{{$auth.username}}</span>-->
+                    <select ng-model="form.account.username" class="form-control">
+                        <option ng-repeat="a in listAcc" ng-value="$auth.username">{{a.username}}</option>
+                    </select>
+                    <!--                    <label>-->
+                    <!--                        <input type="text" class="form-control" ng-model="form.account" ng-init="form.account = $auth">-->
+                    <!--                    </label>-->
                 </div>
                 <!-- Rest of your form -->
 
                 <div class="bg-white border w-50 mb-3 rounded">
                     <img ng-src="{{form.image}}" ng-alt="{{form.image}}" class="object-fit-contain" width="200px" height="200px" alt="...">
                 </div>
+
             </form>
 
             <!-- DataTales Example -->
@@ -113,7 +125,7 @@
                         <td>{{ b.content | limitTo:200 }}{{ b.content.length > 200 ? '...' : '' }}</td>
                         <td>{{b.publishDate | date:'dd-MM-yyyy'}}</td>
                         <td>{{b.tag}}</td>
-                        <td>{{b.account.name}}</td>
+                        <td>{{b.account.username}}</td>
                         <td>
                             <button class="btn btn-success" ng-click="detail(b.id)"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-danger" ng-click="delete(b.id)"><i class="fas fa-trash"></i></button>

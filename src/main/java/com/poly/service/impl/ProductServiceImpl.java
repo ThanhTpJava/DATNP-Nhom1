@@ -74,5 +74,10 @@ public class ProductServiceImpl implements ProductService{
 		return dao.findLatestProducts();
 	}
 
+	@Override
+	public List<Product> findProductsByName(String name) {
+		return dao.findProductsByName(name);
+	}
+
 
 }

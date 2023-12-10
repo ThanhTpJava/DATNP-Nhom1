@@ -181,4 +181,9 @@ public class AccountRestController {
 	        return "*****" + email.substring(atIndex);
 	    }
 	}
+
+	@GetMapping("/account")
+	public List<Account> getListAccounts() {
+		return accountService.findAll();
+	}
 }

@@ -44,25 +44,25 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         }
     };
 
-    // init the filtered items
-    $scope.search = function () {
-        $scope.filteredItems = $filter('filter')($scope.items, function (item) {
-            for(var attr in item) {
-                if (searchMatch(item[attr], $scope.query))
-                    return true;
-            }
-            return false;
-        });
-        // take care of the sorting order
-        // if ($scope.sortingOrder !== '') {
-        //     $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sortingOrder, $scope.reverse);
-        // }
-        $scope.currentPage = 0;
-        // now group by pages
-        $scope.groupToPages();
+    $scope.searchText = '';
+
+    $scope.search = function() {
+        // Kiểm tra nếu giá trị tìm kiếm không rỗng
+        if ($scope.searchText.trim() !== '') {
+            // Thực hiện tìm kiếm và gọi API
+            var url = `${host}/products/find/${$scope.searchText}`;
+            $http.get(url).then(resp => {
+                $scope.items = resp.data;
+                console.log('Search results:', $scope.items);
+            }).catch(error => {
+                console.log('Error during search:', error);
+            });
+        } else {
+            // Nếu giá trị tìm kiếm rỗng, load tất cả sản phẩm
+            $scope.load_all();
+        }
     };
 
-    $scope.search();
 
 
     $scope.reset = function () {
@@ -99,7 +99,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             console.log("Success", resp)
         }).catch(error => {
             console.log("Error", error)
-})
+        })
     }
 
     $scope.create = function () {

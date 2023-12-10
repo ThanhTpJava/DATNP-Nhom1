@@ -46,4 +46,10 @@ public class ProductRestController {
 	public void delete(@PathVariable("id") Integer id) {
 		productService.delete(id);
 	}
+
+	@GetMapping("/find/{name}")
+	public List<Product> findProductsByName(@PathVariable("name") String name){
+		return productService.findProductsByName(name);
+	}
+
 }

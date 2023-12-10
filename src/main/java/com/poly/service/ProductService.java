@@ -32,4 +32,6 @@ public interface ProductService {
 	public void delete(Integer id) ;
 
     List<Product> findLatestProducts();
+
+    List<Product> findProductsByName(String name);
 }
