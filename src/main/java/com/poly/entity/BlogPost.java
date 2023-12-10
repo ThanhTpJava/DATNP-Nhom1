@@ -49,7 +49,7 @@ public class BlogPost {
 
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "UserID")
+	@JoinColumn(name = "username")
 	private Account account;
 
 	@Column(name = "status")

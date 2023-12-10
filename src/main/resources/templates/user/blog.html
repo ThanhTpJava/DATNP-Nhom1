@@ -90,7 +90,7 @@
 									<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
 
 										<span>
-											<span class="cl4"> By</span> Admin
+											<span class="cl4"> By</span> <span th:text="${b.account.surname}"></span> <span th:text="${b.account.name}"></span>
 											<span class="cl12 m-l-4 m-r-6">| </span>
 											<span th:utext="${#dates.format(b.PublishDate, 'dd/MM/yyyy HH:mm')}"></span>
 											<span class="cl12 m-l-4 m-r-6">| </span>
