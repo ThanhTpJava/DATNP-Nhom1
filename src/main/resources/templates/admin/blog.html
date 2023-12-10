@@ -46,26 +46,7 @@
 
         <div class="container mt-5"  ng-app="app" ng-controller="ctrl">
             <h2>Blog Posts</h2>
-            <nav class="navbar bg-white border-top border-bottom">
-                <div class="">
-                    <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id != null">
-                        <i class="fas fa-plus"></i> Create
-                    </button>
-                    <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || form.id == null">
-                        <i class="fas fa-rotate"></i> Update
-                    </button>
-                    <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="myForm.id.$invalid || form.id == null">
-                        <i class="fas fa-solid fa-ban"></i> Delete
-                    </button>
-                    <button ng-click="reset()" class="btn btn-secondary">
-                        <i class="fas fa-regular fa-window-restore"></i> Reset
-                    </button>
-                </div>
-                <div class="input-append">
-                    <input type="text" ng-model="query" ng-change="search()" class="input-large search-query" placeholder="Search">
-                    <span class="add-on"><i class="icon-search"></i></span>
-                </div>
-            </nav>
+
             <form name="myForm" novalidate> <!-- Add the 'novalidate' attribute to prevent HTML5 validation -->
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="form.id" readonly placeholder="id">
@@ -86,20 +67,64 @@
                     <span ng-show="myForm.content.$touched && myForm.content.$invalid">Content is required!</span>
                 </div>
                 <div class="form-group">
-                    <!--                    <span ng-value="form.account">{{$auth.username}}</span>-->
-                    <select ng-model="form.account.username" class="form-control">
-                        <option ng-repeat="a in listAcc" ng-value="$auth.username">{{a.username}}</option>
-                    </select>
-                    <!--                    <label>-->
-                    <!--                        <input type="text" class="form-control" ng-model="form.account" ng-init="form.account = $auth">-->
-                    <!--                    </label>-->
+                    <label>Tag</label>
+                    <input type="text" class="form-control" ng-model="form.tag" placeholder="tag (vd: Romantic, Honor, Adventure)" required>
+                    <span ng-show="myForm.tag.$touched && myForm.tag.$invalid">Title is required!</span>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <div>
+                        <label class="radio-inline mr-3">
+                            <input name="status" type="radio" ng-model="form.status" ng-value="true"> Public
+                        </label>
+                        <label class="radio-inline">
+                            <input name="status" type="radio" ng-model="form.status" ng-value="false"> Private
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input  style="display: none;" disabled type="text" ng-model="form.account.username" ng-value="{{$auth.username}}">
+
+<!--                    <select ng-model="form.account.username" class="form-control">-->
+<!--                        <option ng-repeat="a in listAcc" ng-value="a.username" ng-selected="a.username === $auth.username">{{a.username}}</option>-->
+<!--                    </select>-->
+
+<!--                    <select ng-model="form.account.username" class="form-control" ng-options="a.username as a.username for a in listAcc" ng-init="form.account.username = $auth.username">-->
+<!--                        <option ng-repeat="a in listAcc" ng-value="a.username">{{a.username}}</option>-->
+<!--                    </select>-->
+<!--                <label>-->
+<!--                    <input type="text" class="form-control" ng-model="form.account" ng-init="form.account = $auth">-->
+<!--                </label>-->
+<!--                <label>-->
+<!--                    <input type="text" class="form-control" ng-model="form.account">-->
+<!--                </label>-->
                 </div>
                 <!-- Rest of your form -->
 
                 <div class="bg-white border w-50 mb-3 rounded">
                     <img ng-src="{{form.image}}" ng-alt="{{form.image}}" class="object-fit-contain" width="200px" height="200px" alt="...">
                 </div>
-
+                <nav class="navbar bg-white border-top border-bottom justify-content-center d-flex">
+                    <div class="">
+                        <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id != null">
+                            <i class="fas fa-plus"></i> Create
+                        </button>
+                        <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || form.id == null || $auth.username !== form.account.username">
+                            <i class="fas fa-rotate"></i> Update
+                        </button>
+                        <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="myForm.id.$invalid || form.id == null">
+                            <i class="fas fa-solid fa-ban"></i> Delete
+                        </button>
+                        <button ng-click="reset()" class="btn btn-secondary">
+                            <i class="fas fa-regular fa-window-restore"></i> Reset
+                        </button>
+                    </div>
+                    <!--                <div class="input-append">-->
+                    <!--                    <input type="text" ng-model="query" ng-change="search()" class="input-large search-query" placeholder="Search">-->
+                    <!--                    <span class="add-on"><i class="icon-search"></i></span>-->
+                    <!--                </div>-->
+                </nav>
             </form>
 
             <!-- DataTales Example -->
@@ -124,8 +149,8 @@
                         <td>{{b.title}}</td>
                         <td><img ng-src="{{b.image}}" class="object-fit-contain h-100 w-100"></td>
                         <td>{{ b.content | limitTo:200 }}{{ b.content.length > 200 ? '...' : '' }}</td>
-                        <td>{{b.publishDate | date:'dd-MM-yyyy'}}</td>
-                        <td>{{b.status}}</td>
+                        <td>{{b.publishDate | date:'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{b.status == true?'public':'private'}}</td>
                         <td>{{b.tag}}</td>
                         <td>{{b.account.username}}</td>
                         <td>
@@ -135,15 +160,15 @@
                     </tr>
                     </tbody>
                 </table>
-                <nav aria-label="Page navigation example">
+                <nav aria-label="Page navigation example" class="d-flex mt-3 justify-content-center">
                     <ul class="pagination">
                         <li class="page-item"><a class="page-link" href="#" ng-disabled="currentPage == 0"
                                                  ng-click="currentPage=currentPage-1">Previous</a></li>
-                        </li>
-                        <li ng-repeat="n in range(numberOfPages())" class="page-item"
+                        <li ng-repeat="n in range(numberOfPages())" ng-if="n >= currentPage - 1 && n <= currentPage + 2" class="page-item"
                             ng-class="{active: n == currentPage}"
                             ng-click="setPage()">
-                            <a class="page-link" href ng-bind="n + 1">1</a>
+                            <a class="page-link" href ng-bind="n + 1"></a>
+                            <span ng-if="n == currentPage" class="sr-only">(current)</span>
                         </li>
                         <li class="page-item"><a class="page-link" href="#"
                                                  ng-disabled="currentPage >= items.length/pageSize - 1"

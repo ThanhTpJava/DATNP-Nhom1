@@ -47,7 +47,7 @@ public class BlogPost {
 	@Column(name = "Tag", columnDefinition = "nvarchar(max)")
 	private String Tag;
 
-	@JsonIgnore
+
 	@ManyToOne
 	@JoinColumn(name = "username")
 	private Account account;

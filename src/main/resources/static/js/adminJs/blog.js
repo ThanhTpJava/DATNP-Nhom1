@@ -116,9 +116,11 @@ app.controller("ctrl", function ($scope, $http, $filter) {
 
     $scope.create = function () {
         var item = angular.copy($scope.form);
+        item.publishDate = new Date();
         var url = `${host}/blog`;
         $http.post(url, item).then(resp => {
             // item.available = item.quantity>0?'true':'false';
+
             $scope.items.push(item);
             $scope.load_all();
             console.log("Success", resp)
