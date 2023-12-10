@@ -2,6 +2,8 @@ package com.poly.service.impl;
 
 import java.util.List;
 
+import com.poly.dao.ProductImageDAO;
+import com.poly.entity.ProductImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,9 @@ import com.poly.service.ProductService;
 public class ProductServiceImpl implements ProductService{
 	@Autowired
 	ProductDAO dao;
+
+	@Autowired
+	ProductImageDAO imageDAO;
 
 	@Override
 	public List<Product> findAll(){
@@ -62,6 +67,17 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	public void delete(Integer id) {
+		// Kiểm tra xem có tồn tại hình ảnh sản phẩm không
+		List<ProductImage> productImages = imageDAO.findByProduct(id);
+
+		if (!productImages.isEmpty()) {
+			// Nếu có hình ảnh, xóa chúng trước
+			for (ProductImage productImage : productImages) {
+				imageDAO.deleteById(productImage.getId());
+			}
+		}
+
+		// Sau đó, xóa sản phẩm
 		dao.deleteById(id);
 	}
 
