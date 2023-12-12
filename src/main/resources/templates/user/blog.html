@@ -60,7 +60,7 @@
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-45 p-r-0-lg">
 						<!-- item blog -->
-						<div class="p-b-63" th:each="b:${items}">
+						<div class="p-b-63" th:each="b:${items}" th:if="${b.status eq true}">
 
 							<a th:href="@{'/blog/detail/'+${b.id}}" class="p-t-32">
 								<div class="wrap-pic-w how-pos5-parent">
@@ -132,7 +132,7 @@
 								<nav aria-label="Page navigation example">
 									<ul class="pagination">
 										<li th:if="${currentPage > 0}" class="page-item"><a
-												th:href="@{/user/home(page=${currentPage - 1})}"
+												th:href="@{/blog(page=${currentPage - 1})}"
 												class="page-link" aria-label="Previous"> <span
 												aria-hidden="true">&laquo;</span>
 										</a></li>
@@ -140,11 +140,11 @@
 										<li class="page-item"
 											th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
 											th:class="${i == currentPage ? 'active' : ''}"><a
-												th:href="@{/user/blog(page=${i})}" class="page-link"
+												th:href="@{/blog(page=${i})}" class="page-link"
 												th:text="${i + 1}"></a></li>
 
 										<li th:if="${currentPage < totalPages - 1}" class="page-item">
-											<a th:href="@{/user/home(page=${currentPage + 1})}"
+											<a th:href="@{/blog(page=${currentPage + 1})}"
 											   class="page-link" aria-label="Next"> <span
 													aria-hidden="true">&raquo;</span>
 											</a>
