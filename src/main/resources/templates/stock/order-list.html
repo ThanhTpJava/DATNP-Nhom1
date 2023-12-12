@@ -1,0 +1,175 @@
+<!-- Begin Page Content -->
+<div id="content-wrapper" class="d-flex flex-column vh-100" ng-app="app" ng-controller="ctrl">
+
+    <span sec:authentication="name" id="user-name"></span>
+
+    <div class="table-list-acc">
+        <section class="table-header">
+            <h1>Danh sách hóa đơn</h1>
+        </section>
+        <section class="table-body">
+            <table class="tbl-acc">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Order ID</th>
+                        <th>Phone number</th>
+                        <th>Name purchaser</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="sale, iterStat : ${listSale}" th:if="${sale.orderStatus == 2}">
+                        <td>[[${iterStat.count}]]</td>
+                        <td>[[${sale.orderId}]]</td>
+                        <td>[[${sale.delivery_phone}]]</td>
+                        <td>[[${sale.account.surname}]] [[${sale.account.name}]] </td>
+                        <td>[[${sale.address}]]</td>
+                        <td class="table-order-body">
+                            <span th:switch="${sale.orderStatus}">
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="0">Hủy
+                                    đơn</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="1">Đang
+                                    xác nhận</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="2">Đã xác
+                                    nhận</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="3">Đang
+                                    giao</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="4">Đã
+                                    giao</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="5">Trả
+                                    hàng</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="*">Trạng
+                                    thái không xác định</span>
+                            </span>
+                        </td>
+                        <td><a href="#"
+                                th:attr="ng-click=@{|saleDetail.getDetailSale('${sale.orderId}')|}"
+                                class="btn-detail">Xem chi tiết</a></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+
+</div>
+
+<!-- Acc detail form  -->
+<div th:fragment="infomation-account" class="container-acc-detail">
+<form class="acc-detail shipping-detail" ng-class="{ 'open-acc-detail': isOpenAccDetail }"
+    id="acc-detail" action="">
+    <div class=" row col-12 mb-3">
+        <div class="col">
+            <label for="inputFirstName" class="form-label">First Name</label> <input disabled
+                ng-model="saleDetail.saleData.account.surname" type="text"
+                class="form-control ip-apitalize" id="firstname">
+        </div>
+        <div class="col-6">
+            <label for="inputLastName" class="form-label">Last Name</label> <input disabled
+                ng-model="saleDetail.saleData.account.name" type="text"
+                class="form-control ip-apitalize" id="lastName" placeholder="">
+        </div>
+    </div>
+    <div class=" row col-12 mb-3">
+        <div class="col">
+            <label for="inputFirstName" class="form-label">Phone Number</label>
+            <i class="fa-solid fa-triangle-exclamation" ng-if=""></i> <input disabled type="text"
+                ng-model="saleDetail.saleData.delivery_phone" class="form-control" id="inputFirstName">
+        </div>
+        <div class="col-6">
+            <label for="inputLastName" class="form-label">Purchase</label> <i
+                class="fa-solid fa-triangle-exclamation" ng-if=""></i> <input disabled type="text"
+                ng-model="saleDetail.saleData.account.username" class="form-control" id="inputLastName"
+                placeholder="">
+        </div>
+    </div>
+    <div class="col-12">
+        <label for="Address" class="form-label">Address</label>
+        <i class="fa-solid fa-triangle-exclamation" ng-if=""></i> <input disabled type="text"
+            ng-model="saleDetail.saleData.address" class="form-control" id="Address">
+    </div>
+    <div class="status-ship">
+        <div class="">
+            <label class="form-label">Status</label>
+            <i class="fa-solid fa-triangle-exclamation" ng-if=""></i>
+        </div>
+        <div class="">
+            <div ng-switch="saleDetail.saleData.orderStatus" class="table-order-body">
+                <div ng-class="'orderstt stt' + saleDetail.saleData.orderStatus" ng-switch-when="0">Hủy
+                    đơn</div>
+                <div ng-class="'orderstt stt' + saleDetail.saleData.orderStatus" ng-switch-when="1">Đang
+                    xác nhận</div>
+                <div ng-class="'orderstt stt' + saleDetail.saleData.orderStatus" ng-switch-when="2">Đã
+                    xác nhận</div>
+                <div ng-class="'orderstt stt' + saleDetail.saleData.orderStatus" ng-switch-when="3">Đang
+                    giao</div>
+                <div ng-class="'orderstt stt' + saleDetail.saleData.orderStatus" ng-switch-when="4">Đã
+                    giao</div>
+                <div ng-class="'orderstt stt' + saleDetail.saleData.orderStatus" ng-switch-when="5">Trả
+                    hàng</div>
+                <div ng-class="'orderstt stt' + saleDetail.saleData.orderStatus" ng-switch-default>Trang
+                    thái không xác định</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <label style="width: 175px;" class="">Thay đổi trạng thái: </label>
+
+        <div class="col-md-4" ng-class="{ 'btn-disabled-changeStatus': statusDisabled }">
+            <button type="button" class="btn btn-success btn-block"
+                ng-click="UpdatePopupOpen(saleDetail.saleData.orderId, 4)">Đang giao</button>
+        </div>
+
+        <div class="col-md-4" ng-class="{ 'btn-disabled-changeStatus': statusDisabled }">
+            <button type="button" class="btn btn-danger btn-block"
+                ng-click="UpdatePopupOpen(saleDetail.saleData.orderId, 0)">Hủy Đơn</button>
+        </div>
+
+        <!--            <div class="col-md-4">-->
+        <!--                <button class="btn btn-warning btn-block" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 5)">Khách yêu cầu trả hàng</button>-->
+        <!--            </div>-->
+    </div>
+
+    <div class="button-account-detail ship-cancel">
+
+        <div class="button-row">
+            <button class="button-50 cancel-btn50" type="button" ng-click="reload()"
+                role="button">Cancel</button>
+        </div>
+    </div>
+
+</form>
+</div>
+<div class="popup" ng-class="{ 'open-popup': isPopupOpen }">
+<img th:src="@{/images/icons/tick.png}" alt="">
+<h2>Success</h2>
+<p>The change has been updated, please refresh the page to verify.</p>
+<button type="button" ng-click="closePopup()">OK</button>
+</div>
+
+<div class="popup-auth-update" ng-class="{ 'open-popup': isAuthPopupOpen }" id="popup">
+<img th:src="@{/images/icons/question_mark_PNG55.png}" alt="">
+<h2>Warning</h2>
+<p>Are you sure about this operation?</p>
+<div class="box-btn">
+    <button type="button" class="btn-alert-confirm" ng-click="saleDetail.saleUpdateSatus()">OK</button>
+    <button type="button" class="btn-alert-cancel" ng-click="AuthPopupClose()">Cancel</button>
+</div>
+
+</div>
+
+<div class="popup-auth-update" ng-class="{ 'open-popup': isUpdatePopupOpen }" id="popup">
+<img th:src="@{/images/icons/question_mark_PNG55.png}" alt="">
+<h2>Warning</h2>
+<p>Are you sure about this operation?</p>
+<div class="box-btn">
+    <button type="button" class="btn-alert-confirm" ng-click="saleDetail.saleUpdateSatus()">OK</button>
+    <button type="button" class="btn-alert-cancel" ng-click="UpdatePopupClose()">Cancel</button>
+</div>
+
+</div>

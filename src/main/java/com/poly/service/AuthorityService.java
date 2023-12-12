@@ -21,4 +21,6 @@ public interface AuthorityService {
 	String createRoleForUser(String username, String roleId);
 	
 	String deteteRoleUser(String username, String roleId);
+	
+	String getLoginAuthority();
 }
