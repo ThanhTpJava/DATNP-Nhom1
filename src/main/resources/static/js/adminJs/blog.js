@@ -117,6 +117,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.create = function () {
         var item = angular.copy($scope.form);
         item.publishDate = new Date();
+        item.account = $auth;
         var url = `${host}/blog`;
         $http.post(url, item).then(resp => {
             // item.available = item.quantity>0?'true':'false';

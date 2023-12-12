@@ -78,13 +78,13 @@
                             <input name="status" type="radio" ng-model="form.status" ng-value="true"> Public
                         </label>
                         <label class="radio-inline">
-                            <input name="status" type="radio" ng-model="form.status" ng-value="false"> Private
+                            <input name="status" type="radio" ng-model="form.status" checked="checked" ng-value="false"> Private
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input  style="display: none;" disabled type="text" ng-model="form.account.username" ng-value="{{$auth.username}}">
+
 
 <!--                    <select ng-model="form.account.username" class="form-control">-->
 <!--                        <option ng-repeat="a in listAcc" ng-value="a.username" ng-selected="a.username === $auth.username">{{a.username}}</option>-->
@@ -110,7 +110,7 @@
                         <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id != null">
                             <i class="fas fa-plus"></i> Create
                         </button>
-                        <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || form.id == null || $auth.username !== form.account.username">
+                        <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || form.id == null || $auth.username != form.account.username">
                             <i class="fas fa-rotate"></i> Update
                         </button>
                         <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="myForm.id.$invalid || form.id == null">
