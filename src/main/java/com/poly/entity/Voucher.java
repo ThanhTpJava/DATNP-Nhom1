@@ -23,7 +23,7 @@ public class Voucher {
 	private String name;
 
 	@Column(name = "discount")
-	private Float discount;
+	private Float discount; //giảm giá
 
 	@Column(name = "startDate")
 	private Date startDate;
@@ -33,5 +33,13 @@ public class Voucher {
 
 	@Column(name ="code_voucher")
 	public String code_voucher;
+
+	@Column(name ="description")
+	public String description;
+
+	@ManyToOne
+	@JoinColumn(name = "VoucherTypeId")
+	private VoucherType voucherType;
+
 
 }

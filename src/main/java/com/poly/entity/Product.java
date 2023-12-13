@@ -71,4 +71,5 @@ public class Product implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<ProductImage> productImage;
+
 }

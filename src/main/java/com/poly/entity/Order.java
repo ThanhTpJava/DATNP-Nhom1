@@ -64,4 +64,5 @@ public class Order {
 	@OneToMany(mappedBy = "orderResponsi")
 	List<Responsibility> listOrderResponsi;
 
+
 }
