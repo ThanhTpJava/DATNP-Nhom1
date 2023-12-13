@@ -3,319 +3,353 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>SB Admin - Dashboard</title>
-    <link th:href="@{/images/icons/favicon.png}" rel="icon" type="image/png" />
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet">
+<title>SB Admin - Dashboard</title>
+<link th:href="@{/images/icons/favicon.png}" rel="icon" type="image/png" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+	integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Custom fonts for this template-->
-    <link href="/vendor-admin/fontawesome-free/css/all.min.css"
-          rel="stylesheet" type="text/css">
-    <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
+<!-- Custom fonts for this template-->
+<link href="/vendor-admin/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
 
-    <!-- Custom styles for this template-->
-    <link href="/css/adminStyle/sb-admin-2.min.css" rel="stylesheet">
-    <!-- Custom styles for table -->
-    <link href="/vendor-admin/datatables/dataTables.bootstrap4.min.css"
-          rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/assets/css/list-account.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/account-infomatinon.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/ship-infomatinon.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/button17.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/button50.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/popup.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/orderShipStatus.css}">
+<!-- Custom styles for this template-->
+<link href="/css/adminStyle/sb-admin-2.min.css" rel="stylesheet">
+<!-- Custom styles for table -->
+<link href="/vendor-admin/datatables/dataTables.bootstrap4.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{/assets/css/list-account.css}">
+
+<link rel="stylesheet" th:href="@{/assets/css/ship-infomatinon.css}">
+<link rel="stylesheet" th:href="@{/assets/css/button17.css}">
+<link rel="stylesheet" th:href="@{/assets/css/button50.css}">
+<link rel="stylesheet" th:href="@{/assets/css/popup.css}">
+<link rel="stylesheet" th:href="@{/assets/css/orderShipStatus.css}">
 </head>
 
 <body id="page-top" ng-app="app" ng-controller="ctrl">
 
-<!-- Page Wrapper -->
-<div id="wrapper">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
 
-    <!-- Sidebar -->
-<!--    <ul th:replace="~{admin/index :: sidebar}"></ul>-->
-    <!-- End of Sidebar -->
-     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"
-        id="accordionSidebar">
+		<!-- Sidebar -->
+		<!--    <ul th:replace="~{admin/index :: sidebar}"></ul>-->
+		<!-- End of Sidebar -->
+		<!-- Sidebar -->
+		<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"
+			id="accordionSidebar">
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="/admin/products">
-            <img src="https://theme.hstatic.net/200000462939/1001112173/14/logo.png?v=264"
-                 style="width: 130px">
-        </a>
+			<!-- Sidebar - Brand -->
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="/admin/products"> <img
+				src="https://theme.hstatic.net/200000462939/1001112173/14/logo.png?v=264"
+				style="width: 130px">
+			</a>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Dashboard -->
-        
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link"
-                                href="/staff/account/detail"> <i class="fas fa-user"></i>
-            <span>Accounts</span></a>
-        </li>
-        
-        <li class="nav-item"><a class="nav-link"
-                                href="/admin/shipping"> <i class="fa-solid fa-truck-fast"></i>
-            <span>Shipping</span></a>
-        </li>
- 
-        <li class="nav-item"><a class="nav-link"
-                                href="/auth/logoff/success"> <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Log Out</span></a>
-        </li>
+			<!-- Nav Item - Dashboard -->
 
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-    </ul>
+			<!-- Nav Item - Dashboard -->
+			<li class="nav-item"><a class="nav-link"
+				href="/staff/account/detail"> <i class="fas fa-user"></i> <span>Accounts</span></a>
+			</li>
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column vh-100">
+			<li class="nav-item"><a class="nav-link" href="/admin/shipping">
+					<i class="fa-solid fa-truck-fast"></i> <span>Shipping</span>
+			</a></li>
 
-        <div class="table-list-acc">
-            <section class="table-header">
-                <h1>Shipping</h1>
-            </section>
-            <section class="table-body">
-                <table class="tbl-acc">
-                    <thead>
-                    <tr>
-                        <th>Order No.</th>
-                        <th>Order Id</th>
-                        <th>Phone number</th>
-                        <th>Name purchaser</th>
-                        <th>Address</th>
-                        <th>Status</th>
-                        <th>Detail</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="ship, iterStat : ${listShipping}"  th:if="${ship.orderStatus == 3}">
-                        <td>[[${iterStat.count}]]</td>
-                       <td>[[${ship.orderId}]]</td>
-                       <td>[[${ship.delivery_phone}]]</td>
-                       <td>[[${ship.account.surname}]] [[${ship.account.name}]] </td>
-                       <td>[[${ship.address}]]</td>
-                        <td class="table-order-body">
-                            	<span  th:switch="${ship.orderStatus}">
-	        					<span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="0">Hủy đơn</span>
-	        					<span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="1">Đang xác nhận</span>
-	       						<span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="2">Đã xác nhận</span>
-						        <span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="3">Đang giao</span>
-						        <span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="4">Đã giao</span>
-						        <span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="5">Trả hàng</span>
-						        <span th:class = "'orderstt stt' + ${ship.orderStatus}" th:case="*">Trạng thái không xác định</span>
-    						</span>
-                        </td>
-                        <td><a href="#" th:attr="ng-click=@{|shipDetail.getDetailShip('${ship.orderId}')|}"
-                                                     class="btn-detail">Xem chi tiết</a></td>
-                    </tr>
+			<li class="nav-item"><a class="nav-link"
+				href="/auth/logoff/success"> <i
+					class="fa-solid fa-right-from-bracket"></i> <span>Log Out</span></a></li>
 
-                    </tbody>
-                </table>
-            </section>
-        </div>
+			<!-- Sidebar Toggler (Sidebar) -->
+			<div class="text-center d-none d-md-inline">
+				<button class="rounded-circle border-0" id="sidebarToggle"></button>
+			</div>
+		</ul>
 
-    </div>
-    <!-- End of Content Wrapper -->
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column vh-100">
 
+			<div class="table-list-acc">
+				<section class="table-header">
+					<h1>Shipping</h1>
+				</section>
+				<section class="table-body">
+					<table class="tbl-acc">
+						<thead>
+							<tr>
+								<th>Order No.</th>
+								<th>Order Id</th>
+								<th>Phone number</th>
+								<th>Name purchaser</th>
+								<th>Address</th>
+								<th>Status</th>
+								<th>Detail</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="ship, iterStat : ${listShipping}"
+								th:if="${ship.orderStatus == 3}">
+								<td>[[${iterStat.count}]]</td>
+								<td>[[${ship.orderId}]]</td>
+								<td>[[${ship.delivery_phone}]]</td>
+								<td>[[${ship.account.surname}]] [[${ship.account.name}]]</td>
+								<td>[[${ship.address}]]</td>
+								<td class="table-order-body"><span
+									th:switch="${ship.orderStatus}"> <span
+										th:class="'orderstt stt' + ${ship.orderStatus}" th:case="0">Hủy
+											đơn</span> <span th:class="'orderstt stt' + ${ship.orderStatus}"
+										th:case="1">Đang xác nhận</span> <span
+										th:class="'orderstt stt' + ${ship.orderStatus}" th:case="2">Đã
+											xác nhận</span> <span
+										th:class="'orderstt stt' + ${ship.orderStatus}" th:case="3">Đang
+											giao</span> <span th:class="'orderstt stt' + ${ship.orderStatus}"
+										th:case="4">Đã giao</span> <span
+										th:class="'orderstt stt' + ${ship.orderStatus}" th:case="5">Trả
+											hàng</span> <span th:class="'orderstt stt' + ${ship.orderStatus}"
+										th:case="*">Trạng thái không xác định</span>
+								</span></td>
+								<td><a href="#"
+									th:attr="ng-click=@{|shipDetail.getDetailShip('${ship.orderId}')|}"
+									class="btn-detail">Xem chi tiết</a></td>
+							</tr>
 
-</div>
-<!-- End of Page Wrapper -->
+						</tbody>
+					</table>
+				</section>
+			</div>
 
+		</div>
+		<!-- End of Content Wrapper -->
 
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top"> <i
-        class="fas fa-angle-up"></i>
-</a>
+	</div>
+	<!-- End of Page Wrapper -->
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready
-                to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button"
-                        data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="/auth/logoff/success">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Acc detail form  -->
-<div th:fragment="infomation-account" class="container-acc-detail">
-    <form class="acc-detail shipping-detail"
-          ng-class="{ 'open-acc-detail': isOpenAccDetail }" id="acc-detail"
-          action="">
-<!--        <div class=" row col-12 mb-3">-->
-<!--            <div class="col">-->
-<!--                <label for="inputFirstName" class="form-label">First Name</label> <input disabled-->
-<!--                    ng-model="shipDetail.userData[0].account.surname" type="text"-->
-<!--                    class="form-control ip-apitalize" id="firstname">-->
-<!--            </div>-->
-<!--            <div class="col-6">-->
-<!--                <label for="inputLastName" class="form-label">Last Name</label> <input disabled-->
-<!--                    ng-model="shipDetail.userData[0].account.name" type="text"-->
-<!--                    class="form-control ip-apitalize" id="lastName"-->
-<!--                    placeholder="">-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class=" row col-12 mb-3">
-            <div class="col">
-                <label for="inputFirstName" class="form-label">Phone Number</label>
-                <i class="fa-solid fa-triangle-exclamation"
-                   ng-if=""></i> <input disabled type="text" ng-model="shipDetail.userData[0].delivery_phone" class="form-control" id="inputFirstName">
-            </div>
-            <div class="col-6">
-                <label for="inputLastName" class="form-label">Purchase</label> <i
-                    class="fa-solid fa-triangle-exclamation"
-                    ng-if=""></i>   <input disabled type="text" ng-value="shipDetail.userData[0].account.surname + ' ' + shipDetail.userData[0].account.name + ' ('+ shipDetail.userData[0].account.username + ')' " class="form-control" id="inputLastName" placeholder="">
 
-            </div>
-        </div>
-        <div class="col-12">
-                <label for="Address" class="form-label">Address</label>
-                <i class="fa-solid fa-triangle-exclamation"
-                   ng-if=""></i> <input disabled type="text" ng-model="shipDetail.userData[0].address" class="form-control" id="Address">
-        </div>
-        <div class="panel panel-primary mt-3">
-            <div class="panel-heading">ORDER LINES</div>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Photo</th>
-                    <th>Quantity</th>
-                    <th>Amount</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="orderDetail in shipDetail.userData[0].orderDetail">
-                        <td>{{ orderDetail.id }}</td>
-                        <!-- Thêm các trường khác tương ứng -->
-                        <td>{{ orderDetail.product.name }}</td>
-                        <td>{{ orderDetail.product.price | currency:'':0}} ₫</td>
-                        <td><img ng-src="{{ orderDetail.product.main_image }}" alt="Product Photo" style="max-width: 50px; max-height: 50px;"></td>
-                        <td>{{ orderDetail.quantity }}</td>
-                        <td>{{ orderDetail.subtotal | currency:'':0}} ₫</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="status-ship">
-            <div class="">
-                <label class="form-label">Status</label>
-                <i class="fa-solid fa-triangle-exclamation"
-                   ng-if=""></i>
-            </div>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
-            <div class="">
-                <div ng-switch="shipDetail.userData[0].orderStatus" class="table-order-body">
-                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="0">Hủy đơn</div>
-                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="1">Đang xác nhận</div>
-                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="2">Đã xác nhận</div>
-                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="3">Đang giao</div>
-                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="4">Đã giao</div>
-                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-when="5">Trả hàng</div>
-                    <div ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus" ng-switch-default>Trang thái không xác định</div>
-                </div>
-            </div>
-        </div>
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="/auth/logoff/success">Logout</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
-        <div class="row justify-content-center mt-4">
-        <label style="width: 175px;" class = "">Thay đổi trạng thái: </label>
-        	
-        	<div class="col-md-4">
-                <button type="button" class="btn btn-success btn-block" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 4)">Đã giao xong</button>
-            </div>
-            
-            <div class="col-md-4">
-                <button type="button" class="btn btn-danger btn-block" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 5)">Khách không nhận hàng</button>
-            </div>
-            
-<!--            <div class="col-md-4">-->
-<!--                <button class="btn btn-warning btn-block" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 5)">Khách yêu cầu trả hàng</button>-->
-<!--            </div>-->
-        </div>
+	<!-- Acc detail form  -->
+	<div th:fragment="infomation-account" class="container-acc-detail">
+		<form class="acc-detail shipping-detail"
+			ng-class="{ 'open-acc-detail': isOpenAccDetail }" id="acc-detail"
+			action="">
+			<!--        <div class=" row col-12 mb-3">-->
+			<!--            <div class="col">-->
+			<!--                <label for="inputFirstName" class="form-label">First Name</label> <input disabled-->
+			<!--                    ng-model="shipDetail.userData[0].account.surname" type="text"-->
+			<!--                    class="form-control ip-apitalize" id="firstname">-->
+			<!--            </div>-->
+			<!--            <div class="col-6">-->
+			<!--                <label for="inputLastName" class="form-label">Last Name</label> <input disabled-->
+			<!--                    ng-model="shipDetail.userData[0].account.name" type="text"-->
+			<!--                    class="form-control ip-apitalize" id="lastName"-->
+			<!--                    placeholder="">-->
+			<!--            </div>-->
+			<!--        </div>-->
+			<div class=" row col-12 mb-3">
+				<div class="col">
+					<label for="inputFirstName" class="form-label">Phone Number</label>
+					<i class="fa-solid fa-triangle-exclamation" ng-if=""></i> <input
+						disabled type="text"
+						ng-model="shipDetail.userData[0].delivery_phone"
+						class="form-control" id="inputFirstName">
+				</div>
+				<div class="col-6">
+					<label for="inputLastName" class="form-label">Purchase</label> <i
+						class="fa-solid fa-triangle-exclamation" ng-if=""></i> <input
+						disabled type="text"
+						ng-value="shipDetail.userData[0].account.surname + ' ' + shipDetail.userData[0].account.name + ' ('+ shipDetail.userData[0].account.username + ')' "
+						class="form-control" id="inputLastName" placeholder="">
 
-        <div class="ship-cancel">
+				</div>
+			</div>
+			<div class="col-12">
+				<label for="Address" class="form-label">Address</label> <i
+					class="fa-solid fa-triangle-exclamation" ng-if=""></i> <input
+					disabled type="text" ng-model="shipDetail.userData[0].address"
+					class="form-control" id="Address">
+			</div>
+			<div class="panel panel-primary mt-3 ">
+				<div class="panel-heading">ORDER LINES</div>
+				<div class="table-product-detail">
+					<table class="table table-product-detail-contain">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Price</th>
+								<th>Photo</th>
+								<th>Quantity</th>
+								<th>Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="orderDetail in shipDetail.userData[0].orderDetail">
+								<td>{{ orderDetail.id }}</td>
+								<!-- Thêm các trường khác tương ứng -->
+								<td>{{ orderDetail.product.name }}</td>
+								<td>{{ orderDetail.product.price | currency:'':0}} ₫</td>
+								<td><img ng-src="{{ orderDetail.product.main_image }}"
+									alt="Product Photo" style="max-width: 50px; max-height: 50px;"></td>
+								<td>{{ orderDetail.quantity }}</td>
+								<td>{{ orderDetail.subtotal | currency:'':0}} ₫</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="status-ship">
+				<div class="">
+					<label class="form-label">Status</label> <i
+						class="fa-solid fa-triangle-exclamation" ng-if=""></i>
+				</div>
 
-            <div class="button-row">
-                <button class="button-50 cancel-btn50" type="button"
-                        ng-click="shipDetail.reload()" role="button">Cancel</button>
-            </div>
-        </div>
+				<div class="">
+					<div ng-switch="shipDetail.userData[0].orderStatus"
+						class="table-order-body">
+						<div
+							ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus"
+							ng-switch-when="0">Hủy đơn</div>
+						<div
+							ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus"
+							ng-switch-when="1">Đang xác nhận</div>
+						<div
+							ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus"
+							ng-switch-when="2">Đã xác nhận</div>
+						<div
+							ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus"
+							ng-switch-when="3">Đang giao</div>
+						<div
+							ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus"
+							ng-switch-when="4">Đã giao</div>
+						<div
+							ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus"
+							ng-switch-when="5">Trả hàng</div>
+						<div
+							ng-class="'orderstt stt' + shipDetail.userData[0].orderStatus"
+							ng-switch-default>Trang thái không xác định</div>
+					</div>
+				</div>
+			</div>
 
-    </form>
-</div>
+			<div class="row justify-content-center mt-4">
+				<label style="width: 175px;" class="">Thay đổi trạng thái: </label>
 
-<div class="popup" ng-class="{ 'open-popup': isPopupOpen }">
-    <img th:src="@{/images/icons/tick.png}" alt="">
-    <h2>Success</h2>
-    <p>The change has been updated, please refresh the page to verify.</p>
-    <button type="button" ng-click="closePopup()">OK</button>
-</div>
+				<div class="col-md-4">
+					<button type="button" class="btn btn-success btn-block"
+						ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 4)">Đã
+						giao xong</button>
+				</div>
 
-<div class="popup-auth-update" ng-class="{ 'open-popup': isAuthPopupOpen }" id="popup">
-    <img th:src="@{/images/icons/question_mark_PNG55.png}" alt="">
-    <h2>Warning</h2>
-    <p>Are you sure about this operation?</p>
-    <div class="box-btn">
-        <button type="button" class="btn-alert-confirm"
-                ng-click = "accDetail.updateRoleUser()">OK</button>
-        <button type="button" class="btn-alert-cancel" ng-click = "AuthPopupClose()">Cancel</button>
-    </div>
+				<div class="col-md-4">
+					<button type="button" class="btn btn-danger btn-block"
+						ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 5)">Khách
+						không nhận hàng</button>
+				</div>
 
-</div>
+				<!--            <div class="col-md-4">-->
+				<!--                <button class="btn btn-warning btn-block" ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 5)">Khách yêu cầu trả hàng</button>-->
+				<!--            </div>-->
+			</div>
 
-<div class="popup-auth-update" ng-class="{ 'open-popup': isUpdatePopupOpen }" id="popup">
-    <img th:src="@{/images/icons/question_mark_PNG55.png}" alt="">
-    <h2>Warning</h2>
-    <p>Are you sure about this operation?</p>
-    <div class="box-btn">
-        <button type="button" class="btn-alert-confirm"
-                ng-click = "accDetail.updateDataAccount()">OK</button>
-        <button type="button" class="btn-alert-cancel" ng-click = "UpdatePopupClose()">Cancel</button>
-    </div>
+			<div class="ship-cancel">
 
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script
-        src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-<script th:src="@{/js/ship.js}"></script>
-<script th:src="@{/assets/js/popup.js}"></script>
+				<div class="button-row">
+					<button class="button-50 cancel-btn50" type="button"
+						ng-click="shipDetail.reload()" role="button">Cancel</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+	<div class="popup" ng-class="{ 'open-popup': isPopupOpen }">
+		<img th:src="@{/images/icons/tick.png}" alt="">
+		<h2>Success</h2>
+		<p>The change has been updated, please refresh the page to verify.</p>
+		<button type="button" ng-click="closePopup()">OK</button>
+	</div>
+
+	<div class="popup-auth-update"
+		ng-class="{ 'open-popup': isAuthPopupOpen }" id="popup">
+		<img th:src="@{/images/icons/question_mark_PNG55.png}" alt="">
+		<h2>Warning</h2>
+		<p>Are you sure about this operation?</p>
+		<div class="box-btn">
+			<button type="button" class="btn-alert-confirm"
+				ng-click="accDetail.updateRoleUser()">OK</button>
+			<button type="button" class="btn-alert-cancel"
+				ng-click="AuthPopupClose()">Cancel</button>
+		</div>
+
+	</div>
+
+	<div class="popup-auth-update"
+		ng-class="{ 'open-popup': isUpdatePopupOpen }" id="popup">
+		<img th:src="@{/images/icons/question_mark_PNG55.png}" alt="">
+		<h2>Warning</h2>
+		<p>Are you sure about this operation?</p>
+		<div class="box-btn">
+			<button type="button" class="btn-alert-confirm"
+				ng-click="accDetail.updateDataAccount()">OK</button>
+			<button type="button" class="btn-alert-cancel"
+				ng-click="UpdatePopupClose()">Cancel</button>
+		</div>
+
+	</div>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script th:src="@{/js/ship.js}"></script>
+	<script th:src="@{/assets/js/popup.js}"></script>
 
 </body>
 

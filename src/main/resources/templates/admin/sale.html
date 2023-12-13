@@ -34,11 +34,13 @@
     <link href="/vendor-admin/datatables/dataTables.bootstrap4.min.css"
           rel="stylesheet">
     <link rel="stylesheet" th:href="@{/assets/css/list-account.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/account-infomatinon.css}">
+    
     <link rel="stylesheet" th:href="@{/assets/css/button17.css}">
     <link rel="stylesheet" th:href="@{/assets/css/button50.css}">
     <link rel="stylesheet" th:href="@{/assets/css/popup.css}">
     <link rel="stylesheet" th:href="@{/assets/css/orderShipStatus.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/account-infomatinon.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/ship-infomatinon.css}">
 </head>
 
 <body id="page-top" ng-app="app" ng-controller="ctrl">
@@ -180,19 +182,6 @@
           action="">
         <div class=" row col-12 mb-3">
             <div class="col">
-                <label for="inputFirstName" class="form-label">First Name</label> <input disabled
-                    ng-model="saleDetail.saleData.account.surname" type="text"
-                    class="form-control ip-apitalize" id="firstname">
-            </div>
-            <div class="col-6">
-                <label for="inputLastName" class="form-label">Last Name</label> <input disabled
-                    ng-model="saleDetail.saleData.account.name" type="text"
-                    class="form-control ip-apitalize" id="lastName"
-                    placeholder="">
-            </div>
-        </div>
-        <div class=" row col-12 mb-3">
-            <div class="col">
                 <label for="inputFirstName" class="form-label">Phone Number</label>
                 <i class="fa-solid fa-triangle-exclamation"
                    ng-if=""></i> <input disabled type="text" ng-model="saleDetail.saleData.delivery_phone" class="form-control" id="inputFirstName">
@@ -200,7 +189,7 @@
             <div class="col-6">
                 <label for="inputLastName" class="form-label">Purchase</label> <i
                     class="fa-solid fa-triangle-exclamation"
-                    ng-if=""></i> <input disabled type="text" ng-model="saleDetail.saleData.account.username"  class="form-control" id="inputLastName" placeholder="">
+                    ng-if=""></i>   <input disabled type="text" ng-value="saleDetail.saleData.account.surname + ' ' + saleDetail.saleData.account.name + ' ('+ saleDetail.saleData.account.username + ')' " class="form-control" id="inputLastName" placeholder="">
             </div>
         </div>
         <div class="col-12">
@@ -208,6 +197,36 @@
                 <i class="fa-solid fa-triangle-exclamation"
                    ng-if=""></i> <input disabled type="text" ng-model="saleDetail.saleData.address" class="form-control" id="Address">
         </div>
+        
+        <div class="panel panel-primary mt-3">
+            <div class="panel-heading">ORDER LINES</div>
+            <div class="table-product-detail">
+            	<table class="table table-product-detail-contain">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Photo</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orderDetail in saleDetail.saleData.orderDetail">
+                        <td>{{ orderDetail.id }}</td>
+                        <!-- Thêm các trường khác tương ứng -->
+                        <td>{{ orderDetail.product.name }}</td>
+                        <td>{{ orderDetail.product.price | currency:'':0}} ₫</td>
+                        <td><img ng-src="{{ orderDetail.product.main_image }}" alt="Product Photo" style="max-width: 50px; max-height: 50px;"></td>
+                        <td>{{ orderDetail.quantity }}</td>
+                        <td>{{ orderDetail.subtotal | currency:'':0}} ₫</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        
         <div class="status-ship">
             <div class="">
                 <label class="form-label">Status</label>
@@ -244,7 +263,7 @@
 <!--            </div>-->
         </div>
 
-        <div class="button-account-detail ship-cancel">
+        <div class=" ship-cancel">
 
             <div class="button-row">
                 <button class="button-50 cancel-btn50" type="button"

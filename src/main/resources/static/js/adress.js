@@ -233,8 +233,6 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 				return false
 			}
 
-			
-
 			return true
 		},
 
@@ -245,7 +243,8 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 			/*console.log("address: ", $scope.order.address);*/
 			$scope.order.delivery_phone = $auth.phonenumber;
 			/*console.log(typeof $scope.order.delivery_phone);*/
-
+			var amountUrl = $cart.amount
+			$scope.order.totalAmount = amountUrl
 			var isValid = this.validatePurchase();
 
 			if (!isValid) {
@@ -259,7 +258,8 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 
 			/*console.log("Suscess")*/
 			var order = angular.copy(this);
-			/*console.log(order)*/
+			
+			/*console.log("Check total: " ,order)*/
 			// Thực hiện đặt hàng
 			$http.post("/rest/orders", order).then(resp => {
 

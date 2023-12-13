@@ -69,7 +69,9 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
             $http.get(`/rest/orders/ship/${id}`).then(resp => {
                 console.log(resp.data)
                 $scope.saleDetail.saleData = resp.data;
-                if($scope.saleDetail.saleData.orderStatus == 3 || $scope.saleDetail.saleData.orderStatus == 4){
+                if($scope.saleDetail.saleData.orderStatus == 3 
+                || $scope.saleDetail.saleData.orderStatus == 4
+                || $scope.saleDetail.saleData.orderStatus == 0 ){
 					$scope.statusDisabled = true;
 					 /*console.log("statusDisabled", $scope.statusDisabled)*/
 				}else{
