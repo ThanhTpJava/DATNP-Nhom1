@@ -9,9 +9,9 @@ app.run(function($http, $rootScope){
 			
 			const data = resp.data;
 			
-			/*console.log("$auth:", $auth);
-			console.log("Data: ", data);
-			console.log("$auth.token: ", $auth.token);*/
+			//console.log("$auth:", $auth);
+			//console.log("Data: ", data);
+			//console.log("$auth.token: ", $auth.token);
 			
 			cartGuest = []
 			var json = localStorage.getItem("cart_guest");
@@ -34,12 +34,13 @@ app.run(function($http, $rootScope){
 
                 if (existingItem) {
                     // Nếu có, tăng số lượng
-                    existingItem.quantity = (existingItem.quantity || 1) + 1;
+                   // console.log("exits quanty: ", itemGuest.qty)
+                    existingItem.qty = (existingItem.qty || 1) + itemGuest.qty;
                 } else {
                     // Nếu không, thêm mới vào cartUserMeger
                     cartUserMeger.push({
                         ...itemGuest,
-                        quantity: 1
+                        qty: 1
                     });
                 }
             });
