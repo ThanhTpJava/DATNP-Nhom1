@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -48,9 +49,9 @@ public class Order {
 	@Pattern(regexp = "^\\d{10}$", message = "Số điện thoại không hợp lệ")
 	private String  delivery_phone;
 	
-	@ManyToOne
-	@JoinColumn(name = "voucherId")
-	private Voucher voucher; // Trường này để lưu mã voucher áp dụng cho đơn hàng
+	@OneToOne
+	@JoinColumn(name = "voucher_code")
+	private Voucher voucherCode; // Trường này để lưu mã voucher áp dụng cho đơn hàng
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "order")
