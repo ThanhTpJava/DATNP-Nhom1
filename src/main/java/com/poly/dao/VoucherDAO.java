@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VoucherDAO extends JpaRepository<Voucher, Integer>{
-    @Query("SELECT v FROM Voucher v WHERE LOWER(v.code_voucher) LIKE %:code%")
-    Voucher getIdVoucher(@Param("code") String code);
+public interface VoucherDAO extends JpaRepository<Voucher, String>{
+//    @Query("SELECT v FROM Voucher v WHERE LOWER(v.code_voucher) LIKE %:code%")
+//    Voucher getIdVoucher(@Param("code") String code);
 
 }
