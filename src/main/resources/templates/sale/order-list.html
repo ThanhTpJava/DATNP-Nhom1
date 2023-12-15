@@ -1,10 +1,11 @@
+<meta charset="utf-8">
 <div th:fragment="order-list" id="content-wrapper" class="d-flex flex-column vh-100" >
 
     <span sec:authentication="name" id="user-name"></span>
 
     <div class="table-list-acc">
         <section class="table-header">
-            <h1>Danh sách hóa đơn</h1>
+            <h1>Danh sách đơn hàng</h1>
         </section>
         <section class="table-body">
             <table class="tbl-acc">
@@ -28,18 +29,13 @@
                         <td>[[${sale.address}]]</td>
                         <td class="table-order-body">
                             <span th:switch="${sale.orderStatus}">
-                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="0">Hủy đơn</span>
-                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="1">Đang xác
-                                    nhận</span>
-                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="2">Đã xác
-                                    nhận</span>
-                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="3">Đang
-                                    giao</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="0">Đơn hàng đã huỷ</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="1">Đang xác nhận</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="2">Đã xác nhận</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="3">Đang giao</span>
                                 <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="4">Đã giao</span>
-                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="5">Trả
-                                    hàng</span>
-                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="*">Trạng thái
-                                    không xác định</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="5">Trả hàng</span>
+                                <span th:class="'orderstt stt' + ${sale.orderStatus}" th:case="*">Trạng thái khác</span>
                             </span>
                         </td>
                         <td><a href="#" th:attr="ng-click=@{|saleDetail.getDetailSale('${sale.orderId}')|}"

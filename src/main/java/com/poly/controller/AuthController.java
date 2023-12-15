@@ -59,10 +59,10 @@ public class AuthController {
 		printAuthenticationInfo();
 		System.out.println("------------------------------------------------------------------");
         return switch (authService.getLoginAuthority()) {
-            case "ROLE_ADMIN" -> "redirect:/admin/products";
+            case "ROLE_ADMIN" -> "redirect:/admin/index";
             case "ROLE_USER" -> "redirect:/user/home";
-            case "ROLE_SALE" -> "redirect:/admin/sale";
-            case "ROLE_STOCK" -> "redirect:/admin/stock";
+            case "ROLE_SALE" -> "redirect:/sale/index";
+            case "ROLE_STOCK" -> "redirect:/stock/index";
 			case "ROLE_SHIP" -> "redirect:/admin/shipping";
             default -> "forward:/auth/login/form";
 //			default -> throw new IllegalStateException("Unexpected value: " + getLoginAuthority());

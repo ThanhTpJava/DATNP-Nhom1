@@ -12,9 +12,9 @@ public class SaleController {
 	@Autowired
     OrderService orderService;
 	
-	@RequestMapping("/admin/sale")
+	@RequestMapping("/sale/index")
 	public String saleOrder(Model model) {
 		 model.addAttribute("listSale",orderService.findAll());
-	     return "admin/sale";
+	     return "sale/index";
 	}
 }

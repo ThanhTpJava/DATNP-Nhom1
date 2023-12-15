@@ -44,8 +44,6 @@
 <link rel="stylesheet" th:href="@{/assets/css/button50.css}">
 <link rel="stylesheet" th:href="@{/assets/css/popup.css}">
 <link rel="stylesheet" th:href="@{/assets/css/orderShipStatus.css}">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 </head>
 
 <body id="page-top" ng-app="app" ng-controller="ctrl" class="row">
@@ -53,15 +51,15 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-
-		<ul th:fragment="sidebar"
+		
+		<ul th:fragment="sidebar-sale"
 			class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="/admin/products"> <img
+				href="/sale/index"> <img
 				src="https://theme.hstatic.net/200000462939/1001112173/14/logo.png?v=264"
 				style="width: 130px">
 			</a>
@@ -70,26 +68,36 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/stock/index">
+			<li class="nav-item"><a class="nav-link" href="/sale/index">
 					<i class="fas fa-home"></i> <span>Dashboard</span>
 			</a></li>
+			
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/stock/product">
-					<i class="fas fa-cubes"></i> <span>Products</span>
+			<li class="nav-item"><a class="nav-link" href="/sale/accounts">
+					<i class="fas fa-user"></i> <span>Accounts</span>
 			</a></li>
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/stock/category">
-					<i class="fas fa-user"></i> <span>Categories</span>
-			</a></li>
-			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/stock/order">
+			<li class="nav-item"><a class="nav-link" href="/sale/order">
 					<i class="fas fa-cog"></i> <span>Orders</span>
 			</a></li>
 
-			<li class="nav-item"><a class="nav-link"
-				href="/admin/productImage"> <i class="far fa-image"></i> <span>Product
-						Image</span></a></li>
+			<!-- Nav Item - Dashboard -->
+			<!--        <li sec:authorize="hasRole('ROLE_SHIP')"  class="nav-item"><a class="nav-link"-->
+			<!--                                href="/admin/shipping"> <i class="fas fa-fw fa-tachometer-alt"></i>-->
+			<!--            <span>Shipping</span></a>-->
+			<!--        </li>-->
 
+			<li class="nav-item"><a class="nav-link" href="/statistical">
+					<i class="fas fa-chart-bar"></i> <span>Statistical</span>
+			</a></li>
+
+			<!-- Nav Item - Dashboard -->
+			<li class="nav-item"><a class="nav-link" href="/blog">
+					<i class="fas fa-pencil-alt"></i> <span>Blog</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="/voucher">
+					<i class="fas fa-ticket-alt"></i> <span>Voucher</span>
+			</a></li>
 			<li class="nav-item"><a class="nav-link"
 				href="/auth/logoff/success"> <i
 					class="fa-solid fa-right-from-bracket"></i> <span>Log Out</span></a></li>
@@ -275,17 +283,15 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">{{$auth.user.username}}</span>
-								<img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small">{{$auth.user.username}}</span> <img class="img-profile rounded-circle"
 								src="img/undraw_profile.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="/staff/account/detail"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Thông
-									tin tài khoản
-								</a>
+									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Thông tin tài khoản
+								</a> 
 								<div class="dropdown-divider"></div>
 
 								<a ng-if="$auth.user.username == null" class="dropdown-item"
@@ -300,13 +306,13 @@
 
 				</nav>
 				<!-- End of Topbar -->
-				<nav class="navbar bg-white border-top border-bottom"></nav>
+				<nav class="navbar bg-white border-top border-bottom">
+					
+				</nav>
 
 				<!-- Begin Page Content -->
 				<div class="h-100">
-					<span th:text="${links}"></span>
-					<div th:if="${links == '/stock/product'}" th:replace="~{admin/products :: product}"></div>
-					<div th:if="${links == '/stock/order'}" th:replace="~{stock/order-list}"></div>
+					
 				</div>
 				<!-- End of Page Content -->
 			</div>
@@ -355,7 +361,7 @@
 	<script>
 		var sortingOrder = 'name';
 	</script>
-
+	<!--<script src="/js/adminJs/Input3date.js"></script>-->
 	<script src="/js/adminJs/broadband.js"></script>
 	<!-- Bootstrap core JavaScript-->
 	<script src="/vendor-admin/jquery/jquery.min.js"></script>
@@ -375,8 +381,13 @@
 	<script src="/js/adminJs/demo/chart-pie-demo.js"></script>
 	<script src="/js/highcharts.js"></script>
 	<script src="/jquery.js"></script>
-	<script src="/js/adminJs/crudProduct.js"></script>
+	
+	<!-- Page level plugins -->
+	<!--<script src="/vendor-admin/datatables/jquery.dataTables.min.js"></script>-->
+	<!--<script src="/vendor-admin/datatables/dataTables.bootstrap4.min.js"></script>-->
 
+	<!-- Page level custom scripts -->
+	<!--<script src="/js/adminJs/demo/datatables-demo.js"></script>-->
 </body>
 
 </html>

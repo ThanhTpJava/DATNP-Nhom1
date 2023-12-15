@@ -23,6 +23,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
     private final int pageSize = 20;
+    
     @GetMapping("/user/home")
     public String list(@RequestParam(defaultValue = "0") int page,Model model){
 
