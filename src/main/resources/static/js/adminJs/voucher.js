@@ -5,9 +5,17 @@ app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.items = []
 
     $scope.currentPage = 0;
-    $scope.pageSize = 10;
+    $scope.pageSize = 4;
     $scope.sortingOrder = sortingOrder;
     $scope.reverse = false;
+
+    $scope.isVoucherCodeExists = function(voucherCode) {
+        // Check if voucherCode exists in the list of items
+        return $scope.items.some(function(item) {
+            return item.voucherCode === voucherCode;
+        });
+    };
+
 
     $scope.numberOfPages = function () {
         return Math.ceil($scope.items.length / $scope.pageSize);
