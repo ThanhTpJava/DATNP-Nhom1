@@ -49,9 +49,8 @@ public class VoucherUserController {
     @PostMapping("/voucher/{code}")
     public String addVoucherToUser(@RequestParam("code") String voucherCode ){
         Account account = (Account) session.getAttribute("authentication");
-        Voucher voucher = voucherDAO.getIdVoucher(voucherCode);
+        Voucher voucher = voucherDAO.findById(voucherCode).get();
         System.out.println(voucherCode);
-        System.out.println(voucher.getName());
 
         VoucherAccount va = new VoucherAccount();
         va.setAccount(account);

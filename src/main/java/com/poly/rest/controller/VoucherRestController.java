@@ -19,7 +19,7 @@ public class VoucherRestController {
         return voucherService.getAll();
     }
     @GetMapping("{id}")
-    public Voucher getOne(@PathVariable("id") Integer id) {
+    public Voucher getOne(@PathVariable("id") String id) {
         return voucherService.findByID(id);
     }
     @PostMapping
@@ -28,11 +28,11 @@ public class VoucherRestController {
         return voucher;
     }
     @PutMapping("{id}")
-    public Voucher put(@PathVariable("id") Integer id, @RequestBody Voucher voucher) {
+    public Voucher put(@PathVariable("id") String id, @RequestBody Voucher voucher) {
         return voucherService.update(voucher);
     }
     @DeleteMapping("{id}")
-    public void delete(@PathVariable("id") Integer id) {
+    public void delete(@PathVariable("id") String id) {
         voucherService.delete(id);
     }
 
