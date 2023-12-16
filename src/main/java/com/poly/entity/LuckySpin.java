@@ -39,7 +39,4 @@ public class LuckySpin {
 	@JoinColumn(name = "voucher_code")
 	private Voucher voucherCode;
 
-	@Column(name= "status")
-	private boolean status;
-	
 }
