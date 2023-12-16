@@ -2,6 +2,7 @@ package com.poly.entity;
 
 import java.util.Date;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,10 +35,10 @@ public class VoucherOfUser {
 	@ManyToOne
 	@JoinColumn(name = "voucher_code")
 	Voucher voucherCode;
-	
+
 	@Column(name = "received_date")
 	Date received_Date;
-	
+
 	@Column(name = "status")
 	private boolean status;
 }

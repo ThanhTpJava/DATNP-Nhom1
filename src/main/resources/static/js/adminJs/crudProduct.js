@@ -110,6 +110,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             // item.available = item.quantity>0?'true':'false';
             $scope.items.push(item);
             $scope.load_all();
+            $scope.reset();
             console.log("Success", resp)
             alert("Create successfully!");
         }).catch(error => {

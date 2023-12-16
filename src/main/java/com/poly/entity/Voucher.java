@@ -1,5 +1,4 @@
 package com.poly.entity;
-
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "Voucher")
 public class Voucher {
-	
+
 	@Id
 	@Column(name = "voucher_code", columnDefinition = "NVARCHAR(150)")
 	private String voucherCode;
@@ -29,16 +28,16 @@ public class Voucher {
 
 	@Column(name ="description", columnDefinition = "NVARCHAR(200)")
 	public String description;
-	
+
 	@Column(name = "discount")
 	private Double discount; //giảm giá
-	
+
 	@Column(name = "quantity")
 	private int quantity;
-	
+
 	@Column(name = "total_requested")
 	private Double totalRequested; //tổng tiền hóa đơn yêu cầu
-	
+
 	@Column(name = "startDate")
 	private Date startDate;
 
@@ -50,14 +49,14 @@ public class Voucher {
 
 	@Column(name ="status")
 	public boolean status;
-	
+
 	@OneToOne(mappedBy = "voucherCode")
 	private LuckySpin luckySpin;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "voucherCode")
 	List<VoucherOfUser> listVoucherOfUsers;
-	
+
 	@OneToOne(mappedBy = "voucherCode")
 	private Order order;
 }

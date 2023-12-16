@@ -12,7 +12,10 @@
     <meta name="author" content="">
 
     <title>SB Admin - Dashboard</title>
-
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
             rel="stylesheet">
@@ -30,7 +33,13 @@
     <!-- Custom styles for table -->
     <link href="/vendor-admin/datatables/dataTables.bootstrap4.min.css"
           rel="stylesheet">
+<style>
+    .table-container {
+        overflow-x: auto; /* Add a horizontal scrollbar if needed */
+        max-width: 100%; /* Ensure the table doesn't exceed the container width */
+    }
 
+</style>
 </head>
 
 <body id="page-top" ng-app="app" ng-controller="ctrl">
@@ -44,37 +53,58 @@
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column vh-100">
-        <div class="container">
-            <h2>Quản lý hình ảnh sản phẩm</h2>
+        <div class="ms-5">
+            <h2>Quản lý Voucher</h2>
             <div class="row">
                 <div class="col-md-6">
                     <form name="myForm">
                         <div class="form-group">
-                            <label>ID Voucher:</label>
-                            <input readonly ng-model="form.id" type="text" class="form-control">
+                            <label>Code Voucher:</label>
+                            <input ng-model="form.voucherCode" type="text" class="form-control">
+                            <div ng-show="myForm.voucherCode.$error.required" style="color:red">ID Voucher là bắt buộc</div>
+                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <label>Name Voucher:</label>-->
+<!--                            <input ng-model="form.name" type="text" class="form-control" required>-->
+<!--                            <div ng-show="myForm.name.$touched && myForm.name.$error.required" style="color:red">ID Voucher là bắt buộc</div>-->
+<!--                        </div>-->
+                        <div class="form-group">
+                            <label>Giảm giá:</label>
+                            <input ng-model="form.discount" type="number" class="form-control">
+                            <div ng-show="myForm.discount.$error.required" style="color:red">ID Voucher là bắt buộc</div>
                         </div>
                         <div class="form-group">
-                            <label>Name Voucher:</label>
-                            <input ng-model="form.name" type="text" class="form-control" required>
-                            <div ng-show="myForm.name.$touched && myForm.name.$error.required" style="color:red">ID Voucher là bắt buộc</div>
+                            <label>Quantity:</label>
+                            <input ng-model="form.quantity" type="number" class="form-control">
+                            <div ng-show="myForm.quantity.$error.required" style="color:red">So luong Voucher là bắt buộc</div>
                         </div>
                         <div class="form-group">
-                            <label>Discount(%):</label>
-                            <input ng-model="form.discount" type="number" class="form-control" required>
-                            <div ng-show="myForm.discount.$touched && myForm.discount.$error.required" style="color:red">ID Voucher là bắt buộc</div>
+                            <label>Rate:</label>
+                            <input ng-model="form.rate" type="number" min="1" max="99" class="form-control">
+                            <div ng-show="myForm.rate.$error.required" style="color:red">Voucher là bắt buộc</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Requested:</label>
+                            <input ng-model="form.totalRequested" type="number" class="form-control">
+                            <div ng-show="myForm.totalRequested.$error.required" style="color:red">Voucher là bắt buộc</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Review:</label>
+                            <input ng-model="form.review" type="text" class="form-control">
+                            <div ng-show="myForm.review.$error.required" style="color:red">Voucher là bắt buộc</div>
                         </div>
                         <div class="form-group">
                             <label>Start Date:</label>
-                            <input ng-model="form.startDate" type="date" class="form-control" name="startDate" required>
-                            <div ng-show="myForm.startDate.$touched && myForm.startDate.$error.required" style="color:red">
+                            <input ng-model="form.startDate" type="date" class="form-control" name="startDate">
+                            <div ng-show=" myForm.startDate.$error.required" style="color:red">
                                 Start Date là bắt buộc
                             </div>
                         </div>
                         <div class="form-group">
                             <label>End Date:</label>
-                            <input ng-model="form.endDate" type="date" class="form-control" name="endDate" required
+                            <input ng-model="form.endDate" type="date" class="form-control" name="endDate"
                                    ng-change="validateEndDate()" min="{{form.startDate}}">
-                            <div ng-show="myForm.endDate.$touched && myForm.endDate.$error.required" style="color:red">
+                            <div ng-show=" myForm.endDate.$error.required" style="color:red">
                                 End Date là bắt buộc
                             </div>
                             <div ng-show="myForm.endDate.$error.dateError" style="color:red">
@@ -84,21 +114,16 @@
                         <div class="form-group">
                             <label>Voucher Description:</label>
                             <input ng-model="form.description" type="text" class="form-control" required>
-                            <div ng-show="myForm.description.$touched && myForm.description.$error.required" style="color:red">Thông tin Voucher là bắt buộc</div>
-                        </div>
-                        <div class="form-group">
-                            <label>Code Voucher:</label>
-                            <input ng-model="form.code_voucher" type="text" class="form-control" required>
-                            <div ng-show="myForm.code_voucher.$touched && myForm.code_voucher.$error.required" style="color:red">Code Voucher là bắt buộc</div>
+                            <div ng-show="myForm.description.$error.required" style="color:red">Thông tin Voucher là bắt buộc</div>
                         </div>
 
-                        <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid  || form.id != null">
+                        <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || isVoucherCodeExists(form.voucherCode)">
                             <i class="fas fa-plus"></i> Create
                         </button>
-                        <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid  || form.id == null">
+                        <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || !isVoucherCodeExists(form.voucherCode)">
                             <i class="fas fa-rotate"></i> Update
                         </button>
-                        <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="myForm.$invalid || form.id == null">
+                        <button ng-click="delete(form.voucherCode)" class="btn btn-danger" ng-disabled="myForm.$invalid || !isVoucherCodeExists(form.voucherCode)">
                             <i class="fas fa-solid fa-ban"></i> Delete
                         </button>
                         <button ng-click="reset()" class="btn btn-secondary">
@@ -111,39 +136,40 @@
                         <!--                            </div>-->
                     </form>
                 </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-6">
-                    <h4>Danh sách hình ảnh sản phẩm</h4>
+<!--            <br>-->
+
+                <div class="col-md-6 table-container">
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Tên voucher</th>
-                            <th>Giảm giá</th>
+                            <th>Mã code Voucher</th>
+                            <th>Tiền giảm</th>
+                            <th>Tỉ lệ</th>
+                            <th>Điều kiện</th>
+                            <th>Đơn hàng tối thiểu</th>
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
                             <th>Thông tin</th>
-                            <th>Mã code Voucher</th>
                             <th>Chỉnh sửa</th>
                         </tr>
                         </thead>
                         <tbody>
                         <!-- Thêm dòng cho mỗi hình ảnh sản phẩm ở đây -->
                         <tr ng-repeat="v in items | startFrom:currentPage*pageSize | limitTo:pageSize">
-                            <td>{{v.id}}</td>
-                            <td>{{v.name}}</td>
-                            <td>{{v.discount}}%</td>
+                            <td>{{v.voucherCode}}</td>
+                            <td>{{v.discount}} VNĐ</td>
+                            <td>{{v.rate}}%</td>
+                            <td>{{v.review}}</td>
+                            <td>{{v.totalRequested}}</td>
                             <td>{{v.startDate | date: 'dd/MM/yyyy'}}</td>
                             <td>{{v.endDate | date: 'dd/MM/yyyy'}}</td>
                             <td>{{v.description}}</td>
-                            <td>{{v.code_voucher}}</td>
+
 <!--                            <td>{{v.product.id}}</td>-->
 <!--                            <td>{{v.product.name}}</td>-->
                             <td>
-                                <button ng-click="detail(v.id)" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                                <button ng-click="delete(v.id)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                <button ng-click="detail(v.voucherCode)" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                <button ng-click="delete(v.voucherCode)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
 
@@ -168,8 +194,9 @@
                 </div>
             </div>
         </div>
-
     </div>
+</div>
+
     <!-- End of Content Wrapper -->
 
 </div>
