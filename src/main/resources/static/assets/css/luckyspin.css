@@ -2,8 +2,12 @@
 	--size-wheel: 30rem;
 }
 
+body{
+	font-family: Arial, Helvetica, sans-serif;
+}
 
 .luckyspin-container {
+	
    margin: 10px 0 25px 0;
 	overflow: hidden;
 	height: 100%;
@@ -31,7 +35,7 @@
 
 .msg {
 	min-height: 4rem;
-	font-family: Arial, Helvetica, sans-serif;
+	
 	margin-top: 1rem;
 	text-transform: capitalize;
 }
@@ -42,7 +46,7 @@
 	margin: 1rem 0;
 	width: var(--size-wheel);
 	height: var(--size-wheel);
-	border: 10px solid rgb(0, 12, 184);
+	border: 5px solid #005AF6;
 	border-radius: 50%;
 	list-style: none;
 	overflow: hidden;
@@ -92,7 +96,7 @@
 	border-radius: 50%;
 }
 
-.span-luckyspin > .wheel >li {
+.span-luckyspin > .wheel-class >li {
 	overflow: hidden;
 	position: absolute;
 	top: 0;
@@ -103,7 +107,7 @@
 }
 
 .text {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Tahoma", sans-serif;
 	position: absolute;
 	left: -100%;
 	width: 200%;

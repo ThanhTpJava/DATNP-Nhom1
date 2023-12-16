@@ -6,7 +6,8 @@
 <title>Product Detail</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <link th:href="@{/assets/css/shopping-cart-app.css}" rel="stylesheet" />
 <link th:href="@{/assets/css/luckyspin.css}" rel="stylesheet" />
 <!--===============================================================================================-->
@@ -50,10 +51,11 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<link rel="stylesheet" th:href="@{/assets/css/popup.css}">
 <!--===============================================================================================-->
 </head>
 
-<body class="animsition"  ng-app="app" ng-controller="cart-ctrl">
+<body class="animsition" ng-app="app" ng-controller="cart-ctrl">
 
 	<!-- Header -->
 	<header th:replace="user/index :: header"> </header>
@@ -67,15 +69,24 @@
 			<div class="turn-left">
 				<section class="main">
 					<span class="span-luckyspin">
-						<ul class="wheel" lucky-wheel list-gift="listGift"></ul>
+						<ul class="wheel-class" lucky-wheel list-gift="listGift"></ul>
 					</span>
-					<button ng-click="startSpin()" class="btn--wheel">Quay thưởng</button>
+					<th:block
+						sec:authorize="hasAnyRole('ROLE_ANONYMOUS')">
+						<button ng-click="navigateToNewURL()" class="btn--wheel">Quay
+						thưởng</button>
+					</th:block>
+					<th:block
+						sec:authorize="hasAnyRole('ROLE_USER')">
+						<button ng-click="startSpin()" class="btn--wheel">Quay
+						thưởng</button>
+					</th:block>
 				</section>
 				<h1 class="msg"></h1>
 			</div>
 
 			<div class="turn-right">
-				<div class = "reward-list">
+				<div class="reward-list">
 					<div class="box">
 						<h2>DANH SÁCH NHẬN THƯỞNG</h2>
 						<ul>
@@ -84,7 +95,12 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="popup" ng-class="{ 'open-popup2': isPopupOpenVer2 }">
+				<img ng-src="{{ iconUrlPopup }}" alt="">
+				<h2 ng-bind="PopupTitle"></h2>
+				<p ng-bind="PopupMessage"></p>
+				<button type="button" ng-click="closePopupVer2()">OK</button>
+			</div>
 		</div>
 	</main>
 
