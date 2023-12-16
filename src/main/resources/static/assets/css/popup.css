@@ -50,6 +50,17 @@
 	transform: translate(-50%, -50%) scale(1);
 }
 
+.open-popup2 {
+	visibility: visible;
+	top: 50%;
+	transform: translate(-50%, -50%) scale(1);
+	border: 1px solid black; 
+}
+
+.open-popup2 > p{
+	font-size: 17px;
+}
+
 .popup img, .popup-auth-update img {
 	width: 100px;
 	margin-top: -50px;
