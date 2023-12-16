@@ -97,7 +97,7 @@
                         </thead>
                         <tbody>
                         <!-- Thêm dòng cho mỗi hình ảnh sản phẩm ở đây -->
-                        <tr ng-repeat="v in items | startFrom:currentPage*pageSize | limitTo:pageSize">
+                        <tr ng-repeat="v in items | startFrom:currentPage*pageSize | limitTo:pageSize " ng-if="v.status === true">
                             <td>{{v.voucherCode}}</td>
                             <td>{{v.discount}} VNĐ</td>
                             <td>{{v.rate}}%</td>

@@ -132,6 +132,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             // $scope.items[index].available = item[index].quantity>0?'true':'false';
             alert("Update successfully!");
         }).catch(error => {
+            alert("Please delete the lucky spin voucher to update!");
             console.log("Error", error)
         });
     }
@@ -146,6 +147,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
                 console.log("Success", resp)
                 alert("Delete successfully!");
             }).catch(error => {
+                alert("Please delete the lucky spin voucher to update!");
                 console.log("Error", error)
             });
         }
@@ -242,11 +244,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
 
     $scope.IsStatus = function() {
         // Assuming $scope.spins contains the list of vouchers
-        if (!$scope.spins || $scope.spins.length < 4 || $scope.spins.length > 10) {
-            // If the number of vouchers is not in the range [4, 10]
-            console.log("ok")
-            return false;
-        }
+
 
         $scope.totalRate = $scope.spins.reduce(function(sum, spin) {
             return sum + (spin.rate || 0);
@@ -259,6 +257,12 @@ app.controller("ctrl", function ($scope, $http, $filter) {
 
         // Check if the total percentage is exactly 100%
         return totalRate === 100;
+
+        if (!$scope.spins || $scope.spins.length < 4 || $scope.spins.length > 10) {
+            // If the number of vouchers is not in the range [4, 10]
+            console.log("ok")
+            return false;
+        }
     };
 
     $scope.totalRate = $scope.spins.reduce(function(sum, spin) {
