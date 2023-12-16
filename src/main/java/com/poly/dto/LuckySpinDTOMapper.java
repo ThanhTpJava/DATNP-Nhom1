@@ -13,8 +13,9 @@ public class LuckySpinDTOMapper implements Function<LuckySpin, LuckySpinDTO>{
 	public LuckySpinDTO apply(LuckySpin ls) {
 		// TODO Auto-generated method stub
 		return new LuckySpinDTO(
+				ls.getId(),
 				ls.getVoucherCode().getVoucherCode(), 
-				ls.getVoucherCode().getReview(), 
+				ls.getVoucherCode().getReview(),
 				ls.getVoucherCode().getDescription(),
 				ls.getVoucherCode().getRate()	
 			);

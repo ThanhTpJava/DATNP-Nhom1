@@ -53,53 +53,46 @@
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column vh-100">
-        <div class=" table-container mt-2 ml-5">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Mã Voucher</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- Thêm dòng cho mỗi hình ảnh sản phẩm ở đây -->
-                <tr ng-repeat="v in items | startFrom:currentPage*pageSize | limitTo:pageSize">
-                    <td>{{v.voucherCode}}</td>
-                    <td>
-                        <button ng-click="delete(v.voucherCode)" class="btn btn-danger">Xóa khỏi vòng quay</button>
-                    </td>
-                </tr>
+        <div class="row ms-5 mt-5 table-container">
+            <div class="col-6">
+                <h2>Danh sách vòng quay</h2>
+                <table class="table col-10">
+                    <thead>
+                    <tr>
+                        <th>Number Spin</th>
+                        <th>Mã Voucher</th>
+                        <th>Tỉ lệ</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Thêm dòng cho mỗi hình ảnh sản phẩm ở đây -->
+                    <tr ng-repeat="s in spins">
+                        <td>{{$index + 1}}</td>
+                        <td>{{s.voucher_code}}</td>
+                        <td>{{s.rate}}%</td>
+                        <td>
+                            <button ng-click="deleteSpin(s.id)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
 
-                <!-- Kết thúc danh sách -->
-                </tbody>
-            </table>
-            <nav aria-label="Page navigation example" class="d-flex mt-3 justify-content-center">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#" ng-disabled="currentPage == 0"
-                                             ng-click="currentPage=currentPage-1">Previous</a></li>
-                    <li ng-repeat="n in range(numberOfPages())" ng-if="n >= currentPage - 1 && n <= currentPage + 2" class="page-item"
-                        ng-class="{active: n == currentPage}"
-                        ng-click="setPage()">
-                        <a class="page-link" href ng-bind="n + 1"></a>
-                        <span ng-if="n == currentPage" class="sr-only">(current)</span>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#"
-                                             ng-disabled="currentPage >= items.length/pageSize - 1"
-                                             ng-click="currentPage=currentPage+1">Next</a></li>
-                </ul>
-            </nav>
-        </div>
+                    <!-- Kết thúc danh sách -->
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="ms-5 mt-5">
-            <h2>Danh sách Voucher</h2>
-                <div class=" table-container">
+            <div class="col-6">
+                <h2>Danh sách Voucher</h2>
+                <div>
                     <table class="table">
                         <thead>
                         <tr>
                             <th>Mã Voucher</th>
                             <th>Tiền giảm</th>
                             <th>Tỉ lệ</th>
-                            <th></th>
+                            <th>Đơn hàng tối thiểu</th>
+                            <th>Thông tin</th>
+                            <th>Hành động</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -107,10 +100,11 @@
                         <tr ng-repeat="v in items | startFrom:currentPage*pageSize | limitTo:pageSize">
                             <td>{{v.voucherCode}}</td>
                             <td>{{v.discount}} VNĐ</td>
-                            <td>{{v.rate}}%<td>
+                            <td>{{v.rate}}%</td>
+                            <td>{{v.totalRequested}}</td>
+                            <td>{{v.review}}</td>
                             <td>
-                                <button ng-click="detail(v.voucherCode)" class="btn btn-success">Thêm vào vòng quay</button>
-                                <button ng-click="delete(v.voucherCode)" class="btn btn-danger">Xóa khỏi vòng quay</button>
+                                <button ng-click="createSpin(v.voucherCode)" class="btn btn-success"><i class="fa-sharp fa-solid fa-plus"></i></button>
                             </td>
                         </tr>
 
@@ -133,7 +127,15 @@
                         </ul>
                     </nav>
                 </div>
+
+                <h5>Tổng tỉ lệ trong vòng quay: {{totalRate}}</h5>
+                <h5>Tổng số voucher trong quay: {{getCountVoucher}}</h5>
+                <h5>Trạng thái vòng quay: {{statusSpinNow ?'Hợp lệ':'Không hợp lệ'}}</h5>
             </div>
+        </div>
+
+
+
         </div>
     </div>
 

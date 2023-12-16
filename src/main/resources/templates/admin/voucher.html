@@ -56,7 +56,7 @@
         <div class="ms-5">
             <h2>Quản lý Voucher</h2>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <form name="myForm">
                         <div class="form-group">
                             <label>Code Voucher:</label>
@@ -70,28 +70,39 @@
 <!--                        </div>-->
                         <div class="form-group">
                             <label>Giảm giá:</label>
-                            <input ng-model="form.discount" type="number" class="form-control">
+                            <input step="10000" min="0"  ng-model="form.discount" type="number" class="form-control">
                             <div ng-show="myForm.discount.$error.required" style="color:red">ID Voucher là bắt buộc</div>
                         </div>
                         <div class="form-group">
                             <label>Quantity:</label>
-                            <input ng-model="form.quantity" type="number" class="form-control">
+                            <input ng-model="form.quantity" min="0" type="number" class="form-control">
                             <div ng-show="myForm.quantity.$error.required" style="color:red">So luong Voucher là bắt buộc</div>
                         </div>
                         <div class="form-group">
                             <label>Rate:</label>
-                            <input ng-model="form.rate" type="number" min="1" max="99" class="form-control">
+                            <input step="5" ng-model="form.rate" type="number" min="1" max="99" class="form-control">
                             <div ng-show="myForm.rate.$error.required" style="color:red">Voucher là bắt buộc</div>
                         </div>
                         <div class="form-group">
                             <label>Total Requested:</label>
-                            <input ng-model="form.totalRequested" type="number" class="form-control">
+                            <input step="10000" ng-model="form.totalRequested" type="number" class="form-control">
                             <div ng-show="myForm.totalRequested.$error.required" style="color:red">Voucher là bắt buộc</div>
                         </div>
                         <div class="form-group">
                             <label>Review:</label>
                             <input ng-model="form.review" type="text" class="form-control">
                             <div ng-show="myForm.review.$error.required" style="color:red">Voucher là bắt buộc</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div>
+                                <label class="radio-inline mr-3">
+                                    <input name="status" type="radio" ng-model="form.status" ng-value="true"> Enable
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="status" type="radio" ng-model="form.status" checked="checked" ng-value="false"> Disable
+                                </label>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Start Date:</label>
@@ -120,10 +131,10 @@
                         <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || isVoucherCodeExists(form.voucherCode)">
                             <i class="fas fa-plus"></i> Create
                         </button>
-                        <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || !isVoucherCodeExists(form.voucherCode)">
+                        <button ng-click="update()" class="btn btn-warning" ng-disabled=" !isVoucherCodeExists(form.voucherCode)">
                             <i class="fas fa-rotate"></i> Update
                         </button>
-                        <button ng-click="delete(form.voucherCode)" class="btn btn-danger" ng-disabled="myForm.$invalid || !isVoucherCodeExists(form.voucherCode)">
+                        <button ng-click="delete(form.voucherCode)" class="btn btn-danger" ng-disabled=" !isVoucherCodeExists(form.voucherCode)">
                             <i class="fas fa-solid fa-ban"></i> Delete
                         </button>
                         <button ng-click="reset()" class="btn btn-secondary">
@@ -138,13 +149,14 @@
                 </div>
 <!--            <br>-->
 
-                <div class="col-md-6 table-container">
+                <div class="col-md-9 table-container">
                     <table class="table">
                         <thead>
                         <tr>
                             <th>Mã code Voucher</th>
                             <th>Tiền giảm</th>
                             <th>Tỉ lệ</th>
+                            <th>Trạng thái</th>
                             <th>Điều kiện</th>
                             <th>Đơn hàng tối thiểu</th>
                             <th>Ngày bắt đầu</th>
@@ -159,6 +171,7 @@
                             <td>{{v.voucherCode}}</td>
                             <td>{{v.discount}} VNĐ</td>
                             <td>{{v.rate}}%</td>
+                            <td>{{v.status ?'Enable':'Disable'}}</td>
                             <td>{{v.review}}</td>
                             <td>{{v.totalRequested}}</td>
                             <td>{{v.startDate | date: 'dd/MM/yyyy'}}</td>

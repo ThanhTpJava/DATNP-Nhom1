@@ -259,10 +259,10 @@
                     <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id > 0" >
                         <i class="fas fa-plus"></i> Create
                     </button>
-                    <button ng-click="update()" class="btn btn-warning" ng-disabled="myForm.$invalid || form.id == null">
+                    <button ng-click="update()" class="btn btn-warning" ng-disabled="form.id == null">
                         <i class="fas fa-rotate"></i> Update
                     </button>
-                    <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="myForm.$invalid || form.id == null">
+                    <button ng-click="delete(form.id)" class="btn btn-danger" ng-disabled="form.id == null">
                         <i class="fas fa-solid fa-ban"></i> Delete
                     </button>
                     <button ng-click="reset()" class="btn btn-secondary">

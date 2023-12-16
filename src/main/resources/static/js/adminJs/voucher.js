@@ -3,6 +3,7 @@ const app = angular.module("app", []);
 app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.form = {}
     $scope.items = []
+    $scope.spins = []
 
     $scope.currentPage = 0;
     $scope.pageSize = 4;
@@ -104,6 +105,8 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         })
     }
 
+
+
     $scope.create = function () {
         var item = angular.copy($scope.form);
         var url = `${host}/voucher`;
@@ -157,29 +160,62 @@ app.controller("ctrl", function ($scope, $http, $filter) {
     };
 
 //Lucky Spin
-    $scope.createSpin = function () {
-        var item = angular.copy($scope.form);
-        var url = `${host}/voucher`;
-        $http.post(url, item).then(resp => {
-            // item.available = item.quantity>0?'true':'false';
-            $scope.items.push(item);
-            $scope.load_all();
-            $scope.reset();
+
+
+    $scope.load_allSpin = function () {
+        var url = `${host}/luckySpin/getAll`;
+        $http.get(url).then(resp => {
+            $scope.spins = resp.data;
+            $scope.IsStatus();
+            if($scope.IsStatus() === true){
+                console.log("true");
+                var url = `${host}/statusSpin/true`;
+                $http.put(url).then(resp => {
+                    $scope.statusSpinNow = true;
+                    console.log(resp.data);
+                });
+            }
+            else {
+                var url = `${host}/statusSpin/false`;
+                $http.put(url).then(resp => {
+                    $scope.statusSpinNow = false;
+                    console.log(resp.data);
+                });
+                console.log("false")
+            }
+            $scope.getCountVoucher= $scope.spins.length;
+
             console.log("Success", resp)
-            alert("Create successfully!");
         }).catch(error => {
             console.log("Error", error)
         })
+
     }
+
+    $scope.createSpin = function (voucherCode) {
+        var spin = { voucherCode: voucherCode }; // Include other properties if needed
+        var url = `${host}/luckySpin/${voucherCode}`;
+        $http.post(url, spin).then(resp => {
+            $scope.spins.push(spin);
+            $scope.load_allSpin();
+            $scope.reset();
+            console.log("Success", resp);
+            alert("Create successfully!");
+        }).catch(error => {
+            alert('Duplicate documents cannot be added')
+            console.log("Error", error);
+        });
+    };
+
 
 
     $scope.updateSpin = function () {
-        var item = angular.copy($scope.form);
-        var url = `${host}/voucher/${$scope.form.id}`;
+        var spin = angular.copy($scope.form);
+        var url = `${host}/luckySpin/${$scope.form.id}`;
         $http.put(url, item).then(resp => {
-            var index = $scope.items.findIndex(item => item.id == $scope.form.id);
-            $scope.items[index] = resp.data;
-            $scope.load_all();
+            var index = $scope.spins.findIndex(item => spin.id == $scope.form.id);
+            $scope.spins[index] = resp.data;
+            $scope.load_allSpin();
             // $scope.items[index].available = item[index].quantity>0?'true':'false';
             alert("Update successfully!");
         }).catch(error => {
@@ -188,12 +224,14 @@ app.controller("ctrl", function ($scope, $http, $filter) {
     }
 
     $scope.deleteSpin = function (id) {
+        console.log("Deleting spin with id:", id);
+
         if (confirm("THIS ACTION CAN'T UNDO!\nAre you sure to delete this product?") == true) {
-            var url = `${host}/voucher/${id}`;
+            var url = `${host}/luckySpin/${id}`;
             $http.delete(url).then(resp => {
-                var index = $scope.items.findIndex(item => item.id == $scope.form.id);
-                $scope.items.splice(index, 1);
-                $scope.load_all();
+                // var index = $scope.items.findIndex(spin => spins.id == $scope.form.id);
+                // $scope.spins.splice(index, 1);
+                $scope.load_allSpin();
                 console.log("Success", resp)
                 alert("Delete successfully!");
             }).catch(error => {
@@ -202,9 +240,37 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         }
     }
 
+    $scope.IsStatus = function() {
+        // Assuming $scope.spins contains the list of vouchers
+        if (!$scope.spins || $scope.spins.length < 4 || $scope.spins.length > 10) {
+            // If the number of vouchers is not in the range [4, 10]
+            console.log("ok")
+            return false;
+        }
+
+        $scope.totalRate = $scope.spins.reduce(function(sum, spin) {
+            return sum + (spin.rate || 0);
+        }, 0);
+
+        // Calculate the total percentage of vouchers
+        var totalRate = $scope.spins.reduce(function(sum, spin) {
+            return sum + (spin.rate || 0);
+        }, 0);
+
+        // Check if the total percentage is exactly 100%
+        return totalRate === 100;
+    };
+
+    $scope.totalRate = $scope.spins.reduce(function(sum, spin) {
+        return sum + (spin.rate || 0);
+    }, 0);
+
+
+
 
     //load data to table
     $scope.load_all();
+    $scope.load_allSpin();
     $scope.reset();
 
 });

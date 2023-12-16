@@ -2,8 +2,10 @@ package com.poly.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,9 +32,14 @@ public class LuckySpin {
 	@Column(name = "id")
 	Integer id;
 
-	@JsonIgnore
+//	@JsonIgnore
+//	@JsonManagedReference
 	@OneToOne
+	@JsonBackReference
 	@JoinColumn(name = "voucher_code")
 	private Voucher voucherCode;
+
+	@Column(name= "status")
+	private boolean status;
 	
 }
