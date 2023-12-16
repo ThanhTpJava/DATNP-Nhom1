@@ -1,6 +1,6 @@
 package com.poly.service.impl;
 
-import com.poly.dao.LuckySpinDao;
+import com.poly.dao.LuckySpinDAO;
 import com.poly.entity.BlogPost;
 import com.poly.entity.LuckySpin;
 import com.poly.service.LuckSpinService;
@@ -13,7 +13,7 @@ import java.util.List;
 public class LuckSpinServiceImpl implements LuckSpinService {
 
     @Autowired
-    LuckySpinDao dao;
+    LuckySpinDAO dao;
 
     @Override
     public List<LuckySpin> luckySpinGetAll() {
