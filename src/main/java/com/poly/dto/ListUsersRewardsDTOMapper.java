@@ -2,8 +2,11 @@ package com.poly.dto;
 
 import java.util.function.Function;
 
+import org.springframework.stereotype.Component;
+
 import com.poly.entity.VoucherOfUser;
 
+@Component
 public class ListUsersRewardsDTOMapper implements Function<VoucherOfUser, ListUsersRewardsDTO>{
 
 	@Override
@@ -14,7 +17,7 @@ public class ListUsersRewardsDTOMapper implements Function<VoucherOfUser, ListUs
 				vcus.getUsername().getSurname(),
 				vcus.getUsername().getName(),
 				vcus.getVoucherCode().getReview(),
-				vcus.getReceived_Date());
+				vcus.getReceivedDate());
 	}
 
 }

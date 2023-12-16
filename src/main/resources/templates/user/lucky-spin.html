@@ -9,6 +9,10 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 <link th:href="@{/assets/css/shopping-cart-app.css}" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+	integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link th:href="@{/assets/css/luckyspin.css}" rel="stylesheet" />
 <!--===============================================================================================-->
 <link rel="icon" type="image/png" th:href="@{/images/icons/favicon.png}" />
@@ -71,15 +75,13 @@
 					<span class="span-luckyspin">
 						<ul class="wheel-class" lucky-wheel list-gift="listGift"></ul>
 					</span>
-					<th:block
-						sec:authorize="hasAnyRole('ROLE_ANONYMOUS')">
+					<th:block sec:authorize="hasAnyRole('ROLE_ANONYMOUS')">
 						<button ng-click="navigateToNewURL()" class="btn--wheel">Quay
-						thưởng</button>
+							thưởng</button>
 					</th:block>
-					<th:block
-						sec:authorize="hasAnyRole('ROLE_USER')">
+					<th:block sec:authorize="hasAnyRole('ROLE_USER')">
 						<button ng-click="startSpin()" class="btn--wheel">Quay
-						thưởng</button>
+							thưởng</button>
 					</th:block>
 				</section>
 				<h1 class="msg"></h1>
@@ -90,10 +92,21 @@
 					<div class="box">
 						<h2>DANH SÁCH NHẬN THƯỞNG</h2>
 						<ul>
-							<li><span>1</span> List Item One</li>
+							<li th:each="userReward, index : ${listUsersRewards}"> <!-- Hiển thị số thứ tự -->
+								 <strong th:text="${userReward.subName}"></strong> 
+								 <strong th:text="${userReward.name}"></strong>
+								 đã nhận được voucher <strong th:text="${userReward.review}"></strong> 
+								 vào ngày <strong th:text="${#dates.format(userReward.receivedDate, 'dd-MM-yyyy')}"></strong><!-- Hiển thị tên thưởng (thay thế bằng trường tương ứng) -->
+							</li>
 						</ul>
 					</div>
 				</div>
+				
+				<div class = "rules">
+					<span class="spinCountofUser">Bạn đang có <strong>?</strong> lượt quay</span>
+					<button ng-click="rulesOpen()" class = "rulesbutton"><i class="fa-solid fa-question"></i> Giới thiệu và thể lệ</button>
+				</div>
+				
 			</div>
 			<div class="popup" ng-class="{ 'open-popup2': isPopupOpenVer2 }">
 				<img ng-src="{{ iconUrlPopup }}" alt="">
@@ -101,6 +114,21 @@
 				<p ng-bind="PopupMessage"></p>
 				<button type="button" ng-click="closePopupVer2()">OK</button>
 			</div>
+			
+			<div class="popup" ng-class="{ 'open-rules': isRulesOpen }">
+				<img ng-src="/images/icons/question_mark_PNG55.png" alt="">
+				<h2>Giới thiệu và thể lệ</h2>
+				<strong>Giới thiệu</strong>
+				<p>Vòng quay may mắn là nơi bạn có thể dùng những lượt quay của mình để có cơ hội nhận được những Voucher hấp dẫn.</p>
+				<strong>Thể lệ</strong>
+				<p>Với mỗi 200.000đ của hóa đơn mà bạn đã nhận hàng thành công, bạn sẽ được nhận một lượt quay vòng quay may mắn
+					<br> Ví dụ : <br>&emsp;&emsp;&emsp;&emsp;Với một hóa đơn 250.000đ bạn sẽ nhận được 1 lượt quay
+					<br>&emsp;&emsp;&emsp;&emsp;Với một hóa đơn 400.000đ, bạn sẽ được nhận 2 lượt quay
+					<br>&emsp;&emsp;&emsp;&emsp;Với một hóa đơn 600.000đ, bạn sẽ được nhận 3 lượt quay
+				</p>
+				<button type="button" ng-click="rulesClose()">OK</button>
+			</div>
+			
 		</div>
 	</main>
 

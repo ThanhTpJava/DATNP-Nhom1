@@ -27,7 +27,36 @@ body{
     justify-content: center;
 }
 
-    * {
+.turn-right {
+    flex-direction: column;
+}
+
+.turn-right .rules{
+	width: 80%;
+	margin-top: 5%;
+	display: flex;  /* Sử dụng Flexbox để các phần tử con nằm ngang */
+    justify-content: space-between;  /* Cách ra hai bên */
+    align-items: center;  /* Canh giữa theo chiều dọc */
+}
+
+.turn-right .rules .spinCountofUser{
+	font-size: 30px;
+}
+
+.turn-right .rulesbutton{
+	border: 1px solid black;
+	
+	padding: 10px 20px;
+	border-radius: 10px;
+	background-color: #c0c0c0;
+}
+
+.turn-right .rulesbutton:hover{
+	
+	background-color: #00ffff;
+}
+
+* {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -162,7 +191,7 @@ body{
 
 
 .reward-list {
-   max-height: 500px;
+   max-height: 450px;
     overflow-y: auto;
     overflow-x: hidden
 }

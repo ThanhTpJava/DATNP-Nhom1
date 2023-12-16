@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.poly.dao.VoucherOfUserDAO;
 import com.poly.dto.ListUsersRewardsDTO;
@@ -16,6 +17,7 @@ import com.poly.service.AccountService;
 import com.poly.service.VoucherOfUserService;
 import com.poly.service.VoucherService;
 
+@Service
 public class VoucherOrUserServiceImpl implements VoucherOfUserService{
 	
 	@Autowired
@@ -32,7 +34,8 @@ public class VoucherOrUserServiceImpl implements VoucherOfUserService{
 	@Override
 	public List<ListUsersRewardsDTO> getListUsersRewards() {
 		// TODO Auto-generated method stub
-		return voucherOfUserDAO.findAll().stream().map(listUsersRewardsDTOMapper).collect(Collectors.toList());
+		return voucherOfUserDAO.findAllListVoucherOrUserReceivedDateDesc()
+				.stream().map(listUsersRewardsDTOMapper).collect(Collectors.toList());
 	}
 
 	@Override
@@ -44,7 +47,7 @@ public class VoucherOrUserServiceImpl implements VoucherOfUserService{
 		VoucherOfUser vcus = new VoucherOfUser();
 		vcus.setUsername(acc);
 		vcus.setVoucherCode(voucher);
-		vcus.setReceived_Date(receivedDate);
+		vcus.setReceivedDate(receivedDate);
 		vcus.setStatus(status);
 		
 		voucherOfUserDAO.save(vcus);

@@ -155,6 +155,7 @@ public class AccountRestController {
 		System.out.println("otp: " + OTP);
 		System.out.println("new pass: " + newPassword);
 		System.out.println("username: " + username);
+		
 		HttpSession session = request.getSession();
 		String storedOtp = (String) session.getAttribute("otp");
 		if (storedOtp != null && storedOtp.equals(OTP)) {

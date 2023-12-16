@@ -57,8 +57,28 @@
 	border: 1px solid black; 
 }
 
+.open-rules {
+	visibility: visible;
+	top: 57%;
+	transform: translate(-50%, -50%) scale(1);
+	border: 1px solid black; 
+	width: 700px;
+	height: 450px;
+	text-align: center;
+}
+
 .open-popup2 > p{
 	font-size: 17px;
+}
+
+.open-rules p{
+	font-size: 16px;
+	text-align: left;
+}
+
+.open-rules button{
+	width: 50%;
+	margin-top: 20px;
 }
 
 .popup img, .popup-auth-update img {
@@ -144,4 +164,9 @@
 .btn-disabled-changeStatus{
 	pointer-events: none;
     opacity: 0.5; /* hoặc một giá trị khác để làm mờ nút */
+}
+
+.open-rules button{
+	width: 50%;
+	margin-top: 20px;
 }
