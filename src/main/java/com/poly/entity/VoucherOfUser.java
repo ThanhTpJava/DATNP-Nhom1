@@ -37,7 +37,7 @@ public class VoucherOfUser {
 	Voucher voucherCode;
 
 	@Column(name = "received_date")
-	Date received_Date;
+	Date receivedDate;
 
 	@Column(name = "status")
 	private boolean status;

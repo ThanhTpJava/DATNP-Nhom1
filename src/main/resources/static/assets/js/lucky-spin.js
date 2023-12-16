@@ -2,10 +2,16 @@
 app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) {
 	$scope.timeRotate = 7000;
 	$scope.currentRotate = 0;
-	$scope.isRotating = false;
+	
+	$scope.canStartSpin = true;
 	$scope.listGift = [];
-
-
+	
+	$scope.isReload = false;
+	
+	$scope.isRulesOpen = false;
+	
+	$scope.isMaintenance = false;
+	
 	$scope.size = $scope.listGift.length;
 	$scope.rotate = 360 / $scope.size;
 	$scope.skewY = 90 - $scope.rotate;
@@ -13,22 +19,52 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 	$scope.isPopupOpenVer2 = false;
 	$scope.PopupTitle = ""
 	$scope.PopupMessage = ""
-	$scope.congratIcon = "/images/icons/congrat.png"
+	
 	$scope.iconUrlPopup = "/images/icons/tick.png"
 	$scope.sadIcon = "/images/icons/sad.png"
+	$scope.congratIcon = "/images/icons/congrat.png"
+	$scope.maintenanceIcon = "/images/icons/maintenance.png"
+	
+	$scope.totalQuantity = 0;
+	$scope.totalRate = 0;
 
-
+	$scope.checkListVoucherLuckySpin = function(){
+		if($scope.totalQuantity < 4 || $scope.totalQuantity > 10 || $scope.totalRate != 100 || $scope.isMaintenance == true){
+			$scope.canStartSpin = false;
+			$scope.isMaintenance = true;
+			$scope.iconUrlPopup = $scope.maintenanceIcon;
+			$scope.PopupTitle = "Thông Báo!!!"
+			$scope.PopupMessage = "Vòng quay may mắn đang bảo trì!"
+			$scope.isPopupOpenVer2 = true;
+		}	
+	}
+	
 	var deferred = $q.defer();
 	$http.get(`/rest/luckySpin/getvoucher`).then(resp => {
+		var totalQuantity = 0;
+		var totalRate = 0;
+		
 		$scope.listGift = resp.data.map(item => {
+			
+			totalQuantity += 1;
+			totalRate += item.rate;
+			
+			//Nếu số lượng của một voucher bằng 0 thì tiến hành bảo trì
+			if(item.quantity <= 0){
+				$scope.isMaintenance = true;
+			}
+			
+			$scope.totalQuantity = totalQuantity;
+			$scope.totalRate = totalRate;
 			return {
 				voucher_code: item.voucher_code,
 				review: item.review,
 				description: item.description,
+				quantity: item.quantity,
 				rate: item.rate / 100
 			};
 		});
-
+		
 		// Sắp xếp list voucher theo rate giảm dần
 		$scope.listGift.sort(function(a, b) {
 			return b.rate - a.rate;
@@ -39,20 +75,35 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 		$scope.size = $scope.listGift.length;
 		$scope.rotate = 360 / $scope.size;
 		$scope.skewY = 90 - $scope.rotate;
-
+		
+		console.log("$scope.totalQuantity", $scope.totalQuantity)
+		console.log("$scope.totalRate", $scope.totalRate)
+		
+		$scope.checkListVoucherLuckySpin();
+		
 		deferred.resolve();
 	}).catch(error => {
 		console.error('Error:', error);
 		deferred.reject(error);
 		// Xử lý lỗi ở đây
 	});
-
+	
 	$scope.httpPromise = deferred.promise;
-
+	
 	$scope.startSpin = function() {
 		// Logic của hàm
-		$scope.isRotating = false;
+		if($scope.isMaintenance){
+			$scope.iconUrlPopup = $scope.maintenanceIcon;
+			$scope.PopupTitle = "Thông Báo!!!"
+			$scope.PopupMessage = "Vòng quay may mắn đang bảo trì!"
+			$scope.isPopupOpenVer2 = true;
+			return
+		}
+		if (!$scope.canStartSpin) {
 
+			return
+		}
+		
 		var randomNumber = Math.random();
 
 		//console.log("randomNumber", randomNumber);
@@ -68,6 +119,8 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 		$scope.rotateWheel($scope.currentRotate, $scope.giftResult.index);
 
 		$scope.showGift($scope.giftResult);
+
+		$scope.canStartSpin = false;
 	};
 
 	$scope.getGift = function(randomNumber) {
@@ -104,20 +157,40 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 	};
 
 	$scope.showGift = function(gift) {
+
 		if (gift.voucher_code == 0) {
 			$scope.PopupTitle = "Thiếu chút nữa thôi!"
 			$scope.PopupMessage = gift.description;
 			$scope.iconUrlPopup = $scope.sadIcon
-			
+			$scope.isReload = false;
 		} else {
+			$scope.voucherForUser = {
+				username: $auth.username,
+				voucherCode: gift.voucher_code,
+				received_date: moment(new Date()).format('YYYY-MM-DD')
+			}
+
+			//console.log("Voucher: ", $scope.voucherForUser)
+			
+			//Thêm voucher vào cho người dùng
+			$http.post(`/rest/luckySpin/savevoucherforuser`, $scope.voucherForUser).then(resp => {
+				console.log(resp)
+			}).catch(error => {
+				console.error('Error:', error);
+				deferred.reject(error);
+				// Xử lý lỗi ở đây
+			});
+			
+			
 			$scope.PopupTitle = "Chúc mừng!!!"
 			$scope.PopupMessage = "Bạn nhận được voucher " + gift.description;
 			$scope.iconUrlPopup = $scope.congratIcon
-			
+			$scope.isReload = true;
 		}
 
 		$timeout(function() {
 			$scope.isPopupOpenVer2 = true;
+			$scope.canStartSpin = true;
 			//console.log(gift);
 		}, 7000);
 	}
@@ -129,8 +202,18 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 
 	$scope.closePopupVer2 = function() {
 		$scope.isPopupOpenVer2 = false;
+		if ($scope.isReload) {
+			$window.location.reload()
+		}
 	}
 
+	$scope.rulesOpen = function() {
+		$scope.isRulesOpen = true;
+	}
+
+	$scope.rulesClose = function() {
+		$scope.isRulesOpen = false;
+	}
 })
 
 
