@@ -53,13 +53,50 @@
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column vh-100">
+        <div class=" table-container mt-2 ml-5">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Mã Voucher</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Thêm dòng cho mỗi hình ảnh sản phẩm ở đây -->
+                <tr ng-repeat="v in items | startFrom:currentPage*pageSize | limitTo:pageSize">
+                    <td>{{v.voucherCode}}</td>
+                    <td>
+                        <button ng-click="delete(v.voucherCode)" class="btn btn-danger">Xóa khỏi vòng quay</button>
+                    </td>
+                </tr>
+
+                <!-- Kết thúc danh sách -->
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example" class="d-flex mt-3 justify-content-center">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#" ng-disabled="currentPage == 0"
+                                             ng-click="currentPage=currentPage-1">Previous</a></li>
+                    <li ng-repeat="n in range(numberOfPages())" ng-if="n >= currentPage - 1 && n <= currentPage + 2" class="page-item"
+                        ng-class="{active: n == currentPage}"
+                        ng-click="setPage()">
+                        <a class="page-link" href ng-bind="n + 1"></a>
+                        <span ng-if="n == currentPage" class="sr-only">(current)</span>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#"
+                                             ng-disabled="currentPage >= items.length/pageSize - 1"
+                                             ng-click="currentPage=currentPage+1">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+
         <div class="ms-5 mt-5">
             <h2>Danh sách Voucher</h2>
                 <div class=" table-container">
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Mã code Voucher</th>
+                            <th>Mã Voucher</th>
                             <th>Tiền giảm</th>
                             <th>Tỉ lệ</th>
                             <th></th>

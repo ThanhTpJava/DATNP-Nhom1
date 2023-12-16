@@ -29,7 +29,8 @@ public class LuckySpin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	Integer id;
-	
+
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "voucher_code")
 	private Voucher voucherCode;
