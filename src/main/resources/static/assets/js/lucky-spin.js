@@ -19,7 +19,7 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 
 
 	var deferred = $q.defer();
-	$http.get(`/rest/luckyspin/getvoucher`).then(resp => {
+	$http.get(`/rest/luckySpin/getvoucher`).then(resp => {
 		$scope.listGift = resp.data.map(item => {
 			return {
 				voucher_code: item.voucher_code,
@@ -148,28 +148,24 @@ app.directive('luckyWheel', function() {
 					scope.size = newListGift.length;
 					// Mảng màu cho các phần tử text
 					var colors = ["#FF9933", "#66B2FF", "#3DE543", "#9F8CB6", "#95A5B6"];
-					var colorIndex = 0;
-					// Chỉ số màu của ô trước đó
+
+
 					// Các logic tạo các phần tử li và thiết lập transform
-
-
 					for (var index = 0; index < newListGift.length; index++) {
 						var rotate = 360 / scope.size;
 						var skewY = 90 - rotate;
 
 						// Tạo phần tử li
 						var elm = angular.element('<li></li>');
-						if (colorIndex == colors.length - 1) {
-							colorIndex = 0;
-						}
+
 						elm.css('transform', 'rotate(' + rotate * index + 'deg) skewY(-' + skewY + 'deg)');
-						var backgroundColor = colors[colorIndex % colors.length];
+						var backgroundColor = colors[index % colors.length];
 						// Thêm background-color và căn giữa cho các phần tử text
 						elm.html('<p style="transform: skewY(' + skewY + 'deg) rotate(' + rotate / 2 + 'deg); background-color: ' + backgroundColor + ';" class="text"><b>' + newListGift[index].review + '</b></p>');
 
 						// Thêm vào ul
 						element.append(elm);
-						colorIndex++;
+
 					}
 				}
 			});

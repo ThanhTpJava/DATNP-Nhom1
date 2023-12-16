@@ -5,6 +5,7 @@ import com.poly.dto.LuckySpinDTO;
 import com.poly.entity.LuckySpin;
 import com.poly.entity.Product;
 import com.poly.service.LuckSpinService;
+import com.poly.service.LuckySpinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ public class LuckySpinRestController {
     @Autowired
     LuckSpinService luckSpinService;
 
+    @Autowired
+    LuckySpinService luckySpinService;
     @GetMapping()
     public List<LuckySpin> getAll() {
         return luckSpinService.luckySpinGetAll();
@@ -30,10 +33,10 @@ public class LuckySpinRestController {
     }
 
 
-//	@GetMapping("/getvoucher")
-//	public ResponseEntity<List<LuckySpinDTO>> getAllVoucherForLuckySpin(){
-//		return ResponseEntity.ok(luckSpinService.getAllVoucherInLuckySpin());
-//	}
+	@GetMapping("/getvoucher")
+	public ResponseEntity<List<LuckySpinDTO>> getAllVoucherForLuckySpin(){
+		return ResponseEntity.ok(luckySpinService.getAllVoucherInLuckySpin());
+	}
 
 
 }
