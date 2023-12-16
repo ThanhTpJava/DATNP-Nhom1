@@ -9,5 +9,10 @@ public class VoucherController {
         return"admin/voucher";
     }
 
+    @GetMapping("admin/luckySpin")
+    public String getToAddLuckySpin(){
+        return"admin/luckySpin";
+    }
+
 
 }

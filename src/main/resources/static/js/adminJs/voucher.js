@@ -111,6 +111,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             // item.available = item.quantity>0?'true':'false';
             $scope.items.push(item);
             $scope.load_all();
+            $scope.reset();
             console.log("Success", resp)
             alert("Create successfully!");
         }).catch(error => {
@@ -154,6 +155,52 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             $scope.myForm.endDate.$setValidity('dateError', true);
         }
     };
+
+//Lucky Spin
+    $scope.createSpin = function () {
+        var item = angular.copy($scope.form);
+        var url = `${host}/voucher`;
+        $http.post(url, item).then(resp => {
+            // item.available = item.quantity>0?'true':'false';
+            $scope.items.push(item);
+            $scope.load_all();
+            $scope.reset();
+            console.log("Success", resp)
+            alert("Create successfully!");
+        }).catch(error => {
+            console.log("Error", error)
+        })
+    }
+
+
+    $scope.updateSpin = function () {
+        var item = angular.copy($scope.form);
+        var url = `${host}/voucher/${$scope.form.id}`;
+        $http.put(url, item).then(resp => {
+            var index = $scope.items.findIndex(item => item.id == $scope.form.id);
+            $scope.items[index] = resp.data;
+            $scope.load_all();
+            // $scope.items[index].available = item[index].quantity>0?'true':'false';
+            alert("Update successfully!");
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
+    $scope.deleteSpin = function (id) {
+        if (confirm("THIS ACTION CAN'T UNDO!\nAre you sure to delete this product?") == true) {
+            var url = `${host}/voucher/${id}`;
+            $http.delete(url).then(resp => {
+                var index = $scope.items.findIndex(item => item.id == $scope.form.id);
+                $scope.items.splice(index, 1);
+                $scope.load_all();
+                console.log("Success", resp)
+                alert("Delete successfully!");
+            }).catch(error => {
+                console.log("Error", error)
+            });
+        }
+    }
 
 
     //load data to table
