@@ -1,12 +1,15 @@
 package com.poly.entity;
-
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Setter
@@ -15,15 +18,25 @@ import java.util.Date;
 @Entity
 @Table(name = "Voucher")
 public class Voucher {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
 
-	@Column(name = "name", columnDefinition = "NVARCHAR(150)")
-	private String name;
+	@Id
+	@Column(name = "voucher_code", columnDefinition = "NVARCHAR(150)")
+	private String voucherCode;
+
+	@Column(name = "review", columnDefinition = "NVARCHAR(150)")
+	private String review;
+
+	@Column(name ="description", columnDefinition = "NVARCHAR(200)")
+	public String description;
 
 	@Column(name = "discount")
-	private Float discount; //giảm giá
+	private Double discount; //giảm giá
+
+	@Column(name = "quantity")
+	private int quantity;
+
+	@Column(name = "total_requested")
+	private Double totalRequested; //tổng tiền hóa đơn yêu cầu
 
 	@Column(name = "startDate")
 	private Date startDate;
@@ -31,15 +44,21 @@ public class Voucher {
 	@Column(name = "endDate")
 	private Date endDate;
 
-	@Column(name ="code_voucher")
-	public String code_voucher;
+	@Column(name ="rate")
+	public int rate;
 
-	@Column(name ="description")
-	public String description;
+	@Column(name ="status")
+	public boolean status;
 
-	@ManyToOne
-	@JoinColumn(name = "VoucherTypeId")
-	private VoucherType voucherType;
+	@JsonIgnore
+	@OneToOne(mappedBy = "voucherCode")
+	private LuckySpin luckySpin;
 
-
+	@JsonIgnore
+	@OneToMany(mappedBy = "voucherCode")
+	List<VoucherOfUser> listVoucherOfUsers;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "voucherCode")
+	private Order order;
 }

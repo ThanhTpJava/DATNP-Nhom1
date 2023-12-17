@@ -13,6 +13,8 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 	$scope.isPopupOpen = false;
 	$scope.isPopupOpenErrors = false;
 	$scope.isPopupOpenOTP = false;
+	$scope.isListVoucherOpen = false;
+	
 	$scope.PopupTitle = ""
 	$scope.PopupMessage = ""
 	$scope.iconUrlPopup = "/images/icons/tick.png"
@@ -23,8 +25,20 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 	$scope.checkOrder = false;
 	$scope.checkOtp = false;
 
+	$scope.listVoucherAPI = [];
+	
+	$scope.subtotal = 0;
+
 	$scope.paymentApiUrl = ""
 	$scope.isApiPayment = false
+
+	$scope.isdisableVoucher = false;
+
+	$scope.selectedVoucherDetails = {}
+
+	$scope.totalDiscount = 0;
+	
+	$scope.isOrderApplyVoucher = false;
 	
 	$scope.closePopup = function() {
 		$scope.isPopupOpen = false;
@@ -38,6 +52,81 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 			}, delayTime);
 		}
 	};
+	
+	$scope.openListVoucher = function(){
+		$scope.isListVoucherOpen = true;
+	}
+
+	$scope.closeVoucher = function(){
+		$scope.isListVoucherOpen = false;
+	}
+	
+	$scope.getVoucher = function() {
+		var url = `/rest/orders/getVoucherForUser`;
+		$http.get(url).then(resp => {
+
+			$scope.listVoucherAPI = resp.data
+				.filter(voucher => voucher.status === true) // Lọc các voucher có status == true
+				.map(voucher => ({ ...voucher, disable: false, selected: false }));
+
+			$scope.checkDisnableVoucher();
+			console.log("Success", $scope.listVoucherAPI)
+
+		}).catch(error => {
+			console.log("Error", error)
+		})
+	}
+
+	$scope.checkDisnableVoucher = function() {
+		var amountUrl = $cart.amount
+		console.log("$scope.listVoucherAPI.length", $scope.listVoucherAPI.length);
+		for (var i = 0; i < $scope.listVoucherAPI.length; i++) {
+			var vouTotal = parseInt($scope.listVoucherAPI[i].voucherCode.totalRequested, 10);
+			var amountCart = parseInt(amountUrl, 10);
+
+			if (vouTotal > amountCart) {
+				$scope.listVoucherAPI[i].disable = true;
+			}
+
+			console.log("vouTotal", vouTotal);
+			// ... Các xử lý khác
+		}
+	}
+
+	$scope.selectVoucher = function(selectedVoucher) {
+		angular.forEach($scope.listVoucherAPI, function(voucher) {
+			voucher.selected = (voucher === selectedVoucher) ? !voucher.selected : false;
+			if (voucher.selected) {
+				$scope.selectedVoucherDetails = angular.copy(voucher); // Lưu giá trị của voucher được chọn
+			}
+		});
+	};
+	
+	
+
+	$scope.applyVoucher = function() {
+		if (angular.equals($scope.selectedVoucherDetails, {})) {
+			alert("Vui lòng chọn Voucher cần sử dụng!")
+			
+		} else {
+			$scope.subtotal = $scope.selectedVoucherDetails.voucherCode.discount;
+			console.log("$scope.subtotal", $scope.subtotal)
+			console.log($scope.selectedVoucherDetails);
+			
+			var subTotalConvert = parseInt($scope.subtotal, 10);
+			console.log("subTotalConvert", subTotalConvert)
+			
+			var amountCart = parseInt($cart.amount, 10);
+			console.log("amountCart", amountCart)
+			
+			var TotalDiscount = amountCart - subTotalConvert;
+			console.log("TotalDiscount", TotalDiscount)
+			
+			$scope.totalDiscount = TotalDiscount;
+			$scope.isOrderApplyVoucher = true;
+			alert("Thành Công, vui lòng kiểm tra lại số tiền cần thanh toán!")
+		}
+	}
 
 	var $cart = $scope.cart = {
 		items: [],
@@ -94,6 +183,7 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 		saveToLocalStorage() { // lưu giỏ hàng vào local storage
 			var json = JSON.stringify(angular.copy(this.items));
 			localStorage.setItem("cart_" + $auth.username, json);
+
 			console.log(this.items)
 		},
 		loadFromLocalStorage() { // đọc giỏ hàng từ local storage
@@ -102,9 +192,12 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 				console.log("username: ", $auth.username)
 				var json = localStorage.getItem("cart_" + $auth.username);
 				self.items = json ? JSON.parse(json) : [];
+				$scope.getVoucher();
+				$scope.totalDiscount = $cart.amount
 			}, 100);
 		}
 	}
+
 
 	//Validate Số điện thoại
 	$scope.validatePhoneNumber = function() {
@@ -193,12 +286,15 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 			$scope.isPopupOpen = true;
 		});
 	}
+
+
 	// Đặt hàng
 	$scope.order = {
 		id: orderText,
 		get account() {
 			return { username: $auth.username }
 		},
+		
 		createDate: new Date(),
 
 		address: "",
@@ -211,11 +307,11 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 					product: { id: item.id },
 					subtotal: item.price,
 					quantity: item.qty
-
 				}
 			});
 		},
-
+		voucherCode : {},
+		
 		validatePurchase() {
 			if (/^[0-9]+$/.test($scope.order.delivery_phone) === false || $scope.order.delivery_phone.length !== 10) {
 				$scope.iconUrlPopup = $scope.errorIconUrl
@@ -237,20 +333,30 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 		},
 
 		purchase() {
+			//Voucher apply ---------------------------
+			if($scope.isOrderApplyVoucher == true){
+				$scope.order.voucherCode = {
+					voucherCode : $scope.selectedVoucherDetails.voucherCode.voucherCode
+					} ;
+				$scope.order.totalAmount = $scope.totalDiscount ;
+			}else{
+				$scope.order.voucherCode = null;
+				var amountUrl = $cart.amount
+				$scope.order.totalAmount = amountUrl
+			}
 			var order = angular.copy(this);
 			/*console.log(order)*/
 			$scope.order.address = $auth.delivery_address;
 			/*console.log("address: ", $scope.order.address);*/
 			$scope.order.delivery_phone = $auth.phonenumber;
 			/*console.log(typeof $scope.order.delivery_phone);*/
-			var amountUrl = $cart.amount
-			$scope.order.totalAmount = amountUrl
+			
 			var isValid = this.validatePurchase();
 
 			if (!isValid) {
 				return;  // Dừng thực hiện nếu không hợp lệ
 			}
-			
+
 			if ($scope.checkOtp == false) {
 				$scope.sendOTP();
 				return false
@@ -258,7 +364,8 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 
 			/*console.log("Suscess")*/
 			var order = angular.copy(this);
-			
+			console.log("Order: ", order)
+
 			/*console.log("Check total: " ,order)*/
 			// Thực hiện đặt hàng
 			$http.post("/rest/orders", order).then(resp => {
@@ -272,14 +379,14 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 				$cart.clear();
 
 			}).catch(error => {
-				
+
 				alert("Đặt hàng lỗi!")
 				console.log(error)
 			})
 		},
-		
-		vnpayPurchase(){
-			
+
+		vnpayPurchase() {
+
 			/*console.log(order)*/
 			$scope.order.address = $auth.delivery_address;
 			/*console.log("address: ", $scope.order.address);*/
@@ -289,14 +396,14 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 			$scope.order.totalAmount = amountUrl
 			var order = angular.copy(this);
 			var isValid = this.validatePurchase();
-			
+
 			console.log("oder: ", order)
 			if (!isValid) {
 				return;  // Dừng thực hiện nếu không hợp lệ
 			}
-			
-			$http.post(`/api/vnpay/create_payment/${amountUrl}` ,order).then(resp => {
-				
+
+			$http.post(`/api/vnpay/create_payment/${amountUrl}`, order).then(resp => {
+
 				console.log("URL VNpay: ", resp.data.paymentUrl)
 				console.log("Order id: ", $scope.order.id)
 				$scope.paymentApiUrl = resp.data.paymentUrl
@@ -306,16 +413,16 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 				$scope.isApiPayment = true;
 
 			}).catch(error => {
-				
+
 				alert("Đặt hàng lỗi!")
 				console.log(error)
 			})
 		}
 	}
-	
+
 	$scope.openPaymentApiUrl = function() {
-       $window.location.href = $scope.paymentApiUrl;
-    };
+		$window.location.href = $scope.paymentApiUrl;
+	};
 
 	$http.get('/json/address.json').then(function(response) {
 		// Xử lý dữ liệu JSON trước khi gán nó cho biến đối tượng
