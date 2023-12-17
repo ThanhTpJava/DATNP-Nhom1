@@ -9,7 +9,8 @@
 	rel="stylesheet"
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">
-
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <title>Shopping Cart</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,8 +76,8 @@
 						</div>
 						<div class="inputBox">
 							<span>Số điện thoại : </span> <input
-								ng-change="validatePhoneNumber()" ng-pattern="/^\d+$/" ng-model="$auth.phonenumber"
-								maxlength="10" type="text"
+								ng-change="validatePhoneNumber()" ng-pattern="/^\d+$/"
+								ng-model="$auth.phonenumber" maxlength="10" type="text"
 								placeholder="Chưa cập nhật" name="" id="deliveryPhone" required>
 						</div>
 
@@ -149,13 +150,114 @@
 						<input type="button" ng-click="order.purchase()" value="COD"
 							class="submit-btn cod" name="" id=""> <input
 							type="submit" value="MOMO" class="submit-btn momo" name="" id="">
-						<input type="submit" value="VNPAY" class="submit-btn vnpay"
+						<input type="button"  ng-click="order.vnpayPurchase()" value="VNPAY" class="submit-btn vnpay"
 							name="" id="">
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
+
+	<form class="bg0 p-b-85">
+		<div class="container">
+			<div ng-if="!cart.items.length" class="panel-body text-center">
+				<h3 style="font-variant: small-caps;">No items in your shopping
+					cart</h3>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-xl-12 m-lr-auto">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart checkout" style="padding: 50px">
+							<table class="table-shopping-cart" ng-if="cart.items.length">
+								<tr class="table_head">
+									<th>Name Product</th>
+									<th>Photo</th>
+									<th>Quantity</th>
+									<th>Price</th>
+									<th>Total</th>
+									
+								</tr>
+								<tr class="table_row" ng-repeat="item in cart.items">
+									<td>{{item.name}}</td>
+									<td><img ng-src="{{item.main_image}}" width="100px"></td>
+
+									<td><input ng-change="cart.saveToLocalStorage()"
+										ng-model="item.qty" type="number" name="quantityField" min="1"
+										max="10" required style="width: 60px; text-align: center;" />
+									</td>
+
+									<td>{{ item.price | currency:"" }}đ</td>
+									<td>{{ (item.qty * item.price) | currency:"" }}đ</td>
+									
+								</tr>
+							</table>
+
+						</div>
+
+						<div
+							class="flex-w bor15 checkout p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5">
+								<input
+									class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5"
+									type="text" name="coupon" placeholder="Voucher Code">
+
+								<div
+									class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+									Apply Voucher</div>
+							</div>
+							<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-208">
+								<span class="mtext-101 cl2"> Total: </span>
+							</div>
+
+							<div class="size-209 p-t-1">
+								<span class="mtext-110 cl2"> {{cart.amount | 
+									currency:""}}đ </span>
+							</div>
+						</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-t-20 m-b-20"
+					ng-if="cart.items.length">
+					<div
+						class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<h4 class="mtext-109 cl2 p-b-30">Cart Totals</h4>
+
+						<div class="flex-w flex-t bor12 p-b-13">
+							<div class="size-208">
+								<span class="stext-110 cl2"> Subtotal: </span>
+							</div>
+
+							<div class="size-209">
+								<span class="mtext-110 cl2"> {{cart.items.qty |
+									currency:""}} </span>
+							</div>
+						</div>
+
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-208">
+								<span class="mtext-101 cl2"> Total: </span>
+							</div>
+
+							<div class="size-209 p-t-1">
+								<span id = "amountUrl" class="mtext-110 cl2"> {{cart.amount |
+									currency:""}}đ </span>
+							</div>
+						</div>
+
+						<!-- <button th:attr="ng-click=@{|/order/checkout|}"
+							class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" >
+							Proceed to Checkout</button> -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
 
 	<!-- Alert -->
 	<div class="popup" ng-class="{ 'open-popup': isPopupOpen }">
@@ -165,6 +267,13 @@
 		<button type="button" ng-click="closePopup()">OK</button>
 	</div>
 
+	<div class="popup" ng-class="{ 'open-popup': isApiPayment }">
+		<img ng-src="{{ iconUrlPopup }}" alt="">
+		<h2 ng-bind="PopupTitle"></h2>
+		<p ng-bind="PopupMessage"></p>
+		<button type="button" ng-click="openPaymentApiUrl()">Chuyển hướng</button>
+	</div>
+	
 	<div class="popup" ng-class="{ 'open-popup': isPopupOpenOTP }">
 		<img ng-src="{{ iconUrlPopup }}" alt="">
 		<h2 ng-bind="PopupTitle"></h2>
@@ -187,7 +296,6 @@
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	'
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 		integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="

@@ -34,4 +34,9 @@ public interface AccountService {
 	 void updatePasswordByUsername(String password, String username);
 
 	 Account update(Account account);
+
+	 void save(AccountAdminDTO accountDto);
+	 Account getByEmail(String email);
+	 Boolean checkPasswordAccount(String email, String password);
+	 Boolean checkByEmail(String email);
 }

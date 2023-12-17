@@ -1,5 +1,19 @@
 let host = "/rest";
 const app = angular.module("app", []);
+
+
+app.run(function($http, $rootScope){
+    $http.get(`/rest/security/authentication`).then(resp => {
+        if(resp.data){
+            $auth = $rootScope.$auth = resp.data;
+            $http.defaults.headers.common["Authorization"] = $auth.token;
+
+            const data = resp.data;
+            console.log(data);
+        }
+    });
+})
+
 app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.form = {}
     $scope.items = []
@@ -77,7 +91,14 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         var url = `${host}/blog`;
         $http.get(url).then(resp => {
             $scope.items = resp.data;
-            console.log("Success", resp)
+            console.log("Success",resp.data);
+        }).catch(error => {
+            console.log("Error", error)
+        })
+
+        var url = `/auth/account`;
+        $http.get(url).then(resp => {
+            $scope.listAcc = resp.data;
         }).catch(error => {
             console.log("Error", error)
         })
@@ -88,7 +109,6 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         var url = `${host}/blog/${id}`;
         $http.get(url).then(resp => {
             $scope.form = resp.data;
-            console.log("Success", resp)
         }).catch(error => {
             console.log("Error", error)
         })
@@ -96,9 +116,12 @@ app.controller("ctrl", function ($scope, $http, $filter) {
 
     $scope.create = function () {
         var item = angular.copy($scope.form);
+        item.publishDate = new Date();
+        item.account = $auth;
         var url = `${host}/blog`;
         $http.post(url, item).then(resp => {
             // item.available = item.quantity>0?'true':'false';
+
             $scope.items.push(item);
             $scope.load_all();
             console.log("Success", resp)

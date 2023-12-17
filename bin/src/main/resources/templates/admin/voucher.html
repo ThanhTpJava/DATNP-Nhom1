@@ -82,6 +82,11 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label>Voucher Description:</label>
+                            <input ng-model="form.description" type="text" class="form-control" required>
+                            <div ng-show="myForm.description.$touched && myForm.description.$error.required" style="color:red">Thông tin Voucher là bắt buộc</div>
+                        </div>
+                        <div class="form-group">
                             <label>Code Voucher:</label>
                             <input ng-model="form.code_voucher" type="text" class="form-control" required>
                             <div ng-show="myForm.code_voucher.$touched && myForm.code_voucher.$error.required" style="color:red">Code Voucher là bắt buộc</div>
@@ -115,11 +120,12 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <td>Tên voucher</td>
+                            <th>Tên voucher</th>
                             <th>Giảm giá</th>
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
-                            <td>Mã code Voucher</td>
+                            <th>Thông tin</th>
+                            <th>Mã code Voucher</th>
                             <th>Chỉnh sửa</th>
                         </tr>
                         </thead>
@@ -131,6 +137,7 @@
                             <td>{{v.discount}}%</td>
                             <td>{{v.startDate | date: 'dd/MM/yyyy'}}</td>
                             <td>{{v.endDate | date: 'dd/MM/yyyy'}}</td>
+                            <td>{{v.description}}</td>
                             <td>{{v.code_voucher}}</td>
 <!--                            <td>{{v.product.id}}</td>-->
 <!--                            <td>{{v.product.name}}</td>-->
@@ -143,15 +150,15 @@
                         <!-- Kết thúc danh sách -->
                         </tbody>
                     </table>
-                    <nav aria-label="Page navigation example">
+                    <nav aria-label="Page navigation example" class="d-flex mt-3 justify-content-center">
                         <ul class="pagination">
                             <li class="page-item"><a class="page-link" href="#" ng-disabled="currentPage == 0"
                                                      ng-click="currentPage=currentPage-1">Previous</a></li>
-                            </li>
-                            <li ng-repeat="n in range(numberOfPages())" class="page-item"
+                            <li ng-repeat="n in range(numberOfPages())" ng-if="n >= currentPage - 1 && n <= currentPage + 2" class="page-item"
                                 ng-class="{active: n == currentPage}"
                                 ng-click="setPage()">
-                                <a class="page-link" href ng-bind="n + 1">1</a>
+                                <a class="page-link" href ng-bind="n + 1"></a>
+                                <span ng-if="n == currentPage" class="sr-only">(current)</span>
                             </li>
                             <li class="page-item"><a class="page-link" href="#"
                                                      ng-disabled="currentPage >= items.length/pageSize - 1"

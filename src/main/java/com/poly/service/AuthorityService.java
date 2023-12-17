@@ -3,6 +3,8 @@ package com.poly.service;
 import java.util.List;
 import java.util.Map;
 
+import com.poly.dto.AccountAdminDTO;
+import com.poly.entity.Account;
 import com.poly.entity.Authority;
 
 public interface AuthorityService {

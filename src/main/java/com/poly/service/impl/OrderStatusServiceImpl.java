@@ -33,4 +33,10 @@ public class OrderStatusServiceImpl implements OrderStatusService{
 		return odsttDao.findAll();
 	}
 
+	@Override
+	public List<OrderStatus> searchOrderStatus(String keyword) {
+		// TODO Auto-generated method stub
+		return this.odsttDao.searchOrderStatus(keyword);
+	}
+
 }

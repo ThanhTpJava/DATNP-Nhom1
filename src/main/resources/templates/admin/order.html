@@ -63,14 +63,14 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form
+                <form th:action="@{/searchs}" method="get"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small"
                                placeholder="Search for..." aria-label="Search"
-                               aria-describedby="basic-addon2">
+                               aria-describedby="basic-addon2" name="keyword">
                         <div class="input-group-append">
-                            <button class="btn btn-dark" type="button">
+                            <button class="btn btn-dark" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -265,6 +265,7 @@
 
                     <!-- DataTales Example -->
                     <div class="col-lg-10 overflow-auto m-auto" style="height: 500px">
+                    	<a th:href="@{/orders/export}">Export to Excel</a> 
                         <table class="table table-bordered w-100 mt-2 mb-2">
                             <thead>
                             <tr class="text-center">
@@ -281,7 +282,7 @@
 	                            <tr th:each="od, iterStat : ${orders}">
 		                            <td class="text-center">[[${od.order.id}]]</td>
 		                            <td class="text-center">[[${od.order.account.name}]]</td>
-		                            <td> [[${od.order.createDate}]]</td>
+		                            <td class="text-center"> [[${od.order.createDate}]]</td>
 		                            <td>[[${od.order.address}]]</td>
 		                            <td >[[${od.order.totalAmount}]] VND</td>
 		                            <td class="text-center">
