@@ -167,7 +167,7 @@ function updateYears() {
     var currentYear = new Date().getFullYear();
     var yearSelect = document.getElementById("year");
 
-    for (var i = 2010; i <= currentYear; i++) {
+    for (var i = 2020; i <= currentYear; i++) {
         var option = document.createElement("option");
         option.value = i;
         option.text = i;

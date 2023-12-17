@@ -1,0 +1,221 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container-popup {
+	width: 100%;
+	height: 100vh;
+	background: #3c5077;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn-popup {
+	padding: 10px 60px;
+	background: #fff;
+	border: 0;
+	outline: none;
+	cursor: pointer;
+	font-size: 22px;
+	font-weight: 500px;
+	border-radius: 30px;
+}
+
+.popup, .popup-auth-update {
+	width: 400px;
+	background: #fff;
+	border-radius: 6px;
+	position: fixed;
+	z-index: 100;
+	top: 0%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.1);
+	text-align: center;
+	padding: 0 30px 30px;
+	color: #333;
+	visibility: hidden;
+	transition: transform 0.4s, top 0.4s;
+}
+
+.popup.resetpass {
+	width: 450px;
+}
+
+.open-popup {
+	visibility: visible;
+	top: 50%;
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.open-popup2 {
+	visibility: visible;
+	top: 50%;
+	transform: translate(-50%, -50%) scale(1);
+	border: 1px solid black; 
+}
+
+.open-rules {
+	visibility: visible;
+	top: 57%;
+	transform: translate(-50%, -50%) scale(1);
+	border: 1px solid black; 
+	width: 700px;
+	height: 450px;
+	text-align: center;
+}
+
+.open-popup2 > p{
+	font-size: 17px;
+}
+
+.open-rules p{
+	font-size: 16px;
+	text-align: left;
+}
+
+.open-rules button{
+	width: 50%;
+	margin-top: 20px;
+}
+
+.popup img, .popup-auth-update img {
+	width: 100px;
+	margin-top: -50px;
+	border-radius: 50%;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2, .popup-auth-update h2 {
+	font-size: 38px;
+	font-weight: 500;
+	margin: 30px 0 10px;
+}
+
+.popup .box-btn, .popup-auth-update .box-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.popup button, .popup-auth-update button {
+	width: 100%;
+	margin-top: 50px;
+	padding: 10px 0;
+	background: #6fd649;
+	color: #fefefe;
+	border: 0;
+	outline: none;
+	font-size: 18px;
+	border-radius: 4px;
+	cursor: pointer;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.button-resetpass-popup {
+	display: flex;
+	justify-content: space-around;
+}
+
+.button-resetpass-popup .button-resetpass {
+	width: 40%;
+	margin-top: 20px;
+}
+
+.button-resetpass-popup .button-resetpass.btn-rsp-2 {
+	background: #BDBDBD;
+}
+
+.popup .box-btn .btn-alert-confirm, .popup-auth-update .box-btn .btn-alert-confirm
+	{
+	width: 35%;
+	background: #6fd649;
+	color: #333;
+	margin-right: 20px;
+}
+
+.popup .box-btn .btn-alert-cancel, .popup-auth-update .box-btn .btn-alert-cancel
+	{
+	width: 35%;
+	background: #d0d0d0;
+	color: #333;
+	margin-left: 20px;
+}
+
+.loading {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.1);
+	visibility: hidden; 
+	transition : transform 0.4s, top 0.4s;
+	z-index: 9999;
+	transition: transform 0.4s, top 0.4s;
+}
+
+.open-loading {
+	visibility: visible;
+	top: 50%;
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.btn-disabled-changeStatus{
+	pointer-events: none;
+    opacity: 0.5; /* hoặc một giá trị khác để làm mờ nút */
+}
+
+.open-rules button{
+	width: 50%;
+	margin-top: 20px;
+}
+
+/* Custom styles for your popup */
+.popup {
+	background-color: #fff; /* Set background color */
+	padding: 20px; /* Add padding */
+	border-radius: 10px; /* Add border-radius for rounded corners */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow for a subtle effect */
+}
+
+/* Center the popup */
+.popup.mx-auto {
+
+}
+
+/* Style the image */
+.popup img {
+	max-width: 100%; /* Make sure the image is responsive */
+	margin-bottom: 10px; /* Add some space below the image */
+}
+
+/* Style the heading */
+.popup h2 {
+	color: #333; /* Set text color */
+}
+
+/* Style the strong element */
+.popup strong {
+	font-weight: bold; /* Make the text bold */
+}
+
+/* Style the paragraph elements */
+.popup p {
+	margin-bottom: 10px; /* Add space between paragraphs */
+}
+
+/* Style the button */
+.popup button {
+	background-color: #007bff; /* Set button background color */
+	color: #fff; /* Set button text color */
+	padding: 10px 20px; /* Add padding to the button */
+	border: none; /* Remove border */
+	border-radius: 5px; /* Add border-radius for rounded corners */
+	cursor: pointer; /* Change cursor on hover */
+}
+
+/* Hover effect on the button */
+.popup button:hover {
+	background-color: #0056b3; /* Change background color on hover */
+}

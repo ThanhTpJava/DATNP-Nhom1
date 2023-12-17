@@ -1,6 +1,7 @@
 package com.poly.rest.controller;
 
 import com.poly.dao.OrderDAO;
+import com.poly.dao.VoucherOfUserDAO;
 import com.poly.dto.OrderShipDTO;
 import com.poly.dto.OrdersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,19 @@ import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.poly.entity.Account;
 import com.poly.entity.Order;
 import com.poly.entity.OrderDetail;
 import com.poly.entity.OrderStatus;
 import com.poly.entity.Status;
+import com.poly.entity.VoucherOfUser;
 import com.poly.service.OrderDetailService;
 import com.poly.service.OrderService;
 import com.poly.service.OrderStatusService;
 import com.poly.service.ProductService;
 import com.poly.service.StatusService;
+
+import jakarta.servlet.http.HttpSession;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,6 +50,11 @@ public class OrderRestController {
 	@Autowired
 	OrderDetailService orderDetailService;
 	
+	@Autowired
+	HttpSession session;
+	
+	@Autowired
+	VoucherOfUserDAO voucherOfUserDAO;
 	@GetMapping
 	public List<OrderShipDTO> GetAll() {
 		return orderService.findAll();
@@ -196,5 +206,12 @@ public class OrderRestController {
 		return orderService.calculateTotalOrderByYear(year);
 	}
 
+	@GetMapping("/getVoucherForUser")
+	public List<VoucherOfUser> getVoucherForUser(){
+		Account account = (Account) session.getAttribute("authentication");
+		
+		String username = account.getUsername();
+		return voucherOfUserDAO.findVoucherByUser(username);
+	}
 
 }

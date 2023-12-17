@@ -27,7 +27,7 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public Voucher findByID(Integer id) {
+    public Voucher findByID(String id) {
         return voucherDAO.findById(id).get();
     }
 
@@ -42,7 +42,12 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
         voucherDAO.deleteById(id);
     }
+
+	@Override
+	public void updateQuantityVoucher(String voucherCode) {
+		voucherDAO.updateVoucherQuantity(voucherCode);
+	}
 }
