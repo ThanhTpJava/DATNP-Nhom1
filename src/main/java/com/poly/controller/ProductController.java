@@ -30,9 +30,6 @@ public class ProductController {
     private final int pageSize = 20;
     @GetMapping("/user/home")
     public String list(@RequestParam(defaultValue = "0") int page,Model model){
-    	
-    	counterService.incrementCounter();
-        model.addAttribute("count", counterService.getCounter());
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").ascending());
         List<Product> list = productService.findPaginated(pageable);
