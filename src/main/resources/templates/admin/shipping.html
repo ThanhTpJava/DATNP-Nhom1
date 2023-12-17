@@ -101,6 +101,7 @@
 								<th>Order Id</th>
 								<th>Phone number</th>
 								<th>Name purchaser</th>
+								<th>Total amount</th>
 								<th>Address</th>
 								<th>Status</th>
 								<th>Detail</th>
@@ -113,6 +114,7 @@
 								<td>[[${ship.orderId}]]</td>
 								<td>[[${ship.delivery_phone}]]</td>
 								<td>[[${ship.account.surname}]] [[${ship.account.name}]]</td>
+								<td>[[${ship.total_amount}]] VNĐ</td>
 								<td>[[${ship.address}]]</td>
 								<td class="table-order-body"><span
 									th:switch="${ship.orderStatus}"> <span
@@ -284,7 +286,7 @@
 
 				<div class="col-md-4">
 					<button type="button" class="btn btn-success btn-block"
-						ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 4)">Đã
+						ng-click="shipDetail.updateStatus(shipDetail.userData[0].orderId, 4, shipDetail.userData[0].total_amount, shipDetail.userData[0].account.username)">Đã
 						giao xong</button>
 				</div>
 

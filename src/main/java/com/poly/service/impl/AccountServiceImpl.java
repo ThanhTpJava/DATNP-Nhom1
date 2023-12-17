@@ -111,6 +111,11 @@ public class AccountServiceImpl implements AccountService{
 		String passwordEncode = passwordEncoder.encode(password);
 		dao.updatePasswordByUsername(passwordEncode, username);
 	}
-		
-	
+
+	@Override
+	public Account update(Account account) {
+		return dao.save(account);
+	}
+
+
 }

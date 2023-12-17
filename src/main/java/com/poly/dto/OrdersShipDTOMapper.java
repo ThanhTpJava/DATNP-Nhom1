@@ -23,8 +23,10 @@ public class OrdersShipDTOMapper implements Function<Order, OrderShipDTO>{
 				od.getOrderDetails().stream().toList(),
 				od.getOrderStatuses().stream()
 						.map(odstt -> odstt.getStatus().getId())
-						.findFirst().orElse(99)
+						.findFirst().orElse(99),
+				od.getTotalAmount()
 		);
+
 	}
 
 	}

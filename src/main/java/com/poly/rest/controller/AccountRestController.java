@@ -10,14 +10,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.poly.dto.AccountDTO;
 import com.poly.entity.Account;
@@ -186,5 +179,23 @@ public class AccountRestController {
 	@GetMapping("/account")
 	public List<Account> getListAccounts() {
 		return accountService.findAll();
+	}
+
+	@Autowired
+	HttpSession session;
+
+	@PutMapping("/updateSpinCount/{amount}/{username}")
+	public Account updateSpinCount(@PathVariable double amount, @PathVariable String username){
+
+		Account accountUser = accountService.findById(username);
+
+
+		int spinRoot = accountUser.getSpinCount();
+
+		int spinNow = (int) (amount / 200000);
+		System.out.println("Tong vong quay " +(spinRoot + spinNow));
+		accountUser.setSpinCount(spinRoot + spinNow);
+
+		return accountService.update(accountUser);
 	}
 }
