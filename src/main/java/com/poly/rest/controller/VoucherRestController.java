@@ -3,6 +3,7 @@ package com.poly.rest.controller;
 import com.poly.entity.Voucher;
 import com.poly.service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,12 @@ public class VoucherRestController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") String id) {
         voucherService.delete(id);
+    }
+    
+    @PutMapping("/updatequantityvoucher/{voucherCode}")
+    public ResponseEntity<Void> updateVoucherQuantity(@PathVariable("voucherCode") String voucherCode){	
+    	voucherService.updateQuantityVoucher(voucherCode);
+    	return ResponseEntity.ok().build();
     }
 
 }

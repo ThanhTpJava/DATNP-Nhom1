@@ -67,6 +67,17 @@
 	text-align: center;
 }
 
+.open-listVoucher {
+	visibility: visible;
+	top: 55%;
+	transform: translate(-50%, -50%) scale(1);
+	border: 1px solid black; 
+	width: 700px;
+	height: 530px;
+	text-align: center;
+	z-index: 9909;
+}
+
 .open-popup2 > p{
 	font-size: 17px;
 }
@@ -170,3 +181,76 @@
 	width: 50%;
 	margin-top: 20px;
 }
+
+.listVoucher{
+	height: 350px;
+	max-height: 350px;
+	overflow-y: auto; 
+}
+
+.listVoucher hr{	
+   border-top: 5px dashed white;  
+}
+
+
+.listVoucher .button-voucher{
+	width: 550px;
+	margin: 10px 0 ;
+	background-color: #4DA0FF;
+}
+
+.listVoucher .button-voucher:hover{
+	color: black;
+	background-color: #F9F46A;
+}
+
+.listVoucher .button-voucher:hover hr{
+	border-top: 5px dashed red;  
+}
+
+.listVoucher .infomation-voucher{
+	display: flex;
+	justify-content: space-between;
+	
+}
+
+.open-listVoucher .btn-vou-apply{
+	width: 40%;
+	margin: 20px 0 10px 0;
+	background-color: #6fd649;
+}
+
+.open-listVoucher .btn-vou-close{
+	width: 40%;
+	margin: 20px 0 10px 0;
+	background-color: gray;
+}
+
+
+.open-listVoucher .btn-vou-apply:hover{
+	
+	background-color: #00ff80;
+}
+
+.open-listVoucher .btn-vou-close:hover{
+	
+	background-color: #c0c0c0;
+}
+
+.button-voucher.disable-voucher{
+	pointer-events: none; /* Ngăn chặn sự kiện chuột */
+    opacity: 0.5; /* Làm mờ phần tử */
+}
+.button-voucher.selected-button{
+	color: black;
+	background-color: #F9F46A;
+}
+
+.btn-vou-box{
+	margin: auto;
+	width: 80%;
+	display: flex;  /* Sử dụng Flexbox để các phần tử con nằm ngang */
+    justify-content: space-between;  /* Cách ra hai bên */
+    align-items: center;  /* Canh giữa theo chiều dọc */
+}
+

@@ -170,7 +170,7 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 				received_date: moment(new Date()).format('YYYY-MM-DD')
 			}
 
-			//console.log("Voucher: ", $scope.voucherForUser)
+			console.log("gift: ", gift)
 			
 			//Thêm voucher vào cho người dùng
 			$http.post(`/rest/luckySpin/savevoucherforuser`, $scope.voucherForUser).then(resp => {
@@ -181,6 +181,13 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 				// Xử lý lỗi ở đây
 			});
 			
+			$http.put(`/rest/voucher/updatequantityvoucher/${gift.voucher_code}`).then(resp => {
+				console.log(resp)
+			}).catch(error => {
+				console.error('Error:', error);
+				deferred.reject(error);
+				// Xử lý lỗi ở đây
+			});
 			
 			$scope.PopupTitle = "Chúc mừng!!!"
 			$scope.PopupMessage = "Bạn nhận được voucher " + gift.description;

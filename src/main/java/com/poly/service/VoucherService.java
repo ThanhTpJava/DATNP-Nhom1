@@ -17,4 +17,6 @@ public interface VoucherService {
 
     public void delete(String id) ;
 
+    void updateQuantityVoucher(String voucherCode);
+    
 }

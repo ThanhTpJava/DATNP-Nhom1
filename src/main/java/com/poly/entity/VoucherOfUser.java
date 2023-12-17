@@ -2,6 +2,7 @@ package com.poly.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,6 +32,7 @@ public class VoucherOfUser {
 	@ManyToOne
 	@JoinColumn(name = "username")
 	Account username;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "voucher_code")

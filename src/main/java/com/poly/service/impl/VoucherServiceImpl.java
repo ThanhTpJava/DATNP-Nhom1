@@ -45,4 +45,9 @@ public class VoucherServiceImpl implements VoucherService {
     public void delete(String id) {
         voucherDAO.deleteById(id);
     }
+
+	@Override
+	public void updateQuantityVoucher(String voucherCode) {
+		voucherDAO.updateVoucherQuantity(voucherCode);
+	}
 }
