@@ -59,6 +59,6 @@ public class Voucher {
 	List<VoucherOfUser> listVoucherOfUsers;
 	
 	@JsonIgnore
-	@OneToOne(mappedBy = "voucherCode")
-	private Order order;
+	@OneToMany(mappedBy = "voucher",  fetch = FetchType.EAGER)
+	List<OrderVoucher> listOrderVouchers;
 }

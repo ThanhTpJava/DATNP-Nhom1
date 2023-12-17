@@ -16,13 +16,17 @@ import com.poly.entity.Account;
 import com.poly.entity.Order;
 import com.poly.entity.OrderDetail;
 import com.poly.entity.OrderStatus;
+import com.poly.entity.OrderVoucher;
 import com.poly.entity.Status;
 import com.poly.entity.VoucherOfUser;
 import com.poly.service.OrderDetailService;
 import com.poly.service.OrderService;
 import com.poly.service.OrderStatusService;
+import com.poly.service.OrderVoucherService;
 import com.poly.service.ProductService;
 import com.poly.service.StatusService;
+import com.poly.service.VoucherOfUserService;
+import com.poly.service.VoucherService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -55,6 +59,13 @@ public class OrderRestController {
 	
 	@Autowired
 	VoucherOfUserDAO voucherOfUserDAO;
+	
+	@Autowired
+	VoucherOfUserService voucherOfUserService;
+	
+	@Autowired
+	OrderVoucherService orderVoucherService;
+	
 	@GetMapping
 	public List<OrderShipDTO> GetAll() {
 		return orderService.findAll();
@@ -213,5 +224,19 @@ public class OrderRestController {
 		String username = account.getUsername();
 		return voucherOfUserDAO.findVoucherByUser(username);
 	}
-
+	
+	@PostMapping("/save/ordervoucher/{orderid}/{voucherid}")
+	ResponseEntity<OrderVoucher> saveOrderVoucher(
+			@PathVariable("orderid") String orderId,
+		    @PathVariable("voucherid") String voucherId){
+		
+		OrderVoucher orderVoucherCreate = orderVoucherService.saveOrderVoucher(orderId, voucherId);
+		
+		return new ResponseEntity<>(orderVoucherCreate, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/update/statusvoucher/{id}")
+	public void deleteVoucherUser(@PathVariable("id") Integer id) {
+		voucherOfUserService.updateStatusVoucher(id);
+	}
 }

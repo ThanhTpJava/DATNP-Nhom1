@@ -189,7 +189,6 @@ public class AccountRestController {
 
 		Account accountUser = accountService.findById(username);
 
-
 		int spinRoot = accountUser.getSpinCount();
 
 		int spinNow = (int) (amount / 200000);

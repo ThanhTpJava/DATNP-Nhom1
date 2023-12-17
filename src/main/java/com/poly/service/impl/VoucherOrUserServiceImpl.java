@@ -53,4 +53,17 @@ public class VoucherOrUserServiceImpl implements VoucherOfUserService{
 		voucherOfUserDAO.save(vcus);
 	}
 
+	@Override
+	public void deleteVoucherUser(Integer id) {
+		// TODO Auto-generated method stub
+		voucherOfUserDAO.deleteById(id);
+	}
+
+	@Override
+	public void updateStatusVoucher(Integer id) {
+		VoucherOfUser vouUser = voucherOfUserDAO.findById(id).get();
+		vouUser.setStatus(false);
+		voucherOfUserDAO.save(vouUser);
+	}
+
 }

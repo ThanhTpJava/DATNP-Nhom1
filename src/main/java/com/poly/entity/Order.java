@@ -3,6 +3,7 @@ package com.poly.entity;
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -49,9 +50,9 @@ public class Order {
 	@Pattern(regexp = "^\\d{10}$", message = "Số điện thoại không hợp lệ")
 	private String  delivery_phone;
 	
-	@OneToOne
-	@JoinColumn(name = "voucher_code")
-	private Voucher voucherCode; // Trường này để lưu mã voucher áp dụng cho đơn hàng
+	@JsonIgnore
+	@OneToMany(mappedBy = "order",  fetch = FetchType.EAGER)
+	List<OrderVoucher> listOrderVouchers;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "order")

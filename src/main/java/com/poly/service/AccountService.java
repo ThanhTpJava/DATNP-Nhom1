@@ -34,4 +34,7 @@ public interface AccountService {
 	 void updatePasswordByUsername(String password, String username);
 
 	 Account update(Account account);
+	 
+	 Integer getSpinCount(String username);
+	 
 }

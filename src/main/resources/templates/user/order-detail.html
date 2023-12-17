@@ -55,42 +55,52 @@
 	<div th:replace="user/index :: cart"></div>
 	<main th:object="${order}" class="mt-5">
 		<div class="panel panel-primary ">
-			<div class="panel-heading">ORDER INFORMATION</div>
+			<div class="panel-heading">Chi tiết đơn hàng</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="form-group col-sm-4">
-						<div>Order Number:</div>
+					<div class="form-group col-sm-3">
+						<div>Mã đơn hàng:</div>
 						<input th:field="*{id}" class="form-control" readonly>
 					</div>
 					<div class="form-group col-sm-4">
-						<div>Purchaser:</div>
+						<div>Người đặt hàng:</div>
 						<input th:value = "*{#strings.concat(account.surname, ' ', account.name)}" class="form-control"
 							readonly>
 					</div>
-					<div class="form-group col-sm-4">
-						<div>Purchased Date:</div>
+					<div class="form-group col-sm-2">
+						<div>SĐT giao hàng:</div>
+						<input th:field="*{delivery_phone}" class="form-control" readonly></input>
+					</div>
+					<div class="form-group col-sm-3">
+						<div>Ngày đặt hàng:</div>
 						<input th:field="*{createDate}" class="form-control" readonly>
 					</div>
 				</div>
 				<div class="row">
-					<div class="form-group col-sm-12">
-						<div>Shipping Address:</div>
+					<div class="form-group col-sm-9">
+						<div>Địa chỉ giao hàng:</div>
 						<textarea th:field="*{address}" class="form-control" readonly></textarea>
+					</div>
+					
+					<div class="form-group col-sm-3">
+						<div>Tổng tiền thanh toán:</div>
+						<textarea  class="form-control"  style="font-weight: bold; color: green; align-items: center;" readonly>[[*{#numbers.formatDecimal(TotalAmount, 0, 'COMMA', 0,'POINT')}]]đ
+						</textarea>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="panel panel-primary mt-5">
-			<div class="panel-heading">ORDER LINES</div>
+			<div class="panel-heading">Sản phẩm :</div>
 			<table class="table">
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>Name</th>
-						<th>Price</th>
-						<th>Photo</th>
-						<th>Quantity</th>
-						<th>Amount</th>
+						<th>Tên</th>
+						<th>Giá</th>
+						<th>Ảnh</th>
+						<th>Số lượng</th>
+						<th>Thành tiền</th>
 					</tr>
 				</thead>
 				<tbody>
