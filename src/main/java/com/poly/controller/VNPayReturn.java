@@ -22,14 +22,17 @@ import com.poly.entity.Account;
 import com.poly.entity.Order;
 import com.poly.entity.OrderDetail;
 import com.poly.entity.OrderStatus;
+import com.poly.entity.OrderVoucher;
 import com.poly.entity.Product;
 import com.poly.entity.Status;
 import com.poly.service.AccountService;
 import com.poly.service.OrderDetailService;
 import com.poly.service.OrderService;
 import com.poly.service.OrderStatusService;
+import com.poly.service.OrderVoucherService;
 import com.poly.service.ProductService;
 import com.poly.service.StatusService;
+import com.poly.service.VoucherOfUserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -58,7 +61,13 @@ public class VNPayReturn {
 	
 	@Autowired
 	OrderStatusService orderStatusService;
-
+	
+	@Autowired
+	OrderVoucherService orderVoucherService;
+	
+	@Autowired
+	VoucherOfUserService voucherOfUserService;
+	
 	@RequestMapping("/api/vnpay/return")
 	public String vnpayReturn(Model model,
 			HttpSession session,
@@ -117,6 +126,11 @@ public class VNPayReturn {
 
 			orderStatusService.saveOrderStatus(orderStatus);
 			
+			//kiểm tra có voucher không rồi thêm vào orderVoucher
+			if(orderPaymentDTO.getVoucherCode() != null && orderPaymentDTO.getVoucherOfUserId() != null) {
+				orderVoucherService.saveOrderVoucher(orderPaymentDTO.getId(), orderPaymentDTO.getVoucherCode());
+				voucherOfUserService.updateStatusVoucher(orderPaymentDTO.getVoucherOfUserId());			
+			}
 			//Hiển thị ở trang thanh toán thành công
 			String inputString = vnpPayDate;
 			DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");

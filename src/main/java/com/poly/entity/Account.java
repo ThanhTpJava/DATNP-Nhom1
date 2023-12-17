@@ -94,5 +94,5 @@ public class Account implements Serializable{
 	List<VoucherOfUser> listVoucherOfUsers;
 	
 	@Column(name = "spin_count")
-	private int spinCount;
+	private int spinCount ;
 }

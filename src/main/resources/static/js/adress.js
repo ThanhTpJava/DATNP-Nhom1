@@ -22,6 +22,8 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 	$scope.errorIconUrl = "/images/icons/errors.png"
 	$scope.iconUrlotp = "/images/icons/otp.png"
 	$scope.redirect_icon = "/images/icons/redirect_icon.png"
+	$scope.voucherIcon = "/images/icons/voucher.png"
+	
 	$scope.checkOrder = false;
 	$scope.checkOtp = false;
 
@@ -54,6 +56,7 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 	};
 
 	$scope.openListVoucher = function() {
+		$scope.iconUrlPopup = $scope.voucherIcon;
 		$scope.isListVoucherOpen = true;
 	}
 
@@ -348,7 +351,7 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 			$scope.order.delivery_phone = $auth.phonenumber;
 			/*console.log(typeof $scope.order.delivery_phone);*/
 
-			/*var isValid = this.validatePurchase();
+			var isValid = this.validatePurchase();
 
 			if (!isValid) {
 				return;  // Dừng thực hiện nếu không hợp lệ
@@ -357,16 +360,11 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 			if ($scope.checkOtp == false) {
 				$scope.sendOTP();
 				return false
-			}*/
+			}
 
 			/*console.log("Suscess")*/
 			var order = angular.copy(this);
-			console.log("Order: ", order)
 
-			console.log("ID: ", $scope.selectedVoucherDetails.id)
-			console.log("voucherCode: ", $scope.selectedVoucherDetails.voucherCode.voucherCode)
-			console.log("order id: ", order.id)
-			
 			/*console.log("Check total: " ,order)*/
 			// Thực hiện đặt hàng
 			$http.post("/rest/orders", order).then(resp => {
@@ -378,9 +376,10 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 				$scope.isPopupOpen = true;
 				$scope.checkOrder = true;
 				$cart.clear();
+
 				if ($scope.isOrderApplyVoucher == true) {
 					var voucherCode = $scope.selectedVoucherDetails.voucherCode.voucherCode;
-					
+
 					$http.post(`/rest/orders/save/ordervoucher/${order.id}/${voucherCode}`).then(resp => {
 						console.log("Success", resp)
 					}).catch(error => {
@@ -388,7 +387,7 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 						alert("error voucher user")
 						console.log(error)
 					})
-					
+
 					var vouUserId = $scope.selectedVoucherDetails.id;
 					$http.put(`/rest/orders/update/statusvoucher/${vouUserId}`).then(resp => {
 						console.log("Success", resp)
@@ -408,22 +407,39 @@ app.controller("cart-ctrl", function($scope, $http, $timeout, $window) {
 		},
 
 		vnpayPurchase() {
-
+			var amountUrl = 0;
+			if ($scope.isOrderApplyVoucher == true) {	
+				amountUrl = $scope.totalDiscount;		
+				$scope.order.totalAmount = $scope.totalDiscount;
+				console.log("total: ", $scope.order.totalAmount)			
+			} else {
+				amountUrl = $cart.amount
+				$scope.order.totalAmount = amountUrl
+			}
 			/*console.log(order)*/
 			$scope.order.address = $auth.delivery_address;
 			/*console.log("address: ", $scope.order.address);*/
 			$scope.order.delivery_phone = $auth.phonenumber;
 			/*console.log(typeof $scope.order.delivery_phone);*/
-			var amountUrl = $cart.amount
-			$scope.order.totalAmount = amountUrl
+
 			var order = angular.copy(this);
+			
+			order.voucherOfUserId = null;
+			order.voucherCode = null;
+			
+			if ($scope.isOrderApplyVoucher == true) {
+				order.voucherOfUserId = $scope.selectedVoucherDetails.id;
+				order.voucherCode = $scope.selectedVoucherDetails.voucherCode.voucherCode;	
+				
+				console.log("voucherOfUserId", order.voucherOfUserId)	
+			}
+
 			var isValid = this.validatePurchase();
 
 			console.log("oder: ", order)
 			if (!isValid) {
 				return;  // Dừng thực hiện nếu không hợp lệ
 			}
-
 			$http.post(`/api/vnpay/create_payment/${amountUrl}`, order).then(resp => {
 
 				console.log("URL VNpay: ", resp.data.paymentUrl)

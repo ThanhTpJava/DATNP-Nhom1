@@ -24,6 +24,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @CrossOrigin("*")
 @RestController
@@ -118,17 +121,29 @@ public class LuckySpinRestController {
 		}
 	}
 	
-	@PutMapping("/put/minusspincount")
-	public ResponseEntity<Account> minusSpinCount() {
+	 private final Lock lock = new ReentrantLock();
+	
+	@PutMapping("/put/minusspincount/{spinCount}")
+	public ResponseEntity<Account> minusSpinCount(@PathVariable("spinCount") String spinCount ) {
+		
 		Account account = (Account) session.getAttribute("authentication");
 		try {
-			// Gọi phương thức service để lấy số lần quay spin từ cơ sở dữ liệu
-			account.setSpinCount(account.getSpinCount() - 1);
 			
-			// Trả về giá trị thành công và số lần quay spin
-			return ResponseEntity.ok(accountService.update(account));
+            int currentCount = Integer.parseInt(spinCount);
+            
+            System.out.println("currentCount" + currentCount);
+            if (currentCount > 0) {
+                int updatedCount = currentCount - 1;
+                account.setSpinCount(updatedCount);
+                // Lưu account vào cơ sở dữ liệu
+                return ResponseEntity.ok(accountService.update(account));
+            } else {
+                // Không đủ lượt quay, xử lý tương ứng
+                return ResponseEntity.badRequest().body(null);
+            }
+			
 		} catch (Exception e) {
-			// Nếu có lỗi, trả về lỗi và thông báo
+			
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
