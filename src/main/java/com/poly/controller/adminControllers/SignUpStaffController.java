@@ -44,7 +44,7 @@ public class SignUpStaffController {
 	}
 	
 	@PostMapping("/create")
-	public String registerAccount(@ModelAttribute("accountdto") AccountAdminDTO accountDto, Model model) {
+	public String registerAccount(@ModelAttribute("accountdto") AccountAdminDTO accountDto, @RequestParam("roleid") String roleid, Model model) {
 		if(accountService.checkByEmail(accountDto.getEmail())) {
 			return "redirect:/admin/signup?emailexist";
 		}
@@ -52,7 +52,7 @@ public class SignUpStaffController {
 			return "redirect:/admin/signup?checkpass";
 		}
 		accountService.save(accountDto);
-		Role role = roleService.findRole("roleid");	
+		Role role = roleService.findRole(roleid);	
 		Account account = accountService.findById(accountDto.getUsername());
 		Authority userAuthorities = new Authority();
 		userAuthorities.setAccount(account);
