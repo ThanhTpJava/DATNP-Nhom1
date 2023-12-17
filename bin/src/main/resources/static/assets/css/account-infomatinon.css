@@ -50,6 +50,10 @@
     transition: transform 0.4s, top 0.4s;
 }
 
+.container-acc-detail .acc-detail.shipping-detail{
+	 height: 530px;
+}
+
 .container-acc-detail .acc-detail input{
     color: black;
 }
@@ -179,3 +183,17 @@
 	text-transform: lowercase;
 	display: none;
 }
+
+.status-ship{
+	display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin: 20px 0 20px 0;
+}
+
+.ship-cancel{
+	left: 5%;
+	margin-top: 20px;
+}
+

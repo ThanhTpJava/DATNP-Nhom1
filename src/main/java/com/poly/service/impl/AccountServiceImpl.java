@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.poly.dao.AccountDAO;
+import com.poly.dto.AccountAdminDTO;
 import com.poly.dto.AccountDTO;
 import com.poly.dto.AccountDTOMapper;
 import com.poly.entity.Account;
@@ -110,6 +111,50 @@ public class AccountServiceImpl implements AccountService{
 		// TODO Auto-generated method stub
 		String passwordEncode = passwordEncoder.encode(password);
 		dao.updatePasswordByUsername(passwordEncode, username);
+	}
+
+	@Override
+	public void save(AccountAdminDTO accountDto) {
+		accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+		Account account = new Account(
+				accountDto.getUsername(),
+				accountDto.getName(),
+				accountDto.getSurname(),
+				accountDto.getPassword(),
+				null,
+				null,
+				null,
+				null,
+				null,
+				accountDto.getGender().UNKNOW,
+				accountDto.getEmail(),
+				null,
+				null,
+				null,
+				null,
+				null
+		);
+		dao.save(account);
+	}
+
+	@Override
+	public Account getByEmail(String email) {
+		// TODO Auto-generated method stub
+		return dao.getByEmail(email);
+	}
+
+	@Override
+	public Boolean checkPasswordAccount(String email, String password) {
+		Account account = dao.findAccountByEmail(email);
+		if(account.getPassword().equals(password)) return true;
+		return false;
+	}
+
+	@Override
+	public Boolean checkByEmail(String email) {
+		Account account = dao.findAccountByEmail(email);
+		if(account == null) return false;
+		return true;
 	}
 		
 	

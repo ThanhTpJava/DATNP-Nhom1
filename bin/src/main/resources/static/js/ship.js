@@ -42,7 +42,7 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
     }
 
     $scope.reload = function() {
-        $scope.isPopupOpen = false;
+        $scope.isOpenAccDetail = false;
         $window.location.reload();
     }
 
@@ -69,12 +69,17 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
             $scope.isOpenAccDetail = true;
 
         },
+        
         updateStatus(orderId, statusId){
             $http.put(`/rest/orders/updateStatus/${orderId}/${statusId}`).then(resp =>{
                 console.log(resp.data)
                 $scope.shipDetail.userData = [resp.data];
                 this.getDetailShip(orderId);
             })
+        },
+
+        reload(){
+            $window.location.reload();
         }
 
     }

@@ -3,6 +3,7 @@ package com.poly.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.poly.dto.AccountAdminDTO;
 import com.poly.dto.AccountDTO;
 import com.poly.entity.Account;
 
@@ -32,4 +33,9 @@ public interface AccountService {
 	 Account findByEmail(String email);
 	 
 	 void updatePasswordByUsername(String password, String username);
+	 
+	 void save(AccountAdminDTO accountDto);
+	 Account getByEmail(String email);
+	 Boolean checkPasswordAccount(String email, String password);
+	 Boolean checkByEmail(String email);
 }

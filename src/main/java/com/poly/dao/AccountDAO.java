@@ -47,6 +47,9 @@ public interface AccountDAO extends JpaRepository<Account, String>{
     void updateAccountFromDTO(@Param("dto") AccountDTO dto);
 
 	Optional<Account> findByEmail(String email);
+	
+	Account findAccountByEmail(String email);
+	Account getByEmail(String email);
 
 	@Modifying
 	@Transactional
