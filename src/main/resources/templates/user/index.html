@@ -213,7 +213,7 @@
 			<div class="container-search-header">
 				<button
 					class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="/images/icons/icon-close2.png" alt="CLOSE">
+					<img src="images/icons/icon-close2.png" alt="CLOSE">
 				</button>
 
 				<form th:action="@{/search}" method="get"
@@ -421,9 +421,9 @@
 								<a href="#"
 									class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
 									<img class="icon-heart1 dis-block trans-04"
-									src="/images/icons/icon-heart-01.png" alt="ICON"> <img
+									src="images/icons/icon-heart-01.png" alt="ICON"> <img
 									class="icon-heart2 dis-block trans-04 ab-t-l"
-									src="/images/icons/icon-heart-02.png" alt="ICON">
+									src="images/icons/icon-heart-02.png" alt="ICON">
 								</a>
 							</div>
 						</div>
@@ -462,6 +462,11 @@
 
 			</div>
 		</div>
+		<!-- Messenger Plugin chat Code -->
+		<div id="fb-root"></div>
+
+		<!-- Your Plugin chat code -->
+		<div id="fb-customer-chat" class="fb-customerchat"></div>
 	</section>
 
 
@@ -546,15 +551,15 @@
 			<div class="p-t-40">
 				<div class="flex-c-m flex-w p-b-18">
 					<a href="#" class="m-all-1"> <img
-						src="../../static/images/icons/icon-pay-01.png" alt="ICON-PAY">
+						src="/static/images/icons/icon-pay-01.png" alt="ICON-PAY">
 					</a> <a href="#" class="m-all-1"> <img
-						src="../../static/images/icons/icon-pay-02.png" alt="ICON-PAY">
+						src="/static/images/icons/icon-pay-02.png" alt="ICON-PAY">
 					</a> <a href="#" class="m-all-1"> <img
-						src="../../static/images/icons/icon-pay-03.png" alt="ICON-PAY">
+						src="/static/images/icons/icon-pay-03.png" alt="ICON-PAY">
 					</a> <a href="#" class="m-all-1"> <img
-						src="../../static/images/icons/icon-pay-04.png" alt="ICON-PAY">
+						src="/static/images/icons/icon-pay-04.png" alt="ICON-PAY">
 					</a> <a href="#" class="m-all-1"> <img
-						src="../../static/images/icons/icon-pay-05.png" alt="ICON-PAY">
+						src="/static/images/icons/icon-pay-05.png" alt="ICON-PAY">
 					</a>
 				</div>
 
@@ -686,6 +691,30 @@
 	<!-- <script
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> -->
 	<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
+	<script>
+		var chatbox = document.getElementById('fb-customer-chat');
+		chatbox.setAttribute("page_id", "105841222244517");
+		chatbox.setAttribute("attribution", "biz_inbox");
+	</script>
 
+	<!-- Your SDK code -->
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				xfbml : true,
+				version : 'v18.0'
+			});
+		};
+
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
 </body>
 </html>
