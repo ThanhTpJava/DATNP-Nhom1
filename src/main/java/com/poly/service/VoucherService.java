@@ -10,11 +10,13 @@ public interface VoucherService {
     List<Voucher> getAll();
     List<Voucher> findPaginated(Pageable pageable);
 
-    Voucher findByID(Integer id);
+    Voucher findByID(String id);
     public Voucher create(Voucher voucher) ;
 
     public Voucher update(Voucher voucher) ;
 
-    public void delete(Integer id) ;
+    public void delete(String id) ;
 
+    void updateQuantityVoucher(String voucherCode);
+    
 }

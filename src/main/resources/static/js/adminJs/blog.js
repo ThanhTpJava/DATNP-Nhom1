@@ -124,6 +124,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
 
             $scope.items.push(item);
             $scope.load_all();
+            $scope.reset();
             console.log("Success", resp)
             alert("Create successfully!");
         }).catch(error => {

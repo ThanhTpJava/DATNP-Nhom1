@@ -21,7 +21,4 @@ private String id;
 	@Column(name = "Name", nullable = false, columnDefinition = "nvarchar(100)")
 	private String Name;
 
-	@ManyToOne
-	@JoinColumn(name = "BrandID")
-	private Brand brand;
 }

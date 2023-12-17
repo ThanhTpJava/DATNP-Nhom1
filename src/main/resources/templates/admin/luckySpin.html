@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="dynamic(main)">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Dashboard</title>
+    <link th:href="@{/assets/css/luckyspin.css}" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/assets/css/popup2.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <!-- Custom fonts for this template-->
+    <link href="/vendor-admin/fontawesome-free/css/all.min.css"
+          rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/css/adminStyle/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for table -->
+    <link href="/vendor-admin/datatables/dataTables.bootstrap4.min.css"
+          rel="stylesheet">
+    <style>
+        .table-container {
+            overflow-x: auto; /* Add a horizontal scrollbar if needed */
+            max-width: 100%; /* Ensure the table doesn't exceed the container width */
+        }
+
+    </style>
+</head>
+
+<body id="page-top" ng-app="app" ng-controller="ctrl">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="~{admin/index :: sidebar}"></ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column vh-100">
+        <div class="popup mx-auto" ng-class="{ 'open-rules': isRulesOpen }" style="width: 500px; text-align: center;">
+            <img ng-src="/images/spin.png" alt="">
+            <h2>Điều kiện tạo vòng quay</h2>
+
+            <strong>Điều kiện</strong>
+            <div class="justify-content-center">
+                <h5>Để vòng quay hợp lệ cần phải có</h5>
+                <ul>
+                    <li>Từ 4 đến 10 voucher</li>
+                    <li>Tổng tỉ lệ các voucher là 100%</li>
+                </ul>
+
+            </div>
+
+            <button type="button" ng-click="rulesClose()">OK</button>
+        </div>
+        <div class="row ms-5 mt-5 table-container">
+            <div class="col-6">
+                <h2>Danh sách vòng quay</h2>
+                <table class="table col-10">
+                    <thead>
+                    <tr>
+                        <th>Number Spin</th>
+                        <th>Mã Voucher</th>
+                        <th>Tỉ lệ</th>
+                        <th>Ngày hết hạn</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Thêm dòng cho mỗi hình ảnh sản phẩm ở đây -->
+                    <tr ng-repeat="s in spins">
+                        <td>{{$index + 1}}</td>
+                        <td>{{s.voucher_code}}</td>
+                        <td>{{s.endDate | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{s.rate}}%</td>
+                        <td>
+                            <button ng-click="deleteSpin(s.id)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <!-- Kết thúc danh sách -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-6">
+                <h2>Danh sách Voucher</h2>
+                <div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Mã Voucher</th>
+                            <th>Tiền giảm</th>
+                            <th>Tỉ lệ</th>
+                            <th>Đơn hàng tối thiểu</th>
+                            <th>Ngày hết hạn</th>
+                            <th>Thông tin</th>
+                            <th>Hành động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Thêm dòng cho mỗi hình ảnh sản phẩm ở đây -->
+                        <tr ng-repeat="v in items | startFrom:currentPage*pageSize | limitTo:pageSize " ng-if="v.status === true">
+                            <td>{{v.voucherCode}}</td>
+                            <td>{{v.discount}} VNĐ</td>
+                            <td>{{v.rate}}%</td>
+                            <td>{{v.totalRequested}}</td>
+                            <td>{{v.endDate | date: 'dd/MM/yyyy'}}</td>
+                            <td>{{v.review}}</td>
+                            <td>
+                                <button ng-click="createSpin(v.voucherCode)" class="btn btn-success"><i class="fa-sharp fa-solid fa-plus"></i></button>
+                            </td>
+                        </tr>
+
+                        <!-- Kết thúc danh sách -->
+                        </tbody>
+                    </table>
+                    <nav aria-label="Page navigation example" class="d-flex mt-3 justify-content-center">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#" ng-disabled="currentPage == 0"
+                                                     ng-click="currentPage=currentPage-1">Previous</a></li>
+                            <li ng-repeat="n in range(numberOfPages())" ng-if="n >= currentPage - 1 && n <= currentPage + 2" class="page-item"
+                                ng-class="{active: n == currentPage}"
+                                ng-click="setPage()">
+                                <a class="page-link" href ng-bind="n + 1"></a>
+                                <span ng-if="n == currentPage" class="sr-only">(current)</span>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#"
+                                                     ng-disabled="currentPage >= items.length/pageSize - 1"
+                                                     ng-click="currentPage=currentPage+1">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                    <div class="row">
+                    <div class="col-6">
+                        <h5>Tổng tỉ lệ trong vòng quay: <b ng-style="{color: totalRate == 100 ? 'green' : 'red'}"> {{totalRate}}%</b></h5>
+                        <h5>Tổng số voucher trong quay: <b ng-style="{color: getCountVoucher >= 4 ? 'green' : 'red'}"> {{getCountVoucher}}</b> </h5>
+                        <h5>
+                            Trạng thái vòng quay: <b ng-style="{color: statusSpinNow ? 'green' : 'red'}">{{statusSpinNow ? 'Hợp lệ' : 'Không hợp lệ'}}</b>
+                        </h5>
+                    </div>
+                    <div class="col-6">
+                        <button ng-click="rulesOpen()" class = "btn-secondary"><i class="fa-solid fa-dharmachakra"></i>Điều kiện</button>
+                    </div>
+                    </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+        </div>
+    </div>
+
+
+<!-- End of Content Wrapper -->
+
+
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top"> <i
+        class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready
+                to end your current session.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button"
+                        data-dismiss="modal">Cancel
+                </button>
+                <a class="btn btn-primary" href="/auth/logoff/success">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var sortingOrder = 'name';
+</script>
+<script src="/js/adminJs/voucher.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor-admin/jquery/jquery.min.js"></script>
+<script src="/vendor-admin/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor-admin/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/adminJs/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/vendor-admin/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/js/adminJs/demo/chart-area-demo.js"></script>
+<script src="/js/adminJs/demo/chart-pie-demo.js"></script>
+
+
+<!-- Page level plugins -->
+<!--<script src="/vendor-admin/datatables/jquery.dataTables.min.js"></script>-->
+<!--<script src="/vendor-admin/datatables/dataTables.bootstrap4.min.js"></script>-->
+
+<!-- Page level custom scripts -->
+<!--<script src="/js/adminJs/demo/datatables-demo.js"></script>-->
+
+
+</body>
+
+</html>

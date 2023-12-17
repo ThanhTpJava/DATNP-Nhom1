@@ -57,7 +57,7 @@ public class Product implements Serializable{
 	@Column(name ="warranty_period")
 	private Integer warranty_period;
 
-	@Column(name ="main_image")
+	@Column(name ="main_image", columnDefinition = "nvarchar(max)")
 	private String main_image;
 
 	@ManyToOne

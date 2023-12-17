@@ -156,6 +156,30 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         }
     }
 
+    $scope.copyImageURL = function(imageURL) {
+        // Create a temporary input element
+        var tempInput = document.createElement("input");
+
+        // Set the input value to the image URL
+        tempInput.value = imageURL;
+
+        // Append the input element to the body
+        document.body.appendChild(tempInput);
+
+        // Select the input content
+        tempInput.select();
+
+        // Copy the selected content to the clipboard
+        document.execCommand("copy");
+
+        // Remove the temporary input element
+        document.body.removeChild(tempInput);
+
+        // Optionally, provide feedback to the user
+        alert("Image URL copied to clipboard: " + imageURL);
+    };
+
+
     //load data to table
     $scope.load_all();
     $scope.reset();
