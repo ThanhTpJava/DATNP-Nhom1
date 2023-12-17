@@ -1,0 +1,27 @@
+/* style.css */
+.otp-container { 
+	display: flex; 
+	justify-content: center; 
+	align-items: center; 
+} 
+
+.input-otp { 
+	display: inline-flex;
+	width: 25px; 
+	border: none; 
+	border-bottom: 3px solid rgba(0, 0, 0, 0.5); 
+	margin: 0 10px; 
+	text-align: center; 
+	font-size: 36px; 
+	
+} 
+
+.input-otp:focus { 
+	border-bottom: 3px solid orange; 
+	outline: none; 
+} 
+
+.input-otp:nth-child(1) { 
+	cursor: pointer; 
+	pointer-events: all; 
+}
