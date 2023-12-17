@@ -1,5 +1,7 @@
 package com.poly.dto;
 
+import java.util.Date;
+
 public record LuckySpinDTO(
 
 	Integer id,
@@ -7,8 +9,11 @@ public record LuckySpinDTO(
 	String voucher_code,
 	String review,
 	String description,
+
+	Date endDate,
 	int quantity,
-	int rate	
+	int rate
+
 	) {
 
 }

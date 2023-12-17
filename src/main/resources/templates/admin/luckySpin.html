@@ -80,6 +80,7 @@
                         <th>Number Spin</th>
                         <th>Mã Voucher</th>
                         <th>Tỉ lệ</th>
+                        <th>Ngày hết hạn</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -88,6 +89,7 @@
                     <tr ng-repeat="s in spins">
                         <td>{{$index + 1}}</td>
                         <td>{{s.voucher_code}}</td>
+                        <td>{{s.endDate | date: 'dd/MM/yyyy'}}</td>
                         <td>{{s.rate}}%</td>
                         <td>
                             <button ng-click="deleteSpin(s.id)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
@@ -109,6 +111,7 @@
                             <th>Tiền giảm</th>
                             <th>Tỉ lệ</th>
                             <th>Đơn hàng tối thiểu</th>
+                            <th>Ngày hết hạn</th>
                             <th>Thông tin</th>
                             <th>Hành động</th>
                         </tr>
@@ -120,6 +123,7 @@
                             <td>{{v.discount}} VNĐ</td>
                             <td>{{v.rate}}%</td>
                             <td>{{v.totalRequested}}</td>
+                            <td>{{v.endDate | date: 'dd/MM/yyyy'}}</td>
                             <td>{{v.review}}</td>
                             <td>
                                 <button ng-click="createSpin(v.voucherCode)" class="btn btn-success"><i class="fa-sharp fa-solid fa-plus"></i></button>
