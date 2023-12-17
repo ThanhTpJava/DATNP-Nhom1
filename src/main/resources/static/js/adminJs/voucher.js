@@ -10,6 +10,14 @@ app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.sortingOrder = sortingOrder;
     $scope.reverse = false;
 
+    $scope.parseDate = function (dateString) {
+        return new Date(dateString);
+    };
+
+    $scope.currentDate = new Date();
+
+
+
     $scope.isVoucherCodeExists = function(voucherCode) {
         // Check if voucherCode exists in the list of items
         return $scope.items.some(function(item) {
@@ -144,6 +152,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
                 var index = $scope.items.findIndex(item => item.id == $scope.form.id);
                 $scope.items.splice(index, 1);
                 $scope.load_all();
+                $scope.reset();
                 console.log("Success", resp)
                 alert("Delete successfully!");
             }).catch(error => {
@@ -169,6 +178,19 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         $http.get(url).then(resp => {
             $scope.spins = resp.data;
             $scope.IsStatus();
+
+            // Kiểm tra endDate và xóa các id không hợp lệ
+            var currentDate = new Date();
+
+            $scope.spins.forEach(spin => {
+                if (new Date(spin.endDate) < currentDate) {
+                    // Xóa id không hợp lệ
+                    $scope.HasDelete = "Đã xóa id hết hạn!"
+                    console.log('Đã xóa id hết hạn!')
+                    $scope.deleteByEndDate(spin.id);
+                }
+            });
+
             if($scope.IsStatus() === true){
                 console.log("true");
                 var url = `${host}/statusSpin/true`;
@@ -241,6 +263,21 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             });
         }
     }
+
+    $scope.deleteByEndDate = function (id) {
+        console.log("Deleting spin with id:", id);
+
+            var url = `${host}/luckySpin/${id}`;
+            $http.delete(url).then(resp => {
+                // var index = $scope.items.findIndex(spin => spins.id == $scope.form.id);
+                // $scope.spins.splice(index, 1);
+                $scope.load_allSpin();
+                console.log("Success", resp)
+                alert("Expired vouchers have been removed!");
+            }).catch(error => {
+                console.log("Error", error)
+            });
+        }
 
     $scope.IsStatus = function() {
         // Assuming $scope.spins contains the list of vouchers

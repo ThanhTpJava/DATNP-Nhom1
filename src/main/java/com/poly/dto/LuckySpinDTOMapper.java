@@ -17,6 +17,7 @@ public class LuckySpinDTOMapper implements Function<LuckySpin, LuckySpinDTO>{
 				ls.getVoucherCode().getVoucherCode(), 
 				ls.getVoucherCode().getReview(),
 				ls.getVoucherCode().getDescription(),
+				ls.getVoucherCode().getEndDate(),
 				ls.getVoucherCode().getQuantity(),
 				ls.getVoucherCode().getRate()	
 			);
