@@ -12,4 +12,6 @@ public interface OrderStatusService {
 	OrderStatus saveOrderStatus(OrderStatus orderStatus);
 	
 	OrderStatus findByOrderId(String orderId);
+	
+	List<OrderStatus> searchOrderStatus(String keyword);
 }

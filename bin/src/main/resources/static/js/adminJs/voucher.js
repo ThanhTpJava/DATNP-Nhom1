@@ -87,6 +87,8 @@ app.controller("ctrl", function ($scope, $http, $filter) {
     $scope.detail = function (id) {
         var url = `${host}/voucher/${id}`;
         $http.get(url).then(resp => {
+            resp.data.startDate = new Date(resp.data.startDate);
+            resp.data.endDate = new Date(resp.data.endDate);
             $scope.form = resp.data;
             console.log("Success", resp)
         }).catch(error => {

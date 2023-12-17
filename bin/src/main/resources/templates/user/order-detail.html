@@ -64,7 +64,7 @@
 					</div>
 					<div class="form-group col-sm-4">
 						<div>Purchaser:</div>
-						<input th:field="*{account.username}" class="form-control"
+						<input th:value = "*{#strings.concat(account.surname, ' ', account.name)}" class="form-control"
 							readonly>
 					</div>
 					<div class="form-group col-sm-4">
@@ -97,17 +97,18 @@
 					<tr th:each="detail: *{orderDetails}" th:object="${detail}">
 						<td>[[*{product.id}]]</td>
 						<td>[[*{product.name}]]</td>
-						<td>[[*{#numbers.formatDecimal(subtotal, 0, 'COMMA', 2,
+						<td>[[*{#numbers.formatDecimal(subtotal, 0, 'COMMA', 0,
 							'POINT')}]]đ</td>
 						<td><img th:src="@{|*{product.main_image}|}" width="100px "></td>
 						<td>[[*{quantity}]]</td>
-						<td>$[[*{#numbers.formatDecimal(subtotal*quantity, 0, 'COMMA',
-							2, 'POINT')}]]đ</td>
+						<td>[[*{#numbers.formatDecimal(subtotal*quantity, 0, 'COMMA',
+							0, 'POINT')}]]đ</td>
 						<!-- Trang người dùng chỉ có 3 số -->
 					</tr>
 				</tbody>
 			</table>
 		</div>
+		<a th:href="@{/orders/export}">Export to Excel</a> 
 	</main>
 	<!-- Footer -->
 	<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>

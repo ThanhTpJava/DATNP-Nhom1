@@ -3,6 +3,7 @@ package com.poly.controller;
 import com.poly.entity.Category;
 import com.poly.entity.Product;
 import com.poly.entity.ProductImage;
+import com.poly.service.CounterService;
 import com.poly.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,10 @@ import java.util.stream.Collectors;
 public class ProductController {
     @Autowired
     ProductService productService;
+    
+    @Autowired
+	private CounterService counterService;
+    
     private final int pageSize = 20;
     @GetMapping("/user/home")
     public String list(@RequestParam(defaultValue = "0") int page,Model model){

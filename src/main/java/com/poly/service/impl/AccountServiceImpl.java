@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.poly.dto.AccountAdminDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -115,6 +116,55 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public Account update(Account account) {
 		return dao.save(account);
+	}
+
+
+
+	@Override
+	public void save(AccountAdminDTO accountDto) {
+		accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+		Account account = new Account(
+				accountDto.getUsername(),
+				accountDto.getName(),
+				accountDto.getSurname(),
+				accountDto.getPassword(),
+				null,
+				null,
+				null,
+				null,
+				null,
+				accountDto.getGender().UNKNOW,
+				accountDto.getEmail(),
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				0
+
+		);
+		dao.save(account);
+	}
+
+	@Override
+	public Account getByEmail(String email) {
+		// TODO Auto-generated method stub
+		return dao.getByEmail(email);
+	}
+
+	@Override
+	public Boolean checkPasswordAccount(String email, String password) {
+		Account account = dao.findAccountByEmail(email);
+		if(account.getPassword().equals(password)) return true;
+		return false;
+	}
+
+	@Override
+	public Boolean checkByEmail(String email) {
+		Account account = dao.findAccountByEmail(email);
+		if(account == null) return false;
+		return true;
 	}
 
 
