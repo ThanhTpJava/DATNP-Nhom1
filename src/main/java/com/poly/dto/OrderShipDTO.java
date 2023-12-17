@@ -16,7 +16,9 @@ public record OrderShipDTO(
         Account account,
 
         List<OrderDetail> orderDetail,
-        int orderStatus
+        int orderStatus,
+
+        double total_amount
 ) {
 
 }

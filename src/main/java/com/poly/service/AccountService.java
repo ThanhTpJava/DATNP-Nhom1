@@ -32,4 +32,6 @@ public interface AccountService {
 	 Account findByEmail(String email);
 	 
 	 void updatePasswordByUsername(String password, String username);
+
+	 Account update(Account account);
 }

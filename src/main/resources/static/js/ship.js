@@ -70,10 +70,15 @@ app.controller("ctrl", function($scope, $http, $timeout, $window) {
 
         },
         
-        updateStatus(orderId, statusId){
+        updateStatus(orderId, statusId, amount, username){
             $http.put(`/rest/orders/updateStatus/${orderId}/${statusId}`).then(resp =>{
                 console.log(resp.data)
                 $scope.shipDetail.userData = [resp.data];
+                if(statusId == 4){
+                    $http.put(`/auth/updateSpinCount/${amount}/${username}`).then(resp2 =>{
+                        console.log(resp2.data);
+                    })
+                }
                 this.getDetailShip(orderId);
             })
         },
