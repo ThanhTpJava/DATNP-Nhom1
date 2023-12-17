@@ -95,4 +95,5 @@ public class Account implements Serializable{
 	
 	@Column(name = "spin_count")
 	private int spinCount;
+
 }
