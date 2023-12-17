@@ -204,7 +204,7 @@ app.controller("ctrl", function ($scope, $http, $filter) {
             console.log("Success", resp);
             alert("Create successfully!");
         }).catch(error => {
-            alert('Duplicate documents cannot be added')
+            alert('Duplicate voucher cannot be added')
             console.log("Error", error);
         });
     };
@@ -269,7 +269,13 @@ app.controller("ctrl", function ($scope, $http, $filter) {
         return sum + (spin.rate || 0);
     }, 0);
 
+    $scope.rulesOpen = function() {
+        $scope.isRulesOpen = true;
+    }
 
+    $scope.rulesClose = function() {
+        $scope.isRulesOpen = false;
+    }
 
 
     //load data to table
