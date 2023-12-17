@@ -1,6 +1,7 @@
 package com.poly.controller;
 
 
+import java.io.Console;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -27,11 +28,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.dao.AccountDAO;
+import com.poly.dto.ListUsersRewardsDTO;
 import com.poly.entity.Order;
 import com.poly.entity.OrderExcelExcelExporter;
+import com.poly.entity.VoucherOfUser;
 import com.poly.service.AccountService;
 //import com.poly.service.EmailService;
 import com.poly.service.OrderService;
+import com.poly.service.VoucherOfUserService;
 import com.poly.entity.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -52,8 +56,12 @@ public class OrderController {
 	CreateOrderId createOrderId;
 //	  @Autowired
 //	    private EmailService emailService;
-	  @Autowired
-	  private AccountService accountService;
+	 @Autowired
+	 private AccountService accountService;
+	  
+	 @Autowired
+	 VoucherOfUserService voucherOfUserService;
+	  
 	@RequestMapping("/order/checkout")
 	public String checkout(HttpServletRequest request, Model model) {
 			
@@ -61,8 +69,9 @@ public class OrderController {
 		if(session.getAttribute("authentication") != null){
 			String orderId = createOrderId.generateInvoiceCode();
 			System.out.println("Mã hóa đơn: " +orderId);
-			model.addAttribute("orderId", orderId);
-			return "user/order-checkout";
+			model.addAttribute("orderId", orderId);		
+			
+			return "user/order-checkout";	
 		}
 		
 		return "redirect:/auth/login/form";

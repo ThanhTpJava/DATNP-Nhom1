@@ -50,13 +50,15 @@ public class Voucher {
 	@Column(name ="status")
 	public boolean status;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "voucherCode")
 	private LuckySpin luckySpin;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "voucherCode")
 	List<VoucherOfUser> listVoucherOfUsers;
-
+	
+	@JsonIgnore
 	@OneToOne(mappedBy = "voucherCode")
 	private Order order;
 }

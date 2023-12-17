@@ -16,6 +16,6 @@ public interface VoucherDAO extends JpaRepository<Voucher, String>{
 	
 	@Modifying
     @Transactional
-    @Query("UPDATE Voucher v SET v.quantity = (SELECT v.quantity FROM Voucher v WHERE v.voucherCode = :vcode) - :quantity WHERE v.voucherCode = :vcode")
-    void updateVoucherQuantity(@Param("vcode") String vcode, @Param("quantity") Integer quantity);
+    @Query("UPDATE Voucher v SET v.quantity = (SELECT v.quantity FROM Voucher v WHERE v.voucherCode = :vcode) - 1 WHERE v.voucherCode = :vcode")
+    void updateVoucherQuantity(@Param("vcode") String vcode);
 }
