@@ -41,7 +41,7 @@ public class AuthController {
 		printAuthenticationInfo();
 		System.out.println("------------------------------------------------------------------");
 		getLoginAuthority();
-		return "../admin/login.html";
+		return "admin/login.html";
 	}
 
 	@Autowired

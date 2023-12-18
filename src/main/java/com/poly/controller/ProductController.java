@@ -28,7 +28,7 @@ public class ProductController {
 	private CounterService counterService;
     
     private final int pageSize = 20;
-    @GetMapping("")
+    @GetMapping({"","/"})
     public String list(@RequestParam(defaultValue = "0") int page,Model model){
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").ascending());

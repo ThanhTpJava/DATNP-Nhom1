@@ -27,13 +27,13 @@ public class TestController {
     
     @RequestMapping("/auth/login")
     public String testv2(){
-        return "/admin/login.html";
+        return "admin/login.html";
     }
     
     @RequestMapping("/payment")
     public String testv2(Model model){
         model.addAttribute("message", "payment");
-    	return "/user/index.html";
+    	return "user/index.html";
     }
     
     @RequestMapping("/productv2")

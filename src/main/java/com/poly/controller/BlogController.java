@@ -40,7 +40,7 @@ public class BlogController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("items", list);
-        return "/user/blog";
+        return "user/blog";
     }
 
     @RequestMapping("blog/detail/{id}")

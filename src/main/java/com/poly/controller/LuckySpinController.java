@@ -22,6 +22,6 @@ public class LuckySpinController {
 		
 		List<ListUsersRewardsDTO> listUsersRewards = voucherOfUserService.getListUsersRewards();
 		model.addAttribute("listUsersRewards", listUsersRewards);
-		return "/user/lucky-spin";
+		return "user/lucky-spin";
 	}
 }
