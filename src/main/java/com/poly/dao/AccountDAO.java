@@ -56,4 +56,6 @@ public interface AccountDAO extends JpaRepository<Account, String>{
 	@Query("UPDATE Account acc SET acc.password = ?1 WHERE acc.username = ?2")
 	void updatePasswordByUsername(String password, String username);
 
+	@Query("SELECT acc.spinCount FROM Account acc WHERE acc.username = ?1 ")
+    Integer getSpinCount(String username);
 }

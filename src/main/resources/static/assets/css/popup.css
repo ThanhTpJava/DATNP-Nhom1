@@ -254,3 +254,9 @@
     align-items: center;  /* Canh giữa theo chiều dọc */
 }
 
+.listVoucher img{
+	width: 310px;
+	height: 310px;
+	border-radius: 0;
+	margin: 5px 0 10px 0;
+}

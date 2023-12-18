@@ -26,4 +26,6 @@ public class OrderPaymentDTO {
     private String address;
     private String delivery_phone;
     private List<orderDetails> orderDetails;
+    private Integer voucherOfUserId;
+    private String voucherCode;
 }

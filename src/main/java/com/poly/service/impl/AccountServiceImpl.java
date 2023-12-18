@@ -118,6 +118,12 @@ public class AccountServiceImpl implements AccountService{
 		return dao.save(account);
 	}
 
+	@Override
+	public Integer getSpinCount(String username) {
+		// TODO Auto-generated method stub
+		return dao.getSpinCount(username);
+	}
+
 
 
 	@Override

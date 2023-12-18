@@ -40,4 +40,7 @@ public interface AccountService {
 	 Account getByEmail(String email);
 	 Boolean checkPasswordAccount(String email, String password);
 	 Boolean checkByEmail(String email);
+
+	 Integer getSpinCount(String username);
+
 }

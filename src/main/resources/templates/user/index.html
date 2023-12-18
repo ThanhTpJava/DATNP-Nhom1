@@ -86,25 +86,24 @@
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							<li><a th:href="@{/user/home}">Home</a>
+							<li><a th:href="@{/user/home}">Trang chủ</a>
 								<ul class="sub-menu">
 									<li th:each="c:${cates}"><a
 										th:href="@{|/user/shop?cid=${c.id}|}">[[${c.name}]]</a></li>
 
 								</ul></li>
 
-							<li><a th:href="@{/user/shop}">Shop</a></li>
+							<li><a th:href="@{/user/shop}">Sản phẩm</a></li>
+
+
+							<li><a href="/blog">Tin tức</a></li>
+
+							<li><a href="about.html">Thông tin</a></li>
+
+
 
 							<li class="label1" data-label1="hot"><a
-								href="shoping-cart.html">Features</a></li>
-
-							<li><a href="/blog">Blog</a></li>
-
-							<li><a href="about.html">About</a></li>
-
-							<li><a href="contact.html">Contact</a></li>
-
-							 <li><a th:href="@{/user/luckyspin}">Lucky Spin</a></li>
+								th:href="@{/user/luckyspin}">Vòng quay may mắn</a></li>
 						</ul>
 					</div>
 
@@ -343,7 +342,7 @@
 								<span class="block1-name ltext-102 trans-04 p-b-8"
 									style="color: RED"> One Piece </span> <span
 									class="block1-info stext-102 trans-04" style="color: RED">
-								    King </span>
+									King </span>
 							</div>
 
 							<div class="block1-txt-child2 p-b-4 trans-05">
@@ -412,9 +411,11 @@
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
 								<a th:text="${p.name}" th:href="@{'detail/' + ${p.id}}"
-									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"> </a> <b>Giá: <span
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"> </a> <b>Giá:
+									<span
 									th:text="${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')} +' VND'"
-									class="stext-105 cl3">VND</span> </b>
+									class="stext-105 cl3">VND</span>
+								</b>
 							</div>
 
 							<div class="block2-txt-child2 flex-r p-t-3">
@@ -475,16 +476,16 @@
 
 					<ul>
 						<li class="p-b-10"><a href="#"
-							class="stext-107 cl7 hov-cl1 trans-04"> Women </a></li>
+							class="stext-107 cl7 hov-cl1 trans-04"> One Piece </a></li>
 
 						<li class="p-b-10"><a href="#"
-							class="stext-107 cl7 hov-cl1 trans-04"> Men </a></li>
+							class="stext-107 cl7 hov-cl1 trans-04"> Naruto </a></li>
 
 						<li class="p-b-10"><a href="#"
-							class="stext-107 cl7 hov-cl1 trans-04"> Shoes </a></li>
+							class="stext-107 cl7 hov-cl1 trans-04"> Kimetsu No Yaiba </a></li>
 
 						<li class="p-b-10"><a href="#"
-							class="stext-107 cl7 hov-cl1 trans-04"> Watches </a></li>
+							class="stext-107 cl7 hov-cl1 trans-04"> Dragon Ball</a></li>
 					</ul>
 				</div>
 
@@ -509,9 +510,9 @@
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">GET IN TOUCH</h4>
 
-					<p class="stext-107 cl7 size-201">Any questions? Let us know in
-						store at 8th floor, 379 Hudson St, New York, NY 10018 or call us
-						on (+1) 96 716 6879</p>
+					<p class="stext-107 cl7 size-201">We are committed to bringing
+						you the most genuine and quality products. If you have any
+						questions, you can come directly or contact us by email.</p>
 
 					<div class="p-t-27">
 						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i
@@ -530,14 +531,14 @@
 					<form>
 						<div class="wrap-input1 w-full p-b-4">
 							<input class="input1 bg-none plh1 stext-107 cl7" type="text"
-								name="email" placeholder="email@example.com">
+								name="email" placeholder="figureshop@gmail.com">
 							<div class="focus-input1 trans-04"></div>
 						</div>
 
 						<div class="p-t-18">
 							<button
 								class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-								Subscribe</button>
+								SEND</button>
 						</div>
 					</form>
 				</div>
@@ -573,7 +574,7 @@
 				</p>
 			</div>
 		</div>
-		
+
 	</footer>
 
 
@@ -586,7 +587,7 @@
 
 	<!-- Modal1 -->
 
-	
+
 	<script th:src="@{/assets/js/shopping-cart-app.js}"></script>
 	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
 	<script th:src="@{/vendor/animsition/js/animsition.min.js}"></script>
