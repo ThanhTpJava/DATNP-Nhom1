@@ -13,48 +13,48 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
 	integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link th:href="@{/assets/css/luckyspin.css}" rel="stylesheet" />
+<link th:href="@{../../static/assets/css/luckyspin.css}" rel="stylesheet" />
 <!--===============================================================================================-->
 <link rel="icon" type="image/png" th:href="@{/images/icons/favicon.png}" />
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+	th:href="@{../../static/vendor/bootstrap/css/bootstrap.min.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	th:href="@{../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+	th:href="@{../../static/fonts/iconic/css/material-design-iconic-font.min.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/fonts/linearicons-v1.0.0/icon-font.min.css}">
+	th:href="@{../../static/fonts/linearicons-v1.0.0/icon-font.min.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/vendor/animate/animate.css}">
+	th:href="@{../../static/vendor/animate/animate.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/vendor/css-hamburgers/hamburgers.min.css}">
+	th:href="@{../../static/vendor/css-hamburgers/hamburgers.min.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/vendor/animsition/css/animsition.min.css}">
+	th:href="@{../../static/vendor/animsition/css/animsition.min.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/vendor/select2/select2.min.css}">
+	th:href="@{../../static/vendor/select2/select2.min.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/vendor/daterangepicker/daterangepicker.css}">
+	th:href="@{../../static/vendor/daterangepicker/daterangepicker.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/vendor/slick/slick.css}">
+	th:href="@{../../static/vendor/slick/slick.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/vendor/MagnificPopup/magnific-popup.css}">
+	th:href="@{../../static/vendor/MagnificPopup/magnific-popup.css}">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	th:href="@{/vendor/perfect-scrollbar/perfect-scrollbar.css}">
+	th:href="@{../../static/vendor/perfect-scrollbar/perfect-scrollbar.css}">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<link rel="stylesheet" type="text/css" th:href="@{../../static/css/util.css}">
+<link rel="stylesheet" type="text/css" th:href="@{../../static/css/main.css}">
 <link rel="stylesheet" th:href="@{/assets/css/popup.css}">
 <!--===============================================================================================-->
 </head>
@@ -62,10 +62,10 @@
 <body class="animsition" ng-app="app" ng-controller="cart-ctrl">
 
 	<!-- Header -->
-	<header th:replace="user/index :: header"> </header>
+	<header th:replace="./index :: header"> </header>
 
 	<!-- Cart -->
-	<div th:replace="user/index :: cart"></div>
+	<div th:replace="./index :: cart"></div>
 
 	<main>
 		<div ng-controller="luckyspin-ctrl" class="luckyspin-container">
@@ -133,25 +133,25 @@
 	</main>
 
 	<!-- Footer -->
-	<footer th:replace="user/index :: footer"></footer>
+	<footer th:replace="./index :: footer"></footer>
 
 
 	<!-- Back to top -->
-	<div th:replace="user/index :: backtop"></div>
+	<div th:replace="./index :: backtop"></div>
 
 	<!-- Modal1 -->
-	<script th:src="@{/assets/js/shopping-cart-app.js}"></script>
-	<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
-	<script th:src="@{/assets/js/lucky-spin.js}"></script>
+	<script th:src="@{../../static/assets/js/shopping-cart-app.js}"></script>
+	<script th:src="@{../../static/assets/js/shopping-cart-ctrl.js}"></script>
+	<script th:src="@{../../static/assets/js/lucky-spin.js}"></script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{../../static/vendor/jquery/jquery-3.2.1.min.js}"></script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/animsition/js/animsition.min.js}"></script>
+	<script th:src="@{../../static/vendor/animsition/js/animsition.min.js}"></script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/bootstrap/js/popper.js}"></script>
-	<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{../../static/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{../../static/vendor/bootstrap/js/bootstrap.min.js}"></script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/select2/select2.min.js}"></script>
+	<script th:src="@{../../static/vendor/select2/select2.min.js}"></script>
 	<script>
 		$(".js-select2").each(function() {
 			$(this).select2({
@@ -161,18 +161,18 @@
 		})
 	</script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/daterangepicker/moment.min.js}"></script>
-	<script th:src="@{/vendor/daterangepicker/daterangepicker.js}"></script>
+	<script th:src="@{../../static/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{../../static/vendor/daterangepicker/daterangepicker.js}"></script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/slick/slick.min.js}"></script>
-	<script th:src="@{/js/slick-custom.js}"></script>
+	<script th:src="@{../../static/vendor/slick/slick.min.js}"></script>
+	<script th:src="@{../../static/js/slick-custom.js}"></script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/parallax100/parallax100.js}"></script>
+	<script th:src="@{../../static/vendor/parallax100/parallax100.js}"></script>
 	<script>
 		$('.parallax100').parallax100();
 	</script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/MagnificPopup/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{../../static/vendor/MagnificPopup/jquery.magnific-popup.min.js}"></script>
 	<script>
 		$('.gallery-lb').each(function() { // the containers for all your galleries
 			$(this).magnificPopup({
@@ -186,9 +186,9 @@
 		});
 	</script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/isotope/isotope.pkgd.min.js}"></script>
+	<script th:src="@{../../static/vendor/isotope/isotope.pkgd.min.js}"></script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/sweetalert/sweetalert.min.js}"></script>
+	<script th:src="@{../../static/vendor/sweetalert/sweetalert.min.js}"></script>
 	<script>
 		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e) {
 			e.preventDefault();
@@ -231,7 +231,7 @@
 				});
 	</script>
 	<!--===============================================================================================-->
-	<script th:src="@{/vendor/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+	<script th:src="@{../../static/vendor/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
 	<script>
 		$('.js-pscroll').each(function() {
 			$(this).css('position', 'relative');
@@ -248,7 +248,7 @@
 		});
 	</script>
 	<!--===============================================================================================-->
-	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{../../static/js/main.js}"></script>
 
 </body>
 </html>

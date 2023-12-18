@@ -41,7 +41,7 @@ public class ProductController {
         return "index";
     }
 
-    @RequestMapping("user/detail/{id}")
+    @RequestMapping("/user/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id){
 
         Product item = productService.findByID(id);

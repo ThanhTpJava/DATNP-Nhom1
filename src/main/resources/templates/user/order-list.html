@@ -14,43 +14,43 @@
 	<link rel="icon" type="image/png" th:href="@{/images/icons/favicon.png}" />
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css"
-		  th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+		  th:href="@{../../static/vendor/bootstrap/css/bootstrap.min.css}">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css"
-		  th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+		  th:href="@{../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css"
-		  th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+		  th:href="@{../../static/fonts/iconic/css/material-design-iconic-font.min.css}">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css"
-		  th:href="@{/fonts/linearicons-v1.0.0/icon-font.min.css}">
+		  th:href="@{../../static/fonts/linearicons-v1.0.0/icon-font.min.css}">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css"
-		  th:href="@{/vendor/animate/animate.css}">
+		  th:href="@{../../static/vendor/animate/animate.css}">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css"
-		  th:href="@{/vendor/css-hamburgers/hamburgers.min.css}">
+		  th:href="@{../../static/vendor/css-hamburgers/hamburgers.min.css}">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css"
-		  th:href="@{/vendor/animsition/css/animsition.min.css}">
+		  th:href="@{../../static/vendor/animsition/css/animsition.min.css}">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css"
-		  th:href="@{/vendor/select2/select2.min.css}">
+		  th:href="@{../../static/vendor/select2/select2.min.css}">
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css"
-		  th:href="@{/vendor/perfect-scrollbar/perfect-scrollbar.css}">
+		  th:href="@{../../static/vendor/perfect-scrollbar/perfect-scrollbar.css}">
 	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
-	<link rel="stylesheet" th:href="@{/assets/css/orderStatus.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{../../static/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{../../static/css/main.css}">
+	<link rel="stylesheet" th:href="@{../../static/assets/css/orderStatus.css}">
 	<!--===============================================================================================-->
 </head>
 <body ng-app="app" ng-controller="cart-ctrl">
 <!-- Header -->
-<header th:replace="user/index :: header"></header>
+<header th:replace="./index :: header"></header>
 
 <!-- Cart -->
-<div th:replace="user/index :: cart"></div>
+<div th:replace="./index :: cart"></div>
 <main>
 	<div class="container mt-5">
 		<div class="panel panel-primary">
@@ -75,19 +75,19 @@
 					<td th:text="${order.address}"></td>
 					<td >
 						 	<span  th:switch="${order.orderStatus}">
-	        					<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="0">Hủy đơn</span>
-	        					<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="1">Đang xác nhận</span>
-	       						<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="2">Đã xác nhận</span>
-						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="3">Đang giao</span>
-						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="4">Đã giao</span>
-						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="5">Trả hàng</span>
-						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="*">Trạng thái không xác định</span>
+	        					<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="0">Há»§y Ä‘Æ¡n</span>
+	        					<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="1">Ä�ang xÃ¡c nháº­n</span>
+	       						<span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="2">Ä�Ã£ xÃ¡c nháº­n</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="3">Ä�ang giao</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="4">Ä�Ã£ giao</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="5">Tráº£ hÃ ng</span>
+						        <span th:class = "'orderstt stt' + ${order.orderStatus}" th:case="*">Tráº¡ng thÃ¡i khÃ´ng xÃ¡c Ä‘á»‹nh</span>
     						</span>
 					</td>
-					<!--						<td th:text="${order.status == 0 ? 'Đang xác nhận' :-->
-					<!--                (order.status == 1 ? 'Đã thanh toán' :-->
-					<!--                (order.status == 2 ? 'Đã giao' :-->
-					<!--                (order.status == 3 ? 'Trả hàng': 'Đã hủy')))}"-->
+					<!--						<td th:text="${order.status == 0 ? 'Ä�ang xÃ¡c nháº­n' :-->
+					<!--                (order.status == 1 ? 'Ä�Ã£ thanh toÃ¡n' :-->
+					<!--                (order.status == 2 ? 'Ä�Ã£ giao' :-->
+					<!--                (order.status == 3 ? 'Tráº£ hÃ ng': 'Ä�Ã£ há»§y')))}"-->
 					<!--							th:class="${order.status == 0 ? 'text-warning fw-bold' :-->
 					<!--                (order.status == 1 ? 'text-success fw-bold' :-->
 					<!--                (order.status == 2 ? 'text-primary fw-bold' : 'text-warning fw-bold'))}">-->
@@ -96,11 +96,11 @@
 						<a th:href="@{|/order/detail/${order.orderId}|}"><i class="bi bi-search"></i></a>
 					</td>
 					<!--						<td>-->
-					<!--							&lt;!&ndash; Nút hủy đơn hàng &ndash;&gt;-->
-					<!--							<button th:if="${order.status == 0}" class="btn btn-danger" th:onclick="'cancelOrder(\'' + ${order.id} + '\')'">Hủy Đơn Hàng</button>-->
+					<!--							&lt;!&ndash; NÃºt há»§y Ä‘Æ¡n hÃ ng &ndash;&gt;-->
+					<!--							<button th:if="${order.status == 0}" class="btn btn-danger" th:onclick="'cancelOrder(\'' + ${order.id} + '\')'">Há»§y Ä�Æ¡n HÃ ng</button>-->
 
-					<!--							&lt;!&ndash; Nút trả hàng &ndash;&gt;-->
-					<!--							<button th:if="${order.status == 2}" class="btn btn-warning" th:onclick="'returnOrder(\'' + ${order.id} + '\')'">Trả Hàng</button>-->
+					<!--							&lt;!&ndash; NÃºt tráº£ hÃ ng &ndash;&gt;-->
+					<!--							<button th:if="${order.status == 2}" class="btn btn-warning" th:onclick="'returnOrder(\'' + ${order.id} + '\')'">Tráº£ HÃ ng</button>-->
 					<!--						</td>-->
 				</tr>
 				</tbody>
@@ -110,21 +110,21 @@
 	</div>
 </main>
 <!-- Footer -->
-<footer th:replace="user/index :: footer"></footer>
+<footer th:replace="./index :: footer"></footer>
 
 
 <!-- Back to top -->
-<div th:replace="user/index :: backtop"></div>
+<div th:replace="./index :: backtop"></div>
 
 <!--===============================================================================================-->
-<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+<script th:src="@{../../static/vendor/jquery/jquery-3.2.1.min.js}"></script>
 <!--===============================================================================================-->
-<script th:src="@{/vendor/animsition/js/animsition.min.js}"></script>
+<script th:src="@{../../static/vendor/animsition/js/animsition.min.js}"></script>
 <!--===============================================================================================-->
-<script th:src="@{/vendor/bootstrap/js/popper.js}"></script>
-<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{../../static/vendor/bootstrap/js/popper.js}"></script>
+<script th:src="@{../../static/vendor/bootstrap/js/bootstrap.min.js}"></script>
 <!--===============================================================================================-->
-<script th:src="@{/vendor/select2/select2.min.js}"></script>
+<script th:src="@{../../static/vendor/select2/select2.min.js}"></script>
 <script>
 	$(".js-select2").each(function() {
 		$(this).select2({
@@ -134,9 +134,9 @@
 	})
 </script>
 <!--===============================================================================================-->
-<script th:src="@{/vendor/MagnificPopup/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{../../static/vendor/MagnificPopup/jquery.magnific-popup.min.js}"></script>
 <!--===============================================================================================-->
-<script th:src="@{/vendor/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<script th:src="@{../../static/vendor/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
 <script>
 	$('.js-pscroll').each(function() {
 		$(this).css('position', 'relative');
@@ -153,11 +153,11 @@
 	});
 </script>
 <!--===============================================================================================-->
-<script th:src="@{/js/main.js}"></script>
-<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
+<script th:src="@{../../static/js/main.js}"></script>
+<script th:src="@{../../static/assets/js/shopping-cart-ctrl.js}"></script>
 <!-- Add Bootstrap JS script -->
 <script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
+<script th:src="@{../../static/assets/js/shopping-cart-ctrl.js}"></script>
 </body>
 </html>
