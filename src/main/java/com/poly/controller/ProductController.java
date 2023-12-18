@@ -28,7 +28,7 @@ public class ProductController {
 	private CounterService counterService;
     
     private final int pageSize = 20;
-    @GetMapping("/user/home")
+    @GetMapping("")
     public String list(@RequestParam(defaultValue = "0") int page,Model model){
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").ascending());
@@ -38,10 +38,10 @@ public class ProductController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("items", list);
-        return "user/index";
+        return "index";
     }
 
-    @RequestMapping("user/detail/{id}")
+    @RequestMapping("/user/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id){
 
         Product item = productService.findByID(id);

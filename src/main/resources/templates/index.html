@@ -4,62 +4,61 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
 	th:fragment="dynamic(main)">
 <head>
-
-
-<link th:href="@{/assets/css/shopping-cart-app.css}" rel="stylesheet" />
-<title>Home</title>
-<meta charset="UTF-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script th:src="@{assets/js/shopping-cart-app.js}"></script>
+<link th:href="@{assets/css/shopping-cart-app.css}" rel="stylesheet" />
+<title>Home</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-<link th:href="@{/images/icons/favicon.png}" rel="icon" type="image/png" />
+<link th:href="@{images/icons/favicon.png}" rel="icon" type="image/png" />
 <!--===============================================================================================-->
-<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"
+<link th:href="@{vendor/bootstrap/css/bootstrap.min.css}"
 	rel="stylesheet" type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}"
+<link th:href="@{fonts/font-awesome-4.7.0/css/font-awesome.min.css}"
 	rel="stylesheet" type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}"
+<link th:href="@{fonts/iconic/css/material-design-iconic-font.min.css}"
 	rel="stylesheet" type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/fonts/linearicons-v1.0.0/icon-font.min.css}"
+<link th:href="@{fonts/linearicons-v1.0.0/icon-font.min.css}"
 	rel="stylesheet" type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/vendor/animate/animate.css}" rel="stylesheet"
+<link th:href="@{vendor/animate/animate.css}" rel="stylesheet"
 	type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/vendor/css-hamburgers/hamburgers.min.css}"
+<link th:href="@{vendor/css-hamburgers/hamburgers.min.css}"
 	rel="stylesheet" type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/vendor/animsition/css/animsition.min.css}"
+<link th:href="@{vendor/animsition/css/animsition.min.css}"
 	rel="stylesheet" type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet"
+<link th:href="@{vendor/select2/select2.min.css}" rel="stylesheet"
 	type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/vendor/daterangepicker/daterangepicker.css}"
+<link th:href="@{vendor/daterangepicker/daterangepicker.css}"
 	rel="stylesheet" type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/vendor/slick/slick.css}" rel="stylesheet"
+<link th:href="@{vendor/slick/slick.css}" rel="stylesheet"
 	type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/vendor/MagnificPopup/magnific-popup.css}"
+<link th:href="@{vendor/MagnificPopup/magnific-popup.css}"
 	rel="stylesheet" type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/vendor/perfect-scrollbar/perfect-scrollbar.css}"
+<link th:href="@{vendor/perfect-scrollbar/perfect-scrollbar.css}"
 	rel="stylesheet" type="text/css" />
 <!--===============================================================================================-->
-<link th:href="@{/css/util.css}" rel="stylesheet" type="text/css" />
-<link th:href="@{/css/main.css}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" th:href="@{/assets/css/account-infomatinon.css}">
-<link rel="stylesheet" th:href="@{/assets/css/voucher-infomatinon.css}">
-<link rel="stylesheet" th:href="@{/assets/css/button17.css}">
-<link rel="stylesheet" th:href="@{/assets/css/button50.css}">
-<link rel="stylesheet" th:href="@{/assets/css/popup.css}">
-
+<link th:href="@{css/util.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{css/main.css}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" th:href="@{assets/css/account-infomatinon.css}">
+<link rel="stylesheet" th:href="@{assets/css/button17.css}">
+<link rel="stylesheet" th:href="@{assets/css/button50.css}">
+<link rel="stylesheet" th:href="@{assets/css/popup.css}">
 <!--===============================================================================================-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
 <body class="animsition" ng-app="app" ng-controller="cart-ctrl">
@@ -70,7 +69,7 @@
 		<div class="container-menu-desktop">
 			<!-- Topbar -->
 			<div class="top-bar">
-				<div th:replace="~{/user/topbar.html}"></div>
+				<div th:replace="~{user/topbar.html}"></div>
 
 			</div>
 
@@ -103,8 +102,10 @@
 							<li><a href="about.html">About</a></li>
 
 							<li><a href="contact.html">Contact</a></li>
-
-							 <li><a th:href="@{/user/luckyspin}">Lucky Spin</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="/auth/logoff/success"> <i
+									class="fa-solid fa-right-from-bracket"></i> <span>Log
+										Out</span></a></li>
 						</ul>
 					</div>
 
@@ -343,7 +344,7 @@
 								<span class="block1-name ltext-102 trans-04 p-b-8"
 									style="color: RED"> One Piece </span> <span
 									class="block1-info stext-102 trans-04" style="color: RED">
-								    King </span>
+									King </span>
 							</div>
 
 							<div class="block1-txt-child2 p-b-4 trans-05">
@@ -404,17 +405,19 @@
 					<div class="block2">
 						<div class="block2-pic hov-img0">
 							<img th:src="${p.main_image}" alt="IMG-PRODUCT"> <a
-								th:href="@{'detail/' + ${p.id}}"
+								th:href="@{'/user/detail/' + ${p.id}}"
 								class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 								Quick View </a>
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a th:text="${p.name}" th:href="@{'detail/' + ${p.id}}"
-									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"> </a> <b>Giá: <span
+								<a th:text="${p.name}" th:href="@{'/user/detail/' + ${p.id}}"
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"> </a> <b>Giá:
+									<span
 									th:text="${#numbers.formatDecimal(p.price, 0, 'POINT', 0, 'COMMA')} +' VND'"
-									class="stext-105 cl3">VND</span> </b>
+									class="stext-105 cl3">VND</span>
+								</b>
 							</div>
 
 							<div class="block2-txt-child2 flex-r p-t-3">
@@ -462,6 +465,11 @@
 
 			</div>
 		</div>
+		<!-- Messenger Plugin chat Code -->
+		<div id="fb-root"></div>
+
+		<!-- Your Plugin chat code -->
+		<div id="fb-customer-chat" class="fb-customerchat"></div>
 	</section>
 
 
@@ -546,15 +554,15 @@
 			<div class="p-t-40">
 				<div class="flex-c-m flex-w p-b-18">
 					<a href="#" class="m-all-1"> <img
-						src="../../static/images/icons/icon-pay-01.png" alt="ICON-PAY">
+						src="static/images/icons/icon-pay-01.png" alt="ICON-PAY">
 					</a> <a href="#" class="m-all-1"> <img
-						src="../../static/images/icons/icon-pay-02.png" alt="ICON-PAY">
+						src="static/images/icons/icon-pay-02.png" alt="ICON-PAY">
 					</a> <a href="#" class="m-all-1"> <img
-						src="../../static/images/icons/icon-pay-03.png" alt="ICON-PAY">
+						src="static/images/icons/icon-pay-03.png" alt="ICON-PAY">
 					</a> <a href="#" class="m-all-1"> <img
-						src="../../static/images/icons/icon-pay-04.png" alt="ICON-PAY">
+						src="static/images/icons/icon-pay-04.png" alt="ICON-PAY">
 					</a> <a href="#" class="m-all-1"> <img
-						src="../../static/images/icons/icon-pay-05.png" alt="ICON-PAY">
+						src="static/images/icons/icon-pay-05.png" alt="ICON-PAY">
 					</a>
 				</div>
 
@@ -573,7 +581,7 @@
 				</p>
 			</div>
 		</div>
-		
+		<script th:src="@{assets/js/shopping-cart-ctrl.js}"></script>
 	</footer>
 
 
@@ -586,13 +594,13 @@
 
 	<!-- Modal1 -->
 
-	
-	<script th:src="@{/assets/js/shopping-cart-app.js}"></script>
-	<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
-	<script th:src="@{/vendor/animsition/js/animsition.min.js}"></script>
-	<script th:src="@{/vendor/bootstrap/js/popper.js}"></script>
-	<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/vendor/select2/select2.min.js}"></script>
+
+
+	<script th:src="@{vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{vendor/animsition/js/animsition.min.js}"></script>
+	<script th:src="@{vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{vendor/select2/select2.min.js}"></script>
 	<script>
 		$(".js-select2").each(function() {
 			$(this).select2({
@@ -601,15 +609,15 @@
 			});
 		})
 	</script>
-	<script th:src="@{/vendor/daterangepicker/moment.min.js}"></script>
-	<script th:src="@{/vendor/daterangepicker/daterangepicker.js}"></script>
-	<script th:src="@{/vendor/slick/slick.min.js}"></script>
-	<script th:src="@{/js/slick-custom.js}"></script>
-	<script th:src="@{/vendor/parallax100/parallax100.js}"></script>
+	<script th:src="@{vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{vendor/daterangepicker/daterangepicker.js}"></script>
+	<script th:src="@{vendor/slick/slick.min.js}"></script>
+	<script th:src="@{js/slick-custom.js}"></script>
+	<script th:src="@{vendor/parallax100/parallax100.js}"></script>
 	<script>
 		$('.parallax100').parallax100();
 	</script>
-	<script th:src="@{/vendor/MagnificPopup/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{vendor/MagnificPopup/jquery.magnific-popup.min.js}"></script>
 	<script>
 		$('.gallery-lb').each(function() {
 			// the containers for all your galleries
@@ -623,8 +631,8 @@
 			});
 		});
 	</script>
-	<script th:src="@{/vendor/isotope/isotope.pkgd.min.js}"></script>
-	<script th:src="@{/vendor/sweetalert/sweetalert.min.js}"></script>
+	<script th:src="@{vendor/isotope/isotope.pkgd.min.js}"></script>
+	<script th:src="@{vendor/sweetalert/sweetalert.min.js}"></script>
 	<script>
 		$('.js-addwish-b2').on('click', function(e) {
 			e.preventDefault();
@@ -666,7 +674,7 @@
 					});
 				});
 	</script>
-	<script th:src="@{/vendor/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+	<script th:src="@{vendor/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
 	<script>
 		$('.js-pscroll').each(function() {
 			$(this).css('position', 'relative');
@@ -682,10 +690,35 @@
 			})
 		});
 	</script>
-	<script th:src="@{/js/main.js}"></script>
-	<!-- <script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> -->
-	<script th:src="@{/assets/js/shopping-cart-ctrl.js}"></script>
+	<script th:src="@{js/main.js}"></script>
+
+
+
+	<script>
+		var chatbox = document.getElementById('fb-customer-chat');
+		chatbox.setAttribute("page_id", "105841222244517");
+		chatbox.setAttribute("attribution", "biz_inbox");
+	</script>
+
+	<!-- Your SDK code -->
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				xfbml : true,
+				version : 'v18.0'
+			});
+		};
+
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
 
 </body>
 </html>

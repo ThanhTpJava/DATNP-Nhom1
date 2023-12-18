@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Account Infomation</title>
-    <link th:href="@{/images/icons/favicon.png}" rel="icon" type="image/png" />
+    <link th:href="@{../../static/images/icons/favicon.png}" rel="icon" type="image/png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/account-infomatinon.css">
     <link
@@ -16,12 +16,12 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" th:href="@{/assets/css/account-infomatinon.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/button17.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/button50.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/popup.css}">
-    <link rel="stylesheet" th:href="@{/assets/css/bonus.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/account-infomatinon.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/button17.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/button50.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/popup.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/bonus.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../../static/css/main.css}">
 
 
 </head>
@@ -29,7 +29,6 @@
 <body ng-app="app-account" ng-controller="ctrl-account">
 
 <video autoplay muted loop id="background-video">
-    <source src="/images/backgrourd-video.mp4" type="video/mp4">
 </video>
 <!-- Your other content goes here -->
 
@@ -82,7 +81,7 @@
 
 <div class="popup-auth-update"
      ng-class="{ 'open-popup': isUpdatePopupOpen }" id="popup">
-    <img th:src="@{/images/icons/question_mark_PNG55.png}" alt="">
+    <img th:src="@{../../static/images/icons/question_mark_PNG55.png}" alt="">
     <h2>Warning</h2>
     <p>Are you sure about this operation?</p>
     <div class="box-btn">
@@ -95,7 +94,7 @@
 </div>
 
 <div class="popup" ng-class="{ 'open-popup': isPopupOpen }">
-    <img th:src="@{/images/icons/tick.png}" alt="">
+    <img th:src="@{../../static/images/icons/tick.png}" alt="">
     <h2>Success</h2>
     <p>The change has been updated, please refresh the page to verify.</p>
     <button type="button" ng-click="closePopup()">OK</button>
@@ -109,9 +108,9 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script
         src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-<script th:src="@{/assets/js/account-detail.js}"></script>
-<script th:src="@{/assets/js/popup.js}"></script>
-<script th:src="@{/assets/js/voucher.js}"></script>
+<script th:src="@{../../static/assets/js/account-detail.js}"></script>
+<script th:src="@{../../static/assets/js/popup.js}"></script>
+<script th:src="@{../../static/assets/js/voucher.js}"></script>
 <script>
 
 </script>
