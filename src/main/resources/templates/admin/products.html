@@ -56,7 +56,7 @@
             <!-- End of Topbar -->
             <nav class="navbar bg-white border-top border-bottom">
                 <div class="">
-                    <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id > 0" >
+                    <button ng-click="create()" class="btn btn-primary" ng-disabled="myForm.$invalid || form.id != null" >
                         <i class="fas fa-plus"></i> Create
                     </button>
                     <button ng-click="update()" class="btn btn-warning" ng-disabled="form.id == null">
