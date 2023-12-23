@@ -1,4 +1,4 @@
--- Dự án tốt nghiệp nhóm 1 khóa 17 năm 2023--
+-- Dự án tốt nghiệp nhóm 1 khóa 17 năm 2023 --
 
 GVHD : Thầy Trần Quang Bình
 
@@ -41,16 +41,16 @@ Công nghệ sử dụng :
 - Trần Phú Thành – PS22219:  
  Thống kê doanh thu, số lượng đơn hàng theo số liệu và biểu đồ  
  CRUD sản phẩm, Voucher  
- Quản lý Blog
- Quản lý hóa đơn - SHIP
+ Quản lý Blog  
+ Quản lý hóa đơn - SHIP  
  Quản lý vòng quay may mắn  
  Phân tích cấu trúc Database  
   
-- Nguyễn Trần Bảo Quốc – PS23893:
- Quản lý hóa đơn - STOCK
- Phân tích cấu trúc Database
- Deloy dự án lên AWS
- Phân tích nghiệp vụ
+- Nguyễn Trần Bảo Quốc – PS23893:  
+ Quản lý hóa đơn - STOCK  
+ Phân tích cấu trúc Database  
+ Deloy dự án lên AWS  
+ Phân tích nghiệp vụ  
 
 - Ngô Quốc Cường – PS21423:  
  Đăng nhập, Đăng ký tài khoản USER  
@@ -73,5 +73,6 @@ Công nghệ sử dụng :
 
 ----------------------------------------------------------------
 
-Clone project xong, tạo Database bằng file Fpoly_DATN_DATABASE.sql trong dự án, tạo xong mở project lên chạy để tạo bảng, sau đó chạy lệnh thêm dữ liệu trong Fpoly_DATN_DATABASE.sql
+Clone project xong, tạo Database bằng file Fpoly_DATN_DATABASE.sql trong dự án  
+Tạo xong mở project lên chạy để tạo bảng, sau đó chạy lệnh thêm dữ liệu trong Fpoly_DATN_DATABASE.sql  
 Khi chạy project, đã tạo sắn 4 tài khoản với 4 quyền khác nhau ( xem trong đường dẫn "src/main/java/com/poly/service/DataInitializer.java")
