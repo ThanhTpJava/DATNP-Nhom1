@@ -39,37 +39,37 @@ Công nghệ sử dụng :
 Đóng góp:  
   
 - Trần Phú Thành – PS22219:  
-+ Thống kê doanh thu, số lượng đơn hàng theo số liệu và biểu đồ  
-+ CRUD sản phẩm, Voucher  
-+ Quản lý Blog
-+ Quản lý hóa đơn - SHIP
-+ Quản lý vòng quay may mắn  
-+ Phân tích cấu trúc Database  
+ Thống kê doanh thu, số lượng đơn hàng theo số liệu và biểu đồ  
+ CRUD sản phẩm, Voucher  
+ Quản lý Blog
+ Quản lý hóa đơn - SHIP
+ Quản lý vòng quay may mắn  
+ Phân tích cấu trúc Database  
   
 - Nguyễn Trần Bảo Quốc – PS23893:
-+ Quản lý hóa đơn - STOCK
-+ Phân tích cấu trúc Database
-+ Deloy dự án lên AWS
-+ Phân tích nghiệp vụ
+ Quản lý hóa đơn - STOCK
+ Phân tích cấu trúc Database
+ Deloy dự án lên AWS
+ Phân tích nghiệp vụ
 
 - Ngô Quốc Cường – PS21423:  
-+ Đăng nhập, Đăng ký tài khoản USER  
-+ Thêm sản phẩm vào giỏ hàng  
-+ Vòng quay may mắn của khách hàng  
-+ Thanh toán đơn hàng ( COD - trực tiếp, VNPay - Online )  
-+ Sử dụng Voucher giảm giá cho đơn hàng  
-+ Quản lý và phân quyền tài khoản của ADMIN  
-+ Chỉnh sửa Database  
+ Đăng nhập, Đăng ký tài khoản USER  
+ Thêm sản phẩm vào giỏ hàng  
+ Vòng quay may mắn của khách hàng  
+ Thanh toán đơn hàng ( COD - trực tiếp, VNPay - Online )  
+ Sử dụng Voucher giảm giá cho đơn hàng  
+ Quản lý và phân quyền tài khoản của ADMIN  
+ Chỉnh sửa Database  
 
 - Vũ Huỳnh Đăng Khôi – PS21421:  
-+ Quản lý hóa đơn - SALE  
-+ Phác thảo và thiết kế giao diện  
-+ Lập kế hoạch và kiểm thử  
+ Quản lý hóa đơn - SALE  
+ Phác thảo và thiết kế giao diện  
+ Lập kế hoạch và kiểm thử  
 
 - Nguyễn Phạm Huy Vũ – PS21800:  
-+ Quản lý hóa đơn - ADMIN  
-+ Phác thảo và thiết kế giao diện
-+ Tạo tài khoản cho nhân viên ( SALE, STOCK, SHIP )
+ Quản lý hóa đơn - ADMIN  
+ Phác thảo và thiết kế giao diện
+ Tạo tài khoản cho nhân viên ( SALE, STOCK, SHIP )
 
 ----------------------------------------------------------------
 
