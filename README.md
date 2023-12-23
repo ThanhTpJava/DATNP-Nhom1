@@ -26,15 +26,15 @@ Bên cạnh đó người có thể tham gia vào vòng quay may mắn để nh�
 
 Công nghệ sử dụng :  
 - Frontend:  
-+ HTML/CSS, SCSS, JavaScript, Thymeleaf, AngularJS  
-+ BootStrap 5, JQuery, Font Awesome
+ HTML/CSS, SCSS, JavaScript, Thymeleaf, AngularJS  
+ BootStrap 5, JQuery, Font Awesome
 
 - Backend:
-+ Java, JavaScript
-+ Spring boot
+ Java, JavaScript
+ Spring boot
 
 - Database:
-+ SQL Server
+ SQL Server
   
 Đóng góp:  
   
