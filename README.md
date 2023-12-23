@@ -68,8 +68,8 @@ Công nghệ sử dụng :
 
 - Nguyễn Phạm Huy Vũ – PS21800:  
  Quản lý hóa đơn - ADMIN  
- Phác thảo và thiết kế giao diện
- Tạo tài khoản cho nhân viên ( SALE, STOCK, SHIP )
+ Phác thảo và thiết kế giao diện  
+ Tạo tài khoản cho nhân viên ( SALE, STOCK, SHIP )  
 
 ----------------------------------------------------------------
 
