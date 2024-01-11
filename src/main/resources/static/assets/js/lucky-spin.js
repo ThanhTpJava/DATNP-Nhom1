@@ -29,8 +29,6 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 	$scope.totalQuantity = 0;
 	$scope.totalRate = 0;
 
-
-
 	$scope.checkListVoucherLuckySpin = function() {
 		if ($scope.totalQuantity < 4 || $scope.totalQuantity > 10 || $scope.totalRate != 100 || $scope.isMaintenance == true) {
 			$scope.canStartSpin = false;
@@ -92,10 +90,22 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 	});
 
 
+	/*if ($auth.username != "guest") {*/
 	$http.get(`/rest/luckySpin/get/spincount`).then(resp => {
-		$scope.spinCount = resp.data;
-		console.log(resp.data);
-	})
+		if (resp.status === 500) {
+			$scope.spinCount = 0;
+		} else {
+			$scope.spinCount = resp.data;
+			console.log(resp.data);
+		}
+	}).catch(error => {
+		console.error('Error:', error);
+		$scope.spinCount = 0;
+		// Xử lý lỗi ở đây
+	});
+	/*}else{
+		$scope.spinCount = "XX";
+	}*/
 
 	$scope.httpPromise = deferred.promise;
 
@@ -120,8 +130,8 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 			$scope.isPopupOpenVer2 = true;
 			return
 		} else {
-			
-			
+
+
 			var randomNumber = Math.random();
 
 			//console.log("randomNumber", randomNumber);
@@ -175,15 +185,15 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 		// hoặc sử dụng ID: angular.element('#wheel-id').css('transform', transformValue);
 
 	};
-	
-	$scope.minusspincount = function(){
+
+	$scope.minusspincount = function() {
 		$http.put(`/rest/luckySpin/put/minusspincount/${$scope.spinCount}`).then(resp => {
-				console.log(resp)
-			}).catch(error => {
-				console.error('Error:', error);
-				deferred.reject(error);
-				// Xử lý lỗi ở đây
-			});
+			console.log(resp)
+		}).catch(error => {
+			console.error('Error:', error);
+			deferred.reject(error);
+			// Xử lý lỗi ở đây
+		});
 	}
 
 	$scope.showGift = function(gift) {
@@ -220,12 +230,12 @@ app.controller("luckyspin-ctrl", function($scope, $http, $q, $window, $timeout) 
 				// Xử lý lỗi ở đây
 			});
 			$scope.minusspincount();
-			
+
 			$scope.PopupTitle = "Chúc mừng!!!"
 			$scope.PopupMessage = "Bạn nhận được voucher " + gift.description;
 			$scope.iconUrlPopup = $scope.congratIcon
 			$scope.isReload = true;
-			
+
 		}
 
 		$timeout(function() {
@@ -270,11 +280,12 @@ app.directive('luckyWheel', function() {
 					element.empty();
 					scope.size = newListGift.length;
 					// Mảng màu cho các phần tử text
-					var colors = ["#FF9933", "#66B2FF", "#3DE543", "#9F8CB6", "#95A5B6", "#3DE543", "#9F8CB6", "#9F8CB6", "#FF9933", "#95A5B6"];
+					var colors = ["#FF9933", "#66B2FF", "#3DE543", "#9F8CB6", "#95A5B6", "#3DE543", "#9F8CB6", "#3399FF", "#9F8CB6", "#95A5B6"];
 
-
+					var indexColor = 0;
 					// Các logic tạo các phần tử li và thiết lập transform
 					for (var index = 0; index < newListGift.length; index++) {
+
 						var rotate = 360 / scope.size;
 						var skewY = 90 - rotate;
 
@@ -282,13 +293,13 @@ app.directive('luckyWheel', function() {
 						var elm = angular.element('<li></li>');
 
 						elm.css('transform', 'rotate(' + rotate * index + 'deg) skewY(-' + skewY + 'deg)');
-						var backgroundColor = colors[index % colors.length];
+						var backgroundColor = colors[indexColor];
 						// Thêm background-color và căn giữa cho các phần tử text
 						elm.html('<p style="transform: skewY(' + skewY + 'deg) rotate(' + rotate / 2 + 'deg); background-color: ' + backgroundColor + ';" class="text"><b>' + newListGift[index].review + '</b></p>');
 
 						// Thêm vào ul
 						element.append(elm);
-
+						indexColor++;
 					}
 				}
 			});
